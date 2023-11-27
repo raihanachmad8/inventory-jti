@@ -57,15 +57,6 @@ CREATE TABLE MaintainerInventaris (
     FOREIGN KEY (ID_Inventaris) REFERENCES Inventaris(ID_Inventaris)
 );
 
-CREATE TABLE DetailTransaksi (
-    ID_DetailTrc VARCHAR(10) PRIMARY KEY,
-    ID_Transaksi VARCHAR(10),
-    ID_Inventaris VARCHAR(10),
-    Jumlah INT,
-    FOREIGN KEY (ID_Transaksi) REFERENCES Transaksi(ID_Transaksi),
-    FOREIGN KEY (ID_Inventaris) REFERENCES Inventaris(ID_Inventaris)
-);
-
 CREATE TABLE Transaksi (
     ID_Transaksi VARCHAR(10) PRIMARY KEY,
     ID_Pengguna VARCHAR(10),
@@ -76,7 +67,15 @@ CREATE TABLE Transaksi (
     Deskripsi_Keperluan TEXT,
     Jaminan VARCHAR(50),
     Pesan TEXT,
-    FOREIGN KEY (ID_Akun) REFERENCES Pengguna(ID_Pengguna),
+    FOREIGN KEY (ID_Pengguna) REFERENCES Pengguna(ID_Pengguna),
     FOREIGN KEY (ID_Admin) REFERENCES Pengguna(ID_Pengguna),
     FOREIGN KEY (ID_Status) REFERENCES Status(ID_Status)
+);
+CREATE TABLE DetailTransaksi (
+    ID_DetailTrc VARCHAR(10) PRIMARY KEY,
+    ID_Transaksi VARCHAR(10),
+    ID_Inventaris VARCHAR(10),
+    Jumlah INT,
+    FOREIGN KEY (ID_Transaksi) REFERENCES Transaksi(ID_Transaksi),
+    FOREIGN KEY (ID_Inventaris) REFERENCES Inventaris(ID_Inventaris)
 );

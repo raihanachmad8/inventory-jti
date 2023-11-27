@@ -34,13 +34,13 @@ INSERT INTO OTP (ID_OTP, ID_Pengguna, Kode, Expired) VALUES
 	('O5', 'P7', 'JJD083', '2023-11-10 11:00:00');
 
 INSERT INTO Inventaris (ID_Inventaris, Nama, Stok, ID_Kategori, Asal, Deskripsi, Gambar ) VALUES
-	('I1', 'Spidol', '10', 'C3', 'Hibah', '-', 'inventaris1.png'),
-	('I2', 'Penghapus', '7', 'C3', 'Beli', '-', 'inventaris2.png'),
-	('I3', 'Tang Crimping', '14', 'C1', 'Hibah', '-', 'inventaris3.png'),
-	('I4', 'Obeng', '16', 'C1', 'Beli', '-', 'inventaris4.png'),
-	('I5', 'Konektor Proyektor', '30', 'C2', 'Hibah', '-', 'inventaris5.png'),
-	('I6', 'Keyboard', '17', 'C2', 'Beli', '-', 'inventaris6.png'),
-	('I7', 'Mouse', '24', 'C2', 'Hibah', '-', 'inventaris7.png');
+	('I1', 'Spidol', '10', 'K3', 'Hibah', '-', 'inventaris1.png'),
+	('I2', 'Penghapus', '7', 'K3', 'Beli', '-', 'inventaris2.png'),
+	('I3', 'Tang Crimping', '14', 'K1', 'Hibah', '-', 'inventaris3.png'),
+	('I4', 'Obeng', '16', 'K1', 'Beli', '-', 'inventaris4.png'),
+	('I5', 'Konektor Proyektor', '30', 'K2', 'Hibah', '-', 'inventaris5.png'),
+	('I6', 'Keyboard', '17', 'K2', 'Beli', '-', 'inventaris6.png'),
+	('I7', 'Mouse', '24', 'K2', 'Hibah', '-', 'inventaris7.png');
 
 INSERT INTO Maintainer (ID_Maintainer, Nama) VALUES
 	('M1', 'Mas Woon'),
