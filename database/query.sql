@@ -1,3 +1,10 @@
+-- Active: 1669815006177@@127.0.0.1@3306@prakwebdb
+DROP DATABASE IF EXISTS peminjaman_inventaris;
+
+CREATE DATABASE IF NOT EXISTS peminjaman_inventaris;
+
+USE peminjaman_inventaris;
+
 CREATE TABLE Level (
     ID_Level VARCHAR(10) PRIMARY KEY,
     Nama VARCHAR(15)

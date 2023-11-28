@@ -18,7 +18,6 @@ class DB {
     public static function connect($connection = null)
     {
         self::init();
-        var_dump(self::$config['connections'][self::$config['default']]);
         $driver = self::$config['connections'][self::$config['default']]['driver'];
         $host = self::$config['connections'][self::$config['default']]['host'];
         $port = self::$config['connections'][self::$config['default']]['port'];
