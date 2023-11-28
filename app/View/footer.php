@@ -65,6 +65,45 @@
   });
 </script>
 
+<!-- This script is used to update the state of the choose on loan menu -->
+<script>
+  $(document).ready(function() {
+    $('.form-choose').trigger('reset');
+    $('.form-choose-input-loan').on('click', function() {
+      if ($(this).hasClass('form-choose-input-loan-non-active') && $(this).attr('checked') !== 'checked') {
+        $(this).removeClass('form-choose-input-loan-non-active');
+        $(this).addClass('form-choose-input-loan-active');
+        $(this).attr('checked', 'checked');
+      } else {
+        $(this).removeClass('form-choose-input-loan-active');
+        $(this).addClass('form-choose-input-loan-non-active');
+        $(this).removeAttr('checked');
+      }
+    })
+  })
+
+  $(document).ready(function() {
+    $('.loan-button').on('click', function() {
+      if ($('.loan-button').attr('disabled') !== 'disabled') {
+        $('.confirmation-modal-container').removeClass('d-none');
+      }
+    })
+
+    $('.confirmation-modal-close').on('click', function() {
+      $('.confirmation-modal-container').addClass('d-none');
+    })
+
+    $(document).on('click', '.date-modal-button', function() {
+      $('.calendar-modal-container').removeClass('d-none');
+    })
+
+    $(document).on('click', '.date-modal-close', function() {
+      $('.calendar-modal-container').addClass('d-none');
+    })
+  })
+</script>
+
+
 <!-- This script is used to update the state of the loan button -->
 <script>
   $(document).ready(function() {
