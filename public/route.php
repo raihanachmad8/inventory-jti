@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../helpers/config.php';
+require_once __DIR__ . '/../app/Database/Connection.php';
 
 
 require_once __DIR__ . '/../app/App/Router.php';
