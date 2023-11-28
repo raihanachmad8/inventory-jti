@@ -21,7 +21,8 @@ CREATE TABLE Pengguna (
     Nama VARCHAR(100),
     Email VARCHAR(255),
     Nomor_HP VARCHAR(15),
-    Foto VARCHAR(50),
+    Foto VARBINARY(MAX),
+    Status ENUM('AKTIF','TIDAK AKTIF'),
     FOREIGN KEY (ID_Level) REFERENCES Level(ID_Level)
 );
 
@@ -45,7 +46,7 @@ CREATE TABLE Inventaris (
     ID_Kategori VARCHAR(10),
     Asal ENUM('HIBAH', 'BELI'),
     Deskripsi TEXT,
-    Gambar VARCHAR(50),
+    Gambar VARBINARY(MAX),
     FOREIGN KEY (ID_Kategori) REFERENCES Kategori(ID_Kategori)
 );
 
@@ -65,7 +66,7 @@ CREATE TABLE Transaksi (
     StartDate DATETIME,
     EndDate DATETIME,
     Deskripsi_Keperluan TEXT,
-    Jaminan VARCHAR(50),
+    Jaminan VARBINARY(MAX),
     Pesan TEXT,
     FOREIGN KEY (ID_Pengguna) REFERENCES Pengguna(ID_Pengguna),
     FOREIGN KEY (ID_Admin) REFERENCES Pengguna(ID_Pengguna),
