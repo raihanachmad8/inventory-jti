@@ -54,14 +54,14 @@
           <strong>Riwayat Peminjaman</strong>
           <p>10</p>
         </div>
-        <div class="table-responsive overflow-y-scroll h-100">
-          <table class="table">
+        <div class="overflow-y-scroll h-100">
+          <table>
             <thead>
               <tr>
-                <td>Kode</td>
-                <td>Tgl. Kembali</td>
-                <td>Status</td>
-                <td>Aksi</td>
+                <th>Kode</th>
+                <th>Tgl. Kembali</th>
+                <th>Status</th>
+                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>

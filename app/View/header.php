@@ -41,8 +41,10 @@ function active_page($current_page, $target)
                     <i data-feather="chevrons-right"></i>
                 </div>
             </div>
-            <div class="logo duration-500 w-100">
-                <img src="./public/assets/images/polinema-logo.png" alt="" class="object-fit-cover ratio-16x9 w-100" />
+            <div class="logo-container duration-500">
+                <div class="logo-container-inner">
+                    <img src="./public/assets/images/polinema-logo.png" alt="" class="object-fit-cover ratio-16x9 w-100" />
+                </div>
             </div>
             <div>
                 <ul class="d-flex flex-column row-gap-4" style="list-style: none; padding: 0">
@@ -54,7 +56,7 @@ function active_page($current_page, $target)
                         <i data-feather="shopping-cart"></i>
                         <a href="/peminjaman" class="text-menu text-decoration-none <?php echo active_page($current_page_url, $menu_items['peminjaman']) ? 'text-white' : 'text-dark' ?>">Peminjaman</a>
                     </li>
-                    <li class="d-flex gap-2 p-2 rounded-2 <?php echo active_page($current_page_url, $menu_items['riwayat']) ? 'text-white' : 'text-dark' ?>">
+                    <li class="d-flex gap-2 p-2 rounded-2 <?php echo active_page($current_page_url, $menu_items['riwayat']) ? 'bg-primary text-white' : 'text-dark' ?>">
                         <i data-feather="clock"></i>
                         <a href="/riwayat" class="text-menu text-decoration-none <?php echo active_page($current_page_url, $menu_items['riwayat']) ? 'text-white' : 'text-dark' ?>">History</a>
                     </li>

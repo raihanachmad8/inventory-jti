@@ -13,33 +13,33 @@
       if ($(".sidebar-btn").hasClass("sidebar-btn-rotate")) {
         $(".sidebar").css("width", "10vw");
         $(".main-container").css("width", "90vw");
-        $(".logo").addClass("hidden");
+        $(".logo-container").addClass("hidden");
         $(".text-menu").addClass("hidden");
       } else {
         $(".sidebar").css("width", "20vw");
         $(".main-container").css("width", "80vw");
-        $(".logo").removeClass("hidden");
+        $(".logo-container").removeClass("hidden");
         $(".text-menu").removeClass("hidden");
       }
     });
 
     /* This function is used to update the state of the filter */
     $('.btn-filter').on('click', () => {
-      if ($('.btn-sort').hasClass('hidden')) {
-        $('.filter-list').toggleClass('hidden');
+      if ($('.btn-sort').hasClass('d-none')) {
+        $('.filter-list').toggleClass('d-none');
       } else {
-        $('.sort-list').addClass('hidden');
-        $('.filter-list').toggleClass('hidden');
+        $('.sort-list').addClass('d-none');
+        $('.filter-list').toggleClass('d-none');
       }
     });
 
     /* This function is used to update the state of the sort */
     $('.btn-sort').on('click', () => {
-      if ($('.btn-filter').hasClass('hidden')) {
-        $('.sort-list').toggleClass('hidden');
+      if ($('.btn-filter').hasClass('d-none')) {
+        $('.sort-list').toggleClass('d-none');
       } else {
-        $('.filter-list').addClass('hidden');
-        $('.sort-list').toggleClass('hidden');
+        $('.filter-list').addClass('d-none');
+        $('.sort-list').toggleClass('d-none');
       }
     });
 
@@ -63,6 +63,16 @@
       }
     });
   });
+</script>
+
+<script>
+  $(document).on('click', '.button-detail-history', function() {
+    $('.modal-detail-container').removeClass('d-none');
+  })
+
+  $(document).on('click', '.button-back-history', function() {
+    $('.modal-detail-container').addClass('d-none');
+  })
 </script>
 
 <!-- This script is used to update the state of the choose on loan menu -->
