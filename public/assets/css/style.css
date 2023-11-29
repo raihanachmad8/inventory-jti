@@ -201,10 +201,22 @@ main.main-container {
         padding: 8rem 3rem 0 3rem;
     }
 
+    .main-container
+        .modal-detail-container
+        textarea.admin-retrieval-information {
+        resize: none;
+        width: 100%;
+        padding: 0.3rem;
+    }
+
     table.identity-table {
         width: 100%;
         height: 10rem;
         margin: 0 0 2rem 0;
+    }
+
+    table.identity-table tr td {
+        padding: 0.5rem;
     }
 
     table.identity-table tr td:first-child {
@@ -337,4 +349,8 @@ main.main-container {
 
 .form-choose-input-loan-non-active {
     outline: 1px solid #ff0000;
+}
+
+p {
+    padding: 0;
 }

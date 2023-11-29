@@ -62,15 +62,34 @@
         $('.line-2').attr('x', '-15')
       }
     });
+
+    /* This function is used to add default value to the input field admin retrieval */
+    $('.admin-retrieval-information').val('Silahkan melakukan pengambilan barang di ruang teknisi lantai 7');
+    /* This function is used to reset the value of the input field when the admin click on the input */
+    $('.admin-retrieval-information').on('focus', () => {
+      $('.admin-retrieval-information').val('');
+    });
   });
 </script>
 
 <script>
+  /* This function is used to open the modal */
   $(document).on('click', '.button-detail-history', function() {
     $('.modal-detail-container').removeClass('d-none');
   })
 
+  /* This function is used to close the modal */
   $(document).on('click', '.button-back-history', function() {
+    $('.modal-detail-container').addClass('d-none');
+  })
+
+  /* This function is used to close the modal */
+  $(document).on('click', '.button-reject-loan', function() {
+    $('.modal-detail-container').addClass('d-none');
+  })
+
+  /* This function is used to close the modal */
+  $(document).on('click', '.button-approve-loan', function() {
     $('.modal-detail-container').addClass('d-none');
   })
 </script>
@@ -93,22 +112,33 @@
   })
 
   $(document).ready(function() {
+
+    /* This function is used to open the modal confirmation when the user click on the loan */
     $('.loan-button').on('click', function() {
       if ($('.loan-button').attr('disabled') !== 'disabled') {
         $('.confirmation-modal-container').removeClass('d-none');
       }
     })
 
+    /* This function is used to close the modal */
     $('.confirmation-modal-close').on('click', function() {
       $('.confirmation-modal-container').addClass('d-none');
     })
 
+    /* This function is used to open the calendar modal when the user click on the Tanggal Peminjaman or Tanggal Pengembalian */
     $(document).on('click', '.date-modal-button', function() {
       $('.calendar-modal-container').removeClass('d-none');
     })
 
+    /* This function is used to close the calendar modal */
     $(document).on('click', '.date-modal-close', function() {
       $('.calendar-modal-container').addClass('d-none');
+    })
+
+    /* This function is used to open the modal confirmation admin retrieval 
+    when the admin click on the detail button in dashboard menu */
+    $(document).on('click', '.loan--details-button--approval', function() {
+      $('.modal-detail-container').removeClass('d-none');
     })
   })
 </script>

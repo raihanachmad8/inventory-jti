@@ -1,7 +1,13 @@
 <?php
 $current_page_url = $_SERVER['REQUEST_URI'];
 
+
+
 $menu_items = [
+    'admin' => '/admin',
+    'admin/data-peminjaman' => '/admin/data-peminjaman',
+    'admin/inventarisir' => '/admin/inventarisir',
+    'admin/riwayat-peminjaman' => '/admin/riwayat-peminjaman',
     'dashboard' => '/dashboard',
     'peminjaman' => '/peminjaman',
     'riwayat' => '/riwayat',
@@ -11,6 +17,14 @@ function active_page($current_page, $target)
 {
     return $current_page === $target;
 }
+
+function user_role()
+{
+    $parsed_url = parse_url($_SERVER['REQUEST_URI']);
+    $path = explode('/', trim($parsed_url['path'], '/'));
+    return in_array('admin', $path) ? 'admin' : 'user';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -48,17 +62,28 @@ function active_page($current_page, $target)
             </div>
             <div>
                 <ul class="d-flex flex-column row-gap-4" style="list-style: none; padding: 0">
-                    <li class="d-flex gap-2 p-2 rounded-2 <?php echo active_page($current_page_url, $menu_items['dashboard']) ? 'bg-primary text-white' : 'text-dark' ?>">
-                        <i data-feather="grid"></i>
-                        <a href="/dashboard" class="text-menu text-decoration-none <?php echo active_page($current_page_url, $menu_items['dashboard']) ? 'text-white' : 'text-dark' ?>">Dashboard</a>
+                    <li class="d-flex gap-3  p-2 rounded-2 <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'bg-primary text-white' : 'text-dark' ?>">
+                        <a href="/dashboard" class="text-menu text-decoration-none d-flex gap-3 <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>">
+                            <i data-feather="grid"></i>
+                            Dashboard</a>
                     </li>
-                    <li class="d-flex gap-2 p-2 rounded-2 <?php echo active_page($current_page_url, $menu_items['peminjaman']) ? 'bg-primary text-white' : 'text-dark' ?>">
-                        <i data-feather="shopping-cart"></i>
-                        <a href="/peminjaman" class="text-menu text-decoration-none <?php echo active_page($current_page_url, $menu_items['peminjaman']) ? 'text-white' : 'text-dark' ?>">Peminjaman</a>
+                    <li class="d-flex gap-3  p-2 rounded-2 <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'bg-primary text-white' : 'text-dark' ?>">
+                        <a href="/peminjaman" class="text-menu text-decoration-none d-flex gap-3 <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>">
+                            <i data-feather="shopping-cart"></i>
+                            <?= user_role() == 'user' ? 'Peminjaman' : 'Data Peminjaman' ?></a>
                     </li>
-                    <li class="d-flex gap-2 p-2 rounded-2 <?php echo active_page($current_page_url, $menu_items['riwayat']) ? 'bg-primary text-white' : 'text-dark' ?>">
-                        <i data-feather="clock"></i>
-                        <a href="/riwayat" class="text-menu text-decoration-none <?php echo active_page($current_page_url, $menu_items['riwayat']) ? 'text-white' : 'text-dark' ?>">History</a>
+                    <li class="d-flex gap-3  p-2 rounded-2 <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'bg-primary text-white' : 'text-dark' ?>">
+                        <a href="/riwayat" class="text-menu text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?>">
+                            <?php if (user_role() === 'admin') : ?>
+                                <i data-feather="archive"></i>
+                            <?php else : ?>
+                                <i data-feather="clock"></i>
+                                <?php endif; ?><?= user_role() == 'user' ? 'Riwayat' : 'Inventarisir' ?></a>
+                    </li>
+                    <li class="d-flex gap-3  p-2 rounded-2 <?= user_role() == 'admin' ? 'd-block' : 'd-none' ?> <?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) || active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'bg-primary text-white' : 'text-dark' ?>">
+                        <a href="/riwayat" class="text-menu text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'text-white' : 'text-dark' ?>">
+                            <i data-feather="clock"></i>
+                            Riwayat Peminjaman</a>
                     </li>
                 </ul>
             </div>
