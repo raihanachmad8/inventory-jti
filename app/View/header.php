@@ -34,7 +34,7 @@ function user_role()
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Peminjaman</title>
-    <link rel="stylesheet" href="./public/assets/css/style.css" />
+    <link rel="stylesheet" href="/public/assets/css/style.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -56,24 +56,24 @@ function user_role()
                 </div>
             </div>
             <div class="logo-container duration-500">
-                <div class="logo-container-inner">
-                    <img src="./public/assets/images/polinema-logo.png" alt="" class="object-fit-cover ratio-16x9 w-100" />
+                <div class="logo-container-inner" style="<?= user_role() === 'admin' ? 'width: 23rem' : 'width: 14rem' ?> height: fit-content;">
+                    <img src="<?= user_role() == 'admin' ? '/public/assets/images/logo-polinema-admin.svg' : '/public/assets/images/polinema-logo.png' ?>" alt="" class="object-fit-cover ratio-16x9 w-100" />
                 </div>
             </div>
             <div>
                 <ul class="d-flex flex-column row-gap-4" style="list-style: none; padding: 0">
                     <li class="d-flex gap-3  p-2 rounded-2 <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'bg-primary text-white' : 'text-dark' ?>">
-                        <a href="/dashboard" class="text-menu text-decoration-none d-flex gap-3 <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>">
+                        <a href="<?= user_role() == 'user' ? '/dashboard' : '/admin' ?>" class="text-menu text-decoration-none d-flex gap-3 <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>">
                             <i data-feather="grid"></i>
                             Dashboard</a>
                     </li>
                     <li class="d-flex gap-3  p-2 rounded-2 <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'bg-primary text-white' : 'text-dark' ?>">
-                        <a href="/peminjaman" class="text-menu text-decoration-none d-flex gap-3 <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>">
+                        <a href="<?= user_role() == 'user' ? '/peminjaman' : '/admin/data-peminjaman' ?>" class="text-menu text-decoration-none d-flex gap-3 <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>">
                             <i data-feather="shopping-cart"></i>
                             <?= user_role() == 'user' ? 'Peminjaman' : 'Data Peminjaman' ?></a>
                     </li>
                     <li class="d-flex gap-3  p-2 rounded-2 <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'bg-primary text-white' : 'text-dark' ?>">
-                        <a href="/riwayat" class="text-menu text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?>">
+                        <a href="<?= user_role() == 'user' ? '/riwayat' : '/admin/inventarisir' ?>" class="text-menu text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?>">
                             <?php if (user_role() === 'admin') : ?>
                                 <i data-feather="archive"></i>
                             <?php else : ?>
@@ -81,7 +81,7 @@ function user_role()
                                 <?php endif; ?><?= user_role() == 'user' ? 'Riwayat' : 'Inventarisir' ?></a>
                     </li>
                     <li class="d-flex gap-3  p-2 rounded-2 <?= user_role() == 'admin' ? 'd-block' : 'd-none' ?> <?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) || active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'bg-primary text-white' : 'text-dark' ?>">
-                        <a href="/riwayat" class="text-menu text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'text-white' : 'text-dark' ?>">
+                        <a href="/admin/riwayat-peminjaman" class="text-menu text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'text-white' : 'text-dark' ?>">
                             <i data-feather="clock"></i>
                             Riwayat Peminjaman</a>
                     </li>
@@ -93,7 +93,7 @@ function user_role()
             <!-- Header -->
             <header class="d-flex bg-white p-3 justify-content-between duration-300 z-3">
                 <div class="header-logo">
-                    <img src="./public/assets/images/logo-tulisan.png" alt="" class="w-100 object-fit-cover ratio-16x9" />
+                    <img src="/public/assets/images/logo-tulisan.png" alt="" class="w-100 object-fit-cover ratio-16x9" />
                 </div>
                 <div class="d-flex justify-content-center align-items-center gap-3">
                     <div>

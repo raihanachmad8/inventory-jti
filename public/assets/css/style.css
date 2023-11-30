@@ -89,10 +89,10 @@ main.main-container {
         width: fit-content;
     }
 
-    div.logo-container div.logo-container-inner {
+    /* div.logo-container div.logo-container-inner {
         width: 14rem;
         height: fit-content;
-    }
+    } */
 
     header {
         position: relative;
