@@ -16,7 +16,7 @@ INSERT INTO Kategori (ID_Kategori, Nama) VALUES
 	('K2', 'Elektronik'),
 	('K3', 'ATK');
 
-INSERT INTO Pengguna (ID_Pengguna, ID_Level, Username, Password, Nama, Email, Nomor_HP, Foto, Status, Salt) VALUES
+INSERT INTO Pengguna (ID_Pengguna, ID_Level, Nomor_Identitas, Password, Nama, Email, Nomor_HP, Foto, Status, Salt) VALUES
 	('P1', 'L2', '404079101', 'adei', 'Ade Ismail', 'AdeIsmail@polinema.ac.id', '82182', 'profile1.png', 'Aktif', 'dnaqdkn'),
 	('P2', 'L3', '2241720220', 'putraz', 'Putra Zakaria', 'PutraZakaria@polinema.ac.id', '82183', 'profile2.png', 'Tidak Aktif', 'dnaqdkn'),
 	('P3', 'L2', '702108601', 'eloks', 'Elok Nur Hamdana', 'ElokNurHamdana@polinema.ac.id', '82184', 'profile3.png', 'Aktif', 'dnaqdkn'),
