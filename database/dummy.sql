@@ -1,3 +1,5 @@
+USE inventory_jti;
+
 INSERT INTO Level (ID_Level, Nama) VALUES
 	('L1', 'Admin'),
 	('L2', 'Dosen'),

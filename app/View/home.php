@@ -7,5 +7,7 @@
 </head>
 <body>
     Hello
+
+    <a href="/users/login">login</a>
 </body>
 </html>
