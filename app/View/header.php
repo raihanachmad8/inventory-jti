@@ -51,9 +51,9 @@ function user_role()
                     <div class="rounded-circle" style="width: 1.5rem; height: 1.5rem; background-color: #ffa500"></div>
                     <div class="rounded-circle" style="width: 1.5rem; height: 1.5rem; background-color: #e3f2f9"></div>
                 </div>
-                <div class="sidebar-btn" style="cursor: pointer">
+                <button class="btn sidebar-btn" style="cursor: pointer">
                     <i data-feather="chevrons-right"></i>
-                </div>
+                </button>
             </div>
             <div class="logo-container duration-500">
                 <div class="logo-container-inner" style="<?= user_role() === 'admin' ? 'width: 23rem' : 'width: 14rem' ?> height: fit-content;">

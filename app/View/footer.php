@@ -6,8 +6,6 @@
 </script>
 
 <script>
-  document.addEventListener
-
   $(document).ready(function() {
     /* This function is used to update the state of the sidebar */
     $(".sidebar-btn").on("click", () => {
@@ -252,7 +250,7 @@
     $(document).on('click', '.button-detail-item', function() {
       $('.detail-item-modal-container').toggleClass('d-none');
     });
-    
+
     $(document).on('click', '.cancel-button-detail-item', () => {
       $('.detail-item-modal-container').toggleClass('d-none');
     })
@@ -521,15 +519,15 @@
     $(document).on('click', '.button-detail-item', function() {
       $('.detail-item-modal-container').removeClass('d-none');
     });
-    
+
     $(document).on('click', '.cancel-button-detail-item', () => {
       $('.detail-item-modal-container').addClass('d-none');
     })
-    
+
     $(document).on('click', '.delete-button-detail-item', () => {
       $('.delete-item-modal-container').removeClass('d-none');
     })
-    
+
     $(document).on('click', '.delete-item-button-back', () => {
       $('.delete-item-modal-container').addClass('d-none');
     })
@@ -538,11 +536,11 @@
       $('.delete-item-modal-container').addClass('d-none');
       $('.detail-item-modal-container').addClass('d-none');
     })
-    
+
     $(document).on('click', '.save-button-detail-item', () => {
       $('.success-edit-item-modal-container').removeClass('d-none');
     })
-    
+
     $(document).on('click', '.edit-item-success-button', () => {
       $('.success-edit-item-modal-container').addClass('d-none');
       $('.detail-item-modal-container').addClass('d-none');
@@ -555,19 +553,19 @@
     $(document).on('click', '.cancel-button-add-item', () => {
       $('.add-item-modal-container').addClass('d-none');
     })
-    
+
     $(document).on('click', '.confirm-button-add-item', () => {
       $('.confirmation-add-item-modal-container').removeClass('d-none');
     })
-    
+
     $(document).on('click', '.cancel-button-confirm-add-item', () => {
       $('.confirmation-add-item-modal-container').addClass('d-none');
     })
-    
+
     $(document).on('click', '.save-button-confirm-add-item', () => {
       $('.success-add-item-modal-container').removeClass('d-none');
     })
-    
+
     $(document).on('click', '.add-item-success-button-back', () => {
       $('.success-add-item-modal-container').addClass('d-none');
       $('.confirmation-add-item-modal-container').addClass('d-none');
