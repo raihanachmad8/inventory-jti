@@ -13,7 +13,9 @@ body{
     color: #023670;
 }
 
-
+#leftbox button{
+    background-color: #023670;
+}
 
 .logintextbox{
     color: #023670;
@@ -22,5 +24,15 @@ body{
 .logintextbox input::placeholder{
     color: #023670;
     outline: #023670;
+    
+}
+
+.custom-width{
+    width: 350px;
+}
+
+.header-text strong{
+    color: #023670;
+    font-size:x-large;
 }
 
