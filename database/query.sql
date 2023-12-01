@@ -23,12 +23,14 @@ CREATE TABLE Kategori (
 CREATE TABLE Pengguna (
     ID_Pengguna VARCHAR(50) PRIMARY KEY,
     ID_Level VARCHAR(10),
-    Username VARCHAR(100),
+    Nomor_Identitas VARCHAR(20),
     Password VARCHAR(200),
     Nama VARCHAR(100),
     Email VARCHAR(255),
     Nomor_HP VARCHAR(15),
     Foto VARCHAR(50),
+    Status ENUM('AKTIF','TIDAK AKTIF'),
+    Salt VARCHAR(50),
     FOREIGN KEY (ID_Level) REFERENCES Level(ID_Level)
 );
 
