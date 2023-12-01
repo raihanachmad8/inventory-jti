@@ -13,12 +13,14 @@ body{
     color: #023670;
 }
 
-#leftbox button{
-    background-color: #023670;
-}
+
 
 .logintextbox{
     color: #023670;
 }
 
+.logintextbox input::placeholder{
+    color: #023670;
+    outline: #023670;
+}
 
