@@ -24,8 +24,8 @@ body{
 .logintextbox input::placeholder{
     color: #023670;
     outline: #023670;
-    
 }
+
 
 .custom-width{
     width: 350px;
@@ -35,4 +35,3 @@ body{
     color: #023670;
     font-size:x-large;
 }
-
