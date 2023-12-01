@@ -1,0 +1,283 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+.wrapper {
+  max-width: 75%;
+  margin: auto;
+}
+
+.wrapper > p,
+.wrapper > h1 {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.wrapper > h1 {
+  letter-spacing: 3px;
+}
+
+.accordion {
+  background-color: white;
+  color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 100%;
+  padding: 2rem 2.5rem;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.accordion i {
+  font-size: 1.6rem;
+}
+
+.active,
+.accordion:hover {
+  background-color: #DDF2FD;
+}
+.pannel {
+  padding: 0 2rem 2.5rem 2rem;
+  background-color: white;
+  overflow: hidden;
+  background-color: #DDF2FD;
+  display: none;
+}
+.pannel p {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.faq {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 10px 0;
+}
+.faq.active {
+  border: none;
+}
+
+
+
+.navbar-brand {
+    margin-left: 20px;
+    margin-right: 50px;
+}
+
+.image-container {
+    position: relative;
+    height: 100vh;
+}
+
+.text-over-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.nv-color {
+    background-color: #00000071;
+}
+
+.navbar-nav {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 50px;
+}
+
+.navbar-nav .nav-item .nav-link {
+    /* font-weight: bold; */
+    font-size: large;
+    font-family: 'poppins';
+}
+
+.text-over-image h1, p{
+    text-align: left;
+}
+
+.navbar button {
+    background-color: #074a81; 
+    border: none;
+    font-family: 'poppins';
+}
+
+.my-button:hover {
+    background-color: #1563a357; 
+}
+
+.jumbotron {
+    text-align: center;
+}
+
+
+
+.container h1 {
+    color: #074B81;
+    text-align: center;
+}
+
+.container p {
+    text-align: center;
+}
+
+.container button{
+    background-color: #074a81; 
+    border: none;
+}
+
+.container h1, h5{
+    color: #074a81;
+}
+
+/* Footer */
+body {
+    line-height: 1.5;
+    font-family: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container footer{
+    min-width: 100%;
+    margin: auto;
+    position: relative;
+    background-color: #F1B4BB;
+}
+.content {
+    padding: 10px;
+    padding-bottom: 370px;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1170px;
+    margin: auto;
+}
+
+ul {
+    list-style: none;
+}
+
+.footer {
+    background: #053A64;
+    padding: 70px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-col {
+    width: 25%;
+    padding: 0 15px;
+}
+
+.footer-col h4 {
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+
+.footer p{
+    color: #9ED6FB;
+}
+
+.footer-col h4::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #9ED6FB;
+    text-decoration: none;
+    font-weight: 300;
+    color: #9ED6FB;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #ffff;
+    padding-left: 8px;
+}
+
+.footer-col .social-links a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+
+.footer-col .social-links a:hover {
+    color: #ffffff;
+    background-color: #ffffff;
+}
+
+.copyright {
+    text-align: center;
+    color: #ffffff;
+    margin-top: 20px; /* Sesuaikan dengan margin yang diinginkan */
+}
+
+.copyright {
+    position: absolute;
+    bottom: 10px; /* Sesuaikan dengan jarak dari bawah yang diinginkan */
+    left: 0;
+    right: 0;
+}
+
+@media(max-width: 767px) {
+    .footer-col {
+        width: 50%;
+        margin-bottom: 30px;
+    }
+
+}
+
+@media(max-width: 574px) {
+    .footer-col {
+        width: 100%;
+    }
+
+}
+
+
