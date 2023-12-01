@@ -1,481 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link rel="stylesheet" href="./style.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
-  </head>
-
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark nv-color fixed-top">
-      <div class="container-fluid">
-        <img
-          src="../../assets/image/logo-polinema-lp.png"
-          alt="Logo"
-          width="70"
-          height="70"
-        />
-
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapsibleNavbar"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#feature">Feature</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#team">Team</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#faq">FAQ</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#footer">Contact</a>
-            </li>
-          </ul>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login</title>
+        <link rel="stylesheet" href="./style.css" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+        <script src="https://unpkg.com/feather-icons"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <!-- Main Container -->
+        <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <!-- Login Container -->
+            <div class="row col-md-8 border rounded-3 d-flex justify-content-center bg-white shadow box-area" style="height: 40rem;">
+        <!-- Left Box -->
+                 <div id="rightbox" class="col-md-5 rounded-start d-flex justify-content-center align-items-end right-box">
+                    <div class="flex-column pb-3">
+                        <p class="text-white fs-2" style="font-family: 'Poppins', sans-serif; font-weight: 550">Inventaris</p>
+                        <small class="text-white text-wrap text-justify" style="font-family: 'Poppins', sans-serif;">Inventaris adalah daftar atau catatan rinci yang mencakup semua barang, aset, atau benda yang dimiliki, disimpan, atau digunakan oleh suatu organisasi, perusahaan, atau individu pada suatu waktu tertentu.</small>
+                    </div>
+                </div>
+        <!-- Right Box -->
+                <div id="leftbox" class="col-md-7 d-flex justify-content-center align-items-center flex-column left-box">
+                     <div class="row align-items-center d-flex justify-content-center align-items-center flex-column">
+                        <div class="mb-5"></div>
+                        <div class="header-text mb-3  d-flex justify-content-center align-items-center">
+                            <strong>MASUK</strong>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="logintextbox">
+                                <p class="fs-6 font-weight: 600">Email</p>
+                                <input type="text" class="form-control-lg bg-light fs-6 border border-black" style="width: 16rem;" placeholder="Masukkan Email">
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="logintextbox">
+                                <p class="fs-6 font-weight: 600">Password</p>
+                                <input type="text" class="form-control-lg bg-light fs-6 border border-black" style="width: 16rem;" placeholder="Masukkan Password">
+                            </div>
+                        </div>
+                        <div class="input-group mb-3 justify-content-between">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="formCheck">
+                                <label for="formCheck" class="form-check-label text-secondary"><small>Ingat Saya</small></label>
+                            </div>
+                            <small><a href="../lupaPassword/">Lupa Password</a></small>
+                        </div>
+                        <form action="#" class="input-group mb-3">
+                            <button class="text-white btn btn-lg w-100 fs-6">Masuk</button>
+                        </form>
+                        <div class="input-group mb-5 d-flex justify-content-center align-items-center">
+                            <small><a href="../pilih role/">Tidak Punya Akun? <strong>Daftar</strong></a></small>   
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="../../assets/image/polinema-logo-login.png" class="img-fluid" style="width: 100px;">
+                        </div>
+                        <div class="mb-5"></div>
+                     </div>
+                </div>
+    
+            </div>
         </div>
-
-        <a href="../login/">
-          <button type="button" class="btn btn-primary">Sign In</button>
-        </a>
-      </div>
-    </nav>
-
-    <!-- Gambar -->
-    <div
-      id="home"
-      class="image-container"
-      style="height: 100vh; overflow: hidden"
-    >
-      <img
-        src="../../assets/image/bg-landingpage.png"
-        alt="Gambar"
-        class="img-fluid"
-        style="width: 100%; height: 100%; object-fit: cover"
-      />
-      <div class="text-over-image">
-        <h1>Selamat Datang di Website Inventaris JTI POLINEMA !</h1>
-        <p>
-          Inventaris adalah daftar atau catatan rinci yang mencakup semua
-          barang, <br />
-          aset, atau benda yang dimiliki, disimpan, atau digunakan oleh suatu
-          <br />
-          organisasi, perusahaan, atau individu pada suatu waktu tertentu.
-        </p>
-      </div>
-    </div>
-
-    <!-- Teks -->
-    <div
-      id="about"
-      class="container-fluid d-flex flex-column justify-content-center align-items-center"
-      style="background-color: #02357029; height: 55rem"
-    >
-      <img class="mb-5" src="../../assets/image/quote.png" />
-      <h1 class="display-4" style="color: #074a81; font-family: 'poppins'">
-        Tentang
-      </h1>
-      <p
-        class="lead text-center mb-5"
-        style="margin-left: 15%; margin-right: 15%; margin-top: 3%"
-      >
-        Sebuah proyek tugas akhir semester 3 yang dibuat untuk memberikan
-        kemudahan dalam pengelolaan dan peminjaman peralatan di lingkungan
-        Jurusan Teknologi Informasi Politeknik Negeri Malang. Melalui inovasi
-        ini, kami bertujuan untuk meningkatkan efisiensi serta mempermudah
-        mahasiswa dan staf jurusan Teknologi Informasi dalam mendapatkan akses
-        dan informasi terkait peminjaman barang. <br /><br />
-        Dengan antarmuka yang ramah pengguna, Anda dapat dengan mudah
-        menjelajahi katalog barang yang tersedia, melakukan peminjaman, dan
-        mengelola status peminjaman Anda. Kami berkomitmen untuk menyediakan
-        layanan yang dapat mendukung kegiatan akademis dan proyek-proyek kreatif
-        Anda.
-      </p>
-    </div>
-
-    <div
-      class="container-fluid d-flex justify-content-center align-items-center"
-      style="height: 57rem; background-color: #074a8154"
-    >
-      <div class="text-center">
-        <h1>Peminjaman Menjadi Lebih Mudah</h1>
-        <p class="text-center">
-          Dengan kemudahan proses dan persyaratan yang sederhana, pengajuan
-          pinjaman kini menjadi <br />
-          langkah yang lebih mudah dan cepat, tanpa kerumitan yang berlebihan.
-        </p>
-        <a href="../login/">
-          <button type="button" class="btn btn-primary">Sign Up Now</button>
-        </a>
-      </div>
-    </div>
-
-    <!-- Card Feature-->
-    <div
-      id="feature"
-      class="container-fluid d-flex flex-column justify-content-center"
-      style="height: 55rem; width: 55rem"
-    >
-      <h1 class="text-center mb-3">Fitur Tersedia</h1>
-      <div
-        class="border rounded p-3 column-gap-3"
-        style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr))"
-      >
-        <div class="card col-md-5 mb-3 w-100" style="height: 16rem">
-          <div class="card-body">
-            <img src="../../assets/image/icon-fitur-peminjaman.png" />
-            <h5 class="card-title">Peminjaman</h5>
-            <p class="card-text text-justify">
-              Pengguna meminjam barang atau item dari platform.
-            </p>
-          </div>
-        </div>
-        <div class="card col-md-5 mb-3 w-100" style="height: 16rem">
-          <div class="card-body">
-            <img src="../../assets/image/icon-fitur-peminjaman.png" />
-            <h5 class="card-title">Batalkan Peminjaman</h5>
-            <p class="card-text text-justify">
-              Pengguna membatalkan permintaan atau peminjaman barang yang telah
-              diajukan sebelumnya.
-            </p>
-          </div>
-        </div>
-        <div class="card col-md-5 mb-3 w-100" style="height: 16rem">
-          <div class="card-body">
-            <img src="../../assets/image/icon-fitur-peminjaman.png" />
-            <h5 class="card-title">Profile Pengguna</h5>
-            <p class="card-text text-justify">
-              Pengguna mengelola informasi pribadi mereka dan menyesuaikan
-              preferensi di dalam platform.
-            </p>
-          </div>
-        </div>
-        <div class="card col-md-5 mb-3 w-100" style="height: 16rem">
-          <div class="card-body">
-            <img src="../../assets/image/icon-fitur-peminjaman.png" />
-            <h5 class="card-title">History</h5>
-            <p class="card-text text-justify">
-              Menyimpan catatan atau sejarah aktivitas pengguna, seperti
-              peminjaman, pembatalan, atau perubahan data.
-            </p>
-          </div>
-        </div>
-        <div class="card col-md-5 mb-3 w-100" style="height: 16rem">
-          <div class="card-body">
-            <img src="../../assets/image/icon-fitur-peminjaman.png" />
-            <h5 class="card-title">Tambah Barang</h5>
-            <p class="card-text text-justify">
-              Fitur ini memungkinkan Admin untuk menambahkan item atau barang
-              baru ke dalam sistem atau platform.
-            </p>
-          </div>
-        </div>
-        <div class="card col-md-5 mb-3 w-100" style="height: 16rem">
-          <div class="card-body">
-            <img src="../../assets/image/icon-fitur-peminjaman.png" />
-            <h5 class="card-title">Hapus Barang</h5>
-            <p class="card-text text-justify">
-              Fitur ini memungkinkan Admin untuk menghapus item atau barang dari
-              sistem atau platform.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Team -->
-    <div
-      id="team"
-      class="container-fluid d-flex flex-column justify-content-center"
-      style="background-color: #074a8128; height: 55rem"
-    >
-      <h1 class="text-center mb-5">The creative team behind the door</h1>
-
-      <!-- member bagian atas  -->
-      <div class="d-flex justify-content-center mb-3">
-        <div
-          class="card col-md-3 mb-2 aspect-ratio-1x1 border-0"
-          style="background-color: #074a8100"
-        >
-          <div class="card-body text-center">
-            <img class="mb-5" src="../../assets/image/user.png" />
-            <h5 class="card-title">Putra Zakaria Muzaki</h5>
-            <p class="card-text text-center">2241720220</p>
-          </div>
-        </div>
-
-        <div
-          class="card col-md-3 mb-2 aspect-ratio-1x1 border-0"
-          style="background-color: #074a8100"
-        >
-          <div class="card-body text-center">
-            <img class="mb-5" src="../../assets/image/user.png" />
-            <h5 class="card-title">Achmad Raihan Fahrezi Effendy</h5>
-            <p class="card-text text-center">2241720192</p>
-          </div>
-        </div>
-
-        <div
-          class="card col-md-3 mb-2 aspect-ratio-1x1 border-0"
-          style="background-color: #074a8100"
-        >
-          <div class="card-body text-center">
-            <img class="mb-5" src="../../assets/image/user.png" />
-            <h5 class="card-title">Vunky Himawan</h5>
-            <p class="card-text text-center">2241720005</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- member bagian bawah -->
-      <div class="d-flex justify-content-center">
-        <div
-          class="card col-md-3 mb-2 aspect-ratio-1x1 border-0"
-          style="background-color: #074a8100"
-        >
-          <div class="card-body text-center">
-            <img class="mb-5" src="../../assets/image/user.png" />
-            <h5 class="card-title">Dela Farahita Zain</h5>
-            <p class="card-text text-center">2241720058</p>
-          </div>
-        </div>
-
-        <div
-          class="card col-md-3 mb-2 aspect-ratio-1x1 border-0"
-          style="background-color: #074a8100"
-        >
-          <div class="card-body text-center">
-            <img class="mb-5" src="../../assets/image/user.png" />
-            <h5 class="card-title">Ellois Karina Handoyo</h5>
-            <p class="card-text text-center">2241720154</p>
-          </div>
-        </div>
-
-        <div
-          class="card col-md-3 mb-2 aspect-ratio-1x1 border-0"
-          style="background-color: #074a8100"
-        >
-          <div class="card-body text-center">
-            <img class="mb-5" src="../../assets/image/user.png" />
-            <h5 class="card-title">Novi Yanti</h5>
-            <p class="card-text text-center">2241720000</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAQ -->
-    <div id="faq"></div>
-    <div class="wrapper" style="height: fit-content; margin-top: 10rem; margin-bottom: 10rem;">
-        <h1 class="mb-5">Frequently Asked Questions</h1>
-  
-        <div class="faq">
-          <button class="accordion">
-            What is INTI?
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="pannel">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit
-            </p>
-          </div>
-        </div>
-  
-        <div class="faq">
-          <button class="accordion">
-            What is INTI?
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="pannel">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis
-              saepe molestiae distinctio asperiores cupiditate consequuntur dolor
-              ullam, iure eligendi harum eaque hic corporis debitis porro
-              consectetur voluptate rem officiis architecto.
-            </p>
-          </div>
-        </div>
-  
-        <div class="faq">
-          <button class="accordion">
-            What is INTI?
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="pannel">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis
-              saepe molestiae distinctio asperiores cupiditate consequuntur dolor
-              ullam, iure eligendi harum eaque hic corporis debitis porro
-              consectetur voluptate rem officiis architecto.
-            </p>
-          </div>
-        </div>
-  
-        <div class="faq">
-          <button class="accordion">
-            What is INTI?
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="pannel">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis
-              saepe molestiae distinctio asperiores cupiditate consequuntur dolor
-              ullam, iure eligendi harum eaque hic corporis debitis porro
-              consectetur voluptate rem officiis architecto.
-            </p>
-          </div>
-        </div>
-  
-        <div class="faq">
-          <button class="accordion">
-            What is INTI?
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="pannel">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis
-              saepe molestiae distinctio asperiores cupiditate consequuntur dolor
-              ullam, iure eligendi harum eaque hic corporis debitis porro
-              consectetur voluptate rem officiis architecto.
-            </p>
-          </div>
-        </div>
-  
-        <div class="faq">
-          <button class="accordion">
-            What is INTI?
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="pannel">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis
-              saepe molestiae distinctio asperiores cupiditate consequuntur dolor
-              ullam, iure eligendi harum eaque hic corporis debitis porro
-              consectetur voluptate rem officiis architecto.
-            </p>
-          </div>
-        </div>
-      </div>
-  
-      <script>
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-  
-        for (i = 0; i < acc.length; i++) {
-          acc[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            this.parentElement.classList.toggle("active");
-  
-            var pannel = this.nextElementSibling;
-  
-            if (pannel.style.display === "block") {
-              pannel.style.display = "none";
-            } else {
-              pannel.style.display = "block";
-            }
-          });
-        }
-      </script>
-
-
-    <!-- Footer -->
-    <div id="footer" class="footer container-fluid">
-
-      <div class="d-flex">
-
-        <!-- Footer 1 -->
-        <div class="footer-col">
-          <ul>
-            <h4><b>JTI POLINEMA</b></h4>
-            <li>
-              <a href=""
-                >Jurusan Teknologi Informatika Politeknik <br />Negeri Malang</a
-              >
-            </li>
-            <li><a href="">Jl. Soekarno-Hatta No. 9 Malang 65141</a></li>
-            <li><a href="">Po.Box 04 Malang</a></li>
-            <li><a href="">Telepon : +62 (0341) 404424 – 404425</a></li>
-            <li><a href="">Faks : +62 (0341) 404420</a></li>
-          </ul>
-        </div>
-
-        <!-- Footer 2 -->
-        <div class="footer-col">
-          <ul>
-            <h4><b>Blog</b></h4>
-            <li><a href="#">Aturan Peminjaman</a></li>
-            <li><a href="#">Syarat dan Ketentuan</a></li>
-          </ul>
-        </div>
-
-        <!-- Footer 3 -->
-        <div class="footer-col">
-          <ul>
-            <h4><b>External</b></h4>
-            <li><a href="#">E-Learning</a></li>
-            <li><a href="#">Jurnal Informatika</a></li>
-            <li><a href="#">Digital Library</a></li>
-            <li><a href="http://siakad.polinema.ac.id/">Siakad</a></li>
-            <li><a href="#">JPC Polinema</a></li>
-            <li><a href="#">Unit P2M Polinema</a></li>
-            <li><a href="#">Beasiswa</a></li>
-          </ul>
-        </div>
-
-        <!-- Footer 4 -->
-        <div class="footer-col">
-          <ul>
-            <h4><b>Social Media</b></h4>
-            <li>
-              <a href="https://www.instagram.com/jtipolinema/">Instagram</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="copyright">
-        Copyright &copy; 2023 Politeknik Negeri Malang. All Rights Reserved.
-      </div>
-    </div>
-    <!-- </div> -->
-  </body>
+    </body>
 </html>
