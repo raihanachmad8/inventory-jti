@@ -1,0 +1,340 @@
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+main.main-container {
+    width: 100%;
+    position: relative;
+}
+
+.main-container .loans-content {
+    margin-top: 5rem;
+}
+
+.main-container .loans-content .loans-heading {
+    font-size: clamp(1.5rem, 2vw, 2.5rem);
+}
+
+.main-container .loans-content .loans-button-filter_sort {
+    --bs-btn-padding-y: 0.25rem;
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-font-size: 0.75rem;
+}
+
+.main-container .inventory-items-container {
+    width: 100%;
+    margin-bottom: 100px;
+}
+
+.main-container .inventory-items-container .inventory-item {
+    width: 10rem;
+    height: 13rem;
+    border-radius: 0.5rem;
+}
+
+.main-container
+    .inventory-items-container
+    .inventory-item
+    .inventory-item-name-data
+    > strong:nth-child(2) {
+    font-size: clamp(0.5rem, 2vw, 1rem);
+}
+
+.main-container
+    .inventory-items-container
+    .inventory-item
+    .inventory-item-button-container
+    .inventory-item-button {
+    --bs-btn-padding-y: 0.25rem;
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-font-size: 0.75rem;
+}
+
+.main-container .loan-button-container {
+    position: fixed;
+    bottom: 0;
+}
+
+.main-container
+    .inventory-items-container
+    .inventory-item
+    .inventory-item-button-container
+    .btn-counter {
+    width: 2.3rem;
+    height: 2.3rem;
+}
+
+.main-container
+    .inventory-items-container
+    .inventory-item
+    .inventory-item-button-container
+    .counter-input {
+    border: none;
+    height: 2.3rem;
+    text-align: center;
+}
+
+.main-container
+    .inventory-items-container
+    .inventory-item
+    .inventory-item-button-container
+    .counter-input:focus {
+    outline: none;
+}
+
+@media only screen and (min-width: 768px) {
+    div.logo-container {
+        width: fit-content;
+    }
+
+    div.logo-container div.logo-container-inner {
+        width: 14rem;
+        height: fit-content;
+    }
+
+    header {
+        position: relative;
+        box-shadow: 0px 0px 2px 0px rgba(119, 119, 119, 0.75);
+        -webkit-box-shadow: 0px 0px 2px 0px rgba(119, 119, 119, 0.75);
+        -moz-box-shadow: 0px 0px 2px 0px rgba(119, 119, 119, 0.75);
+        z-index: 9999;
+    }
+
+    header > .header-logo {
+        width: fit-content;
+        padding: 0.5rem;
+    }
+
+    div.sidebar {
+        width: 20vw;
+        box-shadow: 0px 0px 2px 0px rgba(119, 119, 119, 0.75);
+        -webkit-box-shadow: 0px 0px 2px 0px rgba(119, 119, 119, 0.75);
+        -moz-box-shadow: 0px 0px 2px 0px rgba(119, 119, 119, 0.75);
+        z-index: 10;
+    }
+
+    main.main-container {
+        width: 80vw;
+        padding: 0;
+    }
+
+    .main-container .loans-content {
+        margin-top: 0;
+    }
+
+    .main-container .inventory-items-container {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .main-container .loans-content .loans-button-filter_sort {
+        --bs-btn-padding-y: 0.5rem;
+        --bs-btn-padding-x: 1rem;
+        --bs-btn-font-size: 1rem;
+    }
+
+    .main-container .loans-content .filter-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .main-container .loans-content .filter-list .filter-list-item a {
+        font-size: 1.2rem;
+    }
+
+    .main-container .loans-content .filter-list .filter-list-item:hover {
+        background: #efefef;
+        transition: 0.2s;
+    }
+
+    .main-container .loans-content .sort-list .sort-list-item a {
+        font-size: 1.2rem;
+    }
+
+    .main-container .loans-content .sort-list .sort-list-item:hover {
+        background: #efefef;
+        transition: 0.2s;
+    }
+
+    .main-container .inventory-items-container .inventory-item {
+        width: 20rem;
+        height: 25rem;
+        border-radius: 0.7rem;
+    }
+
+    .main-container .loan-button-container {
+        position: relative;
+    }
+
+    .main-container
+        .inventory-items-container
+        .inventory-item
+        .inventory-item-name-data
+        > strong:nth-child(1) {
+        font-size: clamp(0.5rem, 2vw, 1.5rem);
+    }
+
+    .main-container
+        .inventory-items-container
+        .inventory-item
+        .inventory-item-qty-data
+        > strong {
+        font-size: clamp(0.5rem, 2vw, 1.5rem);
+    }
+
+    .main-container
+        .inventory-items-container
+        .inventory-item
+        .inventory-item-button-container
+        .inventory-item-button {
+        --bs-btn-padding-y: 0.5rem;
+        --bs-btn-padding-x: 0.5rem;
+        --bs-btn-font-size: 1rem;
+    }
+
+    .main-container .confirmation-modal-container,
+    .modal-detail-container {
+        width: 80vw;
+        padding: 8rem 3rem 0 3rem;
+    }
+
+    table.identity-table {
+        width: 100%;
+        height: 10rem;
+        margin: 0 0 2rem 0;
+    }
+
+    table.identity-table tr td:first-child {
+        width: 15%;
+    }
+
+    table.identity-table tr td:last-child {
+        width: 82%;
+    }
+    table.identity-table tr td:nth-child(2) {
+        width: 3%;
+    }
+
+    table:not(.identity-table) {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    table:not(.identity-table) thead tr:first-child th:first-child {
+        border-top-left-radius: 1rem;
+    }
+
+    table:not(.identity-table) thead tr:first-child th:last-child {
+        border-top-right-radius: 1rem;
+    }
+
+    table:not(.identity-table) thead tr th {
+        background-color: #01305d;
+        color: #fff;
+        padding: 1rem;
+    }
+
+    table:not(.identity-table) tbody tr:nth-child(even) td {
+        background-color: #e3f2f9;
+        color: #001e3a;
+        padding: 1rem;
+    }
+
+    table:not(.identity-table) tbody tr td {
+        background-color: #ffffff;
+        color: #001e3a;
+        padding: 1rem;
+    }
+
+    .main-container
+        .confirmation-modal-container
+        .inventory-loans-table-container
+        table.inventory-loans-table
+        tbody
+        tr
+        td:last-child
+        input[type="checkbox"].form-choose-input-loan {
+        width: 1.3rem;
+        height: 1.3rem;
+        border: none;
+        background-color: #fff;
+    }
+
+    .main-container .confirmation-modal-container .calendar-modal-container {
+        background-color: rgba(0, 0, 0, 0.75);
+        z-index: 99999;
+        top: 0;
+        left: 0;
+    }
+
+    .main-container
+        .confirmation-modal-container
+        .calendar-modal-container
+        .calendar-container-inner {
+        width: 40rem;
+        height: 30rem;
+    }
+
+    .main-container
+        .confirmation-modal-container
+        .calendar-modal-container
+        .calendar-container-inner
+        .calendar-body-container
+        .calendar
+        .calendar-week,
+    .calendar-days {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        font-size: 1.3rem;
+    }
+}
+
+/* Pelengkap Aja HEHE */
+
+.sidebar-btn-rotate {
+    rotate: 90deg;
+    transition: linear 0.2s;
+}
+
+.sidebar-btn {
+    transition: linear 0.2s;
+}
+
+.duration-300 {
+    transition: linear 0.3s;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.filter-list:hover {
+    background: #d9d9d9;
+    cursor: pointer;
+}
+
+.chevron-up-rotate {
+    rotate: 180deg;
+}
+
+.line-1-rotate {
+    rotate: 45deg;
+}
+
+.line-2-rotate {
+    rotate: -45deg;
+}
+
+.form-choose-input-loan-active {
+    outline: 1px solid #28a461;
+}
+
+.form-choose-input-loan-non-active {
+    outline: 1px solid #ff0000;
+}
