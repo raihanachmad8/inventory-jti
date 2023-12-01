@@ -99,7 +99,7 @@ main.main-container {
         box-shadow: 0px 0px 2px 0px rgba(119, 119, 119, 0.75);
         -webkit-box-shadow: 0px 0px 2px 0px rgba(119, 119, 119, 0.75);
         -moz-box-shadow: 0px 0px 2px 0px rgba(119, 119, 119, 0.75);
-        z-index: 9999;
+        z-index: 99;
     }
 
     header > .header-logo {
@@ -278,7 +278,8 @@ main.main-container {
         background-color: #fff;
     }
 
-    .main-container .confirmation-modal-container .calendar-modal-container {
+    .main-container .confirmation-modal-container .calendar-modal-container,
+    .detail-modal-container {
         background-color: rgba(0, 0, 0, 0.75);
         z-index: 99999;
         top: 0;
@@ -304,6 +305,34 @@ main.main-container {
         display: grid;
         grid-template-columns: repeat(7, minmax(0, 1fr));
         font-size: 1.3rem;
+    }
+
+    .detail-item-modal-container .detail-item-modal div.input-container,
+    .confirmation-add-item-modal-container
+        .confirmation-add-item-modal
+        div.input-container {
+        width: 45%;
+        height: fit-content;
+    }
+
+    .detail-item-modal-container
+        .detail-item-modal
+        div.input-container
+        > input {
+        padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+    }
+
+    div.add-item-modal-container {
+        width: 80vw;
+        padding: 7rem 2rem 1rem 2rem;
+    }
+
+    .add-item-modal-container
+        .add-item-modal
+        form#add-item-form
+        div.input-container
+        > input {
+        padding: 0.375rem 0.75rem 0.375rem 0.75rem;
     }
 }
 
