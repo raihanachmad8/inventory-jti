@@ -1,6 +1,6 @@
 <?php
 
-class AuthForgotRequest
+class AuthFOrgotRequest
 {
     public array $request;
 

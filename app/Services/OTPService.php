@@ -17,9 +17,7 @@ class OTPService
     {
         try {
             $otpCode = rand(100000, 999999);
-            $expired = new DateTime();
-            $expired->add(new DateInterval('PT5M'));
-            $success = $this->otpRepository->createOTP($userId, $otpCode, $expired);
+            $success = $this->otpRepository->createOTP($userId, $otpCode);
             if ($success) {
                 $subject = 'Kode OTP';
                 // $this->sendOTP($email, $subject, $otpCode);
@@ -34,23 +32,29 @@ class OTPService
     {
         try {
             $request = $OTPVerifyRequest->validate();
+
             if (!empty($request)) {
                 throw new ValidationException($request);
             }
+
             $otp = $this->otpRepository->getOTP($OTPVerifyRequest->id_pengguna, $OTPVerifyRequest->otp);
-            var_dump($otp);
+
             if ($otp === null) {
                 throw new Exception('OTP not found.');
             }
+
             if (new DateTime() > new DateTime($otp['Expired'])) {
                 throw new Exception('OTP has expired.');
             }
+
             if ($otp['Kode'] !== $OTPVerifyRequest->otp) {
                 throw new Exception('OTP is invalid.');
             }
+
             if ($otp['ID_Pengguna'] !== $OTPVerifyRequest->id_pengguna) {
                 throw new Exception('OTP is invalid.');
             }
+
             if (!$this->deleteOTP($OTPVerifyRequest->id_pengguna, $OTPVerifyRequest->otp)) {
                 throw new Exception('Failed to delete OTP.');
             }

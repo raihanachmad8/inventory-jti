@@ -8,7 +8,6 @@ require_once __DIR__ . '/../Services/OTPService.php';
 
 class AuthService
 {
-
     private AuthRepository $authRepository;
     private OTPService $otpService;
 
@@ -18,184 +17,276 @@ class AuthService
         $this->otpService = new OTPService(new OTPRepository(DB::connect()));
     }
 
-    public function register(AuthRegisterRequest $authRegisterRequest) : ?UserResponse
+    public function register(AuthRegisterRequest $authRegisterRequest): ?UserResponse
     {
         try {
-            DB::connect()->beginTransaction();
-            $request = $authRegisterRequest->validate();
-            $user = $this->authRepository->getUserByEmail($authRegisterRequest->request['email']);
 
-            if ($user !== null) {
-                $request['email'][] = 'Email is already in use.';
-            }
-            $user = $this->authRepository->getUserByNomorIdentitas($authRegisterRequest->request['nomor_identitas']);
-            if ($user !== null) {
-                $request['nomor_identitas'][] = 'Nomor Identitas is already in use.';
-            }
 
-            if (!empty($request)) {
-                throw new ValidationException($request);
-            }
+            $this->validateRegistration($authRegisterRequest);
 
-            if ($authRegisterRequest->request['level'] === 'Dosen') {
-                $authRegisterRequest->request['id_level'] = 'L2';
-            } else {
-                $authRegisterRequest->request['id_level'] = 'L3';
-            }
+            $this->setLevelForRegistration($authRegisterRequest);
 
-            $user = new User([
-                'id_level' => $authRegisterRequest->request['id_level'],
-                'nomor_identitas' => $authRegisterRequest->request['nomor_identitas'],
-                'password' => password_hash($authRegisterRequest->request['password'], PASSWORD_BCRYPT),
-                'nama' => $authRegisterRequest->request['nama'],
-                'email' => $authRegisterRequest->request['email'],
-                'nomor_hp' => $authRegisterRequest->request['nomor_hp']
-            ]);
-            $user = $this->authRepository->create($user);
+            $user = $this->createUser($authRegisterRequest);
 
-            $response = new UserResponse($user);
-            if ($response === null) {
-                throw new Exception('Failed to create user.');
-            }
-            $otp = $this->otpService->createOTP($user->id_pengguna, $user->email);
-            if ($otp === null) {
-                throw new Exception('Failed to create OTP.');
-            }
-            DB::connect()->commit();
-            return $response;
+            $this->sendOTP($user);
+
+
+
+            return new UserResponse($user);
         } catch (ValidationException $e) {
-            DB::connect()->rollBack();
-            throw new ValidationException($e->getErrors());
+
+            throw $e;
         } catch (Exception $e) {
-            DB::connect()->rollBack();
+
             throw new Exception($e->getMessage());
         }
     }
 
-
-
-    public function login(AuthLoginRequest $authLoginRequest) : ?UserResponse
+    public function login(AuthLoginRequest $authLoginRequest): ?UserResponse
     {
         try {
-            $request = $authLoginRequest->validate();
-            $user = $this->authRepository->getUserByEmail($authLoginRequest->request['email']);
-            if ($user === null) {
-                $request['email'][] = 'Email is not registered.';
-            }
-            if (!password_verify($authLoginRequest->request['password'], $user->password)) {
-                $request['password'][] = 'Password is incorrect.';
-            }
-            if (!empty($request)) {
-                throw new ValidationException($request);
-            }
+            $this->validateLogin($authLoginRequest);
 
-            $response = new UserResponse($user);
-            if ($response === null) {
-                throw new Exception('Failed to create user.');
-            }
-            var_dump($response);
-            return $response;
+            $user = $this->getUserByEmail($authLoginRequest->request['email']);
+
+            $this->validatePassword($authLoginRequest->request['password'], $user);
+
+            return new UserResponse($user);
         } catch (ValidationException $e) {
-            throw new ValidationException($e->getErrors());
+            throw $e;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public function verifyOTP(OTPVerifyRequest $OTPVerifyRequest) : bool
+    public function verifyOTP(OTPVerifyRequest $OTPVerifyRequest): bool
     {
         try {
-            $request = $OTPVerifyRequest->validate();
-            if (!empty($request)) {
-                throw new ValidationException($request);
-            }
+
+
+            $this->validateOTPVerification($OTPVerifyRequest);
+
             $otp = $this->otpService->verifyOTP($OTPVerifyRequest);
-            if ($otp === null) {
+            $changeStatus = $this->authRepository->updateStatus($OTPVerifyRequest->id_pengguna);
+
+            if (!$otp || !$changeStatus) {
                 throw new Exception('Failed to verify OTP.');
             }
-            return $otp;
+
+            $user = $this->authRepository->getUserById($OTPVerifyRequest->id_pengguna);
+            $this->deleteUserRelatedData($user);
+
+
+
+            return true;
         } catch (ValidationException $e) {
+
             throw new ValidationException($e->getErrors());
         } catch (Exception $e) {
+
             throw new Exception($e->getMessage());
         }
     }
 
-    public function resendOTP(string $userId) : bool
+    // Fungsi-fungsi tambahan
+
+    private function validateRegistration(AuthRegisterRequest $authRegisterRequest): void
+    {
+        $request = $authRegisterRequest->validate();
+
+        $this->checkIfEmailAlreadyExists($authRegisterRequest->request['email']);
+        $this->checkIfNomorIdentitasAlreadyExists($authRegisterRequest->request['nomor_identitas']);
+
+        if (!empty($request)) {
+            throw new ValidationException($request);
+        }
+    }
+
+    private function setLevelForRegistration(AuthRegisterRequest $authRegisterRequest): void
+    {
+        $authRegisterRequest->request['id_level'] = ($authRegisterRequest->request['level'] === 'Dosen') ? 'L2' : 'L3';
+    }
+
+    private function createUser(AuthRegisterRequest $authRegisterRequest): User
+    {
+        $salt = base64_encode(random_bytes(8));
+        $password = $authRegisterRequest->request['password'] . $authRegisterRequest->request['nomor_identitas'] . $salt;
+        $user = new User([
+            'id_level' => $authRegisterRequest->request['id_level'],
+            'nomor_identitas' => $authRegisterRequest->request['nomor_identitas'],
+            'password' => password_hash($password, PASSWORD_BCRYPT),
+            'nama' => $authRegisterRequest->request['nama'],
+            'email' => $authRegisterRequest->request['email'],
+            'nomor_hp' => $authRegisterRequest->request['nomor_hp'],
+            'foto' => $authRegisterRequest->request['foto'],
+            'status' => 'TIDAK AKTIF',
+            'salt' => $salt
+        ]);
+
+        return $this->authRepository->create($user);
+    }
+
+    private function sendOTP(User $user): void
+    {
+        $otp = $this->otpService->createOTP($user->id_pengguna, $user->email);
+
+        if ($otp === null) {
+            throw new Exception('Failed to create OTP.');
+        }
+    }
+
+    private function validateLogin(AuthLoginRequest $authLoginRequest): void
+    {
+        $request = $authLoginRequest->validate();
+        $this->checkIfEmailExists($authLoginRequest->request['email']);
+
+        if (!empty($request)) {
+            throw new ValidationException($request);
+        }
+    }
+
+    private function getUserByEmail(string $email): ?User
+    {
+        $user = $this->authRepository->getUserByEmail($email);
+
+        if ($user === null) {
+            throw new Exception('Email is not registered.');
+        }
+
+        return $user;
+    }
+
+    private function validatePassword(string $password, User $user): void
+    {
+        if (!password_verify($password, $user->password)) {
+            throw new ValidationException(['password' => 'Password is incorrect.']);
+        }
+    }
+
+    private function validateOTPVerification(OTPVerifyRequest $OTPVerifyRequest): void
+    {
+        $request = $OTPVerifyRequest->validate();
+
+        if (!empty($request)) {
+            throw new ValidationException($request);
+        }
+    }
+
+    private function checkIfEmailExists(string $email): void
+    {
+        $user = $this->authRepository->getUserByEmail($email);
+
+        if ($user === null) {
+            throw new ValidationException(['email' => 'Email is not registered.']);
+        }
+    }
+
+    private function checkIfEmailAlreadyExists(string $email): void
+    {
+        $user = $this->authRepository->getUserByEmail($email);
+
+        if ($user !== null) {
+            throw new ValidationException(['email' => 'Email is already in use.']);
+        }
+    }
+
+    private function checkIfNomorIdentitasAlreadyExists(string $nomorIdentitas): void
+    {
+        $user = $this->authRepository->getUserByNomorIdentitas($nomorIdentitas);
+
+        if ($user !== null) {
+            throw new ValidationException(['nomor_identitas' => 'Nomor Identitas is already in use.']);
+        }
+    }
+
+    private function deleteUserRelatedData(User $user): void
+    {
+        if ($user->status === 'TIDAK AKTIF') {
+            $this->authRepository->deleteByNomorIdentitas($user->nomor_identitas);
+            $this->authRepository->deleteByEmail($user->email);
+        }
+    }
+
+    public function resendOTP(string $userId): bool
     {
         try {
+
+
             $this->otpService->deleteOTP($userId);
             $otp = $this->otpService->createOTP($userId);
+
             if ($otp === null) {
                 throw new Exception('Failed to resend OTP.');
             }
-            return $otp;
+
+
+
+            return true;
         } catch (Exception $e) {
+
             throw new Exception($e->getMessage());
         }
     }
 
-    public function getUserById(string $id) : ?UserResponse
+    public function getUserById(string $id): ?UserResponse
     {
         try {
             $user = $this->authRepository->getUserById($id);
+
             if ($user === null) {
                 throw new Exception('User not found.');
             }
-            $response = new UserResponse($user);
-            if ($response === null) {
-                throw new Exception('Failed to get user.');
-            }
-            return $response;
+
+            return new UserResponse($user);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public function getUserByNomorIdentitas(string $nomorIdentitas) : ?UserResponse
+    public function getUserByNomorIdentitas(string $nomorIdentitas): ?UserResponse
     {
         try {
             $user = $this->authRepository->getUserByNomorIdentitas($nomorIdentitas);
+
             if ($user === null) {
                 throw new Exception('User not found.');
             }
-            $response = new UserResponse($user);
-            if ($response === null) {
-                throw new Exception('Failed to get user.');
-            }
-            return $response;
+
+            return new UserResponse($user);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public function deleteUser(UserDeleteValidation $userDeleteValidation) : ?UserResponse
+    public function deleteUser(UserDeleteValidation $userDeleteValidation): ?UserResponse
     {
         try {
             $request = $userDeleteValidation->validate();
-            if (!empty($userDeleteValidation)) {
+
+            if (!empty($request)) {
                 throw new ValidationException($request);
             }
+
             $user = $this->authRepository->getUserById($userDeleteValidation->request['id_pengguna']);
+
             if ($user === null) {
                 throw new Exception('User not found.');
             }
+
             $this->authRepository->delete($user->id_pengguna);
-            $response = new UserResponse($user);
-            if ($response === null) {
-                throw new Exception('Failed to delete user.');
-            }
-            return $response;
+
+            return new UserResponse($user);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public function forgot(AuthMailRequest $authMailRequest) : ?UserResponse
+    public function forgot(AuthMailRequest $authMailRequest): ?UserResponse
     {
         try {
             $request = $authMailRequest->validate();
             $user = $this->authRepository->getUserByEmail($authMailRequest->request['email']);
+
             if ($user === null) {
                 $request['email'][] = 'Email is not registered.';
             }
@@ -203,45 +294,132 @@ class AuthService
             if (!empty($request)) {
                 throw new ValidationException($request);
             }
+
             $otp = $this->otpService->createOTP($user->id_pengguna, $user->email);
+
             if ($otp === null) {
                 throw new Exception('Failed to create OTP.');
             }
-            $response = new UserResponse($user);
-            if ($response === null) {
-                throw new Exception('Failed to send email.');
-            }
-            return $response;
+
+            return new UserResponse($user);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public function reset(AuthForgotRequest $authForgotRequest) : ?UserResponse
+    public function reset(AuthForgotRequest $authForgotRequest): ?UserResponse
     {
         try {
             $request = $authForgotRequest->validate();
+
             if (!empty($request)) {
                 throw new ValidationException($request);
             }
 
             $user = $this->authRepository->getUserById($authForgotRequest->request['id_pengguna']);
+
             if ($user === null) {
                 throw new Exception('User not found.');
             }
+
             $user->password = password_hash($authForgotRequest->request['password'], PASSWORD_BCRYPT);
             $user = $this->authRepository->update($user);
+
             if ($user === null) {
                 throw new Exception('Failed to reset password.');
             }
-            $response = new UserResponse($user);
-            if ($response === null) {
-                throw new Exception('Failed to reset password.');
-            }
-            return $response;
+
+            return new UserResponse($user);
         } catch (ValidationException $e) {
             throw new ValidationException($e->getErrors());
         } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function changePassword(string $userId, string $currentPassword, string $newPassword): bool
+    {
+        try {
+
+
+            $user = $this->authRepository->getUserById($userId);
+
+            if ($user === null) {
+                throw new Exception('User not found.');
+            }
+
+            // Verifikasi password saat ini
+            if (!password_verify($currentPassword, $user->password)) {
+                throw new Exception('Current password is incorrect.');
+            }
+
+            // Ubah password baru
+            $user->password = password_hash($newPassword, PASSWORD_BCRYPT);
+            $user = $this->authRepository->update($user);
+
+            if ($user === null) {
+                throw new Exception('Failed to change password.');
+            }
+
+
+
+            return true;
+        } catch (Exception $e) {
+
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function activateAccount(string $userId): bool
+    {
+        try {
+
+
+            $user = $this->authRepository->getUserById($userId);
+
+            if ($user === null) {
+                throw new Exception('User not found.');
+            }
+
+            $user->status = 'AKTIF';
+            $user = $this->authRepository->update($user);
+
+            if ($user === null) {
+                throw new Exception('Failed to activate account.');
+            }
+
+
+
+            return true;
+        } catch (Exception $e) {
+
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function resendActivationEmail(string $userId): bool
+    {
+        try {
+
+
+            $user = $this->authRepository->getUserById($userId);
+
+            if ($user === null) {
+                throw new Exception('User not found.');
+            }
+
+            // Kirim ulang email aktivasi
+            $otp = $this->otpService->createOTP($user->id_pengguna, $user->email);
+
+            if ($otp === null) {
+                throw new Exception('Failed to resend activation email.');
+            }
+
+
+
+            return true;
+        } catch (Exception $e) {
+
             throw new Exception($e->getMessage());
         }
     }

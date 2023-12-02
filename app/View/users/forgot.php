@@ -1,4 +1,4 @@
-<?= $model['error'] ?? 'err' ?>
+
     <h1>Forgot</h1>
     <form action="/users/forgot" method="post">
         <label for="email">Email</label>

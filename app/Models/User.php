@@ -9,6 +9,8 @@ class User {
     public ?string $email;
     public ?string $nomor_hp;
     public ?string $foto;
+    public ?string $status;
+    public ?string $salt;
     public function __construct(array $user = null)
     {
         if ($user !== null) {
@@ -20,6 +22,8 @@ class User {
             $this->email = $user['email'] ?? null;
             $this->nomor_hp = $user['nomor_hp'] ?? null;
             $this->foto = $user['foto'] ?? null;
+            $this->status = $user['status'] ?? null;
+            $this->salt = $user['salt'] ?? null;
         }
 
     }

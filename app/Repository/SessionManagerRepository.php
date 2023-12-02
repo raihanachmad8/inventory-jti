@@ -8,11 +8,12 @@ class SessionManagerRepository
     public function save(string $sessionId, array $sessionData, string $secretKey): ?Session
     {
         try {
-            var_dump($sessionData);
+            $encodedSessionId = urlencode($sessionId);
+
             $token = $this->generateToken($sessionData, $secretKey);
-            setcookie('session_user_id', base64_encode($sessionId), time() + 3600, '/');
-            setcookie('token_' . $sessionId, $token, time() + 3600, '/');
-            $session = new Session($sessionId, $sessionData['nomor_identitas'], $sessionData['level']);
+            setcookie('session_user_id', base64_encode($encodedSessionId), time() + 3600, '/');
+            setcookie('token_' . $encodedSessionId, $token, time() + 3600, '/');
+            $session = new Session($encodedSessionId, $sessionData['nomor_identitas'], $sessionData['level']);
             return $session;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
@@ -27,15 +28,15 @@ class SessionManagerRepository
             if (!$token) {
                 return null;
             }
-
             $sessionData = $this->decodeToken($token, $secretKey);
-
             $session = new Session($sessionData['id'], $sessionData['nomor_identitas'], $sessionData['level']);
             return $session;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
+
+
 
 
     public function delete(): void
@@ -61,7 +62,7 @@ class SessionManagerRepository
     private function decodeToken(string $token, string $secretKey): array
     {
         list($encodedPayload, $encodedSignature) = explode('.', $token, 2);
-
+        die($encodedPayload);
         $payload = json_decode(base64_decode($encodedPayload), true);
         $signature = base64_decode($encodedSignature);
         if ($signature !== base64_decode($encodedSignature)) {

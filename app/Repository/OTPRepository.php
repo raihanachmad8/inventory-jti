@@ -1,5 +1,5 @@
-<?php
 
+<?php
 class OTPRepository
 {
     private PDO $connection;
@@ -9,17 +9,20 @@ class OTPRepository
         $this->connection = $connection;
     }
 
-    public function createOTP(string $userId, string $otpCode, DateTime $expired): bool
+    public function createOTP(string $userId, string $otpCode): bool
     {
         try {
+            DB::connect()->beginTransaction();
             $sql = "INSERT INTO OTP (ID_OTP, ID_Pengguna, Kode, Expired) VALUES (:idOTP, :userId, :otpCode, DATE_ADD(NOW(), INTERVAL 5 MINUTE))";
             $statement = $this->connection->prepare($sql);
             $statement->bindParam(':idOTP', base64_encode(random_bytes(4). '-' . base64_encode(random_bytes(8))));
             $statement->bindParam(':userId', $userId);
             $statement->bindParam(':otpCode', $otpCode);
             $statement->execute();
+            DB::connect()->commit();
             return $statement->rowCount() > 0;
         } catch (PDOException $e) {
+            DB::connect()->rollBack();
             throw new Exception($e->getMessage());
         }
     }
@@ -27,8 +30,8 @@ class OTPRepository
     public function getOTP(string $userId, string $otpCode): ?array
     {
         try {
-            DB::connect()->beginTransaction();
             $this->deleteExpiredOTP();
+
             $sql = "SELECT * FROM OTP WHERE ID_Pengguna = :userId AND Kode = :otpCode";
             $statement = $this->connection->prepare($sql);
             $statement->bindParam(':userId', $userId);
@@ -36,10 +39,8 @@ class OTPRepository
             $statement->execute();
 
             $otp = $statement->fetch(PDO::FETCH_ASSOC);
-            DB::connect()->commit();
             return $otp ? $otp : null;
         } catch (PDOException $e) {
-            DB::connect()->rollBack();
             throw new Exception($e->getMessage());
         }
     }
@@ -47,15 +48,12 @@ class OTPRepository
     public function deleteOTP(string $userId): bool
     {
         try {
-            DB::connect()->beginTransaction();
             $sql = "DELETE FROM OTP WHERE ID_Pengguna = :userId";
             $statement = $this->connection->prepare($sql);
             $statement->bindParam(':userId', $userId);
             $statement->execute();
-            DB::connect()->commit();
             return $statement->rowCount() > 0;
         } catch (PDOException $e) {
-            DB::connect()->rollBack();
             throw new Exception($e->getMessage());
         }
     }
@@ -71,5 +69,4 @@ class OTPRepository
             throw new Exception($e->getMessage());
         }
     }
-
 }
