@@ -19,6 +19,6 @@ class AdminController
 
   public function riwayat()
   {
-    return View::renderView('admin/riwayat/riwayat');
+    return View::renderView('admin/riwayat-peminjaman/riwayat-peminjaman');
   }
 }
