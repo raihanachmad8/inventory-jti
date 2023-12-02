@@ -16,6 +16,6 @@ Router::get('/riwayat', [UserController::class, 'riwayat']);
 Router::get('/admin', [AdminController::class, 'dashboard']);
 Router::get('/admin/data-peminjaman', [AdminController::class, 'dataPeminjaman']);
 Router::get('/admin/inventarisir', [AdminController::class, 'inventarisir']);
-Router::get('/admin/riwayat-peminjaman', [AdminController::class, 'riwayatPeminjaman']);
+Router::get('/admin/riwayat-peminjaman', [AdminController::class, 'riwayat']);
 
 Router::run();
