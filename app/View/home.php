@@ -69,7 +69,7 @@
 </div>
 
 <!-- Gambar -->
-<div id="home" class="image-container vh-100 overflow-hidden">
+<div id="home" class="mx-auto image-container vh-100 overflow-hidden">
     <img src="/public/assets/image/bg-landingpage.png" alt="Gambar" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover" />
     <div class="text-over-image">
         <h1>Selamat Datang di Website Inventaris JTI POLINEMA !</h1>
