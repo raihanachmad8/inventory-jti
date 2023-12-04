@@ -6,8 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    Hello
-
     <a href="/users/login">login</a>
 </body>
 </html>

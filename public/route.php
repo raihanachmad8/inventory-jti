@@ -12,7 +12,9 @@ require_once __DIR__ . '/../app/Middleware/GuestOnlyMiddleware.php';
 
 // Controllers
 require_once __DIR__ . '/../app/Controllers/HomeController.php';
-require_once __DIR__ . '/../app/Controllers/DashboardController.php';
+require_once __DIR__ . '/../app/Controllers/AdminController.php';
+require_once __DIR__ . '/../app/Controllers/UserController.php';
+/* require_once __DIR__ . '/../app/Controllers/DashboardController.php';
 require_once __DIR__ . '/../app/Controllers/PeminjamanController.php';
 require_once __DIR__ . '/../app/Controllers/RiwayatController.php';
 require_once __DIR__ . '/../app/Controllers/DashboardAdminController.php';
@@ -20,7 +22,7 @@ require_once __DIR__ . '/../app/Controllers/DataPeminjamanAdminController.php';
 require_once __DIR__ . '/../app/Controllers/InventarisirController.php';
 require_once __DIR__ . '/../app/Controllers/RiwayatPeminjamanController.php';
 require_once __DIR__ . '/../app/Controllers/UserController.php';
-require_once __DIR__ . '/../app/Controllers/InventoryController.php';
+require_once __DIR__ . '/../app/Controllers/InventoryController.php'; */
 
 Router::route('GET', '/', [HomeController::class, 'index']);
 Router::get('/about', [HomeController::class, 'about']);
