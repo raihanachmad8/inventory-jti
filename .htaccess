@@ -8,5 +8,8 @@
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ public/route.php [L]
+
+    # Redirect all requests to the public folder
+    RewriteRule ^$ public/ [L]
+    RewriteRule (.*) public/$1 [L]
 </IfModule>
