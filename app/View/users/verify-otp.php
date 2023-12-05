@@ -1,5 +1,16 @@
-<h1><?= $model['title'] ?? 'Verification Code' ?></h1>
-<form action="/users/register/verification?id_pengguna=<?= $_GET['id_pengguna'] ?>" method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <?php View::getFlashData();?>
+
+
+<h1><?= $model['title'] ?? 'Verification Code lo' ?></h1>
+<form action="/users/register/verification?ID_Pengguna=<?= $_GET['ID_Pengguna'] ?>&Email=<?= $_GET['Email']?>&o=<?= $_GET['o']?>" method="post">
     <input type="number" name="code_1" id="code_1" maxlength="1" pattern="[0-9]" onfocus="clearInput(this)" oninput="moveToNextInput(this)" style="-moz-appearance: textfield; width: 50px;" >
     <input type="number" name="code_2" id="code_2" maxlength="1" pattern="[0-9]" onfocus="clearInput(this)" oninput="moveToNextInput(this)" style="-moz-appearance: textfield; width: 50px;">
     <input type="number" name="code_3" id="code_3" maxlength="1" pattern="[0-9]" onfocus="clearInput(this)" oninput="moveToNextInput(this)" style="-moz-appearance: textfield; width: 50px;">
@@ -9,7 +20,7 @@
     <button type="submit">Send</button>
 </form>
 
-<a href="/users/register/resend-verification?id_pengguna=<?= $_GET['id_pengguna'] ?>">Resend OTP</a>
+<a href="/users/register/resend-verification?ID_Pengguna=<?= $_GET['ID_Pengguna'] ?>&Email=<?= $_GET['Email']?>">Resend OTP</a>
 
 <script>
     function clearInput(input) {
@@ -32,3 +43,6 @@
         }
     }
 </script>
+
+</body>
+</html>

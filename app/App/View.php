@@ -21,6 +21,16 @@ class View implements ViewInterface
         }
     }
 
+    public static function renderPage(string $page): void
+    {
+        $viewPath = __DIR__ . '/../View/' . $page . '.php';
+        if (file_exists($viewPath)) {
+            require_once $viewPath;
+        } else {
+            View::render404(null, "Page not found");
+        }
+    }
+
     public static function render404($path = null, $message = null) {
         $path404 =  __DIR__ . '/../View/' . ($path ?? '404') . '.php';
             if (file_exists($path404)) {
@@ -79,9 +89,14 @@ class View implements ViewInterface
         'footer' => 'footer'
     ], array $model = []): void
     {
-        require_once __DIR__ . "/../View/" . $view['header'] . ".php";
-        require_once __DIR__ . "/../View/" . $view['view'] . ".php";
-        require_once __DIR__ . "/../View/" . $view['footer'].".php";
+        $viewPath = __DIR__ . '/../View/' . $view . '.php';
+        if (file_exists($viewPath)) {
+            require_once __DIR__ . '/../View/' . $view['header'] . '.php';
+            require_once __DIR__ . '/../View/' . $view['view'] . '.php';
+            require_once __DIR__ . '/../View/' . $view['footer'] . '.php';
+        } else {
+            View::render404(null, "Page not found");
+        }
     }
 
 

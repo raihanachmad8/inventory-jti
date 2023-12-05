@@ -1,11 +1,12 @@
 <?php
 
+
 class UserResponse
 {
-    public User $user;
+    public Pengguna $pengguna;
 
-    public function __construct(User $user)
+    public function __construct(Pengguna $pengguna)
     {
-        $this->user = $user;
+        $this->pengguna = $pengguna;
     }
 }

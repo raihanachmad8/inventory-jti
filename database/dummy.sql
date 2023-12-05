@@ -1,3 +1,4 @@
+-- Active: 1669815006177@@127.0.0.1@3306@inventory_jti
 USE inventory_jti;
 
 INSERT INTO Level (ID_Level, Nama) VALUES
@@ -17,14 +18,7 @@ INSERT INTO Kategori (ID_Kategori, Nama) VALUES
 	('K1', 'Peralatan'),
 	('K2', 'Elektronik'),
 	('K3', 'ATK');
-DELETE FROM Pengguna WHERE Email = "someone@gmail.com";
 
-SELECT * FROM pengguna;
-SELECT * FROM OTP;
-DELETE FROM OTP;
-;
-
-DELETE FROM OTP;
 INSERT INTO Pengguna (ID_Pengguna, ID_Level, Nomor_Identitas, Password, Nama, Email, Nomor_HP, Foto, Status, Salt) VALUES
 	('P1', 'L2', '404079101', '$2y$10$yqNUmO1/7VmSSSFs08Whh.rt.mdDSy7/rwRy2YBsmuf8yMHr.K3Dq', 'Ade Ismail', 'AdeIsmail@polinema.ac.id', '82182', NULL, 'Aktif', 'dnaqdkn'), -- password: adei
 	('P2', 'L3', '2241720220', '$2y$10$Ri8hZ/.0L4SGseYP4qRCAOVZ5b0jKj9DXCGnBwXAn.BswlApv0/AC', 'Putra Zakaria', 'PutraZakaria@polinema.ac.id', '82183', NULL, 'Tidak Aktif', 'hdgjdf'), -- password: putraz
@@ -74,3 +68,6 @@ INSERT INTO DetailTransaksi (ID_DetailTrc, ID_Transaksi, ID_Inventaris, Jumlah) 
 	('DT1', 'T1', 'I3', '10'),
 	('DT2', 'T1', 'I4', '10'),
 	('DT3', 'T1', 'I5', '1');
+
+
+    select * from pengguna;

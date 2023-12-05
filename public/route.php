@@ -20,10 +20,8 @@ require_once __DIR__ . '/../app/Controllers/DataPeminjamanAdminController.php';
 require_once __DIR__ . '/../app/Controllers/InventarisirController.php';
 require_once __DIR__ . '/../app/Controllers/RiwayatPeminjamanController.php';
 require_once __DIR__ . '/../app/Controllers/UserController.php';
-require_once __DIR__ . '/../app/Controllers/InventoryController.php';
 
-Router::route('GET', '/', [HomeController::class, 'index']);
-Router::get('/about', [HomeController::class, 'about']);
+
 Router::get('/dashboard', [DashboardController::class, 'index']);
 Router::get('/peminjaman', [PeminjamanController::class, 'index']);
 Router::get('/riwayat', [RiwayatController::class, 'index']);
@@ -52,7 +50,7 @@ Router::post('/users/forgot', [UserController::class, 'forgot']);
 // Router User Forgot Password Verification
 Router::get('/users/forgot/verification', [UserController::class, 'forgotVerifyForm']);
 Router::post('/users/forgot/verification', [UserController::class, 'forgotVerify']);
-Router::get('/users/forgot/resend-verification', [UserController::class, 'forgotVerify']);
+Router::get('/users/forgot/resend-verification', [UserController::class, 'forgotVerifyResend']);
 // Router User Reset Password
 Router::get('/users/forgot/reset', [UserController::class, 'forgotResetForm']);
 Router::post('/users/forgot/reset', [UserController::class, 'forgotReset']);

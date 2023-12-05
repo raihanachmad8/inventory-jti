@@ -11,13 +11,13 @@ class SessionManagerService
         $this->secretKey = env('APP_KEY');
     }
 
-    public function create(string $userId, string $nomor_identitas, $level): Session
+    public function create(string $userId, string $Nomor_Identitas, string $level): Session
     {
         try {
             $sessionId = $userId;
             $session = [
                 'id' => $sessionId,
-                'nomor_identitas' => $nomor_identitas,
+                'Nomor_Identitas' => $Nomor_Identitas,
                 'level' => $level
             ];
             return $this->sessionManagerRepository->save($sessionId, $session, $this->secretKey);
@@ -41,7 +41,7 @@ class SessionManagerService
     public function destroy(string $userId): void
     {
         try {
-            $this->sessionManagerRepository->delete($userId);
+            $this->sessionManagerRepository->destroy($userId);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

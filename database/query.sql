@@ -6,23 +6,23 @@ CREATE DATABASE IF NOT EXISTS inventory_jti;
 USE inventory_jti;
 
 CREATE TABLE Level (
-    ID_Level VARCHAR(10) PRIMARY KEY,
+    ID_Level VARCHAR(50) PRIMARY KEY,
     Nama VARCHAR(15)
 );
 
 CREATE TABLE Status (
-    ID_Status VARCHAR(10) PRIMARY KEY,
+    ID_Status VARCHAR(50) PRIMARY KEY,
     Nama VARCHAR(15)
 );
 
 CREATE TABLE Kategori (
-    ID_Kategori VARCHAR(10) PRIMARY KEY,
+    ID_Kategori VARCHAR(50) PRIMARY KEY,
     Nama VARCHAR(15)
 );
 
 CREATE TABLE Pengguna (
     ID_Pengguna VARCHAR(50) PRIMARY KEY,
-    ID_Level VARCHAR(10),
+    ID_Level VARCHAR(50),
     Nomor_Identitas VARCHAR(20),
     Password VARCHAR(200),
     Nama VARCHAR(100),
@@ -35,7 +35,7 @@ CREATE TABLE Pengguna (
 );
 
 CREATE TABLE OTP (
-    ID_OTP VARCHAR(10) PRIMARY KEY,
+    ID_OTP VARCHAR(50) PRIMARY KEY,
     ID_Pengguna VARCHAR(50),
     Kode CHAR(6),
     Expired DATETIME,
@@ -48,10 +48,10 @@ CREATE TABLE Maintainer (
 );
 
 CREATE TABLE Inventaris (
-    ID_Inventaris VARCHAR(10) PRIMARY KEY,
+    ID_Inventaris VARCHAR(50) PRIMARY KEY,
     Nama VARCHAR(100),
     Stok INT,
-    ID_Kategori VARCHAR(10),
+    ID_Kategori VARCHAR(50),
     Asal ENUM('HIBAH', 'BELI'),
     Deskripsi TEXT,
     Gambar VARCHAR(50),
@@ -59,18 +59,18 @@ CREATE TABLE Inventaris (
 );
 
 CREATE TABLE MaintainerInventaris (
-    ID_Maintainer VARCHAR(10),
-    ID_Inventaris VARCHAR(10),
+    ID_Maintainer VARCHAR(50),
+    ID_Inventaris VARCHAR(50),
     PRIMARY KEY (ID_Maintainer, ID_Inventaris),
     FOREIGN KEY (ID_Maintainer) REFERENCES Maintainer(ID_Maintainer),
     FOREIGN KEY (ID_Inventaris) REFERENCES Inventaris(ID_Inventaris)
 );
 
 CREATE TABLE Transaksi (
-    ID_Transaksi VARCHAR(10) PRIMARY KEY,
-    ID_Pengguna VARCHAR(10),
-    ID_Admin VARCHAR(10),
-    ID_Status VARCHAR(10),
+    ID_Transaksi VARCHAR(50) PRIMARY KEY,22
+    ID_Pengguna VARCHAR(50),
+    ID_Admin VARCHAR(50),
+    ID_Status VARCHAR(50),
     StartDate DATETIME,
     EndDate DATETIME,
     Deskripsi_Keperluan TEXT,
@@ -81,9 +81,9 @@ CREATE TABLE Transaksi (
     FOREIGN KEY (ID_Status) REFERENCES Status(ID_Status)
 );
 CREATE TABLE DetailTransaksi (
-    ID_DetailTrc VARCHAR(10) PRIMARY KEY,
-    ID_Transaksi VARCHAR(10),
-    ID_Inventaris VARCHAR(10),
+    ID_DetailTrc VARCHAR(50) PRIMARY KEY,
+    ID_Transaksi VARCHAR(50),
+    ID_Inventaris VARCHAR(50),
     Jumlah INT,
     FOREIGN KEY (ID_Transaksi) REFERENCES Transaksi(ID_Transaksi),
     FOREIGN KEY (ID_Inventaris) REFERENCES Inventaris(ID_Inventaris)

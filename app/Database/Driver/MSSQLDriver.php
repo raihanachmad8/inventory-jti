@@ -1,7 +1,7 @@
 <?php
 
 
-class MSSQLDriver implements DatabaseDriver
+class MSSQLDriver
 {
     private static ?PDO $connection = null;
 
