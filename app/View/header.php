@@ -30,6 +30,7 @@ function user_role()
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,7 +42,7 @@ function user_role()
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body style="background-color: #ececec">
-    <!-- <div style="position:absolute; top: 50px; z-index:30; font-size:xx-large"><?php View::getFlashData();?></div>
+    <div style="position:absolute; top: 50px; z-index:30; font-size:xx-large"><?php View::getFlashData();?></div>
     <div class="d-flex vw-100 h-auto">
         <!-- Side Bar -->
         <div class="sidebar duration-300 d-flex flex-column gap-5 bg-white container-fluid p-4 vh-100 d-none d-xl-flex">
@@ -121,4 +122,7 @@ function user_role()
                         </div>
                     </div>
                 </div>
-            </header> -->
+            <
+            </header>
+
+
