@@ -88,3 +88,7 @@ CREATE TABLE DetailTransaksi (
     FOREIGN KEY (ID_Transaksi) REFERENCES Transaksi(ID_Transaksi),
     FOREIGN KEY (ID_Inventaris) REFERENCES Inventaris(ID_Inventaris)
 );
+
+
+SELECT * FROM Inventaris;
+use inventory_jti;

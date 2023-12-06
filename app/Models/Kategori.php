@@ -2,7 +2,7 @@
 
 class Kategori
 {
-    private string $ID_Kategori;
+    public string $ID_Kategori;
     public string $Nama;
 
     public function __construct(array $kategori)

@@ -119,8 +119,6 @@ class View implements ViewInterface
     }
 
     public static function getFlashData() {
-        session_start();
-
         if (isset($_SESSION['error'])) {
             $errorMessage = $_SESSION['error'];
             echo '<div style="background-color: #ffcccc; padding: 10px;">' . $errorMessage . '</div>';

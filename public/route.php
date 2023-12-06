@@ -27,7 +27,6 @@ Router::get('/peminjaman', [PeminjamanController::class, 'index']);
 Router::get('/riwayat', [RiwayatController::class, 'index']);
 Router::get('/admin', [DashboardAdminController::class, 'index']);
 Router::get('/admin/data-peminjaman', [DataPeminjamanAdminController::class, 'index']);
-Router::get('/admin/inventarisir', [InventarisirController::class, 'index']);
 Router::get('/admin/riwayat-peminjaman', [RiwayatPeminjamanController::class, 'index']);
 
 
@@ -60,7 +59,16 @@ Router::post('/users/forgot/reset', [UserController::class, 'forgotReset']);
 Router::get('/users/logout', [UserController::class, 'logout'], [AuthOnlyMiddleware::class]);
 
 
-Router::get('/inventory/dashboard', [InventoryController::class, 'dashboard'], [AuthOnlyMiddleware::class]);
+// Router Inventarisir
+Router::get('/admin/inventarisir', [InventarisirController::class, 'index']);
+Router::post('/api/inventarisir', [InventarisirController::class, 'show']);
+Router::delete('/api/inventarisir', [InventarisirController::class, 'delete']);
 
+Router::get('/admin/inventarisir/form', [InventarisirController::class, 'createForm']);
+Router::post('/admin/inventarisir/formPost', [InventarisirController::class, 'createPost']);
+Router::post('/admin/inventarisir/updatePost', [InventarisirController::class, 'updatePost']);
+
+Router::post('/api/inventarisir/update', [InventarisirController::class, 'update']);
+Router::post('/admin/inventarisir/delete', [InventarisirController::class, 'delete']);
 
 Router::run();

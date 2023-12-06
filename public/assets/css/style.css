@@ -129,6 +129,7 @@ ul {
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 1rem 1rem;
+    width: -moz-fit-content;
     width: fit-content;
 }
 
@@ -421,6 +422,7 @@ main.main-container {
 
 @media only screen and (min-width: 768px) {
     div.logo-container {
+        width: -moz-fit-content;
         width: fit-content;
     }
 
@@ -438,6 +440,7 @@ main.main-container {
     }
 
     header > .header-logo {
+        width: -moz-fit-content;
         width: fit-content;
         padding: 0.5rem;
     }

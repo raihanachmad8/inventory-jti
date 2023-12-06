@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/Validation.php';
 
-class ImageValidator extends Validation
+class ImageValidation extends Validation
 {
     private array $allowedExtensions = ['jpg', 'jpeg', 'png'];
     private int $maxSize = 5 * 1024 * 1024;

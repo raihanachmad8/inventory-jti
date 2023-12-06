@@ -7,7 +7,7 @@ class Inventaris
     const ASAL_HIBAH = 'HIBAH';
     const ASAL_BELI = 'BELI';
 
-    private string $ID_Inventaris;
+    public string $ID_Inventaris;
     public string $Nama;
     public string $Stok;
     private string $ID_Kategori;
@@ -42,10 +42,10 @@ class Inventaris
             'ID_Inventaris' => $this->ID_Inventaris,
             'Nama' => $this->Nama,
             'Stok' => $this->Stok,
-            'ID_Kategori' => $this->Kategori->getID(),
+            'ID_Kategori' => $this->ID_Kategori,
             'Asal' => $this->Asal,
             'Deskripsi' => $this->Deskripsi,
-            'Gambar' => $this->Gambar
+            'Gambar' => $this->Gambar ?? null,
         ];
     }
 

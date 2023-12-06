@@ -70,7 +70,7 @@ class InventarisValidation extends Validation
         return $this;
     }
 
-    private function validateIDInventaris()
+    public function validateIDInventaris()
     {
         if (strlen($this->request['ID_Inventaris']) < 1) {
             $this->addError('ID_Inventaris', 'ID Inventaris must be valid');
@@ -81,7 +81,7 @@ class InventarisValidation extends Validation
         }
     }
 
-    private function validateNama()
+    public function validateNama()
     {
         if (strlen($this->request['Nama']) < 1) {
             $this->addError('Nama', 'Nama must be valid');
@@ -92,7 +92,7 @@ class InventarisValidation extends Validation
         }
     }
 
-    private function validateStok()
+    public function validateStok()
     {
         if (strlen($this->request['Stok']) < 0) {
             $this->addError('Stok', 'Stok must not be negative');
@@ -103,21 +103,21 @@ class InventarisValidation extends Validation
         }
     }
 
-    private function validateIDKategori()
+    public function validateIDKategori()
     {
         if (strlen($this->request['ID_Kategori']) < 1) {
             $this->addError('ID_Kategori', 'ID Kategori must be valid');
         }
     }
 
-    private function validateAsal()
+    public function validateAsal()
     {
         if (!in_array($this->request['Asal'], [self::ASAL_HIBAH, self::ASAL_BELI])) {
             $this->addError('Asal', 'Asal inventaris tidak valid');
         }
     }
 
-    private function validateDeskripsi()
+    public function validateDeskripsi()
     {
         if (strlen($this->request['Deskripsi']) < 1) {
             $this->addError('Deskripsi', 'Deskripsi must be valid');

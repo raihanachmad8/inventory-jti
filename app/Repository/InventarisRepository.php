@@ -89,22 +89,22 @@ class InventarisRepository
     public function insert(Inventaris $inventaris): bool
     {
         try {
-            $statement = $this->connection->prepare("INSERT INTO Inventaris (ID_Inventaris, Nama, Stok, ID_Kategori, Asal, Deskripsi) VALUES (:ID_Inventaris, :Nama, :Stok, :ID_Kategori, :Asal, :Deskripsi)");
+            $statement = $this->connection->prepare("INSERT INTO Inventaris (ID_Inventaris, Nama, Stok, ID_Kategori, Asal, Deskripsi, Gambar) VALUES (:ID_Inventaris, :Nama, :Stok, :ID_Kategori, :Asal, :Deskripsi, :Gambar)");
             $statement->execute($inventaris->toArray());
             return $statement->rowCount() > 0;
         } catch (PDOException $e) {
-            return false;
+            throw new Exception($e->getMessage());
         }
     }
 
     public function update(Inventaris $inventaris): bool
     {
         try {
-            $statement = $this->connection->prepare("UPDATE Inventaris SET Nama = :Nama, Stok = :Stok, ID_Kategori = :ID_Kategori, Asal = :Asal, Deskripsi = :Deskripsi WHERE ID_Inventaris = :ID_Inventaris");
+            $statement = $this->connection->prepare("UPDATE Inventaris SET Nama = :Nama, Stok = :Stok, ID_Kategori = :ID_Kategori, Asal = :Asal, Deskripsi = :Deskripsi, Gambar = :Gambar WHERE ID_Inventaris = :ID_Inventaris");
             $statement->execute($inventaris->toArray());
             return $statement->rowCount() > 0;
         } catch (PDOException $e) {
-            return false;
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -152,7 +152,7 @@ class InventarisRepository
             $statement->execute();
             return $statement->rowCount() > 0;
         } catch (PDOException $e) {
-            return false;
+            throw new Exception($e->getMessage());
         }
     }
 

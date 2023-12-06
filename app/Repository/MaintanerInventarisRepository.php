@@ -1,18 +1,20 @@
 <?php
 
 require_once __DIR__ . '/../Models/Inventaris.php';
-require_once __DIR__ . '/../Models/Maintaner.php';
-require_once __DIR__ . '/../Models/MaintanerInventaris.php';
+require_once __DIR__ . '/../Models/Maintainer.php';
+require_once __DIR__ . '/../Models/MaintainerInventaris.php';
+require_once __DIR__ . '/../Repository/MaintainerRepository.php';
+require_once __DIR__ . '/../Repository/InventarisRepository.php';
 
-class MaintanerInventarisRepository
+class MaintainerInventarisRepository
 {
     private PDO $connection;
-    private MaintanerRepository $MaintanerRepository;
+    private MaintainerRepository $MaintainerRepository;
     private InventarisRepository $InventarisRepository;
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
-        $this->MaintanerRepository = new MaintanerRepository($connection);
+        $this->MaintainerRepository = new MaintainerRepository($connection);
         $this->InventarisRepository = new InventarisRepository($connection);
     }
 
@@ -20,80 +22,105 @@ class MaintanerInventarisRepository
     {
         try {
             $query = "
-            SELECT * FROM MaintanerInventaris
-            INNER JOIN Maintaner ON MaintanerInventaris.ID_Maintaner = Maintaner.ID_Maintaner
-            INNER JOIN Inventaris ON MaintanerInventaris.ID_Inventaris = Inventaris.ID_Inventaris";
+            SELECT Maintainer.ID_Maintainer, Maintainer.Nama as Nama_Maintainer, Inventaris.Nama as Nama_Barang, Inventaris.*, Kategori.*
+            FROM Maintainer
+            INNER JOIN MaintainerInventaris ON Maintainer.ID_Maintainer = MaintainerInventaris.ID_Maintainer
+            INNER JOIN Inventaris ON MaintainerInventaris.ID_Inventaris = Inventaris.ID_Inventaris
+            INNER JOIN Kategori ON Inventaris.ID_Kategori = Kategori.ID_Kategori
+            ";
             $statement = $this->connection->prepare($query);
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            $maintanerInventaris = [];
+            $maintainerInventaris = [];
             if ($result) {
-                foreach ($result as $maintanerInventari) {
-                    $inventaris = new Inventaris($maintanerInventari);
-                    $maintaner = new Maintaner($maintanerInventari);
-                    $maintanerInventaris[] = new MaintanerInventaris($maintaner, $inventaris);
+                foreach ($result as $maintainerInventari) {
+                    $maintainer = new Maintainer($maintainerInventari);
+                    $inventaris = new Inventaris($maintainerInventari);
+                    $inventaris->Nama = $maintainerInventari['Nama_Barang'];
+                    $inventaris->Kategori = new Kategori($maintainerInventari);
+                    $maintainerInventaris[] = new MaintainerInventaris($maintainer, $inventaris);
                 }
             }
-            return $maintanerInventaris;
+            return $maintainerInventaris;
         } catch (PDOException $e) {
-            return null;
+            throw new Exception('Terjadi kesalahan saat mengambil data maintainer dan inventaris');
         }
     }
 
     public function get(
-        ?string $ID_Maintaner = null,
+        ?string $ID_Maintainer = null,
         ?string $ID_Inventaris = null,
-    ): ?MaintanerInventaris {
+    ): ?MaintainerInventaris
+    {
         try {
-            $sql = "SELECT * FROM MaintanerInventaris WHERE 1";
-            if ($ID_Maintaner) {
-                $sql .= " AND ID_Maintaner = :ID_Maintaner";
+            $query = "
+                SELECT Maintainer.ID_Maintainer, Maintainer.Nama as Nama_Maintainer, Inventaris.Nama as Nama_Inventaris, Inventaris.*, Kategori.*
+                FROM Maintainer
+                INNER JOIN MaintainerInventaris ON Maintainer.ID_Maintainer = MaintainerInventaris.ID_Maintainer
+                INNER JOIN Inventaris ON MaintainerInventaris.ID_Inventaris = Inventaris.ID_Inventaris
+                INNER JOIN Kategori ON Inventaris.ID_Kategori = Kategori.ID_Kategori
+                WHERE 1
+            ";
+
+            if ($ID_Maintainer !== null) {
+                $query .= " AND Maintainer.ID_Maintainer = :ID_Maintainer";
             }
-            if ($ID_Inventaris) {
-                $sql .= " AND ID_Inventaris = :ID_Inventaris";
+
+            if ($ID_Inventaris !== null) {
+                $query .= " AND Inventaris.ID_Inventaris = :ID_Inventaris";
             }
-            $statement = $this->connection->prepare($sql);
-            if ($ID_Maintaner) {
-                $statement->bindParam('ID_Maintaner', $ID_Maintaner);
+
+            $statement = $this->connection->prepare($query);
+
+            if ($ID_Maintainer !== null) {
+                $statement->bindParam('ID_Maintainer', $ID_Maintainer);
             }
-            if ($ID_Inventaris) {
+
+            if ($ID_Inventaris !== null) {
                 $statement->bindParam('ID_Inventaris', $ID_Inventaris);
             }
             $statement->execute();
             $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-            if ($result) {
-                $inventaris = $this->InventarisRepository->get($result['ID_Inventaris']);
-                $maintaner = $this->MaintanerRepository->get($result['ID_Maintaner']);
-                return new MaintanerInventaris($maintaner, $inventaris);
-            } else {
+            if (!$result) {
                 return null;
             }
+
+            $inventaris = new Inventaris($result);
+            $inventaris->Nama = $result['Nama_Inventaris'];
+            $maintainer = new Maintainer($result);
+            $inventaris->Kategori = new Kategori($result);
+
+            return new MaintainerInventaris($maintainer, $inventaris);
         } catch (PDOException $e) {
-            throw $e;
-        } catch (Exception $e) {
-            throw $e;
+            throw new Exception('Terjadi kesalahan saat mengambil data detail maintainer dan inventaris');
         }
     }
 
-    public function insert(MaintanerInventaris $maintanerInventaris): bool
+    public function insert(string $ID_Inventaris, string $ID_Maintainer): bool
     {
         try {
-            $sql = "INSERT INTO MaintanerInventaris (ID_Maintaner, ID_Inventaris) VALUES (:ID_Maintaner, :ID_Inventaris)";
+            $sql = "INSERT INTO MaintainerInventaris (ID_Maintainer, ID_Inventaris) VALUES (:ID_Maintainer, :ID_Inventaris)";
             $statement = $this->connection->prepare($sql);
-            $statement->execute($maintanerInventaris->toArray());
+            $statement->execute([
+                'ID_Maintainer' => $ID_Maintainer,
+                'ID_Inventaris' => $ID_Inventaris,
+            ]);
             return $statement->rowCount() > 0;
         } catch (PDOException $e) {
             throw $e;
         }
     }
 
-    public function update(MaintanerInventaris $maintanerInventaris): bool
+    public function update(string $ID_Inventaris, string $ID_Maintainer): bool
     {
         try {
-            $sql = "UPDATE MaintanerInventaris SET ID_Maintaner = :ID_Maintaner, ID_Inventaris = :ID_Inventaris WHERE ID_Maintaner = :ID_Maintaner AND ID_Inventaris = :ID_Inventaris";
+            $sql = "UPDATE MaintainerInventaris SET ID_Maintainer = :ID_Maintainer WHERE ID_Inventaris = :ID_Inventaris";
             $statement = $this->connection->prepare($sql);
-            $statement->execute($maintanerInventaris->toArray());
+            $statement->execute([
+                'ID_Maintainer' => $ID_Maintainer,
+                'ID_Inventaris' => $ID_Inventaris,
+            ]);
             return $statement->rowCount() > 0;
         } catch (PDOException $e) {
             throw $e;
@@ -101,20 +128,20 @@ class MaintanerInventarisRepository
     }
 
     public function delete(
-        ?string $ID_Maintaner = null,
+        ?string $ID_Maintainer = null,
         ?string $ID_Inventaris = null,
     ): bool {
         try {
-            $sql = "DELETE FROM MaintanerInventaris WHERE 1";
-            if ($ID_Maintaner) {
-                $sql .= " AND ID_Maintaner = :ID_Maintaner";
+            $sql = "DELETE FROM MaintainerInventaris WHERE 1";
+            if ($ID_Maintainer) {
+                $sql .= " AND ID_Maintainer = :ID_Maintainer";
             }
             if ($ID_Inventaris) {
                 $sql .= " AND ID_Inventaris = :ID_Inventaris";
             }
             $statement = $this->connection->prepare($sql);
-            if ($ID_Maintaner) {
-                $statement->bindParam('ID_Maintaner', $ID_Maintaner);
+            if ($ID_Maintainer) {
+                $statement->bindParam('ID_Maintainer', $ID_Maintainer);
             }
             if ($ID_Inventaris) {
                 $statement->bindParam('ID_Inventaris', $ID_Inventaris);
@@ -128,29 +155,8 @@ class MaintanerInventarisRepository
         }
     }
 
-    public function getMaintanerWithInventaris(string $ID_Maintaner): array
-    {
-        try {
-            $sql = "SELECT * FROM MaintanerInventaris WHERE ID_Maintaner = :ID_Maintaner";
-            $statement = $this->connection->prepare($sql);
-            $statement->bindParam('ID_Maintaner', $ID_Maintaner);
-            $statement->execute();
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            $maintanerInventaris = [];
-            if ($result) {
-                foreach ($result as $maintanerInventari) {
-                    $inventaris = $this->InventarisRepository->get($maintanerInventari['ID_Inventaris']);
-                    $maintaner = $this->MaintanerRepository->get($maintanerInventari['ID_Maintaner']);
-                    $maintanerInventaris[] = new MaintanerInventaris($maintaner, $inventaris);
-                }
-            }
-            return $maintanerInventaris;
-        } catch (PDOException $e) {
-            return null;
-        }
-    }
 
-    public function getMaintanerInventarisWithFilter(
+    public function getMaintainerInventarisWithFilter(
         ?string $keyword = null,
         ?string $groupby = null,
         ?string $orderby = null,
@@ -159,10 +165,10 @@ class MaintanerInventarisRepository
         ?int $offset = null
     ): ?array {
         try {
-            $sql = "SELECT * FROM MaintanerInventaris WHERE 1";
+            $sql = "SELECT * FROM MaintainerInventaris WHERE 1";
 
             if ($keyword !== null) {
-                $sql .= " AND (ID_Maintaner LIKE :keyword OR ID_Inventaris LIKE :keyword)";
+                $sql .= " AND (ID_Maintainer LIKE :keyword OR ID_Inventaris LIKE :keyword)";
                 $keyword = "%$keyword%";
             }
 
@@ -200,17 +206,35 @@ class MaintanerInventarisRepository
 
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-            $maintanerInventaris = [];
+            $maintainerInventaris = [];
             if ($result) {
-                foreach ($result as $maintanerInventari) {
-                    $inventaris = $this->InventarisRepository->get($maintanerInventari['ID_Inventaris']);
-                    $maintaner = $this->MaintanerRepository->get($maintanerInventari['ID_Maintaner']);
-                    $maintanerInventaris[] = new MaintanerInventaris($maintaner, $inventaris);
+                foreach ($result as $maintainerInventari) {
+                    $inventaris = $this->InventarisRepository->get($maintainerInventari['ID_Inventaris']);
+                    $maintainer = $this->MaintainerRepository->get($maintainerInventari['ID_Maintainer']);
+                    $maintainerInventaris[] = new MaintainerInventaris($maintainer, $inventaris);
                 }
             }
-            return $maintanerInventaris;
+            return $maintainerInventaris;
         } catch (PDOException $e) {
             return null;
+        }
+    }
+
+    public function getListMaintainer() : array
+    {
+        try {
+            return $this->MaintainerRepository->getAll();
+        } catch (PDOException $e) {
+            throw new Exception('Terjadi kesalahan saat mengambil data maintainer');
+        }
+    }
+
+    public function getListKategori()
+    {
+        try {
+            return $this->InventarisRepository->getAll();
+        } catch (PDOException $e) {
+            throw new Exception('Terjadi kesalahan saat mengambil data kategori');
         }
     }
 
