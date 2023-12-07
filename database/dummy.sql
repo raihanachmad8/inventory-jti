@@ -16,7 +16,7 @@ INSERT INTO Kategori (ID_Kategori, Nama) VALUES
 	('K2', 'Elektronik'),
 	('K3', 'ATK');
 
-INSERT INTO Pengguna (ID_Pengguna, ID_Level, Username, Password, Nama, Email, Nomor_HP, Foto) VALUES
+INSERT INTO Pengguna (ID_Pengguna, ID_Level, `Nomor_Identitas`, Password, Nama, Email, Nomor_HP, Foto) VALUES
 	('P1', 'L2', '404079101', 'adei', 'Ade Ismail', 'AdeIsmail@polinema.ac.id', '82182', 'profile1.png'),
 	('P2', 'L3', '2241720220', 'putraz', 'Putra Zakaria', 'PutraZakaria@polinema.ac.id', '82183', 'profile2.png'),
 	('P3', 'L2', '702108601', 'eloks', 'Elok Nur Hamdana', 'ElokNurHamdana@polinema.ac.id', '82184', 'profile3.png'),
@@ -41,6 +41,10 @@ INSERT INTO Inventaris (ID_Inventaris, Nama, Stok, ID_Kategori, Asal, Deskripsi,
 	('I5', 'Konektor Proyektor', '30', 'K2', 'Hibah', '-', 'inventaris5.png'),
 	('I6', 'Keyboard', '17', 'K2', 'Beli', '-', 'inventaris6.png'),
 	('I7', 'Mouse', '24', 'K2', 'Hibah', '-', 'inventaris7.png');
+
+INSERT INTO Inventaris (ID_Inventaris, Nama, Stok, ID_Kategori, Asal, Deskripsi, Gambar ) VALUES
+	('I8', 'Monitor', '10', 'K2', 'Hibah', '-', 'inventaris8.png');
+
 
 INSERT INTO Maintainer (ID_Maintainer, Nama) VALUES
 	('M1', 'Mas Woon'),

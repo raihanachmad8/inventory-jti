@@ -1,4 +1,4 @@
--- Active: 1669815006177@@127.0.0.1@3306@prakwebdb
+-- Active: 1683523504910@@127.0.0.1@3306@inventaris jti
 DROP DATABASE IF EXISTS peminjaman_inventaris;
 
 CREATE DATABASE IF NOT EXISTS peminjaman_inventaris;
@@ -23,7 +23,7 @@ CREATE TABLE Kategori (
 CREATE TABLE Pengguna (
     ID_Pengguna VARCHAR(50) PRIMARY KEY,
     ID_Level VARCHAR(10),
-    Username VARCHAR(100),
+    Nomor_Identitas VARCHAR(100),
     Password VARCHAR(200),
     Nama VARCHAR(100),
     Email VARCHAR(255),
