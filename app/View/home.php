@@ -450,93 +450,118 @@
     <h1 class="display-5 text-center " style="color: #074a81; font-weight: 700;">Frequently Asked Questions</h1>
     <div class="faq">
         <button class="accordion">
-            What is INTI?
+            Apakah itu INTI?
             <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="pannel">
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Suscipit
+                Inventaris Jurusan Teknologi Informasi (INTI) adalah sistem informasi berbasis website yang digunakan untuk 
+                meningkatkan efisiensi proses peminjaman dan pengembalian barang serta berfungsi untuk mengelola keakuratan 
+                data inventaris jurusan Teknologi Informasi Politeknik Negeri Malang.
             </p>
         </div>
     </div>
 
     <div class="faq">
         <button class="accordion">
-            What is INTI?
+            Apa saja syarat untuk melakukan peminjaman?
             <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="pannel">
             <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing
-                elit. Facilis saepe molestiae distinctio asperiores
-                cupiditate consequuntur dolor ullam, iure eligendi harum
-                eaque hic corporis debitis porro consectetur voluptate
-                rem officiis architecto.
+                Syarat untuk melakukan peminjaman barang inventaris adalah mahasiswa, dosen dan anggota aktif pada jurusan Teknologi Informasi.
             </p>
         </div>
     </div>
 
     <div class="faq">
         <button class="accordion">
-            What is INTI?
+            Bagaimana alur peminjaman untuk Mahasiswa?
             <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="pannel">
             <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing
-                elit. Facilis saepe molestiae distinctio asperiores
-                cupiditate consequuntur dolor ullam, iure eligendi harum
-                eaque hic corporis debitis porro consectetur voluptate
-                rem officiis architecto.
+                <ol>
+                    <li>Mahasiswa login pada sistem INTI.</li>
+                    <li>Memilih barang yang ingin dipinjam.</li>
+                    <li>Melakukan konfirmasi untuk barang-barang yang dipinjam.</li>
+                    <li>Mengisi alasan peminjaman, tanggal peminjaman dan pengembalian serta WAJIB mengisi jaminan peminjaman berupa scan KTM.</li>
+                    <li>Menunggu konfirmasi peminjaman yang dilakukan oleh teknisi.</li>
+                    <li>Setelah peminjaman dikonfirmasi, Mahasiswa dapat mengambil barang sesuai instruksi yang terdapat pada pesan yang ada pada detail peminjaman.</li>
+                    <li>Mengembalikan barang sesuai dengan tanggal pengembalian yang diisikan pada saat konfirmasi peminjaman.</li>
+                </ol>
             </p>
         </div>
     </div>
 
     <div class="faq">
         <button class="accordion">
-            What is INTI?
+            Bagaimana alur peminjaman untuk Dosen?
             <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="pannel">
             <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing
-                elit. Facilis saepe molestiae distinctio asperiores
-                cupiditate consequuntur dolor ullam, iure eligendi harum
-                eaque hic corporis debitis porro consectetur voluptate
-                rem officiis architecto.
+                <ol>
+                    <li>Dosen login pada sistem INTI.</li>
+                    <li>Memilih barang yang ingin dipinjam.</li>
+                    <li>Melakukan konfirmasi untuk barang-barang yang dipinjam.</li>
+                    <li>Mengisi alasan peminjaman, tanggal peminjaman dan pengembalian.</li>
+                    <li>Menunggu konfirmasi peminjaman yang dilakukan oleh teknisi.</li>
+                    <li>Setelah peminjaman dikonfirmasi, Dosen dapat mengambil barang sesuai instruksi yang terdapat pada pesan yang ada pada detail peminjaman.</li>
+                    <li>Mengembalikan barang sesuai dengan tanggal pengembalian yang diisikan pada saat konfirmasi peminjaman.</li>
+                </ol>
             </p>
         </div>
     </div>
 
     <div class="faq">
         <button class="accordion">
-            What is INTI?
+            Apa saja barang jurusan yang bisa dipinjam?
             <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="pannel">
             <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing
-                elit. Facilis saepe molestiae distinctio asperiores
-                cupiditate consequuntur dolor ullam, iure eligendi harum
-                eaque hic corporis debitis porro consectetur voluptate
-                rem officiis architecto.
+                Barang inventaris jurusan Teknologi Informasi yang dapat dipinjamkan terbagi menjadi 3 kategori, 
+                yaitu Peralatan (seperti Tang Crimping dan Obeng), 
+                Elektronik (seperti Konektor Proyektor, Keyboard, dan Mouse), dan ATK (seperti Spidol dan Penghapus Papan Tulis).
             </p>
         </div>
     </div>
 
     <div class="faq">
         <button class="accordion">
-            What is INTI?
+            Apakah ada denda apabila barang yang dipinjam rusak/hilang?
             <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="pannel">
             <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing
-                elit. Facilis saepe molestiae distinctio asperiores
-                cupiditate consequuntur dolor ullam, iure eligendi harum
-                eaque hic corporis debitis porro consectetur voluptate
-                rem officiis architecto.
+            Jika terdapat kerusakan atau kehilangan, akan dikenakan sanksi yaitu menggantinya dengan barang yang baru pada saat pengembalian barang.
+            </p>
+        </div>
+    </div>
+
+    <div class="faq">
+        <button class="accordion">
+            Berapakah jumlah maksimal barang yang bisa dipinjam?
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+            <p>
+            Tidak ada batas maksimal peminjaman barang. Jumlah maksimal peminjaman barang tergantung pada jumlah stok barang yang tersedia.
+            </p>
+        </div>
+    </div>
+
+    <div class="faq">
+        <button class="accordion">
+            Dimana sajakah tempat pengambilan barang saat melakukan peminjaman?
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+            <p>
+            Untuk pengambilan barang berjenis Elektronik dan Peralatan dapat dilakukan di ruang teknisi pada lt.5 dan lt.7. 
+            Sedangkan, barang berjenis ATK dapat diambil di ruang admin pada lt.6. Instruksi lebih jelas mengenai pengambilan 
+            barang dapat ditemukan pada pesan yang terdapat pada detail peminjaman.
             </p>
         </div>
     </div>
