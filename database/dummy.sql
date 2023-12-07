@@ -1,3 +1,4 @@
+-- Active: 1683523504910@@127.0.0.1@3306@peminjaman_inventaris
 INSERT INTO Level (ID_Level, Nama) VALUES
 	('L1', 'Admin'),
 	('L2', 'Dosen'),
@@ -7,24 +8,26 @@ INSERT INTO Status (ID_Status, Nama) VALUES
 	('S1', 'Menunggu'),
 	('S2', 'Ditolak'),
 	('S3', 'Diterima'),
-	('S4', 'Proses'),
+	('S4', 'Sedang Dipinjam'),
 	('S5', 'Selesai'),
-	('S6', 'Dibatalkan');
+	('S6', 'Dibatalkan'),
+	('S7', 'Menunggu Ganti')
 
 INSERT INTO Kategori (ID_Kategori, Nama) VALUES
 	('K1', 'Peralatan'),
 	('K2', 'Elektronik'),
 	('K3', 'ATK');
 
-INSERT INTO Pengguna (ID_Pengguna, ID_Level, `Nomor_Identitas`, Password, Nama, Email, Nomor_HP, Foto) VALUES
-	('P1', 'L2', '404079101', 'adei', 'Ade Ismail', 'AdeIsmail@polinema.ac.id', '82182', 'profile1.png'),
-	('P2', 'L3', '2241720220', 'putraz', 'Putra Zakaria', 'PutraZakaria@polinema.ac.id', '82183', 'profile2.png'),
-	('P3', 'L2', '702108601', 'eloks', 'Elok Nur Hamdana', 'ElokNurHamdana@polinema.ac.id', '82184', 'profile3.png'),
-	('P4', 'L3', '2241720005', 'vunkg', 'Vunky Himawan', 'VunkyHimawan@polinema.ac.id', '82185', 'profile4.png'),
-	('P5', 'L1', '502108400', 'awoon', 'Anggi Putra Woon', 'AnggiPutraWoon@polinema.ac.id', '82186', 'profile5.png'),
-	('P6', 'L1', '502108401', 'sjadi', 'Sujadi', 'Sujadi@polinema.ac.id', '82187', 'profile6.png'),
-	('P7', 'L3', '2241720192', 'achrhan', 'Achmad Raihan', 'AchmadRaihan@polinema.ac.id', '82188', 'profile7.png'),
-	('P8', 'L1', '502108402', 'atmnugh', 'Dwi Atmo Nugroho', 'DwiAtmoNugroho@polinema.ac.id', '82189', 'profile8.png');
+INSERT INTO Pengguna (ID_Pengguna, ID_Level, `Nomor_Identitas`, Password, Nama, Email, Nomor_HP, Foto, `Status`) VALUES
+	('P1', 'L2', '404079101', 'adei', 'Ade Ismail', 'AdeIsmail@polinema.ac.id', '82182', 'profile1.png', 'Aktif'),
+	('P2', 'L3', '2241720220', 'putraz', 'Putra Zakaria', 'PutraZakaria@polinema.ac.id', '82183', 'profile2.png', 'Aktif'),
+	('P3', 'L2', '702108601', 'eloks', 'Elok Nur Hamdana', 'ElokNurHamdana@polinema.ac.id', '82184', 'profile3.png', 'Aktif'),
+	('P4', 'L3', '2241720005', 'vunkg', 'Vunky Himawan', 'VunkyHimawan@polinema.ac.id', '82185', 'profile4.png', 'Aktif'),
+	('P5', 'L2', '502108400', 'awoon', 'Anggi Putra Woon', 'AnggiPutraWoon@polinema.ac.id', '82186', 'profile5.png', 'Aktif'),
+	('P6', 'L2', '502108401', 'sjadi', 'Sujadi', 'Sujadi@polinema.ac.id', '82187', 'profile6.png', 'Aktif'),
+	('P7', 'L3', '2241720192', 'achrhan', 'Achmad Raihan', 'AchmadRaihan@polinema.ac.id', '82188', 'profile7.png', 'Aktif'),
+	('P8', 'L2', '502108402', 'atmnugh', 'Dwi Atmo Nugroho', 'DwiAtmoNugroho@polinema.ac.id', '82189', 'profile8.png', 'Aktif'),
+	('P9', 'L1', '1', 'admin', 'Admin', '-', '-', '-', 'Aktif');
 
 INSERT INTO OTP (ID_OTP, ID_Pengguna, Kode, Expired) VALUES
 	('O1', 'P1', 'SAD12', '2023-10-30 12:00:00'),
@@ -61,10 +64,10 @@ INSERT INTO MaintainerInventaris (ID_Inventaris, ID_Maintainer) VALUES
 	('I7', 'M3');
 
 INSERT INTO Transaksi (ID_Transaksi, ID_Pengguna, ID_Admin, ID_Status, StartDate, EndDate, Deskripsi_Keperluan, Jaminan, Pesan) VALUES
-	('T1', 'P1', 'P6', 'S5', '2023-11-11 10:00:00', '2023-11-14 10:00:00', 'Keperluan Mengajar', '', 'Silahkan Ambil Barang di ruang teknisi Lantai 7'),
-	('T2', 'P4', 'P8', 'S6', '2023-11-13 10:00:00', '2023-11-15 10:00:00', 'Keperluan Belajar Mandiri', 'jaminan1.png', 'Peminjaman Dibatalkan oleh peminjam');
+	('T1', 'P1', 'P9', 'S5', '2023-11-11 10:00:00', '2023-11-14 10:00:00', 'Keperluan Mengajar', '', 'Silahkan Ambil Barang di ruang teknisi Lantai 7'),
+	('T2', 'P4', 'P9', 'S6', '2023-11-13 10:00:00', '2023-11-15 10:00:00', 'Keperluan Belajar Mandiri', 'jaminan1.png', 'Peminjaman Dibatalkan oleh peminjam');
 
-INSERT INTO DetailTransaksi (ID_DetailTrc, ID_Transaksi, ID_Inventaris, Jumlah) VALUES
-	('DT1', 'T1', 'I3', '10'),
-	('DT2', 'T1', 'I4', '10'),
-	('DT3', 'T1', 'I5', '1');
+INSERT INTO DetailTransaksi (ID_DetailTrc, ID_Transaksi, ID_Inventaris, Jumlah, Kondisi) VALUES
+	('DT1', 'T1', 'I3', '10', 'Normal'),
+	('DT2', 'T1', 'I4', '10', 'Rusak'),
+	('DT3', 'T1', 'I5', '1', 'Normal');
