@@ -1,2 +1,0 @@
---panggil data barang
---panggil data transaksi
