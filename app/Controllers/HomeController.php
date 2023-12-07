@@ -4,7 +4,7 @@ class HomeController
 {
     public function index()
     {
-        return View::renderView('home');
+        return View::renderPage('home');
     }
     public function about()
     {

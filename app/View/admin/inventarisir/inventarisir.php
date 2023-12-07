@@ -1,43 +1,65 @@
-<div class="container-fluid p-4 w-100 h-100 d-flex flex-column row-gap-3">
-  <div class="w-100 d-flex justify-content-between ">
-    <h1 class="text-center">Inventarisir</h1>
-    <button class="btn btn-success add-new-item-button"><i data-feather="plus"></i>Tambah Barang</button>
-  </div>
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Kode</th>
-          <th>Nama Barang</th>
-          <th>Jumlah</th>
-          <th>Asal</th>
-          <th>Maintainer</th>
-          <th>Kategori</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>00001</td>
-          <td>Kulkas</td>
-          <td>2</td>
-          <td>Hibah</td>
-          <td>Putra</td>
-          <td>Elektronik</td>
-          <td><button class="button-detail-item btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
-        </tr>
-      </tbody>
-    </table>
+<div class="container-fluid pt-5 pb-4 px-4 w-100 d-flex flex-column row-gap-3">
+  <div class="w-100 d-flex flex-column flex-lg-row row-gap-3 justify-content-between ">
+    <h1 class="loans-heading">Inventarisir</h1>
+    <div class="h-100 d-flex justify-content-between column-gap-4 flex-column flex-lg-row row-gap-4">
+      <div class="search-bar-container d-flex gap-2 position-relative overflow-hidden d-flex justify-content-center align-items-center rounded-3 h-100">
+        <input type="text" placeholder="Cari" class="w-100 px-3 rounded-3" style="border: none; outline: none; height: 3.5rem;">
+        <div class="position-absolute bg-white" style=" width: 1.7rem; height: 1.7rem; right: 0.7rem;">
+          <img src="/public/assets/images/search.svg" alt="" class="w-100 h-100">
+        </div>
+      </div>
+      <button class="h-100  btn btn-success add-new-item-button"><i data-feather="plus"></i>Tambah Barang</button>
+    </div>
   </div>
 </div>
 
-<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="detail-item-modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
-  <div class="detail-item-modal d-flex align-items-center justify-content-center bg-light rounded-4 overflow-hidden " style="width: 50rem; height: 40rem;">
-    <div class="flex-grow-1 d-flex flex-column w-100 h-100 p-4 row-gap-3 ">
+<div class="m-auto gap-4 d-flex overflow-hidden pb-4 px-4 rounded-4 w-100 h-100">
+  <div class="bg-body-tertiary rounded-3 h-100 w-100 p-3 overflow-hidden">
+    <div class="overflow-y-scroll h-100">
+      <table>
+        <thead>
+          <tr>
+            <th>Kode</th>
+            <th>Nama Barang</th>
+            <th>Jumlah</th>
+            <th>Asal</th>
+            <th>Maintainer</th>
+            <th>Kategori</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>00001</td>
+            <td>Kulkas</td>
+            <td>2</td>
+            <td>Hibah</td>
+            <td>Putra</td>
+            <td>Elektronik</td>
+            <td><button class="button-detail-item btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
+          </tr>
+          <tr>
+            <td>00001</td>
+            <td>Kulkas</td>
+            <td>2</td>
+            <td>Hibah</td>
+            <td>Putra</td>
+            <td>Elektronik</td>
+            <td><button class="button-detail-item btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="detail-item-modal-container vw-100 vh-100 overflow-y-scroll  position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
+  <div class="detail-item-modal d-flex flex-column flex-md-row align-items-center justify-content-center bg-light overflow-hidden ">
+    <div class="order-last order-md-first flex-grow-1 d-flex flex-column w-100 h-100 p-4 row-gap-3 ">
       <form id="detail-item-form" action="" class="flex-grow-1 w-100 h-100  column-gap-4 d-flex flex-wrap ">
         <div class="d-flex flex-column gap-3 input-container">
           <strong><label for="">Kode Barang</label></strong>
-          <input type="text" class="border rounded bg-body" value="0001">
+          <p>0001</p>
         </div>
         <div class="d-none">
           <input type="file" id="image-input">
@@ -58,18 +80,51 @@
           <strong><label for="">Jumlah Barang</label></strong>
           <input type="text" class="border rounded bg-body input" value="100">
         </div>
-        <div class="d-flex flex-column gap-3 input-container">
-          <strong><label for="">Maintainer</label></strong>
-          <select class="form-select" aria-label="Default select example" style="max-width: 200px;">
-            <option value="Mas Woon">Mas Woon</option>
-            <option value="Pak Jadi">Pak Jadi</option>
-            <option value="Putra Zakar">Putra Zakar</option>
-          </select>
+        <div class="d-flex flex-column input-container flex-grow-1 w-100 ">
+          <strong>Maintainer</strong>
+          <div style="display:grid; grid-template-columns: 1fr 1fr">
+            <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+              <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+              <label class="form-check-label" for="maintainer">
+                Pak Woon
+              </label>
+            </div>
+            <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+              <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+              <label class="form-check-label" for="maintainer">
+                Pak Woon
+              </label>
+            </div>
+            <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+              <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+              <label class="form-check-label" for="maintainer">
+                Pak Woon
+              </label>
+            </div>
+            <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+              <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+              <label class="form-check-label" for="maintainer">
+                Pak Woon
+              </label>
+            </div>
+            <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+              <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+              <label class="form-check-label" for="maintainer">
+                Pak Woon
+              </label>
+            </div>
+            <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+              <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+              <label class="form-check-label" for="maintainer">
+                Pak Woon
+              </label>
+            </div>
+          </div>
         </div>
-        <div class="d-flex flex-column gap-3 input-container">
+        <div class="d-flex flex-column gap-3 input-container w-100">
           <strong><label for="">Asal Barang</label></strong>
-          <select class="form-select" aria-label="Default select example" style="max-width: 200px;">
-            <option value="hibah">Hibah</option>
+          <select class="form-select" aria-label="Default select example"">
+            <option value=" hibah">Hibah</option>
             <option value="beli">Beli</option>
           </select>
         </div>
@@ -99,57 +154,83 @@
   </div>
 </div>
 
-<div class="add-item-modal-container position-absolute top-0 start-0 h-100 d-flex flex-column row-gap-2 d-none " style="background-color: #ececec; box-sizing: border-box;">
-  <div>
-    <h4><strong>Inventarisir/Penambahan Barang</strong></h4>
-  </div>
-  <div class="w-100 h-100 bg-white add-item-modal p-4 rounded-3 " style="box-sizing: border-box;">
-    <form id="add-item-form" class="d-flex w-100 h-100 gap-3" style="box-sizing: border-box;">
+<div class="add-item-modal-container position-absolute top-0 start-0 d-flex flex-column row-gap-2 d-none " style="background-color: #ececec; box-sizing: border-box;">
+  <div class="w-100 bg-white add-item-modal p-4 rounded-3 " style="box-sizing: border-box;">
+    <form id="add-item-form" class="d-flex flex-column flex-lg-row w-100 h-100 gap-3" style="box-sizing: border-box;">
       <div class="flex-grow-1 w-100 h-100  d-flex flex-column row-gap-2">
         <div class="d-flex flex-column  input-container ">
-          <label for=""><strong class="text-black-50 " style="font-size: 1.2rem;">Kode Barang</strong></label>
-          <input type="text" class="border rounded bg-body">
-        </div>
-        <div class="d-flex flex-column  input-container ">
           <label for=""><strong class="text-black-50 " style="font-size: 1.2rem;">Nama Barang</strong></label>
-          <input type="text" class="border rounded bg-body">
+          <input type="text" class="border rounded bg-body p-2 " placeholder="Masukkan Nama Barang" required>
         </div>
-        <div class="d-flex flex-wrap w-100 gap-2  ">
-          <div class="d-flex flex-column   input-container flex-grow-1" style="width:45%">
+        <div class="d-flex flex-wrap w-100 gap-2 flex-column flex-lg-row">
+          <div class="d-flex flex-column input-container flex-grow-1">
             <label for=""><strong class="text-black-50 " style="font-size: 1.2rem;">Jumlah Barang</strong></label>
-            <input type="text" class="border rounded bg-body">
+            <input type="text" class="border rounded bg-body p-2 " placeholder="Masukkan Jumlah Barang" required>
           </div>
-          <div class="d-flex flex-column   input-container flex-grow-1" style="width:45%">
+          <div class="d-flex flex-column input-container flex-grow-1">
             <label for=""><strong class="text-black-50 " style="font-size: 1.2rem;">Asal Barang</strong></label>
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select p-2" aria-label="Default select example" required>
               <option value="Beli">Beli</option>
               <option value="Hibah">Hibah</option>
             </select>
           </div>
-          <div class="d-flex flex-column   input-container flex-grow-1" style="width:45%">
-            <label for=""><strong class="text-black-50 " style="font-size: 1.2rem;">Maintainer</strong></label>
-            <select class="form-select" aria-label="Default select example">
-              <option value="Mas Woon">Mas Woon</option>
-              <option value="Pak Jadi">Pak Jadi</option>
-              <option value="Putra Zakar">Putra Zakar</option>
-            </select>
-          </div>
-          <div class="d-flex flex-column   input-container flex-grow-1" style="width:45%">
+          <div class="d-flex flex-column input-container flex-grow-1 w-100 ">
             <label for=""><strong class="text-black-50 " style="font-size: 1.2rem;">Kategori</strong></label>
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" aria-label="Default select example" required>
               <option value="ATK">ATK</option>
               <option value="Elektronik">Elektronik</option>
               <option value="Peralatan">Peralatan</option>
             </select>
           </div>
+          <div class="d-flex flex-column input-container flex-grow-1 w-100 ">
+            <strong class="text-black-50 " style="font-size: 1.2rem;">Maintainer</strong>
+            <div class="maintainer-input-container">
+              <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+                <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+                <label class="form-check-label" for="maintainer">
+                  Pak Woon
+                </label>
+              </div>
+              <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+                <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+                <label class="form-check-label" for="maintainer">
+                  Pak Woon
+                </label>
+              </div>
+              <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+                <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+                <label class="form-check-label" for="maintainer">
+                  Pak Woon
+                </label>
+              </div>
+              <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+                <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+                <label class="form-check-label" for="maintainer">
+                  Pak Woon
+                </label>
+              </div>
+              <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+                <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+                <label class="form-check-label" for="maintainer">
+                  Pak Woon
+                </label>
+              </div>
+              <div class="form-check d-flex align-items-center gap-3 ps-0 ">
+                <input class="form-check-input" type="checkbox" value="Pak Woon" id="maintainer">
+                <label class="form-check-label" for="maintainer">
+                  Pak Woon
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="d-flex flex-column input-container">
-          <label for=""><strong class="text-black-50 " style="font-size: 1.2rem;">Deskripsi</strong></label>
-          <textarea name="" id="" cols="30" rows="10" style="resize: none;" class="border rounded bg-body p-2 "></textarea>
+        <div class="d-flex flex-column input-container h-100 ">
+          <label for=""><strong class="text-black-50 " style="font-size: 1.2rem;">Keterangan</strong></label>
+          <textarea name="" id="" cols="30" style="resize: none;" class="border rounded bg-body p-2 h-100"></textarea>
         </div>
       </div>
-      <div class="flex-grow-1 w-50 h-100 d-flex flex-column justify-content-center align-items-center">
-        <div class="flex-grow-1 w-100 h-100 position-relative">
+      <div class="image-upload-button-container flex-grow-1 h-100 d-flex flex-column justify-content-center align-items-center">
+        <div class="flex-grow-1 w-100 position-relative">
           <strong class="text-black-50" style="font-size: 1.2rem;">Gambar</strong>
           <input type="file" class="d-none " id="add-item-image-input">
           <label for="add-item-image-input" class="position-relative w-100 h-100 d-flex justify-content-center align-items-center rounded-2" style="cursor: pointer; border:4px dotted rgba(0, 0, 0, 0.25);">
@@ -173,7 +254,7 @@
   </div>
 </div>
 
-<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="confirmation-add-item-modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none">
+<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="confirmation-add-item-modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
   <div class="confirmation-add-item-modal d-flex align-items-center justify-content-center bg-light rounded-4 overflow-hidden " style="width: 50rem; height: 40rem;">
     <div class="flex-grow-1 d-flex flex-column w-100 h-100 p-4 row-gap-3 ">
       <h5><strong style="color: #01305D;">Konfirmasi Penambahan Barang</strong></h5>
@@ -282,6 +363,26 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
     </div>
     <div>
       <button class="btn text-white edit-item-success-button" style="background-color: #5BD794; padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
+    </div>
+  </div>
+</div>
+
+<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="success-delete-item-modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
+  <div class="success-edit-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 65%);">
+    <div class="d-flex flex-column align-items-center row-gap-3 ">
+      <img src="/public/assets/images/berhasil.svg" alt="">
+      <h3 style="color:#5BD794;">
+        <strong>
+          Berhasil
+        </strong>
+      </h3>
+    </div>
+    <div>
+      <p>Data berhasil dihapus</p>
+    </div>
+    <div>
+      <button class="btn text-white delete-item-success-button" style="background-color: #5BD794; padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
     </div>
   </div>
 </div>

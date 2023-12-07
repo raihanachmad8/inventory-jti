@@ -1,115 +1,141 @@
-<div class="w-100 flex-grow-1 ">
-  <div class="loans-content container-fluid py-4 d-flex justify-content-between">
-    <strong class="loans-heading">Peminjaman Barang</strong>
-    <div class="d-flex gap-2 position-relative">
-      <div>
-        <button class="loans-button-filter_sort btn-filter btn btn-light">Filter By<i data-feather="chevron-down" style="width: 1rem; height: 1rem"></i></button>
-        <div class="filter-list bg-body-tertiary p-2 rounded position-absolute mt-1 d-none ">
-          <ul class="d-flex flex-column gap-2">
-            <li class="filter-list-item p-md-2 d-inline-block rounded-2">
-              <a href="" class="text-decoration-none text-dark">Nama Barang</a>
-            </li>
-            <li class="filter-list-item p-md-2 d-inline-block rounded-2">
-              <a href="" class="text-decoration-none text-dark">Kategori</a>
-            </li>
-            <li class="filter-list-item p-md-2 d-inline-block rounded-2">
-              <a href="" class="text-decoration-none text-dark">Stok</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <button class="loans-button-filter_sort btn-sort btn btn-light">Sort By<i data-feather="repeat" style="width: 1rem; height: 1rem; margin-left: 5px"></i></button>
-        <div class="sort-list bg-body-tertiary p-2 rounded position-absolute mt-1 d-none  p-md-2">
-          <ul style="list-style: none; padding: 0; margin: 0" class="d-flex flex-column gap-2">
-            <li class="sort-list-item p-md-2 d-inline-block rounded-2">
-              <a href="" class="text-decoration-none text-dark">Terkecil</a>
-            </li>
-            <li class="sort-list-item p-md-2 d-inline-block rounded-2">
-              <a href="" class="sort-list-item text-decoration-none text-dark">Terbesar</a>
-            </li>
-          </ul>
+<div class="container-fluid pt-5 pb-4 px-4 w-100 d-flex flex-column row-gap-3">
+  <div class="w-100 d-flex flex-column flex-md-row row-gap-3  justify-content-between ">
+    <h1 class="loans-heading">Riwayat Peminjaman</h1>
+    <div class="h-100 d-flex justify-content-between column-gap-4 ">
+      <div class="search-bar-container d-flex gap-2 position-relative overflow-hidden d-flex justify-content-center align-items-center rounded-3">
+        <input type="text" placeholder="Cari" class="w-100 h-100 px-3 rounded-3" style="border: none; outline: none;">
+        <div class="position-absolute bg-white" style="width: 1.7rem; height: 1.7rem; right: 0.7rem;">
+          <img src="/public/assets/images/search.svg" alt="" class="w-100 h-100">
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="container-fluid h-100 flex-grow-1 overflow-hidden ">
-  <div class="w-100 h-100 overflow-y-scroll ">
-    <table class="history-table">
-      <thead>
-        <tr>
-          <th>Kode</th>
-          <th>Nama Peminjam</th>
-          <th>Status Peminjam</th>
-          <th>Waktu Peminjaman</th>
-          <th>Waktu Pengembalian</th>
-          <th>Status</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>001</td>
-          <td>Putra Zakaria Muzaki</td>
-          <td>Mahasiswa</td>
-          <td>Sept 20, 2023<br>11:00 AM</td>
-          <td>Sept 20, 2023<br>11:00 AM</td>
-          <td>
-            <span class="rounded-2 " style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.6rem 1rem; user-select: none;">Selesai</span>
-          </td>
-          <td><button class="button-detail-history btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
-        </tr>
-        <tr>
-          <td>002</td>
-          <td>Putra Zakaria Muzaki</td>
-          <td>Dosen</td>
-          <td>Sept 20, 2023<br>11:00 AM</td>
-          <td>Sept 20, 2023<br>11:00 AM</td>
-          <td>
-            <span class="rounded-2 " style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.6rem 1rem; user-select: none;">Selesai</span>
-          </td>
-          <td><button class="button-detail-history btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
-        </tr>
-      </tbody>
-    </table>
+
+<div class="m-auto gap-4 d-flex overflow-hidden pb-4 px-4 rounded-4 w-100 h-100">
+  <div class="bg-body-tertiary rounded-3 h-100 w-100 p-3 overflow-hidden">
+    <div class="overflow-y-scroll h-100">
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>Kode</th>
+            <th>Nama Peminjam</th>
+            <th>Status Peminjam</th>
+            <th>Waktu Peminjaman</th>
+            <th>Waktu Pengembalian</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>001</td>
+            <td>Putra Zakaria Muzaki</td>
+            <td>Mahasiswa</td>
+            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block " style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
+            </td>
+            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
+            </td>
+            <td><button class="button-detail-history btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
+          </tr>
+          <tr>
+            <td>001</td>
+            <td>Putra Zakaria Muzaki</td>
+            <td>Dosen</td>
+            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block " style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
+            </td>
+            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
+            </td>
+            <td><button class="button-detail-history btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
-<div class="modal-detail-container position-absolute w-100 h-100 bg-white d-flex flex-column justify-content-between d-none " style="color: #01305D;">
+
+<div class="modal-detail-history-container position-absolute px-4  w-100 h-100 bg-white d-flex flex-column justify-content-between overflow-y-scroll d-none " style="color: #01305D;">
   <div class="w-100 text-center bg-warning p-2 rounded-2 ">
-    <h2><strong class="text-white">Detail Peminjaman</strong></h2>
+    <strong class="text-white">Detail Peminjaman</strong>
   </div>
   <div class="pt-4 ">
     <table class="identity-table">
       <tbody>
         <tr>
+          <td><strong>Jenis Peminjam</strong></td>
+          <td><strong>:</strong></td>
+          <td>
+            <p>Mahasiswa</p>
+          </td>
+        </tr>
+        <tr>
           <td><strong>Nama</strong></td>
           <td><strong>:</strong></td>
-          <td><strong>Putra Zakaria Muzaki</strong></td>
+          <td>
+            <p>Putra Zakaria Muzaki</p>
+          </td>
         </tr>
         <tr>
           <td><strong>Nomor ID</strong></td>
           <td><strong>:</strong></td>
-          <td><strong>23946238947</strong></td>
+          <td>
+            <p>23946238947</p>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Admin</strong></td>
+          <td><strong>:</strong></td>
+          <td>
+            <p>Pak Putra</p>
+          </td>
         </tr>
         <tr>
           <td><strong>Status Peminjaman</strong></td>
           <td><strong>:</strong></td>
-          <td><strong>Disetujui</strong></td>
+          <td>
+            <p>Selesai</p>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Tanggal Peminjaman</strong></td>
+          <td>:</td>
+          <td>
+            <p>17 Agustus 2023 12:00:00</p>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Waktu Pengembalian</strong></td>
+          <td>:</td>
+          <td>
+            <p>17 Agustus 2023 12:00:00</p>
+          </td>
         </tr>
         <tr>
           <td><strong>Keterangan</strong></td>
           <td><strong>:</strong></td>
-          <td><strong>Silahkan melakukan pengembalian di Ruang Admin Lt.7</strong></td>
+          <td>
+            <p>Silahkan melakukan pengambilan barang di ruang teknisi Lantai 7</p>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Alasan Peminjaman</strong></td>
+          <td><strong>:</strong></td>
+          <td>
+            <p>Kiw kepo banget</p>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Kartu Tanda Pengenal</strong></td>
+          <td><strong>:</strong></td>
+          <td>
+            <div style="width: 250px; height: 150px;"><img src="/public/assets/images/anggap-aja-ktm.jpg" alt="" class="w-100 h-100 object-fit-cover ratio-16x9 rounded-3 "></div>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="h-100 overflow-y-scroll">
-    <strong>
-      <h5><strong>Daftar Pengembalian</strong></h5>
-    </strong>
-    <div class="w-100 ">
+  <div class="h-100">
+    <h5 class="py-3 "><strong>Daftar Pengembalian</strong></h5>
+    <div class="w-100">
       <table class="loan-detail-table w-100 text-center ">
         <thead>
           <tr>
@@ -117,8 +143,6 @@
             <th>Nama Barang</th>
             <th>Jumlah</th>
             <th>Kategori</th>
-            <th>Tanggal<br>Peminjaman</th>
-            <th>Tanggal<br>Pengembalian</th>
           </tr>
         </thead>
         <tbody>
@@ -127,11 +151,12 @@
             <td>Kursi</td>
             <td>5</td>
             <td>Barang</td>
-            <td>2023-November-2023<br>13:00:00</td>
-            <td>2023-November-2023<br>13:00:00</td>
           </tr>
         </tbody>
       </table>
     </div>
+  </div>
+  <div class="py-4 d-flex justify-content-end column-gap-3 ">
+    <button class="button-back-loan-history btn text-white" style="background-color: #01305D;">Kembali</button>
   </div>
 </div>

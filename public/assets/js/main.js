@@ -1,78 +1,71 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
-
-
-  /* This section is used to handle sidebar */
   const sidebarButton = document.querySelector(".sidebar-btn");
   const sidebar = document.querySelector(".sidebar");
   const mainContainer = document.querySelector(".main-container");
   const logoContainer = document.querySelector(".logo-container");
   const textMenu = document.querySelector(".text-menu");
 
-  sidebarButton.addEventListener('click', () => {
-    sidebarButton.classList.toggle('sidebar-btn-rotate');
-    if (sidebarButton.classList.contains('sidebar-btn-rotate')) {
-      sidebar.style.width = '10vw';
-      mainContainer.style.width = '90vw';
-      logoContainer.classList.add('hidden');
-      textMenu.classList.add('hidden');
-    } else {
-      sidebar.style.width = '20vw';
-      mainContainer.style.width = '80vw';
-      logoContainer.classList.remove('hidden');
-      textMenu.classList.remove('hidden');
-    }
-  })
+  console.log(sidebarButton)
+
+  if (sidebarButton) {
+    sidebarButton.addEventListener('click', () => {
+      sidebarButton.classList.toggle('sidebar-btn-rotate');
+      if (sidebarButton.classList.contains('sidebar-btn-rotate')) {
+        sidebar.style.width = '10vw';
+        mainContainer.style.width = '90vw';
+        logoContainer.classList.add('hidden');
+        textMenu.classList.add('hidden');
+      } else {
+        sidebar.style.width = '20vw';
+        mainContainer.style.width = '80vw';
+        logoContainer.classList.remove('hidden');
+        textMenu.classList.remove('hidden');
+      }
+    })
+  }
+})
 
 
-  /* This section is used to handle hamburger menu on mobile display */
+document.addEventListener('DOMContentLoaded', () => {
   const hamburgerMenu_el = document.querySelector('.hamburger-menu');
   const line1_el = document.querySelector('.line-1');
   const line2_el = document.querySelector('.line-2');
   const menu_el = document.querySelector('.menu');
 
-  hamburgerMenu_el.addEventListener('click', () => {
-    if (line1_el.classList.contains('line-1-rotate')) {
-      line1_el.classList.remove('line-1-rotate');
-      line1_el.setAttribute('y', '11')
-      line1_el.setAttribute('x', '0')
-      line2_el.classList.remove('line-2-rotate');
-      line2_el.setAttribute('y', '16')
-      line2_el.setAttribute('x', '0')
-    } else {
-      line1_el.classList.add('line-1-rotate');
-      line1_el.setAttribute('y', '-1')
-      line1_el.setAttribute('x', '2')
-      line2_el.classList.add('line-2-rotate');
-      line2_el.setAttribute('x', '-15')
+  if (hamburgerMenu_el) {
+    if (event.target === hamburgerMenu_el) {
+      if (line1_el.classList.contains('line-1-rotate')) {
+        line1_el.classList.remove('line-1-rotate');
+        line1_el.setAttribute('y', '11')
+        line1_el.setAttribute('x', '0')
+        line2_el.classList.remove('line-2-rotate');
+        line2_el.setAttribute('y', '16')
+        line2_el.setAttribute('x', '0')
+      } else {
+        line1_el.classList.add('line-1-rotate');
+        line1_el.setAttribute('y', '-1')
+        line1_el.setAttribute('x', '2')
+        line2_el.classList.add('line-2-rotate');
+        line2_el.setAttribute('x', '-15')
+      }
     }
-  })
+  }
+})
 
-
-  /* This section is used for handle filter and sort */
-  const filterButton = document.querySelector(".btn-filter");
-  const filterList = document.querySelector(".filter-list");
+document.addEventListener('DOMContentLoaded', () => {
   const sortButton = document.querySelector(".btn-sort");
   const sortList = document.querySelector(".sort-list");
 
-  filterButton.addEventListener('click', () => {
-    if (sortButton.classList.contains('d-none')) {
-      filterList.classList.toggle('d-none');
-    } else {
-      sortList.classList.add('d-none');
-      filterList.classList.toggle('d-none');
-    }
-  })
-
-  sortButton.addEventListener('click', () => {
-    if (filterButton.classList.contains('d-none')) {
+  if (sortButton) {
+    sortButton.addEventListener('click', () => {
       sortList.classList.toggle('d-none');
-    } else {
-      filterList.classList.add('d-none');
-      sortList.classList.toggle('d-none');
-    }
-  });
+    })
+  }
+})
 
-
+document.addEventListener('DOMContentLoaded', e => {
   /* This section is used for handle button in history menu user */
   const buttonDetail_el = document.querySelector('.button-detail-history');
   const modalDetail_el = document.querySelector('.modal-detail-container');
@@ -80,52 +73,47 @@ document.addEventListener('DOMContentLoaded', () => {
   const buttonRejectLoan_el = document.querySelector('.button-reject-loan');
   const buttonApproveLoan_el = document.querySelector('.button-approve-loan');
 
-  buttonDetail_el.addEventListener('click', () => {
-    modalDetail_el.classList.remove('d-none');
-  })
+  if (buttonDetail_el) {
+    buttonDetail_el.addEventListener('click', () => {
+      modalDetail_el.classList.remove('d-none');
+    })
+  }
+})
 
-  buttonBack_el.addEventListener('click', () => {
-    modalDetail_el.classList.add('d-none');
-  })
-
-  buttonRejectLoan_el.addEventListener('click', () => {
-    modalDetail_el.classList.add('d-none');
-  })
-
-  buttonApproveLoan_el.addEventListener('click', () => {
-    modalDetail_el.classList.add('d-none');
-  })
-
-  /* this section is for approve admin retrieval */
+document.addEventListener('DOMContentLoaded', () => {
   const descriptionForm_el = document.querySelector('.admin-retrieval-information');
 
-  descriptionForm_el.value = 'Silahkan melakukan pengambilan barang di ruang teknisi lantai 7';
-  descriptionForm_el.addEventListener('focus', () => {
-    descriptionForm_el.value = '';
-  });
+  if (descriptionForm_el) {
+    descriptionForm_el.value = 'Silahkan melakukan pengambilan barang di ruang teknisi lantai 7';
+    descriptionForm_el.addEventListener('focus', () => {
+      descriptionForm_el.value = '';
+    });
+  }
+})
 
-
-  /* This section is for handle choose */
-  const itemChoose = document.querySelector('.form-choose').reset();
+document.addEventListener('DOMContentLoaded', () => {
+  const itemChoose = document.querySelector('.form-choose');
   const formChooseInputLoan = document.querySelectorAll('.form-choose-input-loan');
 
-  formChooseInputLoan.forEach(function (input) {
-    input.addEventListener('click', function () {
-      if (!input.classList.contains('form-choose-input-loan-non-active') && !input.checked) {
-        input.classList.remove('form-choose-input-loan-non-active');
-        input.classList.add('form-choose-input-loan-active');
-        input.checked = true;
-      } else {
-        input.classList.remove('form-choose-input-loan-active');
-        input.classList.add('form-choose-input-loan-non-active');
-        input.checked = false;
-      }
-    });
-  });
+  if (itemChoose && formChooseInputLoan) {
+    itemChoose.reset();
+    formChooseInputLoan.forEach(input => {
+      input.addEventListener('click', () => {
+        if (input.classList.contains('form-choose-input-loan-non-active') && !input.checked) {
+          input.classList.remove('form-choose-input-loan-non-active');
+          input.classList.add('form-choose-input-loan-active');
+          input.checked = true;
+        } else {
+          input.classList.remove('form-choose-input-loan-active');
+          input.classList.add('form-choose-input-loan-non-active');
+          input.checked = false;
+        }
+      })
+    })
+  }
+})
 
-
-  /* This section is for handle modal */
-  // Variables for classes
+document.addEventListener('DOMContentLoaded', () => {
   const loanButtons = document.querySelectorAll('.loan-button');
   const confirmationModalContainer = document.querySelector('.confirmation-modal-container');
   const confirmationModalClose = document.querySelector('.confirmation-modal-close');
@@ -135,41 +123,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const loanDetailsButtonApproval = document.querySelector('.loan--details-button--approval');
   const modalDetailContainer = document.querySelector('.modal-detail-container');
 
-  // Function to open the modal confirmation when the user clicks on the loan
-  loanButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      if (!button.disabled) {
-        confirmationModalContainer.classList.remove('d-none');
+  if (loanButtons && confirmationModalContainer) {
+    loanButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (!button.disabled) {
+          confirmationModalContainer.classList.remove('d-none');
+        }
+      });
+    });
+
+    // Function to close the modal
+    confirmationModalClose.addEventListener('click', function () {
+      confirmationModalContainer.classList.add('d-none');
+    });
+
+    // Function to open the calendar modal when the user clicks on the date buttons
+    document.addEventListener('click', function (event) {
+      if (dateModalButtons.includes(event.target)) {
+        calendarModalContainer.classList.remove('d-none');
       }
     });
-  });
 
-  // Function to close the modal
-  confirmationModalClose.addEventListener('click', function () {
-    confirmationModalContainer.classList.add('d-none');
-  });
+    // Function to close the calendar modal
+    document.addEventListener('click', function (event) {
+      if (event.target === dateModalClose) {
+        calendarModalContainer.classList.add('d-none');
+      }
+    });
 
-  // Function to open the calendar modal when the user clicks on the date buttons
-  document.addEventListener('click', function (event) {
-    if (dateModalButtons.includes(event.target)) {
-      calendarModalContainer.classList.remove('d-none');
-    }
-  });
+    // Function to open the modal confirmation admin retrieval when the admin clicks on the detail button in dashboard menu
+    loanDetailsButtonApproval.addEventListener('click', function () {
+      modalDetailContainer.classList.remove('d-none');
+    });
+  }
+})
 
-  // Function to close the calendar modal
-  document.addEventListener('click', function (event) {
-    if (event.target === dateModalClose) {
-      calendarModalContainer.classList.add('d-none');
-    }
-  });
+// Function to open the modal confirmation when the user clicks on the loan
 
-  // Function to open the modal confirmation admin retrieval when the admin clicks on the detail button in dashboard menu
-  loanDetailsButtonApproval.addEventListener('click', function () {
-    modalDetailContainer.classList.remove('d-none');
-  });
+document.addEventListener('click', event => {
 
-
-  /* This section is for handle counter */
   let total = 0;
 
   // Function to create a counter container
@@ -215,12 +207,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to update the state of the loan button
   function updateLoanButtonState() {
     const loanButton = document.querySelector('.loan-button');
-    if (total > 0) {
-      loanButton.disabled = false;
-      loanButton.textContent = `Pinjam (${total})`;
-    } else {
-      loanButton.disabled = true;
-      loanButton.textContent = `Pinjam (${total})`;
+    if (loanButton) {
+      if (total > 0) {
+        loanButton.disabled = false;
+        loanButton.textContent = `Pinjam (${total})`;
+      } else {
+        loanButton.disabled = true;
+        loanButton.textContent = `Pinjam (${total})`;
+      }
     }
   }
 
@@ -272,38 +266,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial state
   updateLoanButtonState();
+})
+/* This section is for handle counter */
 
 
-  /* This is for modal */
-  // Variables for elements
-  const detailItemButton = document.querySelector('.button-detail-item');
-  const detailItemModalContainer = document.querySelector('.detail-item-modal-container');
-  const cancelButtonDetailItem = document.querySelector('.cancel-button-detail-item');
-  const deleteButtonDetailItem = document.querySelector('.delete-button-detail-item');
-  const deleteItemModalContainer = document.querySelector('.delete-item-modal-container');
+/* This is for modal */
+// Variables for elements
+const detailItemButton = document.querySelector('.button-detail-item');
+const detailItemModalContainer = document.querySelector('.detail-item-modal-container');
+const cancelButtonDetailItem = document.querySelector('.cancel-button-detail-item');
+const deleteButtonDetailItem = document.querySelector('.delete-button-detail-item');
+const deleteItemModalContainer = document.querySelector('.delete-item-modal-container');
 
-  // Function to toggle modal visibility
-  function toggleModal(modal) {
-    if (modal) {
-      modal.classList.toggle('d-none');
-    }
+// Function to toggle modal visibility
+function toggleModal(modal) {
+  if (modal) {
+    modal.classList.toggle('d-none');
+  }
+}
+
+// Event listener for detailItemButton click
+document.addEventListener('click', function (event) {
+  if (event.target === detailItemButton) {
+    toggleModal(detailItemModalContainer);
   }
 
-  // Event listener for detailItemButton click
-  document.addEventListener('click', function (event) {
-    if (event.target === detailItemButton) {
-      toggleModal(detailItemModalContainer);
-    }
+  // Event listener for cancelButtonDetailItem click
+  if (event.target === cancelButtonDetailItem) {
+    toggleModal(detailItemModalContainer);
+  }
 
-    // Event listener for cancelButtonDetailItem click
-    if (event.target === cancelButtonDetailItem) {
-      toggleModal(detailItemModalContainer);
-    }
+  // Event listener for deleteButtonDetailItem click
+  if (event.target === deleteButtonDetailItem) {
+    toggleModal(deleteItemModalContainer);
+  }
+});
 
-    // Event listener for deleteButtonDetailItem click
-    if (event.target === deleteButtonDetailItem) {
-      toggleModal(deleteItemModalContainer);
-    }
-  });
+document.addEventListener('click', event => {
+  const hamburgerNavbar = document.querySelector(".hamburger-nav");
+  const navMenu_el = document.querySelector('.nav-menu');
+  const navLink_el = document.querySelectorAll('.nav-link');
 
+  if (event.target === hamburgerNavbar) {
+    navMenu_el.classList.toggle('nav-menu-active');
+    navLink_el.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu_el.classList.remove('nav-menu-active');
+      })
+    })
+  }
+
+  const navbar_el = document.querySelector('.nav');
+
+  let lastScrollTop = 0;
+  window.addEventListener('scroll', () => {/*  */
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > lastScrollTop) {
+      if (navbar_el.classList.contains('nav-scroll-down')) {
+        navbar_el.classList.replace('nav-scroll-down', 'nav-scroll-up');
+      } else {
+        navbar_el.classList.add('nav-scroll-up');
+      }
+    } else {
+      navbar_el.classList.replace('nav-scroll-up', 'nav-scroll-down');
+    }
+    lastScrollTop = scrollTop;
+  })
 })
