@@ -23,7 +23,7 @@ WHERE `ID_Status` = 'S5';
 SELECT
     COUNT(`ID_Transaksi`) as 'Belum Selesai'
 FROM transaksi 
-WHERE `ID_Status` = 'S1' OR 'S3' OR 'S4';
+WHERE `ID_Status` = 'S1' OR 'S3' OR 'S4' OR 'S7';
 
 --Dibatalkan
 SELECT
@@ -36,7 +36,7 @@ SELECT
     t.`ID_Transaksi`, t.`StartDate`, t.`EndDate`, s.`Nama` 'Status'
 FROM transaksi t
 JOIN status s ON s.`ID_Status` = t.`ID_Status`
-WHERE t.`ID_Status` = 'S1' OR 'S2' OR 'S3' OR 'S4';
+WHERE t.`ID_Status` = 'S1' OR 'S2' OR 'S3' OR 'S4' OR 'S7';
 
 --Stok Barang
 SELECT 

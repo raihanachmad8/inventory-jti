@@ -7,7 +7,7 @@ JOIN status s on s.`ID_Status` = t.`ID_Status`;
 --Detail Peminjaman
 SELECT
     l.`Nama` 'Jenis Peminjam', p.`Nama`, p.`Nomor_Identitas`, s.`Nama` 'Status Peminjaman', t.`StartDate` 'Tanggal Peminjaman', t.`EndDate` 'Waktu Pengembalian', t.`Deskripsi_Keperluan` 'Alasan Peminjaman', t.`Pesan`, t.`Jaminan`,
-    dt.`ID_Inventaris`, i.`Nama` 'Nama Barang', dt.`Jumlah`, k.`Nama` 'Kategori'
+    dt.`ID_Inventaris`, i.`Nama` 'Nama Barang', dt.`Jumlah`, k.`Nama` 'Kategori', dt.`Kondisi`
 FROM transaksi t
 JOIN detailtransaksi dt on t.`ID_Transaksi` = dt.`ID_Transaksi`
 JOIN inventaris i on i.`ID_Inventaris` = dt.`ID_Inventaris`
