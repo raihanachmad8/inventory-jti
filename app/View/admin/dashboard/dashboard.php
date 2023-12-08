@@ -111,9 +111,28 @@
           <td><strong>Mahasiswa</strong></td>
         </tr>
         <tr>
+          <td><strong>Admin</strong></td>
+          <td><strong>:</strong></td>
+          <td>
+            <select class="form-select" aria-label="Default select example" style="max-width: 200px;">
+              <option value="putra">Pak Putra</option>
+              <option value="raihan">Pak Raihan</option>
+              <option value="dela">Bu Dela</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
           <td><strong>Status Peminjaman</strong></td>
           <td><strong>:</strong></td>
-          <td><strong>Menunggu Persetujuan</strong></td>
+          <td>
+            <select class="form-select" aria-label="Default select example" style="max-width: 200px;">
+              <option value="menunggu">Menunggu</option>
+              <option value="disetujui">Disetujui</option>
+              <option value="ditolak">Ditolak</option>
+              <option value="proses">Proses</option>
+              <option value="selesai">Selesai</option>
+            </select>
+          </td>
         </tr>
         <tr>
           <td><strong>Keterangan</strong></td>
@@ -131,7 +150,7 @@
           <td><strong>Kartu Tanda Pengenal</strong></td>
           <td><strong>:</strong></td>
           <td>
-            <div style="width: 30rem; height: 15rem;"><img src="./public/assets/images/anggap-aja-ktm.jpg" alt="" class="w-100 h-100 object-fit-cover ratio-16x9 rounded-3 "></div>
+            <div style="width: 30rem; height: 15rem;"><img src="/public/assets/images/anggap-aja-ktm.jpg" alt="" class="w-100 h-100 object-fit-cover ratio-16x9 rounded-3 "></div>
           </td>
         </tr>
       </tbody>
@@ -167,7 +186,7 @@
     </div>
   </div>
   <div class="py-4 d-flex justify-content-end column-gap-3 ">
-    <button class="button-reject-loan btn btn-danger">Tolak</button>
-    <button class="button-approve-loan btn btn-success">Setujui</button>
+    <button class="button-reject-loan btn text-white" style="background-color: #01305D;">Kembali</button>
+    <button class="button-approve-loan btn text-white " style="background-color: #FFB733">Simpan</button>
   </div>
 </div>
