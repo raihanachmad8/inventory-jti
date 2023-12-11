@@ -22,10 +22,12 @@ class Router implements RouterInterface
 
     public static function run(): void
     {
-        $path = '/';
+        $originalPath = '/';
         if (isset($_SERVER['PATH_INFO'])) {
-            $path = $_SERVER['PATH_INFO'];
+            $originalPath = $_SERVER['PATH_INFO'];
         }
+
+        $path = rtrim($originalPath, '/'); 
 
         $method = $_SERVER['REQUEST_METHOD'];
 
