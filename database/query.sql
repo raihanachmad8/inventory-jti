@@ -77,7 +77,7 @@ CREATE TABLE Transaksi (
     Jaminan VARCHAR(50),
     Pesan TEXT,
     FOREIGN KEY (ID_Pengguna) REFERENCES Pengguna(ID_Pengguna),
-    FOREIGN KEY (ID_Admin) REFERENCES Pengguna(ID_Pengguna),
+    FOREIGN KEY (ID_Admin) REFERENCES Maintainer(ID_Maintainer),
     FOREIGN KEY (ID_Status) REFERENCES Status(ID_Status)
 );
 
