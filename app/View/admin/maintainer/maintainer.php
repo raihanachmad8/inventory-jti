@@ -1,14 +1,14 @@
-<div class="container-fluid pt-5 pb-4 px-4 w-100 d-flex flex-column row-gap-3">
-  <div class="w-100 d-flex flex-column flex-lg-row row-gap-3 justify-content-between ">
-    <h1 class="loans-heading">Maintainer</h1>
+<div class="container-fluid pt-lg-3 pt-5 pb-4 px-4 w-100 d-flex flex-column row-gap-3">
+  <div class="w-100 d-flex flex-column flex-lg-row row-gap-3 justify-content-between align-items-lg-center ">
+    <h3 class="loans-heading">Maintainer</h3>
     <div class="h-100 d-flex justify-content-between column-gap-4 flex-column flex-lg-row row-gap-4">
       <div class="search-bar-container d-flex gap-2 position-relative overflow-hidden d-flex justify-content-center align-items-center rounded-3 h-100">
-        <input type="text" placeholder="Cari" class="w-100 px-3 rounded-3" style="border: none; outline: none; height: 3.5rem;">
-        <div class="position-absolute bg-white" style=" width: 1.7rem; height: 1.7rem; right: 0.7rem;">
+        <input type="text" placeholder="Cari" class="w-100 px-3 rounded-3" style="border: none; outline: none; height: 2.5rem;">
+        <div class="position-absolute bg-white" style=" width: 1.5rem; height: 1.5rem; right: 0.7rem;">
           <img src="/public/assets/images/search.svg" alt="" class="w-100 h-100">
         </div>
       </div>
-      <button class="h-100  btn btn-success add-new-maintainer-button"><i data-feather="plus"></i>Tambah Maintainer</button>
+      <button class="h-100 btn btn-success add-new-maintainer-button"><i data-feather="plus"></i>Tambah Maintainer</button>
     </div>
   </div>
 </div>
@@ -28,7 +28,7 @@
           <tr>
             <td>0001</td>
             <td>Maintainer 1</td>
-            <td>
+            <td class="d-flex gap-3 align-items-center justify-content-center ">
               <button class="btn edit-maintainer-button text-white" style="background-color: #01305D;">Edit</button>
               <button class="btn btn-danger delete-maintainer-button">Hapus</button>
             </td>

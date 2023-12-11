@@ -51,7 +51,7 @@ function user_role()
 </head>
 
 <body style="background-color: #ececec">
-    <div id="content" class="d-flex vw-100 h-auto">
+    <div id="content" class="d-flex vw-100">
         <!-- Side Bar -->
         <div class="sidebar duration-300 d-flex flex-column gap-5 bg-white container-fluid py-4 vh-100 d-none d-lg-flex">
             <div class="gap-2" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; ">
@@ -61,7 +61,7 @@ function user_role()
                     <div class="rounded-circle" style="width: 1.5rem; height: 1.5rem; background-color: #e3f2f9"></div>
                 </div>
                 <div class="d-flex justify-content-end align-items-center">
-                    <button class="btn sidebar-btn duration-300 text-white sidebar-btn-rotate" style="background-color: #01305d; cursor: pointer">
+                    <button name="sidebar-btn" class="btn sidebar-btn duration-300 text-white sidebar-btn-rotate" style="background-color: #01305d; cursor: pointer">
                         <i data-feather="chevrons-left"></i>
                     </button>
                 </div>
@@ -162,27 +162,19 @@ function user_role()
                             </p>
                         </a>
                     </li>
-                    <li class="nav-menu-container d-flex justify-content-center p-2 rounded-2 <?= user_role() == 'admin' ? 'd-block' : 'd-none' ?> <?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'background-color: #01305d;' : '' ?> width: fit-content">
-                        <a href="/admin/maintainer" class="nav-menu-icon d-flex justify-content-start align-items-center w-100 text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'text-white' : 'text-dark' ?>" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
-
-                            <p class="text-menu d-none">
-                                Maintainer
-                            </p>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
 
-        <main class="main-container duration-300 d-flex flex-column justify-content-between position-relative ">
+        <main class="main-container duration-300 d-flex flex-column position-relative ">
             <!-- Header -->
             <header class="d-flex bg-white py-3 px-4 justify-content-between duration-300 z-3">
                 <div class="header-logo">
-                    <img src="/public/assets/images/logo-tulisan.png" alt="" class="w-100 object-fit-cover ratio-16x9" />
+                    <img src="/public/assets/images/logo-tulisan.svg" alt="" class="w-100 object-fit-cover ratio-16x9" />
                 </div>
                 <div class="d-flex justify-content-center align-items-center gap-2 gap-md-3 ">
                     <div class="position-relative">
-                        <button class="btn button-mail">
+                        <button aria-label="button-mail" type="button" class="btn button-mail">
                             <i data-feather="mail"></i>
                         </button>
                         <div class="message-notification d-none  position-absolute bg-body-tertiary  rounded-3 end-0 overflow-hidden p-2 overflow-y-scroll " style="width: 200px; height: 150px; top: 40px; opacity: 0;">
@@ -207,7 +199,7 @@ function user_role()
                         </div>
                     </div>
                     <!-- Profile -->
-                    <button class="button-profile btn d-flex justify-content-center align-items-center gap-2 rounded-5 p-2 position-relative ">
+                    <button  aria-label="button-profile" type="button" class="button-profile btn d-flex justify-content-center align-items-center gap-2 rounded-5 p-2 position-relative ">
                         <div style="width: 3rem; height: 3rem" class="rounded-circle position-relative ">
                             <div class="position-absolute -top-0 end-0 bg-success rounded-circle" style="width: 1rem; height: 1rem"></div>
                             <div class="rounded-circle overflow-hidden w-100 h-100">

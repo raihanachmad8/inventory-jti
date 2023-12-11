@@ -1,10 +1,10 @@
-<div class="container-fluid pt-5 pb-4 px-4 w-100 d-flex flex-column row-gap-3">
-  <div class="w-100 d-flex flex-column flex-md-row row-gap-3  justify-content-between ">
-    <h1 class="loans-heading">Riwayat Peminjaman</h1>
-    <div class="h-100 d-flex justify-content-between column-gap-4 ">
-      <div class="search-bar-container d-flex gap-2 position-relative overflow-hidden d-flex justify-content-center align-items-center rounded-3">
-        <input type="text" placeholder="Cari" class="w-100 h-100 px-3 rounded-3" style="border: none; outline: none;">
-        <div class="position-absolute bg-white" style="width: 1.7rem; height: 1.7rem; right: 0.7rem;">
+<div class="container-fluid pt-lg-3 pt-5 pb-4 px-4 w-100 d-flex flex-column row-gap-3">
+  <div class="w-100 d-flex flex-column flex-lg-row row-gap-3 justify-content-between align-items-lg-center ">
+    <h3 class="loans-heading">Riwayat Peminjaman</h3>
+    <div class="h-100 d-flex justify-content-between column-gap-4 flex-column flex-lg-row row-gap-4">
+      <div class="search-bar-container d-flex gap-2 position-relative overflow-hidden d-flex justify-content-center align-items-center rounded-3 h-100">
+        <input type="text" placeholder="Cari" class="w-100 px-3 rounded-3" style="border: none; outline: none; height: 2.5rem;">
+        <div class="position-absolute bg-white" style=" width: 1.5rem; height: 1.5rem; right: 0.7rem;">
           <img src="/public/assets/images/search.svg" alt="" class="w-100 h-100">
         </div>
       </div>
@@ -53,7 +53,7 @@
   </div>
 </div>
 
-<div class="modal-detail-history-container position-absolute px-4  w-100 h-100 bg-white d-flex flex-column justify-content-between overflow-y-scroll d-none " style="color: #01305D;">
+<div class="modal-detail-history-container position-absolute px-4 w-100 h-100 bg-white d-flex flex-column justify-content-between overflow-y-scroll d-none " style="color: #01305D;">
   <div class="w-100 text-center bg-warning p-2 rounded-2 ">
     <strong class="text-white">Detail Peminjaman</strong>
   </div>

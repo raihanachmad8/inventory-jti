@@ -1,5 +1,5 @@
 
-<div class="dashboard-widget-admin p-4 w-100" style=" color:#01305D">
+<div class="dashboard-widget-admin p-4 pt-5 pt-lg-4  w-100" style=" color:#01305D">
   <div class="widget-item-admin flex-grow-1 bg-body-tertiary rounded-4 p-3 d-flex flex-column justify-content-between ">
     <div class="d-flex justify-content-between">
       <strong>Menunggu</strong>
@@ -91,7 +91,7 @@
   </div>
 </div>
 
-<div class="modal-detail-container position-absolute px-4  w-100 h-100 bg-white d-flex flex-column justify-content-between overflow-y-scroll d-none " style="color: #01305D;">
+<div class="modal-detail-container position-absolute px-4 vw-100 vh-100 bg-white d-flex flex-column justify-content-between overflow-y-scroll d-none " style="color: #01305D;">
   <div class="w-100 text-center bg-warning p-2 rounded-2 ">
     <strong class="text-white">Detail Peminjaman</strong>
   </div>

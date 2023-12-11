@@ -250,9 +250,9 @@
 
       $(this).replaceWith(`
       <div class="counter-container w-100 d-flex justify-content-between column-gap-2 ">
-        <label for="pinjam" class="btn-counter btn-counter-min btn text-white" style="background-color: #01305d">-</label>
-        <input id="pinjam" type="text" value="${counter}" class="counter-input w-50 rounded bg-dark-subtle">
-        <label for="pinjam" class="btn-counter btn-counter-plus btn text-white" style="background-color: #01305d">+</label>
+        <label for="pinjam${total}" class="btn-counter btn-counter-min btn text-white" style="background-color: #01305d">-</label>
+        <input id="pinjam${total}" type="text" value="${counter}" class="counter-input w-50 rounded bg-dark-subtle">
+        <label for="pinjam${total}" class="btn-counter btn-counter-plus btn text-white" style="background-color: #01305d">+</label>
       </div>
     `);
 

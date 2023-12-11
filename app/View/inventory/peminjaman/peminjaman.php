@@ -1,6 +1,6 @@
 <div class="container-fluid p-4 w-100  d-flex flex-column row-gap-3">
   <div class="w-100 d-flex flex-column flex-md-row row-gap-3  justify-content-between ">
-    <h1 class="loans-heading order-last order-md-first">Peminjaman</h1>
+    <h1 class="loans-heading">Peminjaman</h1>
     <div class="h-100 d-flex justify-content-between column-gap-4 ">
       <div class="search-bar-container d-flex gap-2 position-relative overflow-hidden d-flex justify-content-center align-items-center rounded-3">
         <input type="text" placeholder="Cari" class="w-100 h-100 px-3 rounded-3" style="border: none; outline: none;">
@@ -12,12 +12,12 @@
   </div>
 </div>
 
-<div class="inventory-items-container h-100 w-100 pb-4 px-4 overflow-y-scroll ">
+<div class="inventory-items-container w-100 pb-4 px-4 overflow-y-scroll ">
   <div class="inventory-item w-100 h-100  d-flex flex-column bg-body-tertiary p-2 gap-2 p-xl-3">
     <div class="flex-grow-1">
       <img src="/public/assets/images/jay-zhang-ZByWaPXD2fU-unsplash.jpg" alt="" class="w-100 object-fit-cover h-100 ratio-1x1 rounded-2" />
     </div>
-    <div class="text-dark flex-grow-1">
+    <div class="text-dark">
       <div class="d-flex justify-content-between flex-column row-gap-4 ">
         <div class="inventory-item-name-data flex-grow-1 d-flex justify-content-between">
           <p style="font-size: 0.8rem;"><strong>Keyboard</strong>/Elektronik</p>
@@ -41,7 +41,7 @@
     <div class="flex-grow-1">
       <img src="/public/assets/images/jay-zhang-ZByWaPXD2fU-unsplash.jpg" alt="" class="w-100 object-fit-cover h-100 ratio-1x1 rounded-2" />
     </div>
-    <div class="text-dark flex-grow-1">
+    <div class="text-dark">
       <div class="d-flex justify-content-between flex-column row-gap-4 ">
         <div class="inventory-item-name-data flex-grow-1 d-flex justify-content-between">
           <p style="font-size: 0.8rem;"><strong>Keyboard</strong>/Elektronik</p>
@@ -65,7 +65,7 @@
     <div class="flex-grow-1">
       <img src="/public/assets/images/jay-zhang-ZByWaPXD2fU-unsplash.jpg" alt="" class="w-100 object-fit-cover h-100 ratio-1x1 rounded-2" />
     </div>
-    <div class="text-dark flex-grow-1">
+    <div class="text-dark">
       <div class="d-flex justify-content-between flex-column row-gap-4 ">
         <div class="inventory-item-name-data flex-grow-1 d-flex justify-content-between">
           <p style="font-size: 0.8rem;"><strong>Keyboard</strong>/Elektronik</p>
@@ -89,7 +89,7 @@
     <div class="flex-grow-1">
       <img src="/public/assets/images/jay-zhang-ZByWaPXD2fU-unsplash.jpg" alt="" class="w-100 object-fit-cover h-100 ratio-1x1 rounded-2" />
     </div>
-    <div class="text-dark flex-grow-1">
+    <div class="text-dark">
       <div class="d-flex justify-content-between flex-column row-gap-4 ">
         <div class="inventory-item-name-data flex-grow-1 d-flex justify-content-between">
           <p style="font-size: 0.8rem;"><strong>Keyboard</strong>/Elektronik</p>
@@ -111,7 +111,7 @@
   </div>
 </div>
 
-<div class="loan-button-container w-100 py-3 px-3 bg-body-tertiary">
+<div class="loan-button-container w-100 py-3 px-3 bg-body-tertiary position-fixed bottom-0 d-flex justify-content-between">
   <button class="loan-button btn w-100 text-white" style="background-color: #01305D;" type="button" disabled>Pinjam(0)</button>
 </div>
 

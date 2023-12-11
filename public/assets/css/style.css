@@ -278,7 +278,7 @@ main.main-container {
 
 .main-container .inventory-items-container .inventory-item {
     width: calc(100% / 2 - 0.5rem);
-    height: calc(100% / 2 - 0.5rem);
+    height: fit-content;
     border-radius: 0.5rem;
 }
 
@@ -419,7 +419,8 @@ table:not(.identity-table):not(.calendar-table) tbody tr td {
     overflow-x: scroll;
 }
 
-.modal-detail-container {
+.modal-detail-container,
+.modal-detail-history-container {
     width: 100%;
     padding: 3rem 0 0 0;
 }
@@ -460,7 +461,7 @@ strong {
 
 .inventory-items-container {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 1rem 1rem;
 }
 
@@ -518,11 +519,78 @@ strong {
 .detail-item-modal-container {
     width: 100vw;
     height: fit-content;
+    z-index: 99;
+}
+
+div#content {
+    height: 100vh;
+}
+
+form#detail-item-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+form#detail-item-form .input-container input:not([type="checkbox"]) {
+    padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+}
+
+form#detail-item-form .input-container select {
+    width: 100%;
 }
 
 @media only screen and (min-width: 768px) {
+    .inventory-items-container {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem 1rem;
+    }
+
+    .inventory-item {
+        width: calc(100% / 2 - 1rem);
+        height: fit-content;
+    }
+
+    main.main-container {
+        height: 100%;
+    }
+
+    form#detail-item-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    form#detail-item-form > .input-container:nth-child(8) {
+        grid-column: span 2;
+    }
+
+    .detail-item-modal-container {
+        width: 100vw;
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .detail-item-modal {
+        width: 100%;
+        height: fit-content;
+        border-radius: 1rem;
+    }
+
+    div.add-item-modal-container {
+        width: 100%;
+        height: 100vh;
+    }
+
     .image-upload-button-container {
         width: 100%;
+        height: 100%;
+    }
+
+    .image-upload-button-container > div > label {
+        width: 100%;
+        padding: 1rem;
     }
 
     .maintainer-input-container {
@@ -532,12 +600,6 @@ strong {
 
     .add-item-modal {
         height: 100%;
-    }
-
-    .detail-item-modal {
-        width: 40rem;
-        height: 50rem;
-        border-radius: 2rem;
     }
 
     .personal-information-container {
@@ -553,9 +615,15 @@ strong {
 }
 
 @media only screen and (min-width: 992px) {
-
     .image-upload-button-container {
-        width: 50%;
+        width: 100%;
+        height: 100%;
+    }
+
+    .image-upload-button-container > div > label {
+        width: 100%;
+        height: 95%;
+        padding: 1rem;
     }
 
     .detail-item-modal {
@@ -707,7 +775,8 @@ strong {
     }
 
     .main-container .confirmation-modal-container,
-    .modal-detail-container {
+    .modal-detail-container,
+    .modal-detail-history-container {
         width: 80vw;
         padding: 8rem 0 0 0;
     }
@@ -749,7 +818,7 @@ strong {
     .confirmation-add-item-modal-container
         .confirmation-add-item-modal
         div.input-container {
-        width: 45%;
+        width: 100%;
         height: fit-content;
     }
 

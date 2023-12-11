@@ -1,5 +1,5 @@
     
-    <div class="gap-4 p-4 d-flex flex-column flex-md-row w-100" style=" color:#01305D">
+    <div class="gap-4 p-4 pt-5 pt-lg-4  d-flex flex-column flex-md-row w-100" style=" color:#01305D">
       <div class="dashboard-widget-item flex-grow-1 bg-body-tertiary rounded-4 p-3 d-flex flex-column justify-content-between ">
         <div class="d-flex justify-content-between">
           <strong>Menunggu</strong>
@@ -115,7 +115,7 @@
           <div class="overflow-y-scroll d-flex flex-column gap-4 h-100 py-2 mt-2 ">
             <div class="d-flex gap-4">
               <div class="new-item-image-container">
-                <img src="/public/assets/images/logo-tulisan.png" alt="" class="w-100 h-100 object-fit-cover rounded-3" />
+                <img src="/public/assets/images/logo-tulisan.svg" alt="" class="w-100 h-100 object-fit-cover rounded-3" />
               </div>
               <div>
                 <strong class="new-item-title">Missile</strong>
@@ -124,7 +124,7 @@
             </div>
             <div class="d-flex gap-4">
               <div class="new-item-image-container">
-                <img src="/public/assets/images/logo-tulisan.png" alt="" class="w-100 h-100 object-fit-cover rounded-3" />
+                <img src="/public/assets/images/logo-tulisan.svg" alt="" class="w-100 h-100 object-fit-cover rounded-3" />
               </div>
               <div>
                 <strong class="new-item-title">Missile</strong>
@@ -133,7 +133,7 @@
             </div>
             <div class="d-flex gap-4">
               <div class="new-item-image-container">
-                <img src="/public/assets/images/logo-tulisan.png" alt="" class="w-100 h-100  object-fit-cover  rounded-3" />
+                <img src="/public/assets/images/logo-tulisan.svg" alt="" class="w-100 h-100  object-fit-cover  rounded-3" />
               </div>
               <div>
                 <strong class="new-item-title">Missile</strong>
