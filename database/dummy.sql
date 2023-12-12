@@ -19,12 +19,6 @@ INSERT INTO Kategori (ID_Kategori, Nama) VALUES
 	('K3', 'ATK');
 DELETE FROM Pengguna WHERE Email = "someone@gmail.com";
 
-SELECT * FROM pengguna;
-SELECT * FROM OTP;
-DELETE FROM OTP;
-;
-
-DELETE FROM OTP;
 INSERT INTO Pengguna (ID_Pengguna, ID_Level, Nomor_Identitas, Password, Nama, Email, Nomor_HP, Foto, Status, Salt) VALUES
 	('P1', 'L2', '404079101', '$2y$10$yqNUmO1/7VmSSSFs08Whh.rt.mdDSy7/rwRy2YBsmuf8yMHr.K3Dq', 'Ade Ismail', 'AdeIsmail@polinema.ac.id', '82182', NULL, 'Aktif', 'dnaqdkn'), -- password: adei
 	('P2', 'L3', '2241720220', '$2y$10$Ri8hZ/.0L4SGseYP4qRCAOVZ5b0jKj9DXCGnBwXAn.BswlApv0/AC', 'Putra Zakaria', 'PutraZakaria@polinema.ac.id', '82183', NULL, 'Tidak Aktif', 'hdgjdf'), -- password: putraz
@@ -41,8 +35,7 @@ INSERT INTO OTP (ID_OTP, ID_Pengguna, Kode, Expired) VALUES
 	('O3', 'P3', 'DFE421', '2023-11-03 15:00:00'),
 	('O4', 'P4', 'DETE43', '2023-11-10 10:00:00'),
 	('O5', 'P7', 'JJD083', '2023-11-10 11:00:00');
-SELECT * FROM Pengguna;
-SELECT * FROM OTP;
+    
 INSERT INTO Inventaris (ID_Inventaris, Nama, Stok, ID_Kategori, Asal, Deskripsi, Gambar ) VALUES
 	('I1', 'Spidol', '10', 'K3', 'Hibah', '-', 'inventaris1.png'),
 	('I2', 'Penghapus', '7', 'K3', 'Beli', '-', 'inventaris2.png'),

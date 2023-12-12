@@ -13,7 +13,7 @@
 
 
 <!-- Menu Inventarisir -->
-<script>
+<!-- <script>
   /* Button tambah barang */
   $(document).on('click', '.add-new-item-button', () => {
     $('.add-item-modal-container').removeClass('d-none');
@@ -94,7 +94,7 @@
   $(document).on('click', '.delete-item-success-button', () => {
     $('.success-delete-item-modal-container').addClass('d-none');
   })
-</script>
+</script> -->
 
 <!-- Ini khusus digunakan pada menu dashboard admin dan data peminjaman -->
 <script>
@@ -501,66 +501,66 @@
 
 <!-- Ini Khusus digunakan oleh menu maintainer -->
 <script>
-  $(document).on('click', '.add-new-maintainer-button', () => {
-    $('.add-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.add-new-maintainer-button', () => {
+//     $('.add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.cancel-button-add-maintainer', () => {
-    $('.add-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.cancel-button-add-maintainer', () => {
+//     $('.add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.confirm-button-add-maintainer', () => {
-    $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.confirm-button-add-maintainer', () => {
+//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.cancel-button-confirm-add-maintainer', () => {
-    $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.cancel-button-confirm-add-maintainer', () => {
+//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.save-button-confirm-add-maintainer', () => {
-    $('.success-add-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.save-button-confirm-add-maintainer', () => {
+//     $('.success-add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.add-maintainer-success-button-back', () => {
-    $('.add-maintainer-modal-container').toggleClass('d-none');
-    $('.success-add-maintainer-modal-container').toggleClass('d-none');
-    $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.add-maintainer-success-button-back', () => {
+//     $('.add-maintainer-modal-container').toggleClass('d-none');
+//     $('.success-add-maintainer-modal-container').toggleClass('d-none');
+//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.edit-maintainer-button', () => {
-    $('.edit-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.edit-maintainer-button', () => {
+//     $('.edit-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.cancel-button-edit-maintainer', () => {
-    $('.edit-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.cancel-button-edit-maintainer', () => {
+//     $('.edit-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.confirm-button-edit-maintainer', () => {
-    $('.success-edit-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.confirm-button-edit-maintainer', () => {
+//     $('.success-edit-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.edit-maintainer-success-button-back', () => {
-    $('.success-edit-maintainer-modal-container').toggleClass('d-none');
-    $('.edit-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.maintainer-success-button-back', () => {
+//     $('.maintainer-modal-container').toggleClass('d-none');
+//     $('maintainer-modal-container').toggleClass('d-none');
+//   })
 
 
-  $(document).on('click', '.delete-maintainer-button', () => {
-    $('.delete-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.delete-maintainer-button', () => {
+//     $('.delete-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.delete-maintainer-button-back', () => {
-    $('.delete-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.delete-maintainer-button-back', () => {
+//     $('.delete-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.delete-maintainer-button-delete', () => {
-    $('.success-delete-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.delete-maintainer-button-delete', () => {
+//     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.delete-maintainer-success-button', () => {
-    $('.delete-maintainer-modal-container').toggleClass('d-none');
-    $('.success-delete-maintainer-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.delete-maintainer-success-button', () => {
+//     $('.delete-maintainer-modal-container').toggleClass('d-none');
+//     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
+//   })
 </script>
 
 <script>

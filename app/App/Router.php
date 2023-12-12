@@ -27,7 +27,7 @@ class Router implements RouterInterface
             $originalPath = $_SERVER['PATH_INFO'];
         }
 
-        $path = rtrim($originalPath, '/'); 
+        $path = rtrim($originalPath, '/');
 
         $method = $_SERVER['REQUEST_METHOD'];
 

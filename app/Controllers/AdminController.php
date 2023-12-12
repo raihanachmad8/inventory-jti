@@ -25,4 +25,8 @@ class AdminController
   {
     return View::renderView('admin/maintainer/maintainer');
   }
+  public function maintainerdetails()
+  {
+    return View::renderView('admin/maintainer/details');
+  }
 }

@@ -13,6 +13,7 @@ require_once __DIR__ . '/../app/Middleware/GuestOnlyMiddleware.php';
 // Controllers
 require_once __DIR__ . '/../app/Controllers/HomeController.php';
 require_once __DIR__ . '/../app/Controllers/AdminController.php';
+require_once __DIR__ . '/../app/Controllers/AdminMaintainerController.php';
 require_once __DIR__ . '/../app/Controllers/UserController.php';
 require_once __DIR__ . '/../app/Controllers/InventoryController.php';
 
@@ -27,7 +28,14 @@ Router::get('/admin', [AdminController::class, 'dashboard']);
 Router::get('/admin/data-peminjaman', [AdminController::class, 'dataPeminjaman']);
 Router::get('/admin/inventarisir', [AdminController::class, 'inventarisir']);
 Router::get('/admin/riwayat-peminjaman', [AdminController::class, 'riwayat']);
-Router::get('/admin/maintainer', [AdminController::class, 'maintainer']);
+// Router::get('/admin/maintainer', [AdminController::class, 'maintainer']);
+
+Router::get('/admin/maintainer', [AdminMaintainerController::class, 'index']);
+
+Router::post('/admin/maintainer/post', [AdminMaintainerController::class, 'postCreate']);
+Router::delete('/admin/maintainer/delete', [AdminMaintainerController::class, 'delete']);
+Router::get('/admin/maintainer/get', [AdminMaintainerController::class, 'get']);
+Router::put('/admin/maintainer/update', [AdminMaintainerController::class, 'putUpdate']);
 
 
 // Router Landing Page
@@ -67,5 +75,15 @@ Router::get('/profile/keamanan', [InventoryController::class, 'keamanan']);
 Router::get('/profile/pesan', [InventoryController::class, 'pesan']);
 Router::get('/profile/hapus-akun', [InventoryController::class, 'hapusAkun']);
 
+
+
+// require_once __DIR__ . '/../app/Repository/MaintainerRepository.php';
+
+// $maintainer = new MaintainerRepository();
+// $main = new Maintainer();
+// $main->ID_Maintainer = 'M5';
+// $main->Nama = 'Eko';
+// var_dump($maintainer->search(''));
+// var_dump($maintainer->search('Pa'));
 
 Router::run();
