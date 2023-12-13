@@ -1,8 +1,6 @@
 <?php
 $current_page_url = $_SERVER['REQUEST_URI'];
 
-
-
 $menu_items = [
     'admin' => '/admin',
     'admin/data-peminjaman' => '/admin/data-peminjaman',
@@ -140,47 +138,44 @@ function user_role()
     </div>
 
     <!-- Teks -->
-    <div id="about" class="container-fluid d-flex flex-column justify-content-center align-items-center py-5" style="background-color: #02357029;">
-        <img class="mb-1" src="/public/assets/images/quote.svg" />
-        <h1 class="display-5" style="color: #074a81; font-weight: 700;">
-            Tentang
-        </h1>
-        <p class="lead text-center">
-            Sebuah proyek dibuat untuk
-            memberikan kemudahan dalam pengelolaan dan peminjaman peralatan
-            di lingkungan Jurusan Teknologi Informasi Politeknik Negeri
-            Malang. Melalui inovasi ini, kami bertujuan untuk meningkatkan
-            efisiensi serta mempermudah mahasiswa dan staf jurusan Teknologi
-            Informasi dalam mendapatkan akses dan informasi terkait
-            peminjaman barang. <br /><br />
-            Dengan antarmuka yang ramah pengguna, Anda dapat dengan mudah
-            menjelajahi katalog barang yang tersedia, melakukan peminjaman,
-            dan mengelola status peminjaman Anda. Kami berkomitmen untuk
-            menyediakan layanan yang dapat mendukung kegiatan akademis dan
-            proyek-proyek kreatif Anda.
+    <div id="about" class="container-fluid d-flex flex-column justify-content-center align-items-center py-5" style="background-color: #02357029;" >
+    <div class="mb-5"></div>
+    <img class="mb-1" src="/public/assets/images/quote.svg" />
+    <h1 class="display-5 mb-3" style="color: #074a81; font-weight: 700;">
+        Tentang
+    </h1>
+    <p class="lead text-center">
+        Sebuah proyek dibuat untuk
+        memberikan kemudahan dalam pengelolaan dan peminjaman peralatan
+        di lingkungan Jurusan Teknologi Informasi Politeknik Negeri
+        Malang. Melalui inovasi ini, kami bertujuan untuk meningkatkan
+        efisiensi serta mempermudah mahasiswa dan staf jurusan Teknologi
+        Informasi dalam mendapatkan akses dan informasi terkait
+        peminjaman barang. <br /><br />
+        Dengan antarmuka yang ramah pengguna, Anda dapat dengan mudah
+        menjelajahi katalog barang yang tersedia, melakukan peminjaman,
+        dan mengelola status peminjaman Anda. Kami berkomitmen untuk
+        menyediakan layanan yang dapat mendukung kegiatan akademis dan
+        proyek-proyek kreatif Anda.
+    </p>
+    <div class="lead text-center">
+        <p class="text-center mb-3">
+            Peminjaman Menjadi Lebih Mudah dengan kemudahan proses dan persyaratan yang sederhana,
+            pengajuan pinjaman kini menjadi langkah yang lebih mudah dan cepat, tanpa kerumitan yang
+            berlebihan.
         </p>
+        <a href="../login/">
+            <button type="button" class="mb-5 btn btn-primary">
+                Sign Up Now
+            </button>
+        </a>
     </div>
-
-    <div id="invitation" class="container-fluid d-flex justify-content-center align-items-center" style=" background-color: #074a8154">
-        <div class="text-center">
-            <h1 class="display-5" style="color: #074a81; font-weight: 700;">Peminjaman Menjadi Lebih Mudah</h1>
-            <p class="text-center">
-                Dengan kemudahan proses dan persyaratan yang sederhana,
-                pengajuan pinjaman kini menjadi <br />
-                langkah yang lebih mudah dan cepat, tanpa kerumitan yang
-                berlebihan.
-            </p>
-            <a href="../login/">
-                <button type="button" class="btn btn-primary">
-                    Sign Up Now
-                </button>
-            </a>
-        </div>
-    </div>
+</div>
 
     <!-- Card Feature-->
     <div id="feature" class="container-fluid d-flex flex-column justify-content-center align-items-center">
-        <h1 class="text-center display-5 " style="color: #074a81; font-weight: 700;">Fitur Kami</h1>
+        <div class="mb-5"></div>
+        <h1 class="text-center display-5 mb-5" style="color: #074a81; font-weight: 700;">Fitur Kami</h1>
         <div class="feature-container rounded column-gap-3">
             <div class="card mb-3 w-100" style="height: 18rem">
                 <div class="card-body">
@@ -246,7 +241,8 @@ function user_role()
 
     <!-- Team -->
     <div id="team" class="container-fluid d-flex justify-content-center align-items-center d-flex flex-column">
-        <h1 class="text-center display-5 " style="color: #074a81; font-weight: 700;">The creative team behind the door</h1>
+        <div class="mb-5"></div>
+        <h1 class="text-center display-5 mb-5" style="color: #074a81; font-weight: 700;">The creative team behind the door</h1>
         <div class="team-container mx-auto">
             <div class="mb-2 d-flex bg-body-tertiary p-3 rounded-4" style="background-color: #074a8100;">
                 <div class="text-center d-flex justify-content-center align-items-center w-50">
@@ -481,99 +477,125 @@ function user_role()
 
     <!-- FAQ -->
     <div id="faq" class="wrapper mx-auto">
-        <h1 class="display-5 text-center " style="color: #074a81; font-weight: 700;">Frequently Asked Questions</h1>
+        <div class="mb-5"></div>
+        <h1 class="display-5 text-center mb-5" style="color: #074a81; font-weight: 700;">Frequently Asked Questions</h1>
         <div class="faq">
-            <button class="accordion">
-                What is INTI?
-                <i class="accordion-icon" data-feather="chevron-down"></i>
-            </button>
-            <div class="pannel">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Suscipit
-                </p>
-            </div>
+        <button class="accordion">
+            Apakah itu INTI?
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+            <p>
+                Inventaris Jurusan Teknologi Informasi (INTI) adalah sistem informasi berbasis website yang digunakan untuk
+                meningkatkan efisiensi proses peminjaman dan pengembalian barang serta berfungsi untuk mengelola keakuratan
+                data inventaris jurusan Teknologi Informasi Politeknik Negeri Malang.
+            </p>
         </div>
+    </div>
 
-        <div class="faq">
-            <button class="accordion">
-                What is INTI?
-                <i class="accordion-icon" data-feather="chevron-down"></i>
-            </button>
-            <div class="pannel">
-                <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing
-                    elit. Facilis saepe molestiae distinctio asperiores
-                    cupiditate consequuntur dolor ullam, iure eligendi harum
-                    eaque hic corporis debitis porro consectetur voluptate
-                    rem officiis architecto.
-                </p>
-            </div>
+    <div class="faq">
+        <button class="accordion">
+            Apa saja syarat untuk melakukan peminjaman?
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+            <p>
+                Syarat untuk melakukan peminjaman barang inventaris adalah mahasiswa, dosen dan anggota aktif pada jurusan Teknologi Informasi.
+            </p>
         </div>
+    </div>
 
-        <div class="faq">
-            <button class="accordion">
-                What is INTI?
-                <i class="accordion-icon" data-feather="chevron-down"></i>
-            </button>
-            <div class="pannel">
-                <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing
-                    elit. Facilis saepe molestiae distinctio asperiores
-                    cupiditate consequuntur dolor ullam, iure eligendi harum
-                    eaque hic corporis debitis porro consectetur voluptate
-                    rem officiis architecto.
-                </p>
-            </div>
+    <div class="faq">
+        <button class="accordion">
+            Bagaimana alur peminjaman untuk Mahasiswa?
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+            <p>
+                <ol>
+                    <li>Mahasiswa login pada sistem INTI.</li>
+                    <li>Memilih barang yang ingin dipinjam.</li>
+                    <li>Melakukan konfirmasi untuk barang-barang yang dipinjam.</li>
+                    <li>Mengisi alasan peminjaman, tanggal peminjaman dan pengembalian serta WAJIB mengisi jaminan peminjaman berupa scan KTM.</li>
+                    <li>Menunggu konfirmasi peminjaman yang dilakukan oleh teknisi.</li>
+                    <li>Setelah peminjaman dikonfirmasi, Mahasiswa dapat mengambil barang sesuai instruksi yang terdapat pada pesan yang ada pada detail peminjaman.</li>
+                    <li>Mengembalikan barang sesuai dengan tanggal pengembalian yang diisikan pada saat konfirmasi peminjaman.</li>
+                </ol>
+            </p>
         </div>
+    </div>
 
-        <div class="faq">
-            <button class="accordion">
-                What is INTI?
-                <i class="accordion-icon" data-feather="chevron-down"></i>
-            </button>
-            <div class="pannel">
-                <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing
-                    elit. Facilis saepe molestiae distinctio asperiores
-                    cupiditate consequuntur dolor ullam, iure eligendi harum
-                    eaque hic corporis debitis porro consectetur voluptate
-                    rem officiis architecto.
-                </p>
-            </div>
+    <div class="faq">
+        <button class="accordion">
+            Bagaimana alur peminjaman untuk Dosen?
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+            <p>
+                <ol>
+                    <li>Dosen login pada sistem INTI.</li>
+                    <li>Memilih barang yang ingin dipinjam.</li>
+                    <li>Melakukan konfirmasi untuk barang-barang yang dipinjam.</li>
+                    <li>Mengisi alasan peminjaman, tanggal peminjaman dan pengembalian.</li>
+                    <li>Menunggu konfirmasi peminjaman yang dilakukan oleh teknisi.</li>
+                    <li>Setelah peminjaman dikonfirmasi, Dosen dapat mengambil barang sesuai instruksi yang terdapat pada pesan yang ada pada detail peminjaman.</li>
+                    <li>Mengembalikan barang sesuai dengan tanggal pengembalian yang diisikan pada saat konfirmasi peminjaman.</li>
+                </ol>
+            </p>
         </div>
+    </div>
 
-        <div class="faq">
-            <button class="accordion">
-                What is INTI?
-                <i class="accordion-icon" data-feather="chevron-down"></i>
-            </button>
-            <div class="pannel">
-                <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing
-                    elit. Facilis saepe molestiae distinctio asperiores
-                    cupiditate consequuntur dolor ullam, iure eligendi harum
-                    eaque hic corporis debitis porro consectetur voluptate
-                    rem officiis architecto.
-                </p>
-            </div>
+    <div class="faq">
+        <button class="accordion">
+            Apa saja barang jurusan yang bisa dipinjam?
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+            <p>
+                Barang inventaris jurusan Teknologi Informasi yang dapat dipinjamkan terbagi menjadi 3 kategori,
+                yaitu Peralatan (seperti Tang Crimping dan Obeng),
+                Elektronik (seperti Konektor Proyektor, Keyboard, dan Mouse), dan ATK (seperti Spidol dan Penghapus Papan Tulis).
+            </p>
         </div>
+    </div>
 
-        <div class="faq">
-            <button class="accordion">
-                What is INTI?
-                <i class="accordion-icon" data-feather="chevron-down"></i>
-            </button>
-            <div class="pannel">
-                <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing
-                    elit. Facilis saepe molestiae distinctio asperiores
-                    cupiditate consequuntur dolor ullam, iure eligendi harum
-                    eaque hic corporis debitis porro consectetur voluptate
-                    rem officiis architecto.
-                </p>
-            </div>
+    <div class="faq">
+        <button class="accordion">
+            Apakah ada denda apabila barang yang dipinjam rusak/hilang?
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+            <p>
+            Jika terdapat kerusakan atau kehilangan, akan dikenakan sanksi yaitu menggantinya dengan barang yang baru pada saat pengembalian barang.
+            </p>
         </div>
+    </div>
+
+    <div class="faq">
+        <button class="accordion">
+            Berapakah jumlah maksimal barang yang bisa dipinjam?
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+            <p>
+            Tidak ada batas maksimal peminjaman barang. Jumlah maksimal peminjaman barang tergantung pada jumlah stok barang yang tersedia.
+            </p>
+        </div>
+    </div>
+
+    <div class="faq">
+        <button class="accordion">
+            Dimana sajakah tempat pengambilan barang saat melakukan peminjaman?
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+            <p>
+            Untuk pengambilan barang berjenis Elektronik dan Peralatan dapat dilakukan di ruang teknisi pada lt.5 dan lt.7.
+            Sedangkan, barang berjenis ATK dapat diambil di ruang admin pada lt.6. Instruksi lebih jelas mengenai pengambilan
+            barang dapat ditemukan pada pesan yang terdapat pada detail peminjaman.
+            </p>
+        </div>
+    </div>
     </div>
 
     <!-- Footer -->
@@ -583,6 +605,7 @@ function user_role()
             <div class="footer-col">
                 <ul>
                     <h4><b>JTI POLINEMA</b></h4>
+                    <br>
                     <li>
                         <a href="">Jurusan Teknologi Informatika Politeknik
                             <br />Negeri Malang</a>
@@ -602,8 +625,9 @@ function user_role()
             <div class="footer-col">
                 <ul>
                     <h4><b>Blog</b></h4>
-                    <li><a href="#">Aturan Peminjaman</a></li>
-                    <li><a href="#">Syarat dan Ketentuan</a></li>
+                    <br>
+                    <li><a href="#faq">Aturan Peminjaman</a></li>
+                    <li><a href="#faq">Syarat dan Ketentuan</a></li>
                 </ul>
             </div>
 
@@ -611,15 +635,16 @@ function user_role()
             <div class="footer-col">
                 <ul>
                     <h4><b>External</b></h4>
-                    <li><a href="#">E-Learning</a></li>
-                    <li><a href="#">Jurnal Informatika</a></li>
-                    <li><a href="#">Digital Library</a></li>
+                    <br>
+                    <li><a href="http://lms.jti.polinema.ac.id/">E-Learning</a></li>
+                    <li><a href="http://jip.polinema.ac.id/ojs3/index.php/jip">Jurnal Informatika</a></li>
+                    <li><a href="http://digilib.jti.polinema.ac.id/">Digital Library</a></li>
                     <li>
                         <a href="http://siakad.polinema.ac.id/">Siakad</a>
                     </li>
-                    <li><a href="#">JPC Polinema</a></li>
-                    <li><a href="#">Unit P2M Polinema</a></li>
-                    <li><a href="#">Beasiswa</a></li>
+                    <li><a href="https://jpc.polinema.ac.id/">JPC Polinema</a></li>
+                    <li><a href="http://p2m.polinema.ac.id/">Unit P2M Polinema</a></li>
+                    <li><a href="http://beasiswa.polinema.ac.id/">Beasiswa</a></li>
                 </ul>
             </div>
 
@@ -627,6 +652,7 @@ function user_role()
             <div class="footer-col">
                 <ul>
                     <h4><b>Social Media</b></h4>
+                    <br>
                     <li>
                         <a href="https://www.instagram.com/jtipolinema/">Instagram</a>
                     </li>
