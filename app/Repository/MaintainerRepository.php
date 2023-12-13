@@ -14,11 +14,10 @@ class MaintainerRepository
     {
         $query = "SELECT ID_Maintainer, Nama as Nama_Maintainer FROM maintainer";
         $result = $this->connection->query($query);
-        $maintainer = [];
-        while ($row = $result->fetchAll(PDO::FETCH_CLASS, 'Maintainer', ['ID_Maintainer', 'Nama_Maintainer'])) {
+        while ($row = $result->fetchObject('Maintainer')) {
             $maintainer[] = $row;
         }
-        return $maintainer;
+        return $maintainer ?? [];
     }
 
     public function getMaintainerById($id) : Maintainer
@@ -34,6 +33,29 @@ class MaintainerRepository
         } catch (PDOException $exception) {
             throw new Exception('Maintainer not found');
         }
+    }
+
+    public function getListMaintainerByID(string $ID_Inventaris) : array{
+        try {
+            $query = "SELECT
+            m.ID_Maintainer, m.Nama as Nama_Maintainer
+            FROM Maintainer m
+            JOIN maintainerinventaris mi ON mi.ID_Maintainer = m.ID_Maintainer
+            JOIN inventaris i ON i.ID_Inventaris = mi.ID_Inventaris
+            WHERE i.ID_Inventaris = :id_inventaris
+            ORDER BY CAST(SUBSTRING(m.ID_Maintainer FROM 2) AS SIGNED) ASC, m.ID_Maintainer";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'id_inventaris' => $ID_Inventaris
+            ]);
+            while ($row = $statement->fetchObject('Maintainer')) {
+                $maintainer[] = $row;
+            }
+            return $maintainer ?? throw new Exception('Maintainer not found');
+        } catch (PDOException $exception) {
+            throw new Exception('Maintainer not found');
+        }
+
     }
 
     public function create(Maintainer $maintainer) : bool
@@ -84,11 +106,10 @@ class MaintainerRepository
         $statement->execute([
             'keyword' => "%$keyword%"
         ]);
-        $maintainer = [];
         while ($row = $statement->fetchObject('Maintainer')) {
             $maintainer[] = $row;
         }
-        return $maintainer;
+        return $maintainer ?? [];
     }
 
 }

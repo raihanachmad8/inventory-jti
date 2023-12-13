@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 // Core
 require_once __DIR__ . '/../app/App/Router.php';
 require_once __DIR__ . '/../app/App/View.php';
@@ -26,16 +29,23 @@ Router::get('/peminjaman', [PeminjamanController::class, 'index']);
 Router::get('/riwayat', [RiwayatController::class, 'index']); */
 Router::get('/admin', [AdminController::class, 'dashboard']);
 Router::get('/admin/data-peminjaman', [AdminController::class, 'dataPeminjaman']);
+
 Router::get('/admin/inventarisir', [AdminController::class, 'inventarisir']);
+Router::get('/admin/inventarisir/get', [AdminController::class, 'getInvertarisir']);
+Router::post('/admin/inventarisir/post', [AdminController::class, 'postCreateInventariris']);
+Router::post('/admin/inventarisir/update', [AdminController::class, 'putUpdateInventariris']);
+Router::delete('/admin/inventarisir/delete', [AdminController::class, 'deleteInventariris']);
+
 Router::get('/admin/riwayat-peminjaman', [AdminController::class, 'riwayat']);
 // Router::get('/admin/maintainer', [AdminController::class, 'maintainer']);
 
-Router::get('/admin/maintainer', [AdminMaintainerController::class, 'index']);
 
-Router::post('/admin/maintainer/post', [AdminMaintainerController::class, 'postCreate']);
-Router::delete('/admin/maintainer/delete', [AdminMaintainerController::class, 'delete']);
+
+Router::get('/admin/maintainer', [AdminMaintainerController::class, 'index']);
 Router::get('/admin/maintainer/get', [AdminMaintainerController::class, 'get']);
+Router::post('/admin/maintainer/post', [AdminMaintainerController::class, 'postCreate']);
 Router::put('/admin/maintainer/update', [AdminMaintainerController::class, 'putUpdate']);
+Router::delete('/admin/maintainer/delete', [AdminMaintainerController::class, 'delete']);
 
 
 // Router Landing Page
@@ -77,13 +87,16 @@ Router::get('/profile/hapus-akun', [InventoryController::class, 'hapusAkun']);
 
 
 
-// require_once __DIR__ . '/../app/Repository/MaintainerRepository.php';
+// require_once __DIR__ . '/../app/Repository/InventarisRepository.php';
+// require_once __DIR__ . '/../app/Services/InventarisirService.php';
 
-// $maintainer = new MaintainerRepository();
-// $main = new Maintainer();
-// $main->ID_Maintainer = 'M5';
-// $main->Nama = 'Eko';
-// var_dump($maintainer->search(''));
-// var_dump($maintainer->search('Pa'));
+// var_dump((new InventarisirService)->search('obe'));
+
+// // $maintainer = new MaintainerRepository();
+// // $main = new Maintainer();
+// // $main->ID_Maintainer = 'M5';
+// // $main->Nama = 'Eko';
+// // var_dump($maintainer->search(''));
+// // var_dump($maintainer->search('Pa'));
 
 Router::run();

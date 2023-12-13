@@ -2,8 +2,8 @@
 
 class Inventaris
 {
-    private string $ID_Inventaris;
-    public string $Nama;
+    public string $ID_Inventaris;
+    public string $Nama_Inventaris;
     public string $Stok;
     public string $ID_Kategori;
     public string $Asal;
@@ -11,10 +11,6 @@ class Inventaris
     public ?string $Gambar;
 
     // Relation
-    public ?Kategori $kategori = null;
+    public Kategori $Kategori;
 
-    public function getIDInventaris() : string
-    {
-        return $this->ID_Inventaris;
-    }
 }

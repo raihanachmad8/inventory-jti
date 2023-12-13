@@ -299,13 +299,11 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
         e.preventDefault();
         $('.edit-maintainer-modal-container').toggleClass('d-none');
         const formData = new FormData(document.querySelector('#detail-item-form-edit'))
-        console.log(JSON.stringify(Object.fromEntries(formData.entries())))
         $.ajax({
             url: '/admin/maintainer/update',
             method: 'PUT',
             data: JSON.stringify(Object.fromEntries(formData)),
             success: (data) => {
-                console.log(data)
                 $(document).ready(function() {
                     $('.maintainer-modal-container').removeClass('d-none');
                     $('#maintainer-modal-container-title').html('Berhasil');
@@ -315,8 +313,6 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
             },
             error: (error) => {
                 $(document).ready(function() {
-                    console.log(error)
-                    console.log(error.responseText)
                     $('.maintainer-modal-container-failed').removeClass('d-none');
                     $('#maintainer-modal-container-failed-title').html('Gagal');
                     $('#maintainer-modal-container-failed-message').html(`${error.responseText}`);
@@ -324,6 +320,9 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
                 })
             }
         })
+    })
+    $(document).on('click', '.add-item-success-button-back', () => {
+        $('.success-add-item-modal-container').addClass('d-none');
     })
 
     // $('detail-item-form-edit')
@@ -345,13 +344,11 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
                     url: `/admin/maintainer/delete?kode=${kode}`,
                     method: 'delete',
                     success: function (data) {
-                        console.log(data);
                         $('.maintainer-modal-container').toggle('d-none');
                         $('#maintainer-modal-container-title').html('Berhasil');
                         $('#maintainer-modal-container-message').html('Data berhasil dihapus');
                     },
                     error: function (error) {
-                        console.log(error);
                         $('.maintainer-modal-container').toggle('d-none');
                         $('.maintainer-modal-container-failed').removeClass('d-none');
                         $('#maintainer-modal-container-failed-title').html('Gagal');

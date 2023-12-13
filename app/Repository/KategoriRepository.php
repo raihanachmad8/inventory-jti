@@ -14,11 +14,10 @@ class KategoriRepository
     {
         $query = "SELECT ID_Kategori, Nama as Nama_Kategori FROM kategori";
         $result = $this->connection->query($query);
-        $kategori = [];
         while ($row = $result->fetchObject('Kategori')) {
             $kategori[] = $row;
         }
-        return $kategori;
+        return $kategori ?? [];
     }
 
     public function getKategoriById($id) : Kategori
@@ -30,7 +29,7 @@ class KategoriRepository
         ]);
         $kategori = $statement->fetchObject('Kategori');
 
-        return $kategori[0];
+        return $kategori ?? throw new Exception('Kategori not found');
     }
 
     public function create(Kategori $kategori) : bool
