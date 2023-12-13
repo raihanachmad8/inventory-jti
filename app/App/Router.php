@@ -13,19 +13,33 @@ interface RouterInterface {
 class Router implements RouterInterface
 {
     public static array $routes = [];
+    public static array $globalMiddleware = [];
+
+    public static function addGlobalMiddleware(string $middleware): void
+    {
+        self::$globalMiddleware[] = $middleware;
+    }
 
     public static function run(): void
     {
-        $path = '/';
+        $originalPath = '/';
         if (isset($_SERVER['PATH_INFO'])) {
-            $path = $_SERVER['PATH_INFO'];
+            $originalPath = $_SERVER['PATH_INFO'];
         }
+
+        $path = rtrim($originalPath, '/');
 
         $method = $_SERVER['REQUEST_METHOD'];
 
         foreach (self::$routes as $route) {
             $pattern = "#^" . $route['path'] . "$#";
             if (preg_match($pattern, $path, $variables) && $method == $route['method']) {
+
+                // Call global middleware
+                foreach (self::$globalMiddleware as $middleware){
+                    $instance = new $middleware;
+                    $instance->before();
+                };
 
                 //     // Call middleware
                     foreach ($route['middleware'] as $middleware){

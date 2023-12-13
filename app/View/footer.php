@@ -6,146 +6,239 @@
 </script>
 
 <script>
-  document.addEventListener
+  $(document).on('click', '.sidebar-btn', () => {
+    $('.sidebar').toggleClass('active');
+  })
+</script>
 
+
+<!-- Menu Inventarisir -->
+<!-- <script>
+  /* Button tambah barang */
+  $(document).on('click', '.add-new-item-button', () => {
+    $('.add-item-modal-container').removeClass('d-none');
+  })
+
+  /* Setelah button tambah barang di klik akan muncul popup untuk ngisi data barang
+  ini digunakan ketika button batalkan di klik */
+  $(document).on('click', '.cancel-button-add-item', () => {
+    $('.add-item-modal-container').addClass('d-none');
+  })
+
+  /* ini digunakan ketika button konfirmasi diklik */
+  $(document).on('click', '.confirm-button-add-item', () => {
+    $('.confirmation-add-item-modal-container').removeClass('d-none');
+  })
+
+  /* Ketika tombol konfirmasi di klik akan muncul popup lagi yang digunakan untuk konfirmasi
+  ini digunakan ketika button batalkan di klik */
+  $(document).on('click', '.cancel-button-confirm-add-item', () => {
+    $('.confirmation-add-item-modal-container').addClass('d-none');
+  })
+
+  /* Dan ini ketika tombol simpan di klik */
+  $(document).on('click', '.save-button-confirm-add-item', () => {
+    $('.confirmation-add-item-modal-container').addClass('d-none');
+    $('.add-item-modal-container').addClass('d-none');
+    $('.success-add-item-modal-container').removeClass('d-none');
+  })
+
+  /* ketika sudah berhasil tambah barang akan muncul sebuah popup like a notifikasi bahwa
+  penambahan barang selesai dan di bagian ini akan digunakan untuk kembali */
+  $(document).on('click', '.add-item-success-button-back', () => {
+    $('.success-add-item-modal-container').addClass('d-none');
+  })
+
+  /* Bagian ini digunakan pada tombol detail pada tabel */
+  $(document).on('click', '.button-detail-item', () => {
+    $('.detail-item-modal-container').removeClass('d-none');
+  })
+
+  /* Lalu akan muncul popup untuk detail barang */
+  /* Ini digunakan ketika tombol batalkan di click */
+  $(document).on('click', '.cancel-button-detail-item', () => {
+    $('.detail-item-modal-container').addClass('d-none');
+  })
+
+  /* Ini digunakan ketika tombol hapus diklik */
+  $(document).on('click', '.delete-button-detail-item', () => {
+    $('.delete-item-modal-container').removeClass('d-none');
+  })
+
+  // Ini digunakan ketika tombol simpan di klik
+  $(document).on('click', '.save-button-detail-item', () => {
+    $('.detail-item-modal-container').addClass('d-none');
+    $('.success-edit-item-modal-container ').removeClass('d-none');
+  })
+
+  // Ini digunakan ketika tombol kembali di klik ketik sukses edit item
+  $(document).on('click', '.edit-item-success-button', () => {
+    $('.success-edit-item-modal-container ').addClass('d-none');
+  })
+
+  /* Ketika tombol hapus di klik akan muncul popup untuk konfirmasi apakah yakin ingin menghapus? */
+  /* Bagian ini digunakan untuk menghandle tombol di dalam popup tersebut */
+  // Ini digunakan ketika tombol batalkan di klik
+  $(document).on('click', '.delete-item-button-back', () => {
+    $('.delete-item-modal-container').addClass('d-none');
+  })
+
+  // ini digunakan ketika tombol hapus di klik
+  $(document).on('click', '.delete-item-button', () => {
+    $('.delete-item-modal-container').addClass('d-none');
+    $('.detail-item-modal-container').addClass('d-none');
+    $('.success-delete-item-modal-container').removeClass('d-none');
+  })
+
+  // ini digunakan ketika tombol kembali pada popup berhasil menghapus di klik
+  $(document).on('click', '.delete-item-success-button', () => {
+    $('.success-delete-item-modal-container').addClass('d-none');
+  })
+</script> -->
+
+<!-- Ini khusus digunakan pada menu dashboard admin dan data peminjaman -->
+<script>
+  // Bagian ini digunakan ketika tombol detail pada field peminjaman di klik
+  $(document).on('click', '.loan--details-button--approval', () => {
+    $('.modal-detail-container').removeClass('d-none');
+  })
+
+  // Maka akan muncul popup untuk detail peminjaman
+  // di dalam detail peminjaman terdapat dua button kembali dan simpan
+
+  // ini digunakan ketika button kembali di klik
+  $(document).on('click', '.button-back-loan', () => {
+    $('.content').removeClass('d-none')
+    $('.modal-detail-container').addClass('d-none');
+  })
+
+  // ini digunakan ketika button simpan di klik
+  $(document).on('click', '.button-save-loan', () => {
+    $('.success-save-edit-loan-modal-container').removeClass('d-none');
+    $('.modal-detail-container').addClass('d-none');
+  })
+
+  // Ini digunakan ketika button kembali di klik pada popup success simpan
+  $(document).on('click', '.success-save-edit-loan-button-back', () => {
+    $('.success-save-edit-loan-modal-container').addClass('d-none');
+  })
+
+  // pada field keterangan sudah diset default oleh sistem
+  // ini digunakan ketika field input keterangan diklik maka akan reset
+  $(document).on('click', '.admin-retrieval-information', () => {
+    $('.admin-retrieval-information').val('');
+  })
+</script>
+
+<script>
+  $(document).on('click', '.hamburger-nav', () => {
+    $('.nav-menu').toggleClass('nav-menu-active');
+    $('.nav-link').on('click', () => {
+      $('.nav-menu').removeClass('nav-menu-active');
+    })
+  })
+
+  let lastScrollTop = 0;
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > lastScrollTop) {
+      if ($('.nav').hasClass('nav-scroll-down')) {
+        $('.nav').removeClass('nav-scroll-up');
+        $('.nav').addClass('nav-scroll-down');
+      } else {
+        $('.nav').addClass('nav-scroll-up');
+      }
+    } else {
+      $('.nav').removeClass('nav-scroll-up');
+      $('.nav').addClass('nav-scroll-down');
+    }
+    lastScrollTop = scrollTop;
+  })
+</script>
+
+<!-- Ini khusus digunakan untuk kalender -->
+<script>
   $(document).ready(function() {
-    /* This function is used to update the state of the sidebar */
-    $(".sidebar-btn").on("click", () => {
-      $(".sidebar-btn").toggleClass("sidebar-btn-rotate");
-      if ($(".sidebar-btn").hasClass("sidebar-btn-rotate")) {
-        $(".sidebar").css("width", "10vw");
-        $(".main-container").css("width", "90vw");
-        $(".logo-container").addClass("hidden");
-        $(".text-menu").addClass("hidden");
-      } else {
-        $(".sidebar").css("width", "20vw");
-        $(".main-container").css("width", "80vw");
-        $(".logo-container").removeClass("hidden");
-        $(".text-menu").removeClass("hidden");
+    const calendarContainer = $("#calendar");
+    const today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
+
+    function generateCalendar() {
+      const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+      const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
+      const daysInMonth = lastDayOfMonth.getDate();
+
+      const monthHeader = $("<div>").addClass("month-header")
+        .text(new Intl.DateTimeFormat("en-US", {
+          month: "long",
+          year: "numeric"
+        }).format(firstDayOfMonth));
+
+      const calendarTable = $("<table>");
+      const headerRow = calendarTable[0].createTHead().insertRow();
+
+      // Create day headers (Sun, Mon, ..., Sat)
+      for (let i = 0; i < 7; i++) {
+        $("<th>").text(new Intl.DateTimeFormat("en-US", {
+            weekday: "short"
+          }).format(new Date(2022, 0, i + 2)))
+          .appendTo(headerRow);
       }
+
+      // Fill in the calendar days
+      let currentDay = 1;
+      for (let i = 0; i < 6; i++) {
+        const row = calendarTable[0].insertRow();
+
+        for (let j = 0; j < 7; j++) {
+          const cell = $(row.insertCell());
+          if (i === 0 && j < firstDayOfMonth.getDay()) {
+            // Empty cells before the first day
+            cell.text("");
+          } else if (currentDay > daysInMonth) {
+            // Empty cells after the last day
+            cell.text("");
+          } else {
+            // Fill in the day
+            cell.text(currentDay);
+            if (currentDay === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+              // Highlight today's date
+              cell.addClass("today");
+            }
+            currentDay++;
+          }
+        }
+      }
+
+      // Clear previous calendar and append the new one
+      calendarContainer.empty().append(monthHeader).append(calendarTable);
+    }
+
+    generateCalendar();
+
+    // Event listeners for changing the month
+    $("#prev-month").on("click", function() {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      generateCalendar();
     });
 
-    /* This function is used to update the state of the filter */
-    $('.btn-filter').on('click', () => {
-      if ($('.btn-sort').hasClass('d-none')) {
-        $('.filter-list').toggleClass('d-none');
-      } else {
-        $('.sort-list').addClass('d-none');
-        $('.filter-list').toggleClass('d-none');
+    $("#next-month").on("click", function() {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
       }
-    });
-
-    /* This function is used to update the state of the sort */
-    $('.btn-sort').on('click', () => {
-      if ($('.btn-filter').hasClass('d-none')) {
-        $('.sort-list').toggleClass('d-none');
-      } else {
-        $('.filter-list').addClass('d-none');
-        $('.sort-list').toggleClass('d-none');
-      }
-    });
-
-    /* This function is used to update the state of the hamburger menu */
-    $('.hamburger-menu').on('click', () => {
-      if ($('.line-1').hasClass('line-1-rotate')) {
-        $('.menu').css('transform', 'translateY(-100%)');
-        $('.line-1').removeClass('line-1-rotate');
-        $('.line-1').attr('y', '11')
-        $('.line-1').attr('x', '0')
-        $('.line-2').removeClass('line-2-rotate');
-        $('.line-2').attr('y', '16')
-        $('.line-2').attr('x', '0')
-      } else {
-        $('.menu').css('transform', 'translateY(0)');
-        $('.line-1').addClass('line-1-rotate');
-        $('.line-1').attr('y', '-1')
-        $('.line-1').attr('x', '2')
-        $('.line-2').addClass('line-2-rotate');
-        $('.line-2').attr('x', '-15')
-      }
-    });
-
-    /* This function is used to add default value to the input field admin retrieval */
-    $('.admin-retrieval-information').val('Silahkan melakukan pengambilan barang di ruang teknisi lantai 7');
-    /* This function is used to reset the value of the input field when the admin click on the input */
-    $('.admin-retrieval-information').on('focus', () => {
-      $('.admin-retrieval-information').val('');
+      generateCalendar();
     });
   });
 </script>
 
-<script>
-  /* This function is used to open the modal */
-  $(document).on('click', '.button-detail-history', function() {
-    $('.modal-detail-container').removeClass('d-none');
-  })
-
-  /* This function is used to close the modal */
-  $(document).on('click', '.button-back-history', function() {
-    $('.modal-detail-container').addClass('d-none');
-  })
-
-  /* This function is used to close the modal */
-  $(document).on('click', '.button-reject-loan', function() {
-    $('.modal-detail-container').addClass('d-none');
-  })
-
-  /* This function is used to close the modal */
-  $(document).on('click', '.button-approve-loan', function() {
-    $('.modal-detail-container').addClass('d-none');
-  })
-</script>
-
-<!-- This script is used to update the state of the choose on loan menu -->
-<script>
-  $(document).ready(function() {
-    $('.form-choose').trigger('reset');
-    $('.form-choose-input-loan').on('click', function() {
-      if ($(this).hasClass('form-choose-input-loan-non-active') && $(this).attr('checked') !== 'checked') {
-        $(this).removeClass('form-choose-input-loan-non-active');
-        $(this).addClass('form-choose-input-loan-active');
-        $(this).attr('checked', 'checked');
-      } else {
-        $(this).removeClass('form-choose-input-loan-active');
-        $(this).addClass('form-choose-input-loan-non-active');
-        $(this).removeAttr('checked');
-      }
-    })
-  })
-
-  $(document).ready(function() {
-
-    /* This function is used to open the modal confirmation when the user click on the loan */
-    $('.loan-button').on('click', function() {
-      if ($('.loan-button').attr('disabled') !== 'disabled') {
-        $('.confirmation-modal-container').removeClass('d-none');
-      }
-    })
-
-    /* This function is used to close the modal */
-    $('.confirmation-modal-close').on('click', function() {
-      $('.confirmation-modal-container').addClass('d-none');
-    })
-
-    /* This function is used to open the calendar modal when the user click on the Tanggal Peminjaman or Tanggal Pengembalian */
-    $(document).on('click', '.date-modal-button', function() {
-      $('.calendar-modal-container').removeClass('d-none');
-    })
-
-    /* This function is used to close the calendar modal */
-    $(document).on('click', '.date-modal-close', function() {
-      $('.calendar-modal-container').addClass('d-none');
-    })
-
-    /* This function is used to open the modal confirmation admin retrieval 
-    when the admin click on the detail button in dashboard menu */
-    $(document).on('click', '.loan--details-button--approval', function() {
-      $('.modal-detail-container').removeClass('d-none');
-    })
-  })
-</script>
-
-<!-- This script is used to update the state of the loan button -->
+<!-- Ini khusus digunakan menu peminjaman -->
 <script>
   $(document).ready(function() {
     let total = 0;
@@ -156,10 +249,10 @@
       total++;
 
       $(this).replaceWith(`
-      <div class="counter-container w-100 d-flex justify-content-between">
-        <label for="pinjam" class="btn-counter btn-counter-min btn btn-primary">-</label>
-        <input id="pinjam" type="text" value="${counter}" class="counter-input w-50 rounded bg-dark-subtle">
-        <label for="pinjam" class="btn-counter btn-counter-plus btn btn-primary">+</label>
+      <div class="counter-container w-100 d-flex justify-content-between column-gap-2 ">
+        <label for="pinjam${total}" class="btn-counter btn-counter-min btn text-white" style="background-color: #01305d">-</label>
+        <input id="pinjam${total}" type="text" value="${counter}" class="counter-input w-50 rounded bg-dark-subtle">
+        <label for="pinjam${total}" class="btn-counter btn-counter-plus btn text-white" style="background-color: #01305d">+</label>
       </div>
     `);
 
@@ -185,7 +278,7 @@
         $(this).next().val(counter);
       } else {
         $(this).closest('.counter-container').replaceWith(`
-        <button class="inventory-item-button btn btn-primary w-100" type="button">
+        <button class="inventory-item-button btn w-100 text-white " style="background-color: #01305d" type="button">
           Pinjam
         </button>
       `);
@@ -209,163 +302,13 @@
   })
 </script>
 
-<!-- This script is used to update the calendar -->
 <script>
-  $(document).ready(function() {
-    (() => {
-      const date = new Date();
-
-      const months = [
-        "Januari",
-        "Februari",
-        "Maret",
-        "April",
-        "Mei",
-        "Juni",
-        "Juli",
-        "Agustus",
-        "September",
-        "Oktober",
-        "November",
-        "Desember",
-      ];
-
-      $(".calendar-month").text(`${months[date.getMonth()]} ${date.getFullYear()}`);
-
-      const firstDay = getFirstDay(date.getFullYear(), date.getMonth());
-      const lastDay = getLastDay(date.getFullYear(), date.getMonth());
-
-      function getFirstDay(year, month) {
-        return new Date(year, month, 1);
-      }
-
-      function getLastDay(year, month) {
-        return new Date(year, month + 1, 0);
-      }
-    })();
-  })
-</script>
-
-<!-- This script is used to inventarisir admin menu -->
-<script>
-  $(document).ready(() => {
-    $(document).on('click', '.button-detail-item', function() {
-      $('.detail-item-modal-container').toggleClass('d-none');
-    });
-    
-    $(document).on('click', '.cancel-button-detail-item', () => {
-      $('.detail-item-modal-container').toggleClass('d-none');
-    })
-
-    $(document).on('click', '.delete-button-detail-item', () => {
-      $('.delete-item-modal-container').toggleClass('d-none');
-    })
-  })
-</script>
-
-
-</body>
-
-</html>
-</main>
-</div>
-
-<script>
-  feather.replace();
-</script>
-
-<script>
-  document.addEventListener
-
-  $(document).ready(function() {
-    /* This function is used to update the state of the sidebar */
-    $(".sidebar-btn").on("click", () => {
-      $(".sidebar-btn").toggleClass("sidebar-btn-rotate");
-      if ($(".sidebar-btn").hasClass("sidebar-btn-rotate")) {
-        $(".sidebar").css("width", "10vw");
-        $(".main-container").css("width", "90vw");
-        $(".logo-container").addClass("hidden");
-        $(".text-menu").addClass("hidden");
-      } else {
-        $(".sidebar").css("width", "20vw");
-        $(".main-container").css("width", "80vw");
-        $(".logo-container").removeClass("hidden");
-        $(".text-menu").removeClass("hidden");
-      }
-    });
-
-    /* This function is used to update the state of the filter */
-    $('.btn-filter').on('click', () => {
-      if ($('.btn-sort').hasClass('d-none')) {
-        $('.filter-list').toggleClass('d-none');
-      } else {
-        $('.sort-list').addClass('d-none');
-        $('.filter-list').toggleClass('d-none');
-      }
-    });
-
-    /* This function is used to update the state of the sort */
-    $('.btn-sort').on('click', () => {
-      if ($('.btn-filter').hasClass('d-none')) {
-        $('.sort-list').toggleClass('d-none');
-      } else {
-        $('.filter-list').addClass('d-none');
-        $('.sort-list').toggleClass('d-none');
-      }
-    });
-
-    /* This function is used to update the state of the hamburger menu */
-    $('.hamburger-menu').on('click', () => {
-      if ($('.line-1').hasClass('line-1-rotate')) {
-        $('.menu').css('transform', 'translateY(-100%)');
-        $('.line-1').removeClass('line-1-rotate');
-        $('.line-1').attr('y', '11')
-        $('.line-1').attr('x', '0')
-        $('.line-2').removeClass('line-2-rotate');
-        $('.line-2').attr('y', '16')
-        $('.line-2').attr('x', '0')
-      } else {
-        $('.menu').css('transform', 'translateY(0)');
-        $('.line-1').addClass('line-1-rotate');
-        $('.line-1').attr('y', '-1')
-        $('.line-1').attr('x', '2')
-        $('.line-2').addClass('line-2-rotate');
-        $('.line-2').attr('x', '-15')
-      }
-    });
-
-    /* This function is used to add default value to the input field admin retrieval */
-    $('.admin-retrieval-information').val('Silahkan melakukan pengambilan barang di ruang teknisi lantai 7');
-    /* This function is used to reset the value of the input field when the admin click on the input */
-    $('.admin-retrieval-information').on('focus', () => {
-      $('.admin-retrieval-information').val('');
-    });
-  });
-</script>
-
-<script>
-  /* This function is used to open the modal */
-  $(document).on('click', '.button-detail-history', function() {
+  $(document).on('click', '.button-detail-history-loan', () => {
+    $('.content').addClass('d-none')
     $('.modal-detail-container').removeClass('d-none');
   })
-
-  /* This function is used to close the modal */
-  $(document).on('click', '.button-back-history', function() {
-    $('.modal-detail-container').addClass('d-none');
-  })
-
-  /* This function is used to close the modal */
-  $(document).on('click', '.button-reject-loan', function() {
-    $('.modal-detail-container').addClass('d-none');
-  })
-
-  /* This function is used to close the modal */
-  $(document).on('click', '.button-approve-loan', function() {
-    $('.modal-detail-container').addClass('d-none');
-  })
 </script>
 
-<!-- This script is used to update the state of the choose on loan menu -->
 <script>
   $(document).ready(function() {
     $('.form-choose').trigger('reset');
@@ -380,6 +323,11 @@
         $(this).removeAttr('checked');
       }
     })
+  })
+
+  $(document).on('click', '.date-modal-button', () => {
+    $('.calendar-modal-container').removeClass('d-none');
+    console.log($('.calendar-modal-container').hasClass('d-none'))
   })
 
   $(document).ready(function() {
@@ -397,185 +345,387 @@
     })
 
     /* This function is used to open the calendar modal when the user click on the Tanggal Peminjaman or Tanggal Pengembalian */
-    $(document).on('click', '.date-modal-button', function() {
-      $('.calendar-modal-container').removeClass('d-none');
-    })
 
     /* This function is used to close the calendar modal */
     $(document).on('click', '.date-modal-close', function() {
       $('.calendar-modal-container').addClass('d-none');
     })
 
-    /* This function is used to open the modal confirmation admin retrieval 
-    when the admin click on the detail button in dashboard menu */
-    $(document).on('click', '.loan--details-button--approval', function() {
-      $('.modal-detail-container').removeClass('d-none');
+    $(document).on('click', '.button-submit-loan-application', () => {
+      $('.success-loan-application-modal-container').removeClass('d-none');
+    })
+
+    $(document).on('click', '.loan-application-success-button', () => {
+      $('.confirmation-modal-container').addClass('d-none');
+      $('.success-loan-application-modal-container').addClass('d-none');
     })
   })
 </script>
 
-<!-- This script is used to update the state of the loan button -->
+<!-- Ini khusus digunakan untuk sidebar -->
 <script>
-  $(document).ready(function() {
-    let total = 0;
-
-    /* When the user click on the pinjam button, increment the counter and replace the pinjam button with a counter */
-    $(document).on('click', '.inventory-item-button', function() {
-      let counter = 1;
-      total++;
-
-      $(this).replaceWith(`
-      <div class="counter-container w-100 d-flex justify-content-between">
-        <label for="pinjam" class="btn-counter btn-counter-min btn btn-primary">-</label>
-        <input id="pinjam" type="text" value="${counter}" class="counter-input w-50 rounded bg-dark-subtle">
-        <label for="pinjam" class="btn-counter btn-counter-plus btn btn-primary">+</label>
-      </div>
-    `);
-
-      updateLoanButtonState();
-    });
-
-    /* When the user clicks on the button, increment the counter */
-    $(document).on('click', '.btn-counter-plus', function() {
-      let counter = parseInt($(this).prev().val()) + 1;
-      total++;
-
-      $(this).prev().val(counter);
-
-      updateLoanButtonState();
-    });
-
-    /* when the user clicks on the button, decrement the counter */
-    $(document).on('click', '.btn-counter-min', function() {
-      let counter = parseInt($(this).next().val()) - 1;
-      total--;
-
-      if (counter > 0) {
-        $(this).next().val(counter);
-      } else {
-        $(this).closest('.counter-container').replaceWith(`
-        <button class="inventory-item-button btn btn-primary w-100" type="button">
-          Pinjam
-        </button>
-      `);
-      }
-
-      updateLoanButtonState();
-    });
-
-    /* This function is used to update the state of the loan button */
-    function updateLoanButtonState() {
-      if (total > 0) {
-        $('.loan-button').attr('disabled', false);
-        $('.loan-button').text(`Pinjam (${total})`);
-      } else {
-        $('.loan-button').attr('disabled', true);
-        $('.loan-button').text(`Pinjam (${total})`);
-      }
+  $(document).on('click', '.sidebar-btn', () => {
+    $(".sidebar-btn").toggleClass("sidebar-btn-rotate");
+    const timeout = setTimeout(() => {
+      $('.sidebar-decoration').toggleClass('d-none');
+    }, 200);
+    if ($(".sidebar-btn").hasClass("sidebar-btn-rotate")) {
+      $(".sidebar").css("width", "8vw");
+      $(".main-container").css("width", "92vw");
+      $(".logo-container").addClass("hidden");
+      $(".text-menu").addClass("d-none");
+      $('.nav-menu-icon').removeClass('gap-3');
+      $('.nav-menu-container').addClass('justify-content-center')
+      $('.nav-menu-container').removeClass('w-100')
+    } else {
+      $('.nav-menu-icon').addClass('gap-3');
+      $(".sidebar").css("width", "20vw");
+      $(".main-container").css("width", "80vw");
+      $(".logo-container").removeClass("hidden");
+      $(".text-menu").removeClass("d-none");
+      $('.nav-menu-container').removeClass('justify-content-center')
+      $('.nav-menu-container').addClass('w-100')
     }
 
-    updateLoanButtonState();
-  })
+    return () => {
+      clearTimeout(timeout);
+    };
+  });
 </script>
 
-<!-- This script is used to update the calendar -->
+<!-- Ini khusus digunakan oleh sidebar mobile -->
 <script>
-  $(document).ready(function() {
-    (() => {
-      const date = new Date();
+  $('.hamburger-menu').on('click', () => {
+    if ($('.line-1').hasClass('line-1-rotate')) {
+      $('.menu').css('transform', 'translateX(-100%)');
+      $('.line-1').removeClass('line-1-rotate');
+      $('.line-1').attr('y', '11')
+      $('.line-1').attr('x', '0')
+      $('.line-2').removeClass('line-2-rotate');
+      $('.line-2').attr('y', '16')
+      $('.line-2').attr('x', '0')
+    } else {
+      $('.menu').css('transform', 'translateX(0)');
+      $('.line-1').addClass('line-1-rotate');
+      $('.line-1').attr('y', '-1')
+      $('.line-1').attr('x', '2')
+      $('.line-2').addClass('line-2-rotate');
+      $('.line-2').attr('x', '-15')
+    }
+  });
+</script>
 
-      const months = [
-        "Januari",
-        "Februari",
-        "Maret",
-        "April",
-        "Mei",
-        "Juni",
-        "Juli",
-        "Agustus",
-        "September",
-        "Oktober",
-        "November",
-        "Desember",
-      ];
+<!-- Ini khusus digunakan oleh pesan dan profile -->
+<script>
+  $(document).on('click', '.button-mail', () => {
+    if ($('.message-notification').hasClass('d-none')) {
+      $('.message-notification').removeClass('d-none')
+      const timeout = setTimeout(() => {
+        $('.message-notification').animate({
+          opacity: 1
+        }, 200)
+      }, 100)
 
-      $(".calendar-month").text(`${months[date.getMonth()]} ${date.getFullYear()}`);
+      return () => {
+        clearTimeout(timeout);
+      };
+    } else {
+      $('.message-notification').animate({
+        opacity: 0
+      }, 200)
+      const timeout = setTimeout(() => {
+        $('.message-notification').addClass('d-none')
+      }, 300)
 
-      const firstDay = getFirstDay(date.getFullYear(), date.getMonth());
-      const lastDay = getLastDay(date.getFullYear(), date.getMonth());
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  })
 
-      function getFirstDay(year, month) {
-        return new Date(year, month, 1);
-      }
+  $(document).on('click', '.button-profile', () => {
+    if ($('.profile-menu').hasClass('d-none')) {
+      $('.profile-menu').removeClass('d-none')
+      const timeout = setTimeout(() => {
+        $('.profile-menu').animate({
+          opacity: 1
+        }, 200)
+      }, 100)
 
-      function getLastDay(year, month) {
-        return new Date(year, month + 1, 0);
-      }
-    })();
+      return () => {
+        clearTimeout(timeout);
+      };
+    } else {
+      $('.profile-menu').animate({
+        opacity: 0
+      }, 200)
+      const timeout = setTimeout(() => {
+        $('.profile-menu').addClass('d-none')
+      }, 300)
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
   })
 </script>
 
-<!-- This script is used to inventarisir admin menu -->
+<!-- Ini digunakan oleh history admin -->
+<script>
+  $(document).on('click', '.button-detail-history', () => {
+    $('.modal-detail-history-container').toggleClass('d-none');
+  })
+
+  $(document).on('click', '.button-back-loan-history', () => {
+    $('.modal-detail-history-container').toggleClass('d-none');
+  })
+</script>
+
+<!-- Ini khusus digunakan oleh button batalkan -->
+<script>
+  $(document).on('click', '.button-cancel-loan', () => {
+    $('.cancel-loan-modal-container').toggleClass('d-none');
+  })
+
+  $(document).on('click', '.cancel-loan-button', () => {
+    $('.success-cancel-loan-modal-container').toggleClass('d-none');
+  })
+
+  $(document).on('click', '.cancel-loan-button-back', () => {
+    $('.success-cancel-loan-modal-container').toggleClass('d-none');
+    $('.cancel-loan-modal-container').toggleClass('d-none');
+    $('.modal-detail-container').toggleClass('d-none');
+    $('.content').toggleClass('d-none');
+  })
+</script>
+
+<!-- Ini Khusus digunakan oleh menu maintainer -->
+<script>
+//   $(document).on('click', '.add-new-maintainer-button', () => {
+//     $('.add-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.cancel-button-add-maintainer', () => {
+//     $('.add-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.confirm-button-add-maintainer', () => {
+//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.cancel-button-confirm-add-maintainer', () => {
+//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.save-button-confirm-add-maintainer', () => {
+//     $('.success-add-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.add-maintainer-success-button-back', () => {
+//     $('.add-maintainer-modal-container').toggleClass('d-none');
+//     $('.success-add-maintainer-modal-container').toggleClass('d-none');
+//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.edit-maintainer-button', () => {
+//     $('.edit-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.cancel-button-edit-maintainer', () => {
+//     $('.edit-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.confirm-button-edit-maintainer', () => {
+//     $('.success-edit-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.maintainer-success-button-back', () => {
+//     $('.maintainer-modal-container').toggleClass('d-none');
+//     $('maintainer-modal-container').toggleClass('d-none');
+//   })
+
+
+//   $(document).on('click', '.delete-maintainer-button', () => {
+//     $('.delete-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.delete-maintainer-button-back', () => {
+//     $('.delete-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.delete-maintainer-button-delete', () => {
+//     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
+//   })
+
+//   $(document).on('click', '.delete-maintainer-success-button', () => {
+//     $('.delete-maintainer-modal-container').toggleClass('d-none');
+//     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
+//   })
+</script>
+
+<script>
+  // Function to generate calendar
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
+  const peminjaman = [{
+    id: 1,
+    start: '2023-12-15',
+    end: '2023-12-20'
+  }, ]
+
+  function generateCalendar(year, month) {
+    const table = $('.calendar-table');
+    table.empty(); // Clear existing content
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDay = new Date(year, month, 1).getDay();
+
+    const monthText = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    // Update month and year in header
+    const monthHeader = $('.calendar-month');
+    monthHeader.text(`${monthText[month]} ${year}`);
+
+    // Create table header (days of the week)
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const thead = $('<thead></thead>');
+    const tr = $('<tr></tr>');
+    daysOfWeek.forEach(day => {
+      const th = $('<th></th>').text(day);
+      tr.append(th);
+    });
+    thead.append(tr);
+    table.append(thead);
+
+    // Create table body (days of the month)
+    const tbody = $('<tbody></tbody>');
+    let dayCounter = 1;
+
+    for (let i = 0; i < 6; i++) {
+      const tr = $('<tr></tr>');
+
+      for (let j = 0; j < 7; j++) {
+        const td = $('<td></td>');
+        const div = $('<div></div>');
+        const p = $('<p></p>');
+        p.text("Jangan Lupa Mengembalikan Barang")
+        const endLoanModal = $('<div></div>');
+        endLoanModal.addClass('end-loan-box bg-danger rounded-3 text-white position-absolute p-3 z-3');
+        endLoanModal.css('width', '10rem');
+        endLoanModal.css('scale', '0');
+        endLoanModal.css('left', '-70%');
+        endLoanModal.css('bottom', '110%');
+        endLoanModal.css('font-size', '0.8rem');
+        endLoanModal.css('cursor', 'pointer');
+        endLoanModal.text('Batas Peminjaman');
+        endLoanModal.append(p);
+        div.css('pointer-events', 'none');
+
+        const endLoanEl = () => {
+
+        }
+
+        if (i === 0 && j < firstDay) {
+          // Empty cells before the first day of the month
+          td.text('');
+        } else if (dayCounter <= daysInMonth) {
+          // Fill in days of the month
+          div.text(dayCounter);
+          td.append(div);
+          if (dayCounter === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
+            // Highlight today's date
+            td.addClass('bg-warning rounded-3');
+          }
+          if (peminjaman.some(peminjaman => peminjaman.end === `${year}-${month + 1}-${dayCounter}`)) {
+            td.append(endLoanModal);
+            td.addClass('end-loan bg-danger rounded-3 text-white position-relative');
+          }
+          dayCounter++;
+        }
+
+        tr.append(td);
+      }
+
+      tbody.append(tr);
+    }
+
+    table.append(tbody);
+  }
+
+  // Initial generation of the calendar (December 2023)
+  generateCalendar(currentYear, currentMonth);
+
+  // Function to navigate to the previous month
+  $('#prevMonth').on('click', function() {
+    const currentMonth = $('.calendar-month');
+    const currentMonthText = currentMonth.text().split(' ');
+    const month = currentMonthText[0].substring(0, 3);
+    const year = currentMonthText[1];
+
+    const prevMonth = new Date(`01 ${month} ${year}`);
+    prevMonth.setMonth(prevMonth.getMonth() - 1);
+
+    currentMonth.text(`${prevMonth.toLocaleString('default', { month: 'long' })} ${prevMonth.getFullYear()}`);
+    generateCalendar(prevMonth.getFullYear(), prevMonth.getMonth());
+  });
+
+  // Function to navigate to the next month
+  $('#nextMonth').on('click', function() {
+    const currentMonth = $('.calendar-month');
+    const currentMonthText = currentMonth.text().split(' ');
+    const month = currentMonthText[0];
+    const year = currentMonthText[1];
+
+    const nextMonth = new Date(`01 ${month} ${year}`);
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+
+    currentMonth.text(`${nextMonth.toLocaleString('default', { month: 'long' })} ${nextMonth.getFullYear()}`);
+    generateCalendar(nextMonth.getFullYear(), nextMonth.getMonth());
+  });
+</script>
+
 <script>
   $(document).ready(() => {
-    $(document).on('click', '.button-detail-item', function() {
-      $('.detail-item-modal-container').removeClass('d-none');
-    });
-    
-    $(document).on('click', '.cancel-button-detail-item', () => {
-      $('.detail-item-modal-container').addClass('d-none');
-    })
-    
-    $(document).on('click', '.delete-button-detail-item', () => {
-      $('.delete-item-modal-container').removeClass('d-none');
-    })
-    
-    $(document).on('click', '.delete-item-button-back', () => {
-      $('.delete-item-modal-container').addClass('d-none');
-    })
+    // Memunculkan box saat website dibuka
+    $('.end-loan-box').stop().animate({
+      scale: 1
+    }, 200);
 
-    $(document).on('click', '.delete-item-button', () => {
-      $('.delete-item-modal-container').addClass('d-none');
-      $('.detail-item-modal-container').addClass('d-none');
-    })
-    
-    $(document).on('click', '.save-button-detail-item', () => {
-      $('.success-edit-item-modal-container').removeClass('d-none');
-    })
-    
-    $(document).on('click', '.edit-item-success-button', () => {
-      $('.success-edit-item-modal-container').addClass('d-none');
-      $('.detail-item-modal-container').addClass('d-none');
-    })
-
-    $(document).on('click', '.add-new-item-button', () => {
-      $('.add-item-modal-container').removeClass('d-none');
-    })
-
-    $(document).on('click', '.cancel-button-add-item', () => {
-      $('.add-item-modal-container').addClass('d-none');
-    })
-    
-    $(document).on('click', '.confirm-button-add-item', () => {
-      $('.confirmation-add-item-modal-container').removeClass('d-none');
-    })
-    
-    $(document).on('click', '.cancel-button-confirm-add-item', () => {
-      $('.confirmation-add-item-modal-container').addClass('d-none');
-    })
-    
-    $(document).on('click', '.save-button-confirm-add-item', () => {
-      $('.success-add-item-modal-container').removeClass('d-none');
-    })
-    
-    $(document).on('click', '.add-item-success-button-back', () => {
-      $('.success-add-item-modal-container').addClass('d-none');
-      $('.confirmation-add-item-modal-container').addClass('d-none');
-      $('.add-item-modal-container').addClass('d-none');
-    })
-  })
+    // Menjadwalkan perubahan untuk menghilangkan box setelah 2000 milidetik (2 detik)
+    setTimeout(() => {
+      $('.end-loan-box').stop().animate({
+        scale: 0
+      }, 200);
+    }, 2000);
+  });
 </script>
 
+<!-- Ini khusus digunakan accordion -->
+<script>
+  $(".accordion").click(function() {
+    $(this).toggleClass("active");
+    $(this).parent().toggleClass("active");
+
+    const chevronIcon = $(this).find('svg')
+
+    if (chevronIcon.hasClass('rotate-i')) {
+      chevronIcon.removeClass("rotate-i");
+      chevronIcon.addClass("rotate-start");
+    } else {
+      chevronIcon.addClass("rotate-i");
+      chevronIcon.removeClass("rotate-start");
+    }
+
+    let panel = $(this).next();
+
+    if (panel.is(":visible")) {
+      panel.slideUp();
+    } else {
+      panel.slideDown();
+    }
+  });
+</script>
 
 </body>
 
