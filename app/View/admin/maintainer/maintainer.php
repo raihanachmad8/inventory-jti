@@ -327,8 +327,8 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
 
     // $('detail-item-form-edit')
 
-    document.querySelectorAll('.delete-maintainer-button').forEach((button) => {
-        button.addEventListener('click', function(e) {
+    document.querySelectorAll('.delete-maintainer-button').forEach((btn) => {
+        btn.addEventListener('click', function(e) {
             e.preventDefault();
             const kode = $(this).data('kode');
 
@@ -337,22 +337,23 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
             // Get the kode from the data attribute of the clicked button
             $('.delete-maintainer-modal-container').addClass('d-none');
                 console.log(kode);
-
-
                 // Send the delete request for the specific maintainer
                 $.ajax({
                     url: `/admin/maintainer/delete?kode=${kode}`,
                     method: 'delete',
                     success: function (data) {
-                        $('.maintainer-modal-container').toggle('d-none');
-                        $('#maintainer-modal-container-title').html('Berhasil');
-                        $('#maintainer-modal-container-message').html('Data berhasil dihapus');
+                        $(document).ready(function () {
+                            $('.maintainer-modal-container').removeClass('d-none');
+                            $('#maintainer-modal-container-title').html('Berhasil');
+                            $('#maintainer-modal-container-message').html('Data berhasil dihapus');
+                        });
                     },
                     error: function (error) {
-                        $('.maintainer-modal-container').toggle('d-none');
+                        $(document).ready(function () {
                         $('.maintainer-modal-container-failed').removeClass('d-none');
                         $('#maintainer-modal-container-failed-title').html('Gagal');
                         $('#maintainer-modal-container-failed-message').html(`${error.responseText}`);
+                        });
                     }
                 });
             });
@@ -365,8 +366,8 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
         window.location.reload()
     })
 
-    $(document).on('click', '.delete-maintainer-button', () => {
-        window.location.reload()
+    $(document).on('click', '.delete-maintainer-button-back', () => {
+        $('.delete-maintainer-modal-container').addClass('d-none');
     })
 
 

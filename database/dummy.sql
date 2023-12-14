@@ -35,7 +35,7 @@ INSERT INTO OTP (ID_OTP, ID_Pengguna, Kode, Expired) VALUES
 	('O3', 'P3', 'DFE421', '2023-11-03 15:00:00'),
 	('O4', 'P4', 'DETE43', '2023-11-10 10:00:00'),
 	('O5', 'P7', 'JJD083', '2023-11-10 11:00:00');
-    
+
 INSERT INTO Inventaris (ID_Inventaris, Nama, Stok, ID_Kategori, Asal, Deskripsi, Gambar ) VALUES
 	('I1', 'Spidol', '10', 'K3', 'Hibah', '-', 'inventaris1.png'),
 	('I2', 'Penghapus', '7', 'K3', 'Beli', '-', 'inventaris2.png'),
@@ -60,10 +60,10 @@ INSERT INTO MaintainerInventaris (ID_Inventaris, ID_Maintainer) VALUES
 	('I7', 'M3');
 
 INSERT INTO Transaksi (ID_Transaksi, ID_Pengguna, ID_Admin, ID_Status, StartDate, EndDate, Deskripsi_Keperluan, Jaminan, Pesan) VALUES
-	('T1', 'P1', 'P6', 'S5', '2023-11-11 10:00:00', '2023-11-14 10:00:00', 'Keperluan Mengajar', '', 'Silahkan Ambil Barang di ruang teknisi Lantai 7'),
-	('T2', 'P4', 'P8', 'S6', '2023-11-13 10:00:00', '2023-11-15 10:00:00', 'Keperluan Belajar Mandiri', 'jaminan1.png', 'Peminjaman Dibatalkan oleh peminjam');
+	('T1', 'P1', 'M1', 'S1', '2023-11-11 10:00:00', '2023-11-14 10:00:00', 'Keperluan Mengajar', '', 'Silahkan Ambil Barang di ruang teknisi Lantai 7'),
+	('T2', 'P4', 'M2', 'S4', '2023-11-13 10:00:00', '2023-11-15 10:00:00', 'Keperluan Belajar Mandiri', 'anggap-aja-ktm.jpg', 'Peminjaman Dibatalkan oleh peminjam');
 
 INSERT INTO DetailTransaksi (ID_DetailTrc, ID_Transaksi, ID_Inventaris, Jumlah) VALUES
 	('DT1', 'T1', 'I3', '10'),
 	('DT2', 'T1', 'I4', '10'),
-	('DT3', 'T1', 'I5', '1');
+	('DT3', 'T2', 'I5', '1');

@@ -99,35 +99,35 @@
 <!-- Ini khusus digunakan pada menu dashboard admin dan data peminjaman -->
 <script>
   // Bagian ini digunakan ketika tombol detail pada field peminjaman di klik
-  $(document).on('click', '.loan--details-button--approval', () => {
-    $('.modal-detail-container').removeClass('d-none');
-  })
+//   $(document).on('click', '.loan--details-button--approval', () => {
+//     $('.modal-detail-container').removeClass('d-none');
+//   })
 
   // Maka akan muncul popup untuk detail peminjaman
   // di dalam detail peminjaman terdapat dua button kembali dan simpan
 
   // ini digunakan ketika button kembali di klik
-  $(document).on('click', '.button-back-loan', () => {
-    $('.content').removeClass('d-none')
-    $('.modal-detail-container').addClass('d-none');
-  })
+//   $(document).on('click', '.button-back-loan', () => {
+//     // $('.content').removeClass('d-none')
+//     $('.modal-detail-container').addClass('d-none');
+//   })
 
   // ini digunakan ketika button simpan di klik
-  $(document).on('click', '.button-save-loan', () => {
-    $('.success-save-edit-loan-modal-container').removeClass('d-none');
-    $('.modal-detail-container').addClass('d-none');
-  })
+//   $(document).on('click', '.button-save-loan', () => {
+//     $('.success-save-edit-loan-modal-container').removeClass('d-none');
+//     $('.modal-detail-container').addClass('d-none');
+//   })
 
   // Ini digunakan ketika button kembali di klik pada popup success simpan
-  $(document).on('click', '.success-save-edit-loan-button-back', () => {
-    $('.success-save-edit-loan-modal-container').addClass('d-none');
-  })
+//   $(document).on('click', '.success-save-edit-loan-button-back', () => {
+//     $('.success-save-edit-loan-modal-container').addClass('d-none');
+//   })
 
   // pada field keterangan sudah diset default oleh sistem
   // ini digunakan ketika field input keterangan diklik maka akan reset
-  $(document).on('click', '.admin-retrieval-information', () => {
-    $('.admin-retrieval-information').val('');
-  })
+//   $(document).on('click', '.admin-retrieval-information', () => {
+//     $('.admin-retrieval-information').val('');
+//   })
 </script>
 
 <script>

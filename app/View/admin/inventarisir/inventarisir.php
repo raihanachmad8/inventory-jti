@@ -29,9 +29,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($model['inventarisir'] as $invent) : ?>
+                    <?php if (isset($model['inventarisir'])) : ?>
+                        <?php foreach ($model['inventarisir'] as $invent) : ?>
                         <tr>
-                        <td><?= $invent->ID_Inventaris ?></td>
+                            <td><?= $invent->ID_Inventaris ?></td>
                             <td><?= $invent->Nama_Inventaris ?></td>
                             <td><?= $invent->Stok ?></td>
                             <td><?= $invent->Asal ?></td>
@@ -40,6 +41,11 @@
                             <td><button class="button-detail-item btn" data-kode="<?= $invent->ID_Inventaris ?>"  style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
                         </tr>
                     <?php endforeach; ?>
+                    <?php else : ?>
+                        <tr>
+                            <td colspan="7" class="text-center">Data Kosong</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
@@ -332,7 +338,6 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
         e.preventDefault();
         const form = document.querySelector('#add-item-form');
         const formData = new FormData(form);
-        console.log(formData);
         formData.forEach((value, key) => {
             if (key !== 'maintainers[]') {
                 $(`#confirmation-${key}`).html(value);
@@ -436,44 +441,67 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
 
     // Edit
 
-    $('.button-detail-item').each(function() {
-        $(this).click(function() {
-            const kode = $(this).data('kode');
-            $.ajax({
-                url: `/admin/inventarisir/get?kode=${kode}`,
-                method: 'GET',
-                success: (data) => {
-                    console.log(data.data);
-                    $(document).ready(function() {
-                        $(document).on('click', '.button-detail-item', () => {
-                                $('.detail-item-modal-container').removeClass('d-none');
-                            })
-                        $('#detail-item-form').trigger('reset');
-                        $('#edit-kode').html(data.data.Inventaris.ID_Inventaris);
-                        $('input[name="edit-kode"]').val(data.data.Inventaris.ID_Inventaris);
-                        $('.delete-button-detail-item').data('kode', data.data.Inventaris.ID_Inventaris)
-                        $('.detail-item-modal-container').removeClass('d-none');
-                        $('input[name="edit-namaBarang"]').val(data.data.Inventaris.Nama_Inventaris);
-                        $('input[name="edit-jumlahBarang"]').val(data.data.Inventaris.Stok);
-                        $('#edit-asal').val(data.data.Inventaris.Asal);
-                        $('#edit-kategori').val(data.data.Inventaris.Kategori.ID_Kategori);
-                        $('#keterangan').val(data.data.Keterangan);
-                        $('textarea[name="edit-keterangan"]').val(data.data.Inventaris.Deskripsi);
-                        // sek bug
-                        // $('.edit-gambar').attr('src', `/public/assets/images/inventarisir/${data.data.Inventaris.Gambar}`);
+    function debounce(func, delay) {
+        let timeoutId;
 
-                        $('input[name="maintainers[]"]').each(function() {
-                            if (data.data.MaintainerList.some(maintainer => maintainer.ID_Maintainer === $(this).val())) {
-                                $(this).prop('checked', true);
-                            }
-                        })
-                        $('.insert-preview-image').css('background-image', `url(/public/assets/images/inventarisir/${data.data.Gambar})`);
+        return function() {
+            const context = this;
+            const args = arguments;
+
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(function() {
+                func.apply(context, args);
+            }, delay);
+        };
+    }
+
+    const handleDetail = debounce((kode)=> {
+        $.ajax({
+            url: `/admin/inventarisir/get?kode=${kode}`,
+            method: 'GET',
+            success: (data) => {
+                $(document).ready( async () => {
+                    $('#detail-item-form').trigger('reset');
+                    $('#edit-kode').html(data.data.Inventaris.ID_Inventaris);
+                    $('input[name="edit-kode"]').val(data.data.Inventaris.ID_Inventaris);
+                    $('.delete-button-detail-item').data('kode', data.data.Inventaris.ID_Inventaris)
+                    $('.detail-item-modal-container').removeClass('d-none');
+                    $('input[name="edit-namaBarang"]').val(data.data.Inventaris.Nama_Inventaris);
+                    $('input[name="edit-jumlahBarang"]').val(data.data.Inventaris.Stok);
+                    $('#edit-asal').val(data.data.Inventaris.Asal);
+                    $('#edit-kategori').val(data.data.Inventaris.Kategori.ID_Kategori);
+                    $('#keterangan').val(data.data.Keterangan);
+                    $('textarea[name="edit-keterangan"]').val(data.data.Inventaris.Deskripsi);
+                    // sek bug
+                    // $('.edit-gambar').attr('src', `/public/assets/images/inventarisir/${data.data.Inventaris.Gambar}`);
+
+                    $('input[name="maintainers[]"]').each(function() {
+                        if (data.data.MaintainerList.some(maintainer => maintainer.ID_Maintainer === $(this).val())) {
+                            $(this).prop('checked', true);
+                        }
                     })
-                },
-                error: (error) => {
-                    console.log(error);
-                }
-            })
+                    // $(document).on('click', '.button-detail-item', () => {
+                        $('.detail-item-modal-container').removeClass('d-none');
+                    // })
+                    // $('.insert-preview-image').css('background-image', `url(/public/assets/images/inventarisir/${data.data.Gambar})`);
+                })
+            },
+            error: (error) => {
+                $(document).ready(() => {
+                    $('.inventarisir-modal-container-failed').removeClass('d-none');
+                    $('#inventarisir-modal-container-failed-title').html('Gagal');
+                    $('#inventarisir-modal-container-failed-message').html(`${error.responseText}`);
+                })
+            }
+        })
+    }, 700)
+
+    $('.button-detail-item')
+        .each(function() {
+            $(this).click(function() {
+                const kode = $(this).data('kode');
+                handleDetail(kode)
+
         })
     })
 
@@ -514,7 +542,6 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
   $('.save-button-detail-item').click(() => {
     const form = document.querySelector('#detail-item-form');
     const formData = new FormData(form);
-    console.log(formData);
     $.ajax({
     url: '/admin/inventarisir/update',
     method: 'POST',

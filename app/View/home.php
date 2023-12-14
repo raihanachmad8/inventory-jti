@@ -1,37 +1,3 @@
-<?php
-$current_page_url = $_SERVER['REQUEST_URI'];
-
-
-
-$menu_items = [
-    'admin' => '/admin',
-    'admin/data-peminjaman' => '/admin/data-peminjaman',
-    'admin/inventarisir' => '/admin/inventarisir',
-    'admin/riwayat-peminjaman' => '/admin/riwayat-peminjaman',
-    'admin/maintainer' => '/admin/maintainer',
-    'dashboard' => '/inventory/dashboard',
-    'peminjaman' => '/inventory/peminjaman',
-    'riwayat' => '/inventory/riwayat',
-    'profil' => '/profile/profil',
-    'keamanan' => '/profile/keamanan',
-    'pesan' => '/profile/pesan',
-    'hapus-akun' => '/profile/hapus-akun',
-];
-
-function active_page($current_page, $target)
-{
-    return $current_page === $target;
-}
-
-function user_role()
-{
-    $parsed_url = parse_url($_SERVER['REQUEST_URI']);
-    $path = explode('/', trim($parsed_url['path'], '/'));
-    return in_array('admin', $path) ? 'admin' : 'user';
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 

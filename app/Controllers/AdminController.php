@@ -1,13 +1,16 @@
 <?php
 
 require_once __DIR__ . '/../Services/InventarisirService.php';
+require_once __DIR__ . '/../Services/PeminjamanService.php';
 
 class AdminController
 {
     private InventarisirService $inventarisirService;
+    private PeminjamanService $peminjamanService;
     public function __construct()
     {
         $this->inventarisirService = new InventarisirService();
+        $this->peminjamanService = new PeminjamanService();
     }
     public function dashboard()
     {
@@ -16,17 +19,134 @@ class AdminController
 
     public function dataPeminjaman()
     {
-        return View::renderView('admin/data-peminjaman/dataPeminjaman');
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $search = input::get('search') ?? '';
+                $maintainer = $this->inventarisirService->getListMaintainers();
+                $status = $this->peminjamanService->getListStatus();
+                $peminjaman = $this->peminjamanService->searchDataPeminjaman($search);
+                return View::renderView('admin/data-peminjaman/dataPeminjaman', compact('peminjaman', 'maintainer', 'status'));
+            } else {
+                // method not allowed
+                http_response_code(405);
+                echo 'Method not allowed';
+                exit(405);
+            }
+        } catch (PDOException $exception) {
+            // Return an error response for PDO exceptions
+            http_response_code(500);
+            echo $exception->getMessage();
+            exit(500);
+        } catch (Exception $exception) {
+            // Return an error response for other exceptions
+            http_response_code(500);
+            echo $exception->getMessage();
+            exit(500);
+        }
+    }
+
+    public function getDetailDataPeminjaman()
+    {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $kode = input::get('kode');
+                $result = $this->peminjamanService->DetailDataPeminjaman($kode);
+                if ($result == null) {
+                    http_response_code(404);
+                    echo json_encode(['error' => 'Data Peminjaman not found']);
+                    exit(404);
+                }
+                header('Content-Type: application/json');
+                http_response_code(200);
+                echo json_encode(['data' => $result]);
+            } else {
+                // method not allowed
+                http_response_code(405);
+                echo 'Method not allowed';
+                exit(405);
+            }
+        } catch (PDOException $exception) {
+            // Return an error response for PDO exceptions
+            http_response_code(500);
+            echo $exception->getMessage();
+            exit(500);
+        } catch (Exception $exception) {
+            // Return an error response for other exceptions
+            http_response_code(500);
+            echo $exception->getMessage();
+            exit(500);
+        }
+    }
+
+    public function postUpdateDataPeminjaman()
+    {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $ID_Transaksi = input::post('kode');
+                $ID_Maintainer = input::post('maintainer');
+                $ID_Status = input::post('status');
+                $Pesan = input::post('pesan');
+
+                $result = $this->peminjamanService->updatePeminjaman($ID_Transaksi, $ID_Maintainer, $ID_Status, $Pesan);
+                if (!$result) {
+                    // If the delete operation fails, return an error response
+                    http_response_code(500);
+                    echo 'Failed to update data';
+                    exit(500);
+                }
+                http_response_code(201);
+                echo 'Success';
+            } else {
+                // method not allowed
+                http_response_code(405);
+                echo 'Method not allowed';
+                exit(405);
+            }
+        } catch (PDOException $exception) {
+            // Return an error response for PDO exceptions
+            http_response_code(500);
+            echo $exception->getMessage();
+            exit(500);
+        } catch (Exception $exception) {
+            // Return an error response for other exceptions
+            http_response_code(500);
+            echo $exception->getMessage();
+            exit(500);
+        }
     }
 
     public function inventarisir()
     {
-        $search = input::get('search') ?? '';
-        $maintainer = $this->inventarisirService->getListMaintainers();
-        $kategori = $this->inventarisirService->getListKategori();
-        $asal = $this->inventarisirService->getListAsal();
-        $inventarisir = $this->inventarisirService->search($search);
-        return View::renderView('admin/inventarisir/inventarisir', compact('inventarisir', 'maintainer', 'kategori', 'asal'));
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === "GET") {
+                $search = input::get('search') ?? '';
+                $maintainer = $this->inventarisirService->getListMaintainers();
+                $kategori = $this->inventarisirService->getListKategori();
+                $asal = $this->inventarisirService->getListAsal();
+                $inventarisir = $this->inventarisirService->search($search);
+                if ($inventarisir == null) {
+                    http_response_code(404);
+                    echo json_encode(['error' => 'Inventarisir not found']);
+                    exit(404);
+                }
+                return View::renderView('admin/inventarisir/inventarisir', compact('inventarisir', 'maintainer', 'kategori', 'asal'));
+            } else {
+                // method not allowed
+                http_response_code(405);
+                echo 'Method not allowed';
+                exit(405);
+            }
+        } catch (PDOException $exception) {
+            // Return an error response for PDO exceptions
+            http_response_code(500);
+            echo $exception->getMessage();
+            exit(500);
+        } catch (Exception $exception) {
+            // Return an error response for other exceptions
+            http_response_code(500);
+            echo $exception->getMessage();
+            exit(500);
+        }
     }
 
     public function riwayat()
@@ -73,7 +193,6 @@ class AdminController
                     foreach ($maintainers as $item) {
                         foreach ($item as $value) {
                             $main = new MaintainerInventaris();
-                            var_dump($value);
                             $main->ID_Maintainer = $value;
                             $main->ID_Inventaris = $inventarisir->ID_Inventaris;
                             $maintainerObjects[] = $main;

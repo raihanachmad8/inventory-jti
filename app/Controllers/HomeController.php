@@ -6,9 +6,5 @@ class HomeController
     {
         return View::renderPage('home');
     }
-    public function about()
-    {
-        return View::renderView('about');
-    }
 }
 

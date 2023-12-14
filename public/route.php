@@ -21,14 +21,15 @@ require_once __DIR__ . '/../app/Controllers/UserController.php';
 require_once __DIR__ . '/../app/Controllers/InventoryController.php';
 
 
-Router::route('GET', '/', [HomeController::class, 'index']);
-Router::route('GET', '/', [HomeController::class, 'index']);
 Router::get('/about', [HomeController::class, 'about']);
 /* Router::get('/dashboard', [DashboardController::class, 'index']);
 Router::get('/peminjaman', [PeminjamanController::class, 'index']);
 Router::get('/riwayat', [RiwayatController::class, 'index']); */
 Router::get('/admin', [AdminController::class, 'dashboard']);
+
 Router::get('/admin/data-peminjaman', [AdminController::class, 'dataPeminjaman']);
+Router::get('/admin/data-peminjaman/get', [AdminController::class, 'getDetailDataPeminjaman']);
+Router::post('/admin/data-peminjaman/post', [AdminController::class, 'postUpdateDataPeminjaman']);
 
 Router::get('/admin/inventarisir', [AdminController::class, 'inventarisir']);
 Router::get('/admin/inventarisir/get', [AdminController::class, 'getInvertarisir']);
@@ -49,7 +50,7 @@ Router::delete('/admin/maintainer/delete', [AdminMaintainerController::class, 'd
 
 
 // Router Landing Page
-Router::get('/', [HomeController::class, 'index'], [GuestOnlyMiddleware::class]);
+Router::get('/', [HomeController::class, 'index']);
 // Router User Login
 Router::get('/users/login', [UserController::class, 'loginForm']);
 Router::post('/users/login', [UserController::class, 'login']);
@@ -87,8 +88,10 @@ Router::get('/profile/hapus-akun', [InventoryController::class, 'hapusAkun']);
 
 
 
-// require_once __DIR__ . '/../app/Repository/InventarisRepository.php';
-// require_once __DIR__ . '/../app/Services/InventarisirService.php';
+// require_once __DIR__ . '/../app/Repository/MaintainerInventarisRepository.php';
+// require_once __DIR__ . '/../app/Services/PeminjamanService.php';
+
+// var_dump((new PeminjamanService)->searchDataPeminjaman(''));
 
 // var_dump((new InventarisirService)->search('obe'));
 
