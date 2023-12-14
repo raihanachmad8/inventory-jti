@@ -21,8 +21,8 @@ require_once __DIR__ . '/../app/Controllers/UserController.php';
 require_once __DIR__ . '/../app/Controllers/InventoryController.php';
 
 
-Router::route('GET', '/', [HomeController::class, 'index']);
-Router::route('GET', '/', [HomeController::class, 'index']);
+Router::route('GET', '/home', [HomeController::class, 'index']);
+// Router::route('GET', '/', [HomeController::class, 'index']);
 Router::get('/about', [HomeController::class, 'about']);
 /* Router::get('/dashboard', [DashboardController::class, 'index']);
 Router::get('/peminjaman', [PeminjamanController::class, 'index']);
@@ -49,7 +49,7 @@ Router::delete('/admin/maintainer/delete', [AdminMaintainerController::class, 'd
 
 
 // Router Landing Page
-Router::get('/', [HomeController::class, 'index'], [GuestOnlyMiddleware::class]);
+/* Router::get('/', [HomeController::class, 'index'], [GuestOnlyMiddleware::class]); */
 // Router User Login
 Router::get('/users/login', [UserController::class, 'loginForm']);
 Router::post('/users/login', [UserController::class, 'login']);

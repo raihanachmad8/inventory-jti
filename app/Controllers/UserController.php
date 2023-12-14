@@ -23,12 +23,12 @@ class UserController
 
     public function registerForm()
     {
-        return View::renderView('users/register');
+        return View::renderPage('users/register');
     }
 
     public function loginForm()
     {
-        View::renderView('users/login');
+        View::renderPage('users/login');
     }
 
     public function register()
@@ -55,7 +55,7 @@ class UserController
             View::setFlashData('error', $e->getMessage());
         }
 
-        View::renderView('users/register', [
+        View::renderPage('users/register', [
             'error' => $err
         ]);
     }
@@ -79,7 +79,7 @@ class UserController
             View::setFlashData('error', $e->getMessage());
         }
 
-        View::renderView('users/login', [
+        View::renderPage('users/login', [
             'error' => $err
         ]);
     }
@@ -90,7 +90,7 @@ class UserController
             $this->sessionManagerService->destroy($this->sessionManagerService->get()->id);
             View::redirect('/');
         } catch (Exception $e) {
-            View::renderView('error/500', [
+            View::renderPage('error/500', [
                 'message' => $e->getMessage()
             ]);
         }
@@ -98,7 +98,7 @@ class UserController
 
     public function verifyOTPForm()
     {
-        View::renderView('users/verify-otp', [
+        View::renderPage('users/verify-otp', [
             'title' => 'Verify OTP'
         ]);
     }
@@ -123,7 +123,7 @@ class UserController
             View::setFlashData('error', $e->getMessage());
         }
 
-        View::renderView('users/verify-otp', [
+        View::renderPage('users/verify-otp', [
             'title' => 'Verify OTP'
         ]);
     }
@@ -151,14 +151,14 @@ class UserController
             View::setFlashData('error', $e->getMessage());
         }
 
-        View::renderView('users/verify-otp', [
+        View::renderPage('users/verify-otp', [
             'error' => $err
         ]);
     }
 
     public function forgotForm()
     {
-        View::renderView('users/forgot');
+        View::renderPage('users/forgot');
     }
 
     public function forgot()
@@ -180,12 +180,12 @@ class UserController
             View::setFlashData('error', $e->getMessage());
         }
 
-        View::renderView('users/forgot');
+        View::renderPage('users/forgot');
     }
 
     public function forgotVerifyForm()
     {
-        View::renderView('users/verify-forgot-otp', [
+        View::renderPage('users/verify-forgot-otp', [
             'title' => 'Verify OTP'
         ]);
     }
@@ -215,14 +215,14 @@ class UserController
             View::setFlashData('error', $e->getMessage());
         }
 
-        View::renderView('users/verify-otp', [
+        View::renderPage('users/verify-otp', [
             'error' => $err
         ]);
     }
 
     public function forgotResetForm()
     {
-        View::renderView('users/reset');
+        View::renderPage('users/reset');
     }
 
     public function forgotReset()
@@ -249,7 +249,7 @@ class UserController
             View::setFlashData('error', $e->getMessage());
         }
 
-        View::renderView('users/reset', [
+        View::renderPage('users/reset', [
             'error' => $err
         ]);
     }

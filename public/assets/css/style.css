@@ -540,6 +540,11 @@ form#detail-item-form .input-container select {
     width: 100%;
 }
 
+.login-card {
+    width: 100%;
+    height: 100%;
+}
+
 @media only screen and (min-width: 768px) {
     .inventory-items-container {
         display: grid;
@@ -615,6 +620,13 @@ form#detail-item-form .input-container select {
 }
 
 @media only screen and (min-width: 992px) {
+    /* .login-card {
+        width: 50vw !important;
+        height: 75vh !important;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    } */
+
     .image-upload-button-container {
         width: 100%;
         height: 100%;

@@ -1,4 +1,4 @@
--- Active: 1669815006177@@127.0.0.1@3306@prakwebdb
+-- Active: 1683729214238@@127.0.0.1@3306@inventory_jti
 DROP DATABASE IF EXISTS inventory_jti;
 
 CREATE DATABASE IF NOT EXISTS inventory_jti;

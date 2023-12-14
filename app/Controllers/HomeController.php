@@ -11,4 +11,3 @@ class HomeController
         return View::renderView('about');
     }
 }
-
