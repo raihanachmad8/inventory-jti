@@ -21,7 +21,7 @@ require_once __DIR__ . '/../app/Controllers/UserController.php';
 require_once __DIR__ . '/../app/Controllers/InventoryController.php';
 
 
-Router::get('/about', [HomeController::class, 'about']);
+// Router::get('/about', [HomeController::class, 'about']);
 /* Router::get('/dashboard', [DashboardController::class, 'index']);
 Router::get('/peminjaman', [PeminjamanController::class, 'index']);
 Router::get('/riwayat', [RiwayatController::class, 'index']); */
@@ -29,7 +29,7 @@ Router::get('/admin', [AdminController::class, 'dashboard']);
 
 Router::get('/admin/data-peminjaman', [AdminController::class, 'dataPeminjaman']);
 Router::get('/admin/data-peminjaman/get', [AdminController::class, 'getDetailDataPeminjaman']);
-Router::post('/admin/data-peminjaman/post', [AdminController::class, 'postUpdateDataPeminjaman']);
+Router::post('/admin/data-peminjaman/update', [AdminController::class, 'postUpdateDataPeminjaman']);
 
 Router::get('/admin/inventarisir', [AdminController::class, 'inventarisir']);
 Router::get('/admin/inventarisir/get', [AdminController::class, 'getInvertarisir']);
@@ -38,15 +38,11 @@ Router::post('/admin/inventarisir/update', [AdminController::class, 'putUpdateIn
 Router::delete('/admin/inventarisir/delete', [AdminController::class, 'deleteInventariris']);
 
 Router::get('/admin/riwayat-peminjaman', [AdminController::class, 'riwayat']);
-// Router::get('/admin/maintainer', [AdminController::class, 'maintainer']);
-
-
-
-Router::get('/admin/maintainer', [AdminMaintainerController::class, 'index']);
-Router::get('/admin/maintainer/get', [AdminMaintainerController::class, 'get']);
-Router::post('/admin/maintainer/post', [AdminMaintainerController::class, 'postCreate']);
-Router::put('/admin/maintainer/update', [AdminMaintainerController::class, 'putUpdate']);
-Router::delete('/admin/maintainer/delete', [AdminMaintainerController::class, 'delete']);
+Router::get('/admin/maintainer', [AdminController::class, 'maintainer']);
+Router::get('/admin/maintainer/get', [AdminController::class, 'maintainer']);
+Router::post('/admin/maintainer/post', [AdminController::class, 'postCreateMaintainer']);
+Router::put('/admin/maintainer/update', [AdminController::class, 'putUpdateMaintainer']);
+Router::delete('/admin/maintainer/delete', [AdminController::class, 'deleteMaintainer']);
 
 
 // Router Landing Page

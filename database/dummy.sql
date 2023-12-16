@@ -11,39 +11,32 @@ INSERT INTO Status (ID_Status, Nama) VALUES
 	('S3', 'Diterima'),
 	('S4', 'Proses'),
 	('S5', 'Selesai'),
-	('S6', 'Dibatalkan');
+	('S6', 'Dibatalkan'),
+    ('S7', 'Menunggu Ganti');
 
 INSERT INTO Kategori (ID_Kategori, Nama) VALUES
 	('K1', 'Peralatan'),
 	('K2', 'Elektronik'),
 	('K3', 'ATK');
-DELETE FROM Pengguna WHERE Email = "someone@gmail.com";
 
 INSERT INTO Pengguna (ID_Pengguna, ID_Level, Nomor_Identitas, Password, Nama, Email, Nomor_HP, Foto, Status, Salt) VALUES
-	('P1', 'L2', '404079101', '$2y$10$yqNUmO1/7VmSSSFs08Whh.rt.mdDSy7/rwRy2YBsmuf8yMHr.K3Dq', 'Ade Ismail', 'AdeIsmail@polinema.ac.id', '82182', NULL, 'Aktif', 'dnaqdkn'), -- password: adei
-	('P2', 'L3', '2241720220', '$2y$10$Ri8hZ/.0L4SGseYP4qRCAOVZ5b0jKj9DXCGnBwXAn.BswlApv0/AC', 'Putra Zakaria', 'PutraZakaria@polinema.ac.id', '82183', NULL, 'Tidak Aktif', 'hdgjdf'), -- password: putraz
-	('P3', 'L2', '702108601', '$2y$10$usALhD/GLuasah1TdXdECuI6RBUhoklPlz2ys3GqDdwsW/YZTji1.', 'Elok Nur Hamdana', 'ElokNurHamdana@polinema.ac.id', '82184', NULL, 'Aktif', 'hkshgg'), -- password: eloks
-	('P4', 'L3', '2241720005', '$2y$10$car8JKOrDZBSwA31IxLNOuE.66tb9dpox.pzk4ZVngpQ5zaztZ.dS', 'Vunky Himawan', 'VunkyHimawan@polinema.ac.id', '82185', NULL, 'Aktif', 'hfoemx'),  -- password: vunkg
-	('P5', 'L1', '502108400', '$2y$10$VvaBwldO5Vtn8LD00jIPPONkHeNCsXSMX2O8Ef3iUvwqrWAkNkapa', 'Anggi Putra Woon', 'AnggiPutraWoon@polinema.ac.id', '82186', NULL, 'Aktif', 'hemoqm'),  -- password: awoon
-	('P6', 'L1', '502108401', '$2y$10$W0dppQ9LCYHqjl6i7d3q2uf0nnOTNNY75rr3/xapkbeCUC8Enqz9i', 'Sujadi', 'Sujadi@polinema.ac.id', '82187', NULL, 'Aktif', 'jdsiwu'), -- password: sjadi
-	('P7', 'L3', '2241720192', '$2y$10$vRIKgd73eN8ev2XR6cJnI.qQN.KPenUfdqGdDDj9jC/mcZIF.//dO', 'Achmad Raihan', 'AchmadRaihan@polinema.ac.id', '82188', NULL, 'Aktif', 'heimqo'),  -- password: achrhan
-	('P8', 'L1', '502108402', '$2y$10$4WjQQtVDdjHGLWg/N1x3cOJnwuUN/Gv3KHYMJ7poR69/WaXbY08yy', 'Dwi Atmo Nugroho', 'DwiAtmoNugroho@polinema.ac.id', '82189', NULL, ' Tidak Aktif', 'dnaqdkn'); -- password: atmnugh
+	('P1', 'L1', '-', '$2y$10$k0yKxQLv4OSWGgEAWv4qr./UYbe5.f.SLyjJY9/XEqB6lJr81wQiS', 'Teknisi', 'adminInventory@polinema.ac.id', '8288482182', NULL, 'Aktif', 'asdfa'), -- password: admin
+	('P2', 'L2', '199323048193211111', '$2y$10$vHIDwjeDhad.EKSaIda9duI60DRyjUNp/ORxubqJl1CmwlDoIBA0O', 'Dosen', 'dosen@polinema.ac.id', '82182324233', NULL, 'Aktif', 'adhel'), -- password: dosen
+	('P3', 'L3', '2453635735', '$2y$10$Tp4nMLs0s3VzbjrLVoUYquFuEXQUgltSWWtI5QpvON9/iq96tUBCS', 'Mahasiswa 2E', 'mahasiswa123@polinema.ac.id', '8288492928', NULL, 'Aktif', 'jdkad'); -- password: mahasiswa
 
 INSERT INTO OTP (ID_OTP, ID_Pengguna, Kode, Expired) VALUES
-	('O1', 'P1', 'SAD12', '2023-10-30 12:00:00'),
-	('O2', 'P2', 'DAQW23', '2023-10-31 0:00:00'),
-	('O3', 'P3', 'DFE421', '2023-11-03 15:00:00'),
-	('O4', 'P4', 'DETE43', '2023-11-10 10:00:00'),
-	('O5', 'P7', 'JJD083', '2023-11-10 11:00:00');
+	('O1', 'P2', 'SAD12', '2023-10-30 12:00:00'),
+	('O2', 'P3', 'DAQW23', '2023-10-31 0:00:00');
 
 INSERT INTO Inventaris (ID_Inventaris, Nama, Stok, ID_Kategori, Asal, Deskripsi, Gambar ) VALUES
 	('I1', 'Spidol', '10', 'K3', 'Hibah', '-', 'inventaris1.png'),
 	('I2', 'Penghapus', '7', 'K3', 'Beli', '-', 'inventaris2.png'),
-	('I3', 'Tang Crimping', '29', 'K1', 'Hibah', '-', 'inventaris3.png'),
-	('I4', 'Obeng', '15', 'K1', 'Beli', '-', 'inventaris4.png'),
-	('I5', 'Konektor Proyektor', '14', 'K2', 'Hibah', '-', 'inventaris5.png'),
-	('I6', 'Keyboard', '10', 'K2', 'Beli', '-', 'inventaris6.png'),
-	('I7', 'Mouse', '12', 'K2', 'Hibah', '-', 'inventaris7.png');
+	('I3', 'Tang Crimping', '14', 'K1', 'Hibah', '-', 'inventaris3.png'),
+	('I4', 'Obeng', '16', 'K1', 'Beli', '-', 'inventaris4.png'),
+	('I5', 'Konektor Proyektor', '30', 'K2', 'Hibah', '-', 'inventaris5.png'),
+	('I6', 'Keyboard', '17', 'K2', 'Beli', '-', 'inventaris6.png'),
+	('I7', 'Mouse', '24', 'K2', 'Hibah', '-', 'inventaris7.png'),
+	('I8', 'Monitor', '10', 'K2', 'Hibah', '-', 'inventaris8.png');
 
 INSERT INTO Maintainer (ID_Maintainer, Nama) VALUES
 	('M1', 'Mas Woon'),
@@ -57,13 +50,53 @@ INSERT INTO MaintainerInventaris (ID_Inventaris, ID_Maintainer) VALUES
 	('I4', 'M3'),
 	('I5', 'M1'),
 	('I6', 'M2'),
-	('I7', 'M3');
+	('I7', 'M3'),
+	('I8', 'M3');
+
 
 INSERT INTO Transaksi (ID_Transaksi, ID_Pengguna, ID_Admin, ID_Status, StartDate, EndDate, Deskripsi_Keperluan, Jaminan, Pesan) VALUES
-	('T1', 'P1', 'M1', 'S1', '2023-11-11 10:00:00', '2023-11-14 10:00:00', 'Keperluan Mengajar', '', 'Silahkan Ambil Barang di ruang teknisi Lantai 7'),
-	('T2', 'P4', 'M2', 'S4', '2023-11-13 10:00:00', '2023-11-15 10:00:00', 'Keperluan Belajar Mandiri', 'anggap-aja-ktm.jpg', 'Peminjaman Dibatalkan oleh peminjam');
+	('T1', 'P2', 'M1', 'S5', '2023-11-01 8:00:00', '2023-11-05 15:00:00', 'Perlu untuk acara seminar', null, 'Silahkan diambil diruang admin lt.6'),
+	('T2', 'P3', 'M1', 'S5', '2023-11-02 9:00:00', '2023-11-08 15:00:00', 'Untuk keperluan riset', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.7'),
+	('T3', 'P2', 'M2', 'S2', '2023-11-05 10:00:00', '2023-11-15 15:00:00', 'Acara workshop', null, 'Silahkan diambil diruang teknisi lt.5'),
+	('T4', 'P3', 'M1', 'S5', '2023-11-10 11:00:00', '2023-11-20 15:00:00', 'Untuk keperluan presentasi', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang admin lt.6'),
+	('T5', 'P2', 'M3', 'S5', '2023-11-15 12:00:00', '2023-11-25 15:00:00', 'Acara pelatihan', null, 'Silahkan diambil diruang teknisi lt.7'),
+	('T6', 'P3', 'M3', 'S6', '2023-11-20 13:00:00', '2023-11-30 15:00:00', 'Untuk tugas kuliah', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang admin lt.6'),
+	('T7', 'P3', 'M2', 'S4', '2023-11-30 15:00:00', '2023-12-10 15:00:00', 'Untuk presentasi akhir', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.7'),
+	('T8', 'P2', 'M1', 'S7', '2023-11-25 14:00:00', '2023-12-05 15:00:00', 'Acara seminar ', null, 'Silahkan diambil diruang teknisi lt.5'),
+	('T9', 'P2', 'M3', 'S4', '2023-12-01 16:00:00', '2023-12-12 15:00:00', 'Acara workshop akhir tahun', null, 'Silahkan diambil diruang admin lt. 6'),
+	('T10', 'P3', 'M2', 'S3', '2023-12-05 17:00:00', '2023-12-15 15:00:00', 'Untuk kegiatan UKM', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.7'),
+	('T11', 'P3', 'M1', 'S1', '2023-12-06 17:00:00', '2023-12-15 15:00:00', 'Untuk mengerjakan tugas akhir', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.5');
 
-INSERT INTO DetailTransaksi (ID_DetailTrc, ID_Transaksi, ID_Inventaris, Jumlah) VALUES
-	('DT1', 'T1', 'I3', '10'),
-	('DT2', 'T1', 'I4', '10'),
-	('DT3', 'T2', 'I5', '1');
+INSERT INTO DetailTransaksi (ID_DetailTrc, ID_Transaksi, ID_Inventaris, Jumlah, Kondisi) VALUES
+	('DT1', 'T1', 'I1', '2', 'Normal'),
+	('DT2', 'T1', 'I3', '3', 'Normal'),
+	('DT3', 'T1', 'I2', '1', 'Normal'),
+	('DT4', 'T2', 'I7', '5', 'Rusak'),
+	('DT5', 'T2', 'I8', '2', 'Normal'),
+	('DT6', 'T2', 'I4', '2', 'Hilang'),
+	('DT7', 'T3', 'I6', '3', 'Normal'),
+	('DT8', 'T3', 'I2', '4', 'Normal'),
+	('DT9', 'T3', 'I5', '1', 'Hilang'),
+	('DT10', 'T4', 'I4', '2', 'Normal'),
+	('DT11', 'T4', 'I6', '3', 'Normal'),
+	('DT12', 'T4', 'I1', '2', 'Normal'),
+	('DT13', 'T5', 'I3', '1', 'Normal'),
+	('DT14', 'T5', 'I1', '5', 'Normal'),
+	('DT15', 'T5', 'I4', '2', 'Normal'),
+	('DT16', 'T6', 'I2', '1', 'Normal'),
+	('DT17', 'T6', 'I7', '4', 'Normal'),
+	('DT18', 'T6', 'I5', '2', 'Normal'),
+	('DT19', 'T7', 'I4', '3', 'Rusak'),
+	('DT20', 'T7', 'I6', '2', 'Hilang'),
+	('DT21', 'T7', 'I7', '3', 'Normal'),
+	('DT22', 'T8', 'I2', '2', 'Normal'),
+	('DT23', 'T8', 'I1', '2', 'Normal'),
+	('DT24', 'T8', 'I3', '3', 'Rusak'),
+	('DT25', 'T9', 'I2', '4', 'Normal'),
+	('DT26', 'T9', 'I4', '1', 'Normal'),
+	('DT27', 'T9', 'I5', '1', 'Normal'),
+	('DT28', 'T10', 'I4', '2', 'Normal'),
+	('DT29', 'T10', 'I6', '3', 'Normal'),
+	('DT30', 'T10', 'I7', '3', 'Normal'),
+	('DT31', 'T11', 'I4', '1', 'Normal'),
+	('DT32', 'T11', 'I3', '1', 'Normal');

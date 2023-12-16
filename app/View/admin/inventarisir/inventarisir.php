@@ -29,18 +29,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (isset($model['inventarisir'])) : ?>
+                    <?php if (!empty($model['inventarisir'])) : ?>
                         <?php foreach ($model['inventarisir'] as $invent) : ?>
-                        <tr>
-                            <td><?= $invent->ID_Inventaris ?></td>
-                            <td><?= $invent->Nama_Inventaris ?></td>
-                            <td><?= $invent->Stok ?></td>
-                            <td><?= $invent->Asal ?></td>
-                            <td><?= implode(', ', array_column($invent->MaintainerList, 'Nama_Maintainer')) ?></td>
-                            <td><?= $invent->Inventaris->Kategori->Nama_Kategori ?></td>
-                            <td><button class="button-detail-item btn" data-kode="<?= $invent->ID_Inventaris ?>"  style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
-                        </tr>
-                    <?php endforeach; ?>
+                            <tr>
+                                <td><?= $invent->ID_Inventaris ?></td>
+                                <td><?= $invent->Nama_Inventaris ?></td>
+                                <td><?= $invent->Stok ?></td>
+                                <td><?= $invent->Asal ?></td>
+                                <td><?= implode(', ', array_column($invent->MaintainerList, 'Nama_Maintainer')) ?></td>
+                                <td><?= $invent->Inventaris->Kategori->Nama_Kategori ?></td>
+                                <td><button class="button-detail-item btn" data-kode="<?= $invent->ID_Inventaris ?>" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
+                            </tr>
+                        <?php endforeach; ?>
                     <?php else : ?>
                         <tr>
                             <td colspan="7" class="text-center">Data Kosong</td>
@@ -67,9 +67,9 @@
                 <div class="d-flex flex-column gap-3 input-container">
                     <label class="fw-semibold " for="kategori">Kategori</label>
                     <select class="form-select" id="edit-kategori" name="edit-kategori" aria-label="Default select example">
-                    <?php foreach ($model['kategori'] as $kategori) : ?>
-                        <option value="<?= $kategori->ID_Kategori ?>"><?= $kategori->Nama_Kategori ?></option>
-                    <?php endforeach; ?>
+                        <?php foreach ($model['kategori'] as $kategori) : ?>
+                            <option value="<?= $kategori->ID_Kategori ?>"><?= $kategori->Nama_Kategori ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="d-flex flex-column gap-3 input-container">
@@ -78,7 +78,7 @@
                 </div>
                 <div class="d-flex flex-column gap-3 input-container">
                     <label class="fw-semibold " for="jumlahBarang">Jumlah Barang</label>
-                    <input type="text" id="jumlahBarang" class="border rounded bg-body input" value="" name="edit-jumlahBarang" >
+                    <input type="text" id="jumlahBarang" class="border rounded bg-body input" value="" name="edit-jumlahBarang">
                 </div>
                 <div class="d-flex flex-column input-container flex-grow-1 w-100 ">
                     <p class="fw-semibold ">Maintainer</p>
@@ -95,13 +95,13 @@
                     </div>
                 </div>
                 <div class="d-flex flex-column input-container flex-grow-1">
-                        <label class="fw-semibold" for="asalBarang">Asal Barang</label>
-                        <select class="form-select" id="edit-asal" name="edit-asal" aria-label="Default select example">
-                            <?php foreach ($model['asal'] as $asal) : ?>
-                                <option value="<?= $asal?>"><?= $asal ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                    <label class="fw-semibold" for="asalBarang">Asal Barang</label>
+                    <select class="form-select" id="edit-asal" name="edit-asal" aria-label="Default select example">
+                        <?php foreach ($model['asal'] as $asal) : ?>
+                            <option value="<?= $asal ?>"><?= $asal ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
                 <div class="d-flex flex-column input-container gap-3 w-100">
                     <label class="fw-semibold " for="keterangan">Keterangan</label>
                     <textarea name="edit-keterangan" id="keterangan" class="w-100 h-100 border bg-body rounded p-2 " style="resize: none;" value="Keyboard cetik cetik lurrr"></textarea>
@@ -120,7 +120,7 @@
         <div class="flex-grow-1 w-100 h-100 position-relative ">
             <img src="/public/assets/images/jay-zhang-ZByWaPXD2fU-unsplash.jpg" alt="" class="w-100 h-100 object-fit-cover ">
             <label for="image-input" class="w-100 h-100 position-absolute top-0 start-0 d-flex flex-column  justify-content-center align-items-center z-2 " style=" cursor: pointer;">
-                <img src="/public/assets/images/images.svg"  alt="" style="width: 5rem; height: 5rem;">
+                <img src="/public/assets/images/images.svg" alt="" style="width: 5rem; height: 5rem;">
                 <strong style="font-size: 1.5rem;" class="text-white">Edit</strong>
             </label>
             <div class="w-100 h-100 position-absolute top-0 start-0 d-flex justify-content-center align-items-center bg-black opacity-25"></div>
@@ -247,28 +247,8 @@
             </div>
         </div>
         <div class="flex-grow-1 w-100 h-100 position-relative ">
-            <img src="" alt="" class="confirmation-image-preview w-100 h-100 object-fit-cover" style="background-repeat: no-repeat; background-size:contain; background-position: center;" >
+            <img src="" alt="" class="confirmation-image-preview w-100 h-100 object-fit-cover" style="background-repeat: no-repeat; background-size:contain; background-position: center;">
             <div class="w-100 h-100 position-absolute top-0 start-0 d-flex justify-content-center align-items-center bg-black opacity-25"></div>
-        </div>
-    </div>
-</div>
-
-<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="inventarisir-modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
-    <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
-background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 65%);">
-        <div class="d-flex flex-column align-items-center row-gap-3 ">
-            <img src="/public/assets/images/berhasil.svg" alt="">
-            <h3 style="color:#5BD794;">
-                <strong id="inventarisir-modal-container-title">
-                    Berhasil
-                </strong>
-            </h3>
-        </div>
-        <div>
-            <p id="inventarisir-modal-container-message">Perubahan Berhasil Disimpan</p>
-        </div>
-        <div>
-            <button class="btn text-white inventaris-success-button-back" style="background-color: #5BD794; padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
         </div>
     </div>
 </div>
@@ -295,25 +275,6 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
 </div>
 
 
-<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="inventarisir-modal-container-failed vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
-    <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
-background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 65%);">
-        <div class="d-flex flex-column align-items-center row-gap-3 ">
-            <img src="/public/assets/images/batalkan.svg" alt="">
-            <h3 style="color:#CC3333;">
-                <strong id="inventarisir-modal-container-failed-title">
-                    Gagal
-                </strong>
-            </h3>
-        </div>
-        <div>
-            <p id="inventarisir-modal-container-failed-message">Perubahan Gagal Disimpan</p>
-        </div>
-        <div>
-            <button class="btn btn-danger text-white maintainer-failed-button-back" style=" padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
-        </div>
-    </div>
-</div>
 
 <script>
     $('input[name="search-input"]').keypress(function(e) {
@@ -381,17 +342,17 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
             processData: false,
             success: (data) => {
                 $(document).ready(function() {
-                    $('.inventarisir-modal-container').removeClass('d-none');
-                    $('#inventarisir-modal-container-title').html('Berhasil');
-                    $('#inventarisir-modal-container-message').html('Pembambahan Maintainer Berhasil Disimpan');
+                    $('.modal-container').removeClass('d-none');
+                    $('#modal-container-title').html('Berhasil');
+                    $('#modal-container-message').html(data.message);
 
                 })
             },
             error: (error) => {
                 $(document).ready(function() {
-                    $('.inventarisir-modal-container-failed').removeClass('d-none');
-                    $('#inventarisir-modal-container-failed-title').html('Gagal');
-                    $('#inventarisir-modal-container-failed-message').html(`${error.responseText}`);
+                    $('.modal-container-failed').removeClass('d-none');
+                    $('#modal-container-failed-title').html('Gagal');
+                    $('#modal-container-failed-message').html(error.responseJSON.error);
 
                 })
             }
@@ -455,12 +416,12 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
         };
     }
 
-    const handleDetail = debounce((kode)=> {
+    const handleDetail = debounce((kode) => {
         $.ajax({
             url: `/admin/inventarisir/get?kode=${kode}`,
             method: 'GET',
             success: (data) => {
-                $(document).ready( async () => {
+                $(document).ready(async () => {
                     $('#detail-item-form').trigger('reset');
                     $('#edit-kode').html(data.data.Inventaris.ID_Inventaris);
                     $('input[name="edit-kode"]').val(data.data.Inventaris.ID_Inventaris);
@@ -481,16 +442,17 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
                         }
                     })
                     // $(document).on('click', '.button-detail-item', () => {
-                        $('.detail-item-modal-container').removeClass('d-none');
+                    $('.detail-item-modal-container').removeClass('d-none');
                     // })
                     // $('.insert-preview-image').css('background-image', `url(/public/assets/images/inventarisir/${data.data.Gambar})`);
                 })
             },
             error: (error) => {
-                $(document).ready(() => {
-                    $('.inventarisir-modal-container-failed').removeClass('d-none');
-                    $('#inventarisir-modal-container-failed-title').html('Gagal');
-                    $('#inventarisir-modal-container-failed-message').html(`${error.responseText}`);
+                $(document).ready(function() {
+                    $('.modal-container-failed').removeClass('d-none');
+                    $('#modal-container-failed-title').html('Gagal');
+                    $('#modal-container-failed-message').html(error.responseJSON.error);
+
                 })
             }
         })
@@ -502,71 +464,72 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
                 const kode = $(this).data('kode');
                 handleDetail(kode)
 
+            })
         })
-    })
 
     $(document).on('click', '.delete-button-detail-item', () => {
         $('.delete-item-modal-container').removeClass('d-none');
     })
 
-  // ini digunakan ketika tombol kembali pada popup berhasil menghapus di klik
-  $(document).on('click', '.delete-item-button-back', () => {
-    $('.delete-item-modal-container').addClass('d-none');
-  })
-
-  $('.delete-item-button').click((e) => {
-    e.preventDefault();
-    const kode = $('.delete-button-detail-item').data('kode');
-    $.ajax({
-      url: `/admin/inventarisir/delete?kode=${kode}`,
-      method: 'DELETE',
-      success: function (data) {
-        $(document).ready(function () {
-
-            $('.delete-item-modal-container').addClass('d-none');
-            $('.inventarisir-modal-container').removeClass('d-none');
-            $('#inventarisir-modal-container-title').html('Berhasil');
-            $('#inventarisir-modal-container-message').html('Data berhasil dihapus');
-        })
-    },
-    error: function (error) {
-        $(document).ready(function () {
-            $('.inventarisir-modal-container-failed').removeClass('d-none');
-            $('#inventarisir-modal-container-failed-title').html('Gagal');
-            $('#inventarisir-modal-container-failed-message').html(`${error.responseText}`);
-        })
-    }
+    // ini digunakan ketika tombol kembali pada popup berhasil menghapus di klik
+    $(document).on('click', '.delete-item-button-back', () => {
+        $('.delete-item-modal-container').addClass('d-none');
     })
-  })
 
-  $('.save-button-detail-item').click(() => {
-    const form = document.querySelector('#detail-item-form');
-    const formData = new FormData(form);
-    $.ajax({
-    url: '/admin/inventarisir/update',
-    method: 'POST',
-    data: formData,
-    contentType: false,
-    processData: false,
-    success: (data) => {
-        $(document).ready(function () {
-            $('.detail-item-modal-container').addClass('d-none');
-            $('.inventarisir-modal-container').removeClass('d-none');
-            $('#inventarisir-modal-container-title').html('Berhasil');
-            $('#inventarisir-modal-container-message').html('Perubahan Berhasil Disimpan');
+    $('.delete-item-button').click((e) => {
+        e.preventDefault();
+        const kode = $('.delete-button-detail-item').data('kode');
+        $.ajax({
+            url: `/admin/inventarisir/delete?kode=${kode}`,
+            method: 'DELETE',
+            success: (data) => {
+                $(document).ready(function() {
+                    $('.delete-item-modal-container').addClass('d-none');
+                    $('.modal-container').removeClass('d-none');
+                    $('#modal-container-title').html('Berhasil');
+                    $('#modal-container-message').html(data.message);
+
+                })
+            },
+            error: (error) => {
+                $(document).ready(function() {
+                    $('.modal-container-failed').removeClass('d-none');
+                    $('#modal-container-failed-title').html('Gagal');
+                    $('#modal-container-failed-message').html(error.responseJSON.error);
+
+                })
+            }
         })
-    },
-    error: (error) => {
-        $(document).ready(function () {
-            $('.inventarisir-modal-container-failed').removeClass('d-none');
-            $('#inventarisir-modal-container-failed-title').html('Gagal');
-            $('#inventarisir-modal-container-failed-message').html(`${error.responseText}`);
-        })
-    }
     })
-  })
 
-   $(document).on('click', '.delete-maintainer-button', () => {
+    $('.save-button-detail-item').click(() => {
+        const form = document.querySelector('#detail-item-form');
+        const formData = new FormData(form);
+        $.ajax({
+            url: '/admin/inventarisir/update',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: (data) => {
+                $(document).ready(function() {
+                    $('.detail-item-modal-container').addClass('d-none');
+                    $('.modal-container').removeClass('d-none');
+                    $('#modal-container-title').html('Berhasil');
+                    $('#modal-container-message').html(data.message);
+                })
+            },
+            error: (error) => {
+                $(document).ready(function() {
+                    $('.modal-container-failed').removeClass('d-none');
+                    $('#modal-container-failed-title').html('Gagal');
+                    $('#modal-container-failed-message').html(error.responseJSON.error);
+                })
+            }
+        })
+    })
+
+    $(document).on('click', '.delete-maintainer-button', () => {
         window.location.reload()
     })
 

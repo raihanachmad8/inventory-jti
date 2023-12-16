@@ -1,3 +1,43 @@
+
+<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
+    <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 65%);">
+        <div class="d-flex flex-column align-items-center row-gap-3 ">
+            <img src="/public/assets/images/berhasil.svg" alt="">
+            <h3 style="color:#5BD794;">
+                <strong id="modal-container-title">
+
+                </strong>
+            </h3>
+        </div>
+        <div>
+            <p id="modal-container-message"></p>
+        </div>
+        <div>
+            <button class="btn text-white success-button-back" style="background-color: #5BD794; padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
+        </div>
+    </div>
+</div>
+<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="modal-container-failed vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
+    <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 65%);">
+        <div class="d-flex flex-column align-items-center row-gap-3 ">
+        <img src="/public/assets/images/batalkan.svg" alt="">
+            <h3 style="color:#CC3333;">
+                <strong id="modal-container-failed-title">
+
+                </strong>
+            </h3>
+        </div>
+        <div>
+            <p id="modal-container-failed-message"></p>
+        </div>
+        <div>
+            <button class="btn btn-danger text-white failed-button-back" style=" padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
+        </div>
+    </div>
+</div>
+
 </main>
 </div>
 
@@ -12,6 +52,16 @@
 </script>
 
 
+<script>
+    $(document).on('click', '.success-button-back', () => {
+        window.location.reload();
+    })
+
+    $(document).on('click', '.failed-button-back', () => {
+        $('.modal-container-failed').addClass('d-none');
+    })
+</script>
+<!-- 
 <!-- Menu Inventarisir -->
 <!-- <script>
   /* Button tambah barang */
@@ -128,7 +178,7 @@
 //   $(document).on('click', '.admin-retrieval-information', () => {
 //     $('.admin-retrieval-information').val('');
 //   })
-</script>
+</script> -->
 
 <script>
   $(document).on('click', '.hamburger-nav', () => {

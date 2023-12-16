@@ -35,22 +35,25 @@ class PeminjamanService
 
     public function searchDataPeminjaman(string $keyword = '' ) : array
     {
-        $result = $this->transaksiRepository->searchListTransaksiByStatus(['Menunggu', 'Diterima', 'Proses'], $keyword);
+        $result = $this->transaksiRepository->searchListTransaksiByStatus(['Menunggu', 'Diterima', 'Proses', 'Menunggu Ganti'], $keyword);
         $result = array_map(function($item) {
             $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
             $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
             $item->Admin = $this->maintainerRepository->getMaintainerById($item->ID_Admin);
             $item->Pengguna->Level = $this->levelRepository->getLevelById($item->Pengguna->ID_Level);
-            // $item->DetailTransaksi = $this->detailTransaksiRepository->getDetailTransaksiByIdTransaksi($item->ID_Transaksi);
-            // $item->DetailTransaksi = array_map(function($item) {
-            //     $item->Inventaris = $this->inventarisRepository->getInventarisById($item->ID_Inventaris);
-            //     $item->Inventaris->Kategori = $this->kategoriRepository->getKategoriById($item->Inventaris->ID_Kategori);
-            //     return $item;
-            // }, $item->DetailTransaksi);
-
-            // $item->DetailTransaksi->Inventaris = $this->inventarisRepository->getInventarisById($item->DetailTransaksi->ID_Inventaris);
-            // $item->DetailTransaksi->Inventaris->Kategori = $this->kategoriRepository->getKategoriById($item->DetailTransaksi->Inventaris->ID_Kategori);
-            return $item;  // Return the modified item
+            return $item;
+        }, $result);
+        return $result;
+    }
+    public function searchRiwayatDataPeminjaman(string $keyword = '' ) : array
+    {
+        $result = $this->transaksiRepository->searchListRiwayatTransaksiByStatus(['Menunggu', 'Ditolak', 'Diterima', 'Proses', 'Selesai', 'Dibatalkan', 'Menunggu Ganti'], $keyword);
+        $result = array_map(function($item) {
+            $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
+            $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
+            $item->Admin = $this->maintainerRepository->getMaintainerById($item->ID_Admin);
+            $item->Pengguna->Level = $this->levelRepository->getLevelById($item->Pengguna->ID_Level);
+            return $item;
         }, $result);
         return $result;
     }
@@ -77,11 +80,12 @@ class PeminjamanService
         }
     }
 
-    public function updatePeminjaman(string $ID_transaksi, string $ID_Admin, string $ID_Status, $Pesan) : bool
+    public function updatePeminjaman(string $ID_transaksi, string $ID_Admin, string $ID_Status, $Pesan, array $ID_DetailTrc, array $kondisi) : bool
     {
         try {
             $result = $this->transaksiRepository->updateDataPeminjaman($ID_transaksi, $ID_Admin, $ID_Status, $Pesan);
-            return $result;
+            $result2 = $this->detailTransaksiRepository->updateDetailTrc($ID_DetailTrc, $kondisi);
+            return $result && $result2;
         } catch (PDOException $exception) {
             throw $exception;
         } catch (Exception $exception) {
@@ -103,6 +107,16 @@ class PeminjamanService
     {
         try {
             $result = $this->statusRepository->getListStatus();
+            return $result;
+        } catch (PDOException $exception) {
+            throw $exception;
+        }
+    }
+
+    public function getListStatusPeminjaman() : array
+    {
+        try {
+            $result = $this->transaksiRepository->countStatusTransaksi(['Menunggu', 'Diterima', 'Selesai', 'Proses']);
             return $result;
         } catch (PDOException $exception) {
             throw $exception;

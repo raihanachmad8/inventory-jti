@@ -23,11 +23,12 @@
             <th>Status Peminjam</th>
             <th>Waktu<br>Peminjaman</th>
             <th>Waktu<br>Pengembalian</th>
+            <th>Status</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
-            <?php if (isset($model['peminjaman'])) :?>
+            <?php if (!empty($model['peminjaman'])) :?>
                 <?php foreach ($model['peminjaman'] as $transaksi) : ?>
                 <tr>
                     <td><?= $transaksi->Pengguna->Nomor_Identitas ?></td>
@@ -35,6 +36,7 @@
                     <td><?= $transaksi->Pengguna->Level->Nama_Level ?></td>
                     <td><?= (new DateTime($transaksi->StartDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;" ><?= (new DateTime($transaksi->StartDate))->format('h:i A') ?></span></td>
                     <td><?= (new DateTime($transaksi->EndDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;" ><?= (new DateTime($transaksi->EndDate))->format('h:i A') ?></span></td>
+                    <td><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;" ><?= $transaksi->Status->Nama_Status ?></span></td>
                     <td><button class="loan--details-button--approval btn" style="background-color: #CEE7FF; color:#01305D;" data-kode="<?= $transaksi->ID_Transaksi?>">Detail</button></td>
                 </tr>
                 <?php endforeach; ?>
@@ -50,11 +52,12 @@
 </div>
 
 <div class="modal-detail-container position-absolute px-4  w-100 h-100 bg-white d-flex flex-column justify-content-between overflow-y-scroll d-none " style="color: #01305D;">
-  <div class="w-100 text-center bg-warning p-2 rounded-2 ">
+<form id="detail-peminjaman-form">
+<div class="w-100 text-center bg-warning p-2 rounded-2 ">
     <strong class="text-white">Detail Peminjaman</strong>
   </div>
   <div class="pt-4 ">
-    <form id="detail-peminjaman-form">
+
     <input type="hidden" name="kode" value="">
     <table class="identity-table">
       <tbody>
@@ -83,7 +86,7 @@
           <td><strong>Admin</strong></td>
           <td><strong>:</strong></td>
           <td>
-            <select class="form-select" aria-label="Default select example" name="maintainer" style="max-width: 200px;">
+            <select class="form-select" aria-label="Default select example" id="maintainer" name="maintainer" style="max-width: 200px;">
                 <?php foreach($model['maintainer'] as $maintainer) : ?>
                     <option value="<?= $maintainer->ID_Maintainer ?>"><?= $maintainer->Nama_Maintainer ?></option>
                 <?php endforeach; ?>
@@ -94,7 +97,7 @@
           <td><strong>Status Peminjaman</strong></td>
           <td><strong>:</strong></td>
           <td>
-            <select class="form-select" aria-label="Default select example" name="status" style="max-width: 200px;">
+            <select class="form-select" aria-label="Default select example" id="status" name="status" style="max-width: 200px;">
             <?php foreach($model['status'] as $status) : ?>
                     <option value="<?= $status->ID_Status ?>"><?= $status->Nama_Status ?></option>
                 <?php endforeach; ?>
@@ -132,7 +135,7 @@
         </tr>
       </tbody>
     </table>
-    </form>
+
   </div>
   <div class="h-100">
     <h5 class="py-3 "><strong>Daftar Pengembalian</strong></h5>
@@ -144,6 +147,7 @@
             <th>Nama Barang</th>
             <th>Jumlah</th>
             <th>Kategori</th>
+            <th>Kondisi</th>
           </tr>
         </thead>
         <tbody>
@@ -155,49 +159,8 @@
     <button class="button-back-loan btn text-white" style="background-color: #01305D;">Kembali</button>
     <button class="button-save-loan btn text-white " style="background-color: #FFB733">Simpan</button>
   </div>
+  </form>
 </div>
-
-<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="peminjaman-modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
-    <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
-background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 65%);">
-        <div class="d-flex flex-column align-items-center row-gap-3 ">
-            <img src="/public/assets/images/berhasil.svg" alt="">
-            <h3 style="color:#5BD794;">
-                <strong id="peminjaman-modal-container-title">
-                    Berhasil
-                </strong>
-            </h3>
-        </div>
-        <div>
-            <p id="peminjaman-modal-container-message">Perubahan Peminjaman Berhasil Disimpan</p>
-        </div>
-        <div>
-            <button class="btn text-white peminjaman-success-button-back" style="background-color: #5BD794; padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
-        </div>
-    </div>
-</div>
-
-<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="peminjaman-modal-container-failed vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
-    <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
-background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 65%);">
-        <div class="d-flex flex-column align-items-center row-gap-3 ">
-            <img src="/public/assets/images/batalkan.svg" alt="">
-            <h3 style="color:#CC3333;">
-                <strong id="peminjaman-modal-container-failed-title">
-                    Gagal
-                </strong>
-            </h3>
-        </div>
-        <div>
-            <p id="peminjaman-modal-container-failed-message">Perubahan Gagal Disimpan</p>
-        </div>
-        <div>
-            <button class="btn btn-danger text-white peminjaman-failed-button-back" style=" padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
-        </div>
-    </div>
-</div>
-
-
 <script>
     $('input[name="search-input"]').keypress(function(e) {
         const keyword = e.target.value;
@@ -224,9 +187,12 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
                                 minute: "numeric",
                                 hour12: false, // Use 24-hour format
                             };
+                            $('#detail-peminjaman-form').trigger('reset');
                             $('input[name="kode"]').val(data.data.ID_Transaksi);
                             $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
                             $('#nama').html(data.data.Pengguna.Nama_Pengguna);
+                            $('#maintainer').val(data.data.Admin.ID_Maintainer);
+                            $('#status').val(data.data.Status.ID_Status);
                             $('#nomor-identitas').html(data.data.Pengguna.Nomor_Identitas);
                             $('#start-date').html(new Date(data.data.StartDate).toLocaleDateString("id-ID", options));
                             $('#end-date').html(new Date(data.data.EndDate).toLocaleDateString("id-ID", options));
@@ -251,24 +217,36 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
                                 data.data.DetailTransaksi.forEach((detail) => {
                                     html += `
                                     <tr>
+                                    <input type="hidden" name="id_detail[]" value="${detail.ID_DetailTrc}">
                                         <td>${detail.Inventaris.ID_Inventaris}</td>
                                         <td>${detail.Inventaris.Nama_Inventaris}</td>
                                         <td>${detail.Jumlah}</td>
                                         <td>${detail.Inventaris.Kategori.Nama_Kategori}</td>
+                                        <td class="d-flex justify-content-center">
+                                            <select class="form-select" aria-label="Default select example" id="kondisi" name="kondisi[]" style="max-width: 120px;">
+                                                <option value="Normal">Normal</option>
+                                                <option value="Rusak">Rusak</option>
+                                                <option value="Hilang">Hilang</option>
+                                            </select>
+                                        </td>
                                     </tr>
                                     `;
                                 })
                                 return html;
                             }
                             $('.loan-detail-table tbody').html(table)
+                            document.querySelectorAll('#kondisi').forEach((kondisi, i) => {
+                                kondisi.value = data.data.DetailTransaksi[i].Kondisi;
+                            })
                             $('.modal-detail-container').removeClass('d-none');
                         })
                     },
                     error: (error) => {
-                        $(document).ready(() => {
-                            $('.peminjaman-modal-container-failed').removeClass('d-none');
-                            $('#peminjaman-modal-container-failed-title').html('Gagal');
-                            $('#peminjaman-modal-container-failed-message').html(`${error.responseText}`);
+                        $(document).ready(function() {
+                            $('.modal-container-failed').removeClass('d-none');
+                            $('#modal-container-failed-title').html('Gagal');
+                            $('#modal-container-failed-message').html(error.responseJSON.error);
+
                         })
                     }
                 })
@@ -280,7 +258,8 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
         $('.admin-retrieval-information').val('');
     })
 
-    $('.button-save-loan').click(() => {
+    $('.button-save-loan').click((e) => {
+        e.preventDefault();
         const formData = new FormData(document.querySelector('#detail-peminjaman-form'));
         console.log(formData)
         $.ajax({
@@ -290,29 +269,24 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
             processData: false,
             contentType: false,
             success: (data) => {
-                $(document).ready(() => {
-                    $('.peminjaman-modal-container').removeClass('d-none');
-                    $('#peminjaman-modal-container-title').html('Berhasil');
-                    $('#peminjaman-modal-container-message').html('Penambahan Maintainer Berhasil Dilakukan');
+                $(document).ready(function() {
+                    $('.modal-container').removeClass('d-none');
+                    $('#modal-container-title').html('Berhasil');
+                    $('#modal-container-message').html(data.message);
+
                 })
             },
             error: (error) => {
-                $(document).ready(() => {
-                    $('.peminjaman-modal-container-failed').removeClass('d-none');
-                    $('#peminjaman-modal-container-failed-title').html('Gagal');
-                    $('#peminjaman-modal-container-failed-message').html(`${error.responseText}`);
+                $(document).ready(function() {
+                    $('.modal-container-failed').removeClass('d-none');
+                    $('#modal-container-failed-title').html('Gagal');
+                    $('#modal-container-failed-message').html(error.responseJSON.error);
                 })
             }
         })
     })
 
-    $(document).on('click', '.button-back-loan', () => {
+    $('.button-back-loan').click(() => {
         $('.modal-detail-container').addClass('d-none');
-    })
-    $(document).on('click', '.peminjaman-failed-button-back', () => {
-        $('.peminjaman-modal-container-failed').addClass('d-none');
-    })
-    $(document).on('click', '.peminjaman-success-button-back', () => {
-        window.location.href = '/admin/data-peminjaman'
     })
 </script>

@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="text-center">
-      <h1>0</h1>
+      <h1><?= $model['statusPeminjaman']['Menunggu'] ?></h1>
     </div>
     <div>
       <small>Total yang belum disetujui</small>
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="text-center">
-      <h1>0</h1>
+      <h1><?= $model['statusPeminjaman']['Diterima'] ?></h1>
     </div>
     <div>
       <small>Total barang yang siap diambil</small>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="text-center">
-      <h1>0</h1>
+      <h1><?= $model['statusPeminjaman']['Selesai'] ?></h1>
     </div>
     <div>
       <small>Peminjaman yang sudah selesai</small>
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="text-center">
-      <h1>0</h1>
+      <h1><?= $model['statusPeminjaman']['Proses'] ?></h1>
     </div>
     <div>
       <small>Peminjaman yang belum selesai</small>
@@ -74,59 +74,72 @@
             <th>Nama</th>
             <th>Tanggal<br>Peminjaman</th>
             <th>Tanggal<br>Pengembalian</th>
+            <th>Status</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>0000011</td>
-            <td>Putra Zakaria Muzaki</td>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            <td><button class="loan--details-button--approval btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
-          </tr>
+        <?php if (!empty($model['peminjaman'])) :?>
+                <?php foreach ($model['peminjaman'] as $transaksi) : ?>
+                <tr>
+                    <td><?= $transaksi->Pengguna->Nomor_Identitas ?></td>
+                    <td><?= $transaksi->Pengguna->Nama_Pengguna ?></td>
+                    <td><?= (new DateTime($transaksi->StartDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;" ><?= (new DateTime($transaksi->StartDate))->format('h:i A') ?></span></td>
+                    <td><?= (new DateTime($transaksi->EndDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;" ><?= (new DateTime($transaksi->EndDate))->format('h:i A') ?></span></td>
+                    <td><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;" ><?= $transaksi->Status->Nama_Status ?></span></td>
+                    <td><button class="loan--details-button--approval btn" style="background-color: #CEE7FF; color:#01305D;" data-kode="<?= $transaksi->ID_Transaksi?>">Detail</button></td>
+                </tr>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <tr>
+                    <td colspan="6" class="text-center">Tidak ada data</td>
+                </tr>
+            <?php endif; ?>
         </tbody>
       </table>
     </div>
   </div>
 </div>
 
-<div class="modal-detail-container position-absolute px-4 vw-100 vh-100 bg-white d-flex flex-column justify-content-between overflow-y-scroll d-none " style="color: #01305D;">
-  <div class="w-100 text-center bg-warning p-2 rounded-2 ">
+<div class="modal-detail-container position-absolute px-4 vw-100 vh-100 bg-white d-flex flex-column justify-content-between overflow-y-scroll  d-none" style="color: #01305D;">
+<form id="detail-pengembalian-form">
+<div class="w-100 text-center bg-warning p-2 rounded-2 ">
     <strong class="text-white">Detail Peminjaman</strong>
   </div>
   <div class="pt-4 ">
     <table class="identity-table">
+
+            <input type="hidden" name="kode">
       <tbody>
         <tr>
           <td><strong>Jenis Peminjam</strong></td>
           <td><strong>:</strong></td>
           <td>
-            <p>Mahasiswa</p>
+          <p id="status-peminjam"></p>
           </td>
         </tr>
         <tr>
           <td><strong>Nama</strong></td>
           <td><strong>:</strong></td>
           <td>
-            <p>Putra Zakaria Muzaki</p>
+            <p id="nama"></p>
           </td>
         </tr>
         <tr>
           <td><strong>Nomor ID</strong></td>
           <td><strong>:</strong></td>
           <td>
-            <p>23946238947</p>
+          <p id="nomor-identitas"></p>
           </td>
         </tr>
         <tr>
           <td><strong>Admin</strong></td>
           <td><strong>:</strong></td>
           <td>
-            <select class="form-select" aria-label="Default select example" style="max-width: 200px;">
-              <option value="putra">Pak Putra</option>
-              <option value="raihan">Pak Raihan</option>
-              <option value="dela">Bu Dela</option>
+            <select class="form-select" id="maintainer-admin" aria-label="Default select example" name="maintainer" style="max-width: 200px;">
+            <?php foreach($model['maintainer'] as $maintainer) : ?>
+                    <option value="<?= $maintainer->ID_Maintainer ?>"><?= $maintainer->Nama_Maintainer ?></option>
+                <?php endforeach; ?>
             </select>
           </td>
         </tr>
@@ -134,12 +147,11 @@
           <td><strong>Status Peminjaman</strong></td>
           <td><strong>:</strong></td>
           <td>
-            <select class="form-select" aria-label="Default select example" style="max-width: 200px;">
-              <option value="menunggu">Menunggu</option>
-              <option value="disetujui">Disetujui</option>
-              <option value="ditolak">Ditolak</option>
-              <option value="proses">Proses</option>
-              <option value="selesai">Selesai</option>
+            <select class="form-select" id="status" aria-label="Default select example" name="status" style="max-width: 200px;">
+                <?php foreach($model['status'] as $status) : ?>
+                    <option value="<?= $status->ID_Status ?>"><?= $status->Nama_Status ?></option>
+                <?php endforeach; ?>
+            </select>
             </select>
           </td>
         </tr>
@@ -147,36 +159,33 @@
           <td><strong>Tanggal Peminjaman</strong></td>
           <td>:</td>
           <td>
-            <p>17 Agustus 2023 12:00:00</p>
+          <p id="start-date"></p>
           </td>
         </tr>
         <tr>
           <td><strong>Waktu Pengembalian</strong></td>
           <td>:</td>
           <td>
-            <p>17 Agustus 2023 12:00:00</p>
+          <p id="end-date"></p>
           </td>
         </tr>
         <tr>
           <td><strong>Keterangan</strong></td>
           <td><strong>:</strong></td>
-          <td><textarea class="admin-retrieval-information p-2 rounded-2 border border-light-subtle" name="" id="" cols="30" rows="1" type="text">Silahkan melakukan pengambilan barang di ruang teknisi Lantai 7</textarea></td>
+          <td><textarea class="admin-retrieval-information p-2 rounded-2 border border-light-subtle" name="pesan" id="" cols="30" rows="1" type="text">Silahkan melakukan pengambilan barang di ruang teknisi Lantai 7</textarea></td>
         </tr>
         <tr>
           <td><strong>Alasan Peminjaman</strong></td>
           <td><strong>:</strong></td>
           <td>
-            <p>Kiw kepo banget</p>
+            <p id="deskripsi-keperluan"></p>
           </td>
         </tr>
-        <tr>
-          <td><strong>Kartu Tanda Pengenal</strong></td>
-          <td><strong>:</strong></td>
-          <td>
-            <div style="width: 250px; height: 150px;"><img src="/public/assets/images/anggap-aja-ktm.jpg" alt="" class="w-100 h-100 object-fit-cover ratio-16x9 rounded-3 "></div>
-          </td>
+        <tr id="tanda-pengenal">
+
         </tr>
       </tbody>
+
     </table>
   </div>
   <div class="h-100">
@@ -189,41 +198,141 @@
             <th>Nama Barang</th>
             <th>Jumlah</th>
             <th>Kategori</th>
+            <th>Kondisi</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1001</td>
-            <td>Kursi</td>
-            <td>5</td>
-            <td>Barang</td>
-          </tr>
         </tbody>
       </table>
     </div>
   </div>
   <div class="py-4 d-flex justify-content-end column-gap-3 ">
     <button class="button-back-loan btn text-white" style="background-color: #01305D;">Kembali</button>
-    <button class="button-save-loan btn text-white " style="background-color: #FFB733">Simpan</button>
+    <button class="button-save-loan btn text-white" style="background-color: #FFB733">Simpan</button>
   </div>
+  </form>
 </div>
 
-<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="success-save-edit-loan-modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
-  <div class="success-edit-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
-background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 65%);">
-    <div class="d-flex flex-column align-items-center row-gap-3 ">
-      <img src="/public/assets/images/berhasil.svg" alt="">
-      <h3 style="color:#5BD794;">
-        <strong>
-          Berhasil
-        </strong>
-      </h3>
-    </div>
-    <div>
-      <p>Data berhasil diubah</p>
-    </div>
-    <div>
-      <button class="btn text-white success-save-edit-loan-button-back" style="background-color: #5BD794; padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
-    </div>
-  </div>
-</div>
+<script>
+    $('.loan--details-button--approval').each(function() {
+            $(this).click(async function() {
+                const kode = $(this).data('kode');
+                await $.ajax({
+                    url: '/admin/data-peminjaman/get?kode=' + kode,
+                    method: "GET",
+                    success: (data) => {
+                        $(document).ready(() => {
+                            const options = {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "numeric",
+                                minute: "numeric",
+                                hour12: false, // Use 24-hour format
+                            };
+                            $('#detail-pengembalian-form').trigger('reset');
+                            $('input[name="kode"]').val(data.data.ID_Transaksi);
+                            $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
+                            $('#nama').html(data.data.Pengguna.Nama_Pengguna);
+                            $('#maintainer-admin').val(data.data.Admin.ID_Maintainer);
+                            // $('input[name="maintainer"]').val(data.data.Admin.ID_Maintainer);
+                            // $('input[name="status"]').val(data.data.Pengguna.Level.ID_Level);
+                            $('#status').val(data.data.Status.ID_Status);
+                            $('#nomor-identitas').html(data.data.Pengguna.Nomor_Identitas);
+                            $('#start-date').html(new Date(data.data.StartDate).toLocaleDateString("id-ID", options));
+                            $('#end-date').html(new Date(data.data.EndDate).toLocaleDateString("id-ID", options));
+                            $('#deskripsi-keperluan').html(data.data.Deskripsi_Keperluan);
+                            if (data.data.Pesan != null) {
+                                $('.admin-retrieval-information').val(data.data.Pesan);
+                            }
+                            if (data.data.Pengguna.Level.Nama_Level == 'Mahasiswa') {
+                                $('#tanda-pengenal').html(`
+                                <td><strong>Kartu Tanda Pengenal</strong></td>
+                                <td><strong>:</strong></td>
+                                <td>
+                                    <div style="width: 250px; height: 150px;"><img src="" alt="" class="w-100 h-100 object-fit-cover ratio-16x9 rounded-3 "></div>
+                                </td>
+                                    `);
+                                $('#tanda-pengenal img').attr('src', `/public/assets/images/jaminan/${data.data.Jaminan}`);
+                            } else {
+                                $('#tanda-pengenal').html('');
+                            }
+                            const table = function ()  {
+                                let html = '';
+                                data.data.DetailTransaksi.forEach((detail) => {
+                                    html += `
+                                    <tr>
+                                        <input type="hidden" name="id_detail[]" value="${detail.ID_DetailTrc}">
+                                        <td>${detail.Inventaris.ID_Inventaris}</td>
+                                        <td>${detail.Inventaris.Nama_Inventaris}</td>
+                                        <td>${detail.Jumlah}</td>
+                                        <td>${detail.Inventaris.Kategori.Nama_Kategori}</td>
+                                        <td class="d-flex justify-content-center">
+                                            <select class="form-select" aria-label="Default select example" id="kondisi" name="kondisi[]" style="max-width: 120px;">
+                                                <option value="Normal">Normal</option>
+                                                <option value="Rusak">Rusak</option>
+                                                <option value="Hilang">Hilang</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    `;
+                                })
+                                return html;
+                            }
+                            $('.loan-detail-table tbody').html(table)
+                            document.querySelectorAll('#kondisi').forEach((kondisi, i) => {
+                                kondisi.value = data.data.DetailTransaksi[i].Kondisi;
+                            })
+                            $('.modal-detail-container').removeClass('d-none');
+                        })
+                    },
+                    error: (error) => {
+                        $(document).ready(function() {
+                            $('.modal-container-failed').removeClass('d-none');
+                            $('#modal-container-failed-title').html('Gagal');
+                            $('#modal-container-failed-message').html(error.responseJSON.error);
+
+                        })
+                    }
+                })
+        })
+    })
+
+
+    $(document).on('click', '.admin-retrieval-information', () => {
+        $('.admin-retrieval-information').val('');
+    })
+
+    $('.button-save-loan').click((e) => {
+        console.log('clicked')
+        const formData = new FormData(document.querySelector('#detail-pengembalian-form'));
+        console.log(formData)
+        e.preventDefault();
+        $.ajax({
+            url: '/admin/data-peminjaman/update',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (data) => {
+                $(document).ready(function() {
+                    $('.modal-container').removeClass('d-none');
+                    $('#modal-container-title').html('Berhasil');
+                    $('#modal-container-message').html(data.message);
+
+                })
+            },
+            error: (error) => {
+                $(document).ready(function() {
+                    $('.modal-container-failed').removeClass('d-none');
+                    $('#modal-container-failed-title').html('Gagal');
+                    $('#modal-container-failed-message').html(error.responseJSON.error);
+                })
+            }
+        })
+    })
+
+    $('.button-back-loan').click(() => {
+        $('.modal-detail-container').addClass('d-none');
+    })
+</script>

@@ -61,8 +61,8 @@ CREATE TABLE Inventaris (
 CREATE TABLE MaintainerInventaris (
     ID_Maintainer VARCHAR(10),
     ID_Inventaris VARCHAR(10),
-    FOREIGN KEY (ID_Maintainer) REFERENCES Maintainer(ID_Maintainer)ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (ID_Inventaris) REFERENCES Inventaris(ID_Inventaris) ON DELETE SET NULL ON UPDATE CASCADE
+    FOREIGN KEY (ID_Maintainer) REFERENCES Maintainer(ID_Maintainer) ON UPDATE CASCADE,
+    FOREIGN KEY (ID_Inventaris) REFERENCES Inventaris(ID_Inventaris)  ON UPDATE CASCADE
 );
 
 CREATE TABLE Transaksi (
@@ -75,15 +75,16 @@ CREATE TABLE Transaksi (
     Deskripsi_Keperluan TEXT,
     Jaminan VARCHAR(50),
     Pesan TEXT,
-    FOREIGN KEY (ID_Pengguna) REFERENCES Pengguna(ID_Pengguna)ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (ID_Admin) REFERENCES Maintainer(ID_Maintainer)ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (ID_Status) REFERENCES Status(ID_Status)ON DELETE SET NULL ON UPDATE CASCADE
+    FOREIGN KEY (ID_Pengguna) REFERENCES Pengguna(ID_Pengguna) ON UPDATE CASCADE,
+    FOREIGN KEY (ID_Admin) REFERENCES Maintainer(ID_Maintainer) ON UPDATE CASCADE,
+    FOREIGN KEY (ID_Status) REFERENCES Status(ID_Status) ON UPDATE CASCADE
 );
 CREATE TABLE DetailTransaksi (
     ID_DetailTrc VARCHAR(10) PRIMARY KEY,
     ID_Transaksi VARCHAR(10),
     ID_Inventaris VARCHAR(10),
+    Kondisi ENUM('Normal', 'Rusak', 'Hilang'),
     Jumlah INT,
     FOREIGN KEY (ID_Transaksi) REFERENCES Transaksi(ID_Transaksi) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (ID_Inventaris) REFERENCES Inventaris(ID_Inventaris) ON DELETE SET NULL ON UPDATE CASCADE
+    FOREIGN KEY (ID_Inventaris) REFERENCES Inventaris(ID_Inventaris)  ON UPDATE CASCADE
 );

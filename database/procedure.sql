@@ -2,3 +2,6 @@
 --sort by tanggal
 --filter by status
 --search
+
+
+SELECT * FROM MaintainerInventaris;

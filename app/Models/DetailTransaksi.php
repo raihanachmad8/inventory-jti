@@ -5,6 +5,7 @@ class DetailTransaksi
     public string $ID_DetailTrc;
     public string $ID_Transaksi;
     public string $ID_Inventaris;
+    public string $Kondisi;
     public string $Jumlah;
 
     // Relation

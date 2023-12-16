@@ -9,7 +9,7 @@ class Transaksi
     public string $StartDate;
     public string $EndDate;
     public string $Deskripsi_Keperluan;
-    public string $Jaminan;
+    public ?string $Jaminan;
     public string $Pesan;
 
     // Relation

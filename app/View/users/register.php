@@ -1,5 +1,3 @@
-<?php var_dump($model['error']); ?>
-
     <h1>Register</h1>
 
     <form action="/users/register" method="post">

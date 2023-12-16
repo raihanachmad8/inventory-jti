@@ -77,7 +77,7 @@ class TransaksiRepository
             ]);
 
             $this->connection->commit();
-            return $statement->rowCount() > 0;
+            return true;
         } catch (PDOException $exception) {
             $this->connection->rollBack();
             throw $exception;
@@ -229,6 +229,48 @@ class TransaksiRepository
         }
         $query = rtrim($query, ', ');  // Remove the trailing comma and space
         $query .= ") AND (P.Nomor_Identitas LIKE :keyword OR L.Nama LIKE :keyword OR P.Nama LIKE :keyword OR A.Nama LIKE :keyword OR T.StartDate LIKE :keyword OR T.EndDate LIKE :keyword )";
+        $query .= " AND T.StartDate >= CURDATE()";
+        $statement = $this->connection->prepare($query);
+
+        $i = 0;
+        foreach ($status as $stat) {
+            $statement->bindValue(":status$i", $stat);
+            $i++;
+        }
+
+        $statement->bindValue(':keyword', "%%");  // Bind the keyword outside of the loop
+        $statement->execute();
+
+        while ($row = $statement->fetchObject('Transaksi')) {
+            $transaksi[] = $row;
+        }
+        return $transaksi ?? [];
+
+        } catch (PDOException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
+    public function searchListRiwayatTransaksiByStatus(array $status, string $keyword = '') : array
+    {
+        try {
+            $query = "
+            SELECT T.ID_Transaksi, T.ID_Pengguna, T.ID_Admin, T.StartDate, T.EndDate, T.Deskripsi_Keperluan, T.Jaminan, T.Pesan, T.ID_Status
+            FROM transaksi T
+            INNER JOIN pengguna P ON T.ID_Pengguna = P.ID_Pengguna
+            INNER JOIN Level L ON P.ID_Level = L.ID_Level
+            INNER JOIN status S ON T.ID_Status = S.ID_Status
+            INNER JOIN maintainer A ON T.ID_Admin = A.ID_Maintainer
+            WHERE S.Nama IN (";
+
+        $i = 0;
+        foreach ($status as $stat) {
+            $query .= ":status$i, ";
+            $i++;
+        }
+        $query = rtrim($query, ', ');  // Remove the trailing comma and space
+        $query .= ") AND (P.Nomor_Identitas LIKE :keyword OR L.Nama LIKE :keyword OR P.Nama LIKE :keyword OR A.Nama LIKE :keyword OR T.StartDate LIKE :keyword OR T.EndDate LIKE :keyword )";
 
         $statement = $this->connection->prepare($query);
 
@@ -238,13 +280,12 @@ class TransaksiRepository
             $i++;
         }
 
-        $statement->bindValue(':keyword', "%$keyword%");  // Bind the keyword outside of the loop
+        $statement->bindValue(':keyword', "%%");  // Bind the keyword outside of the loop
         $statement->execute();
 
         while ($row = $statement->fetchObject('Transaksi')) {
             $transaksi[] = $row;
         }
-
         return $transaksi ?? [];
 
         } catch (PDOException $exception) {
@@ -279,6 +320,29 @@ class TransaksiRepository
             $statement->execute();
 
             return $statement->rowCount() > 0;
+        } catch (PDOException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    public function countStatusTransaksi(array $statusName) : array
+    {
+        try {
+
+            foreach ($statusName as $stat) {
+                $query = "
+                SELECT COUNT(*) as $stat FROM transaksi
+                INNER JOIN status ON transaksi.ID_Status = status.ID_Status";
+                $newQuery = $query . " WHERE status.Nama = :status";
+                $statement = $this->connection->prepare($newQuery);
+                $statement->execute([
+                    'status' => $stat
+                ]);
+                $result[$stat] = $statement->fetch(PDO::FETCH_ASSOC)[$stat];
+            }
+            return $result ?? [];
         } catch (PDOException $exception) {
             throw $exception;
         } catch (Exception $exception) {
