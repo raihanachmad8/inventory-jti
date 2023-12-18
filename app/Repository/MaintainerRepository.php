@@ -91,12 +91,16 @@ class MaintainerRepository
 
     public function delete($id) : bool
     {
-        $query = "DELETE FROM maintainer WHERE ID_Maintainer = :id";
-        $statement = $this->connection->prepare($query);
-        $statement->execute([
-            'id' => $id
-        ]);
-        return $statement->rowCount() > 0;
+        try {
+            $query = "DELETE FROM maintainer WHERE ID_Maintainer = :id";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'id' => $id
+            ]);
+            return $statement->rowCount() > 0;
+        } catch (PDOException $exception) {
+            throw new Exception('Failed to delete data Constraint Inventaris');
+        }
     }
 
     public function search($keyword = '') : array

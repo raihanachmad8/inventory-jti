@@ -139,14 +139,20 @@
           <td><strong>Tanggal Peminjaman</strong></td>
           <td><strong>:</strong></td>
           <td>
-            <button class="date-modal-button btn-sm btn " style="background-color: #E3F2F9;">DD//MM//YYYY</button>
+            <div class="w-75 d-flex flex-column flex-lg-row row-gap-3 row-gap-lg-0 column-gap-3 ">
+              <input type="date" class="form-control" />
+              <input type="time" class="form-control">
+            </div>
           </td>
         </tr>
         <tr>
           <td><strong>Waktu Pengembalian</strong></td>
           <td><strong>:</strong></td>
           <td>
-            <button class="date-modal-button btn-sm btn" style="background-color: #E3F2F9;">DD//MM//YYYY</button>
+            <div class="w-75 d-flex flex-column flex-lg-row row-gap-3 row-gap-lg-0 column-gap-3 ">
+              <input type="date" class="form-control" />
+              <input type="time" class="form-control">
+            </div>
           </td>
         </tr>
       </tbody>
@@ -170,7 +176,9 @@
           <td>1</td>
           <td>Keyboard</td>
           <td>
-            <form action="" class="form-choose"><input type="checkbox" name="" id="" class="form-choose-input-loan form-choose-input-loan-non-active" style="cursor: pointer;"></form>
+            <form action="" class="form-choose">
+              <input class="form-check-input border border-dark " type="checkbox" value="" id="flexCheckDefault" style="width: 20px; height: 20px;">
+            </form>
           </td>
         </tr>
         <tr>
@@ -179,7 +187,7 @@
           <td>1</td>
           <td>Keyboard</td>
           <td>
-            <form action="" class="form-choose"><input type="checkbox" name="" id="" class="form-choose-input-loan form-choose-input-loan-non-active" style="cursor: pointer;"></form>
+            <form action="" class="form-choose"><input class="form-check-input border border-dark " type="checkbox" value="" id="flexCheckDefault" style="width: 20px; height: 20px;"></form>
           </td>
         </tr>
         <tr>
@@ -188,7 +196,7 @@
           <td>1</td>
           <td>Keyboard</td>
           <td>
-            <form action="" class="form-choose"><input type="checkbox" name="" id="" class="form-choose-input-loan form-choose-input-loan-non-active" style="cursor: pointer;"></form>
+            <form action="" class="form-choose"><input class="form-check-input border border-dark " type="checkbox" value="" id="flexCheckDefault" style="width: 20px; height: 20px;"></form>
           </td>
         </tr>
         <tr>
@@ -197,7 +205,7 @@
           <td>1</td>
           <td>Keyboard</td>
           <td>
-            <form action="" class="form-choose"><input type="checkbox" name="" id="" class="form-choose-input-loan form-choose-input-loan-non-active" style="cursor: pointer;"></form>
+            <form action="" class="form-choose"><input class="form-check-input border border-dark " type="checkbox" value="" id="flexCheckDefault" style="width: 20px; height: 20px;"></form>
           </td>
         </tr>
         <tr>
@@ -206,7 +214,7 @@
           <td>1</td>
           <td>Keyboard</td>
           <td>
-            <form action="" class="form-choose"><input type="checkbox" name="" id="" class="form-choose-input-loan form-choose-input-loan-non-active" style="cursor: pointer;"></form>
+            <form action="" class="form-choose"><input class="form-check-input border border-dark " type="checkbox" value="" id="flexCheckDefault" style="width: 20px; height: 20px;"></form>
           </td>
         </tr>
       </tbody>

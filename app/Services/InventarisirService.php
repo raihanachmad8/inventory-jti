@@ -38,6 +38,11 @@ class InventarisirService
             'HIBAH' => 'HIBAH'
         ];
     }
+
+    public function getInventarisById(string $id) : Inventaris
+    {
+        return $this->inventarisRepository->getInventarisById($id);
+    }
     public function getListInventaris() : array
     {
         $result = $this->maintainerInventarisRepository->getListMaintainerInventaris();
@@ -82,7 +87,7 @@ class InventarisirService
     public function update(array $maintainerInventaris) : bool
     {
         try {
-            
+
             $maintainerInventaris = $this->maintainerInventarisRepository->update($maintainerInventaris[0]->ID_Inventaris, $maintainerInventaris);
             return $maintainerInventaris ?? false;
         } catch (PDOException $exception) {

@@ -545,6 +545,10 @@ form#detail-item-form .input-container select {
     height: 100%;
 }
 
+div.profile-info {
+    width: 100%;
+}
+
 @media only screen and (min-width: 768px) {
     .inventory-items-container {
         display: grid;
@@ -609,7 +613,7 @@ form#detail-item-form .input-container select {
 
     .personal-information-container {
         display: grid;
-        grid-template-columns: repeat(1, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .dashboard-widget-admin {
@@ -620,12 +624,9 @@ form#detail-item-form .input-container select {
 }
 
 @media only screen and (min-width: 992px) {
-    /* .login-card {
-        width: 50vw !important;
-        height: 75vh !important;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    } */
+    div.profile-info {
+        width: fit-content;
+    }
 
     .image-upload-button-container {
         width: 100%;
@@ -944,17 +945,6 @@ form#detail-item-form .input-container select {
 }
 
 @media only screen and (min-width: 1600px) {
-    /* .main-container .inventory-items-container {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 1rem 1rem;
-    }
-
-    .main-container .inventory-items-container .inventory-item {
-        width: calc(100% / 5 - 0.9rem) !important;
-        height: fit-content !important;
-        border-radius: 0.5rem;
-    } */
 
     .dashboard-widget-item {
         width: 5rem;

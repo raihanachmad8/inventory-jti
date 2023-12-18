@@ -1,3 +1,42 @@
+<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
+  <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 65%);">
+    <div class="d-flex flex-column align-items-center row-gap-3 ">
+      <img src="/public/assets/images/berhasil.svg" alt="">
+      <h3 style="color:#5BD794;">
+        <strong id="modal-container-title">
+
+        </strong>
+      </h3>
+    </div>
+    <div>
+      <p id="modal-container-message"></p>
+    </div>
+    <div>
+      <button class="btn text-white success-button-back" style="background-color: #5BD794; padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
+    </div>
+  </div>
+</div>
+<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="modal-container-failed vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
+  <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 65%);">
+    <div class="d-flex flex-column align-items-center row-gap-3 ">
+      <img src="/public/assets/images/batalkan.svg" alt="">
+      <h3 style="color:#CC3333;">
+        <strong id="modal-container-failed-title">
+
+        </strong>
+      </h3>
+    </div>
+    <div>
+      <p id="modal-container-failed-message"></p>
+    </div>
+    <div>
+      <button class="btn btn-danger text-white failed-button-back" style=" padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
+    </div>
+  </div>
+</div>
+
 </main>
 </div>
 
@@ -12,6 +51,16 @@
 </script>
 
 
+<script>
+  $(document).on('click', '.success-button-back', () => {
+    window.location.reload();
+  })
+
+  $(document).on('click', '.failed-button-back', () => {
+    $('.modal-container-failed').addClass('d-none');
+  })
+</script>
+<!-- 
 <!-- Menu Inventarisir -->
 <!-- <script>
   /* Button tambah barang */
@@ -99,35 +148,35 @@
 <!-- Ini khusus digunakan pada menu dashboard admin dan data peminjaman -->
 <script>
   // Bagian ini digunakan ketika tombol detail pada field peminjaman di klik
-  $(document).on('click', '.loan--details-button--approval', () => {
-    $('.modal-detail-container').removeClass('d-none');
-  })
+  //   $(document).on('click', '.loan--details-button--approval', () => {
+  //     $('.modal-detail-container').removeClass('d-none');
+  //   })
 
   // Maka akan muncul popup untuk detail peminjaman
   // di dalam detail peminjaman terdapat dua button kembali dan simpan
 
   // ini digunakan ketika button kembali di klik
-  $(document).on('click', '.button-back-loan', () => {
-    $('.content').removeClass('d-none')
-    $('.modal-detail-container').addClass('d-none');
-  })
+  //   $(document).on('click', '.button-back-loan', () => {
+  //     // $('.content').removeClass('d-none')
+  //     $('.modal-detail-container').addClass('d-none');
+  //   })
 
   // ini digunakan ketika button simpan di klik
-  $(document).on('click', '.button-save-loan', () => {
-    $('.success-save-edit-loan-modal-container').removeClass('d-none');
-    $('.modal-detail-container').addClass('d-none');
-  })
+  //   $(document).on('click', '.button-save-loan', () => {
+  //     $('.success-save-edit-loan-modal-container').removeClass('d-none');
+  //     $('.modal-detail-container').addClass('d-none');
+  //   })
 
   // Ini digunakan ketika button kembali di klik pada popup success simpan
-  $(document).on('click', '.success-save-edit-loan-button-back', () => {
-    $('.success-save-edit-loan-modal-container').addClass('d-none');
-  })
+  //   $(document).on('click', '.success-save-edit-loan-button-back', () => {
+  //     $('.success-save-edit-loan-modal-container').addClass('d-none');
+  //   })
 
   // pada field keterangan sudah diset default oleh sistem
   // ini digunakan ketika field input keterangan diklik maka akan reset
-  $(document).on('click', '.admin-retrieval-information', () => {
-    $('.admin-retrieval-information').val('');
-  })
+  //   $(document).on('click', '.admin-retrieval-information', () => {
+  //     $('.admin-retrieval-information').val('');
+  //   })
 </script>
 
 <script>
@@ -501,66 +550,66 @@
 
 <!-- Ini Khusus digunakan oleh menu maintainer -->
 <script>
-//   $(document).on('click', '.add-new-maintainer-button', () => {
-//     $('.add-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.add-new-maintainer-button', () => {
+  //     $('.add-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.cancel-button-add-maintainer', () => {
-//     $('.add-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.cancel-button-add-maintainer', () => {
+  //     $('.add-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.confirm-button-add-maintainer', () => {
-//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.confirm-button-add-maintainer', () => {
+  //     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.cancel-button-confirm-add-maintainer', () => {
-//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.cancel-button-confirm-add-maintainer', () => {
+  //     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.save-button-confirm-add-maintainer', () => {
-//     $('.success-add-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.save-button-confirm-add-maintainer', () => {
+  //     $('.success-add-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.add-maintainer-success-button-back', () => {
-//     $('.add-maintainer-modal-container').toggleClass('d-none');
-//     $('.success-add-maintainer-modal-container').toggleClass('d-none');
-//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.add-maintainer-success-button-back', () => {
+  //     $('.add-maintainer-modal-container').toggleClass('d-none');
+  //     $('.success-add-maintainer-modal-container').toggleClass('d-none');
+  //     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.edit-maintainer-button', () => {
-//     $('.edit-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.edit-maintainer-button', () => {
+  //     $('.edit-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.cancel-button-edit-maintainer', () => {
-//     $('.edit-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.cancel-button-edit-maintainer', () => {
+  //     $('.edit-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.confirm-button-edit-maintainer', () => {
-//     $('.success-edit-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.confirm-button-edit-maintainer', () => {
+  //     $('.success-edit-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.maintainer-success-button-back', () => {
-//     $('.maintainer-modal-container').toggleClass('d-none');
-//     $('maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.maintainer-success-button-back', () => {
+  //     $('.maintainer-modal-container').toggleClass('d-none');
+  //     $('maintainer-modal-container').toggleClass('d-none');
+  //   })
 
 
-//   $(document).on('click', '.delete-maintainer-button', () => {
-//     $('.delete-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.delete-maintainer-button', () => {
+  //     $('.delete-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.delete-maintainer-button-back', () => {
-//     $('.delete-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.delete-maintainer-button-back', () => {
+  //     $('.delete-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.delete-maintainer-button-delete', () => {
-//     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.delete-maintainer-button-delete', () => {
+  //     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
+  //   })
 
-//   $(document).on('click', '.delete-maintainer-success-button', () => {
-//     $('.delete-maintainer-modal-container').toggleClass('d-none');
-//     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
-//   })
+  //   $(document).on('click', '.delete-maintainer-success-button', () => {
+  //     $('.delete-maintainer-modal-container').toggleClass('d-none');
+  //     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
+  //   })
 </script>
 
 <script>
@@ -577,7 +626,7 @@
 
   function generateCalendar(year, month) {
     const table = $('.calendar-table');
-    table.empty(); // Clear existing content
+    table.empty(); // Clear existing 
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const firstDay = new Date(year, month, 1).getDay();

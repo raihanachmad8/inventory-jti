@@ -102,7 +102,6 @@ class InventarisRepository
             $statement->execute([
                 'id' => $id
             ]);
-            var_dump('success 2', $statement->rowCount() > 0);
             $this->connection->commit();
             return $statement->rowCount() > 0;
         } catch (PDOException $exception) {
