@@ -95,6 +95,7 @@ class OTPRepository
     public function getOTPByIdPengguna(string $ID_Pengguna): ?OTP
     {
         try {
+            $this->deleteExpiredOTP();
             $sql = "SELECT * FROM OTP WHERE ID_Pengguna = :ID_Pengguna AND Expired > NOW()";
             $statement = $this->connection->prepare($sql);
             $statement->bindParam(':ID_Pengguna', $ID_Pengguna);

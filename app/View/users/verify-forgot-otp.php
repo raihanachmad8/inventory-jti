@@ -24,7 +24,7 @@
                     </div>
                     <div class="text-center">
                         <strong>Masukkan kode verifikasi</strong>
-                        <p class="text-center">Kode verifikasi sudah dikirim melalui email dell***@gmail.com</p>
+                        <p class="text-center">Kode verifikasi sudah dikirim melalui email <?= substr(urldecode($_GET['Email']), 0, 3) . '***@' . substr(urldecode($_GET['Email']), strpos(urldecode($_GET['Email']), '@') + 1)?></p>
                     </div>
                 </div>
                 <div class="d-flex flex-column  justify-content-between align-items-center py-4 h-100">
@@ -37,7 +37,7 @@
                             <input type="number" name="code_5" id="code_5" maxlength="1" pattern="[0-9]" onfocus="clearInput(this)" oninput="moveToNextInput(this)" style="-moz-appearance: textfield; width: 3rem; height: 3rem; border: 1px solid #023670; border-radius: 10px; text-align: center;">
                             <input type="number" name="code_6" id="code_6" maxlength="1" pattern="[0-9]" onfocus="clearInput(this)" oninput="moveToNextInput(this)" style="-moz-appearance: textfield; width: 3rem; height: 3rem; border: 1px solid #023670; border-radius: 10px; text-align: center;">
                         </div>
-                        <p class="text-center pt-3  ">Tidak menerima kode verifikasi? <a href="" class="text-decoration-none fw-bold " style="color: #023670;">60 detik.</a></p>
+                        <small class="text-center pt-3  ">Tidak menerima kode verifikasi? <strong class="countdown" style="color: #022f63;"></strong></small>
                         <button type="submit" class="btn w-100 mt-3" style="background-color: #023670; color: white;">Verifikasi</button>
                     </form>
                     <div class="d-flex justify-content-center align-items-center">
@@ -69,6 +69,29 @@
                 }
             }
         }
+        function startCountdown() {
+            let seconds = 5;
+            let countdownElement = document.querySelector('.countdown');
+
+            function updateCountdown() {
+                if (seconds > 0) {
+                    console.log(seconds);
+                    seconds--;
+                    countdownElement.textContent = seconds + ' detik';
+                    console.log(countdownElement.textContent);
+                } else {
+                    clearInterval(countdownInterval);
+                    urlParams = new URLSearchParams(window.location.search);
+                    const email = urlParams.get('Email') || '';
+                    const id = urlParams.get('ID_Pengguna') || '';
+                    countdownElement.innerHTML = `<a href="/users/register/resend-verification?ID_Pengguna=${id}&Email=${email}">Kirim ulang</a>`
+                }
+            }
+
+            // Memanggil fungsi updateCountdown setiap detik
+            let countdownInterval = setInterval(updateCountdown, 1000);
+        }
+    window.onload = startCountdown;
     </script>
 </body>
 

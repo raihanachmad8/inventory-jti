@@ -53,9 +53,9 @@
 </div>
 
 <div style="background-color: rgba(0, 0, 0, 0.5);" class="detail-item-modal-container vw-100 overflow-y-scroll position-absolute top-0 start-0 d-flex justify-content-center align-items-center d-none ">
-    <div class="detail-item-modal d-flex flex-column flex-lg-row align-items-center justify-content-center bg-light overflow-hidden ">
-        <div class="order-last order-lg-first flex-grow-1 d-flex flex-column w-100 h-100 p-4 row-gap-3 ">
-            <form id="detail-item-form" action="" class="flex-grow-1 w-100 h-100">
+    <div style="display: grid; grid-template-columns: auto 1fr;" class="detail-item-modal align-items-center justify-content-center bg-light overflow-hidden ">
+        <div class="order-last order-lg-first flex-grow-1 d-flex flex-column h-100 p-4 row-gap-3 ">
+            <form id="detail-item-form" action="" class="flex-grow-1 h-100">
                 <div class="d-flex flex-column gap-3 input-container">
                     <label class="fw-semibold ">Kode Barang</label>
                     <p id="edit-kode"></p>
@@ -80,7 +80,7 @@
                     <label class="fw-semibold " for="jumlahBarang">Jumlah Barang</label>
                     <input type="text" id="jumlahBarang" class="border rounded bg-body input" value="" name="edit-jumlahBarang">
                 </div>
-                <div class="d-flex flex-column input-container flex-grow-1 w-100 ">
+                <div style="grid-column: span 2;" class="d-flex flex-column input-container flex-grow-1 w-100 ">
                     <p class="fw-semibold ">Maintainer</p>
                     <div style="display:grid; grid-template-columns: 1fr 1fr">
                         <?php foreach ($model['maintainer'] as $maintainer) : ?>
@@ -117,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex-grow-1 w-100 h-100 position-relative ">
+        <div class="h-100 position-relative">
             <img src="/public/assets/images/jay-zhang-ZByWaPXD2fU-unsplash.jpg" alt="" class="w-100 h-100 object-fit-cover ">
             <label for="image-input" class="w-100 h-100 position-absolute top-0 start-0 d-flex flex-column  justify-content-center align-items-center z-2 " style=" cursor: pointer;">
                 <img src="/public/assets/images/images.svg" alt="" style="width: 5rem; height: 5rem;">

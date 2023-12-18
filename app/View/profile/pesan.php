@@ -20,11 +20,29 @@
           </a></li>
       </ul>
     </nav>
+
+    <nav class="bg-white end-0  d-lg-none position-fixed fixed-bottom w-100 rounded-top-4">
+      <ul class="d-flex justify-content-between  align-items-center row-gap-4 px-3 py-4 text-center ">
+        <li class="<?= active_page($current_page_url, $menu_items['profil']) ? "bg-primary rounded-3 " : "" ?> p-2 "><a href="/profile/profil" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['profil']) ? "#fff" : "#001e3a" ?>;">
+            <p style="font-size: 0.8rem; font-weight: 500;">Profile</p>
+          </a></li>
+        <li class="p-2 <?= active_page($current_page_url, $menu_items['keamanan']) ? "bg-primary rounded-3" : "" ?>"><a href="/profile/keamanan" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['keamanan']) ? "#fff" : "#001e3a" ?>;">
+            <p style="font-size: 0.8rem; font-weight: 500;">Keamanan</p>
+          </a></li>
+        <li class="p-2 <?= active_page($current_page_url, $menu_items['pesan']) ? "bg-primary rounded-3" : "" ?>"><a href="/profile/pesan" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['pesan']) ? "#fff" : "#001e3a" ?>;">
+            <p style="font-size: 0.8rem; font-weight: 500;">Pesan</p>
+          </a></li>
+        <li class="p-2 <?= active_page($current_page_url, $menu_items['hapus-akun']) ? "bg-primary rounded-3" : "" ?>"><a href="/profile/hapus-akun" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['hapus-akun']) ? "#fff" : "#001e3a" ?>;">
+            <p style="font-size: 0.8rem; font-weight: 500;">Hapus Akun</p>
+          </a></li>
+      </ul>
+    </nav>
+
     <div class="w-100 h-100 px-4 py-3 d-flex flex-column row-gap-2 ">
       <h4>Pesan</h4>
       <div class="d-flex column-gap-3">
         <div class="d-flex justify-content-between w-75 p-3 rounded-3 " style="background: #D8ECFF;">
-          <p><strong style="color: #001e3a;">Silahkan melakukan pengembalian di Ruang Admin Lt. 7</strong></p>
+          <p style="color: #001e3a;">Silahkan melakukan pengembalian di Ruang Admin Lt. 7</p>
         </div>
         <div class="d-flex justify-content-between w-25 ">
           <p>01.04 PM</p>
@@ -33,20 +51,3 @@
     </div>
   </div>
 </div>
-
-<nav class="bg-white end-0  d-lg-none position-fixed fixed-bottom w-100 rounded-top-4">
-  <ul class="d-flex justify-content-between  align-items-center row-gap-4 px-3 py-4 ">
-    <li class="<?= active_page($current_page_url, $menu_items['profil']) ? "bg-primary rounded-3 " : "" ?> p-2 "><a href="/profile/profil" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['profil']) ? "#fff" : "#001e3a" ?>;">
-        <p style="font-size: 1rem; font-weight: 500;">Profile</p>
-      </a></li>
-    <li class="p-2 <?= active_page($current_page_url, $menu_items['keamanan']) ? "bg-primary rounded-3" : "" ?>"><a href="/profile/keamanan" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['keamanan']) ? "#fff" : "#001e3a" ?>;">
-        <p style="font-size: 1rem; font-weight: 500;">Keamanan</p>
-      </a></li>
-    <li class="p-2 <?= active_page($current_page_url, $menu_items['pesan']) ? "bg-primary rounded-3" : "" ?>"><a href="/profile/pesan" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['pesan']) ? "#fff" : "#001e3a" ?>;">
-        <p style="font-size: 1rem; font-weight: 500;">Pesan</p>
-      </a></li>
-    <li class="p-2 <?= active_page($current_page_url, $menu_items['hapus-akun']) ? "bg-primary rounded-3" : "" ?>"><a href="/profile/hapus-akun" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['hapus-akun']) ? "#fff" : "#001e3a" ?>;">
-        <p style="font-size: 1rem; font-weight: 500;">Hapus Akun</p>
-      </a></li>
-  </ul>
-</nav>

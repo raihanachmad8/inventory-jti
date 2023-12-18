@@ -27,9 +27,15 @@
                     <div class="d-flex flex-column">
                         <label for="email" class="mb-1 fw-bold ">Email</label>
                         <input type="email" id="email" value="<?= $_POST['email'] ?? '' ?>" required name="email" placeholder="Email" class="px-3 py-2  rounded-3 " style="border: 1px solid #023670;">
-                        <?php if (isset($model['error']['email'])) {
-                            echo '<p style="color: red;"> ' . $model['error']['email'][0] . '</p>';
-                        } ?>
+                        <?php if (isset($model['errors']['Email'])) : ?>
+                            <small class="text-danger">
+                                <?php if (is_array($model['errors']['Email'])) : ?>
+                                    <div><?= $model['errors']['Email'][0] ?></div>
+                                <?php else : ?>
+                                    <?= $model['errors']['Email'] ?>
+                                <?php endif; ?>
+                            </small>
+                        <?php endif; ?>
                     </div>
                     <input type="submit" value="Kirim tautan ke Email" class="btn rounded-3 mt-3  w-100 text-white" style="background-color: #023670;"></input>
                 </form>
@@ -45,15 +51,3 @@
 </html>
 
 
-<!-- <h1>Forgot</h1>
-    <form action="/users/forgot" method="post">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="<?= $_POST['email'] ?? '' ?>" required>
-        <?php if (isset($model['error']['email'])) {
-            echo '<p style="color: red;"> ' . $model['error']['email'][0] . '</p>';
-        } ?>
-        <input type="submit" value="Login">
-    </form>
-    <br>
-    <a href="/">home</a>
-    <a href="/users/register">register</a> -->

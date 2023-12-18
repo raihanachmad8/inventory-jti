@@ -26,7 +26,6 @@ class AuthService
 
             $this->validateRegistration($request);
             $pengguna = $this->createUser($request);
-            // var_dump($pengguna);
             $this->sendOTP($pengguna);
             return $pengguna;
         } catch (ValidationException $e) {
@@ -134,8 +133,6 @@ class AuthService
         $pengguna->ID_Level = $this->levelRepository->getLevelByName($request['Role'])->ID_Level;
         $pengguna->Foto = 'default.png';
         $result = $this->penggunaRepository->create($pengguna);
-        var_dump($pengguna);
-        // var_dump($this->penggunaRepository->getPenggunaById($pengguna->ID_Pengguna));
         if (!$result) {
             throw new Exception('Failed to create user.');
         }
@@ -144,7 +141,6 @@ class AuthService
 
     private function sendOTP(Pengguna $pengguna): void
     {
-        // var_dump($pengguna);
         $otp = $this->otpService->createOTP($pengguna->ID_Pengguna, $pengguna->Email);
 
         if ($otp === null) {
@@ -207,18 +203,19 @@ class AuthService
     {
             $this->penggunaRepository->deleteByField('ID_Pengguna', $pengguna->ID_Pengguna);
             $this->penggunaRepository->deleteByField('Email', $pengguna->Email);
+
     }
 
-    public function resendOTP(string $email): bool
+    public function resendOTP(string $ID_Pengguna): bool
     {
         try {
-            $pengguna = $this->penggunaRepository->getPenggunaByEmail($email);
+            $pengguna = $this->penggunaRepository->getPenggunaById($ID_Pengguna);
             $this->otpService->deleteOTP($pengguna->ID_Pengguna);
             $otp = $this->otpService->createOTP($pengguna->ID_Pengguna, $pengguna->Email);
             if ($otp === null) {
                 throw new Exception('Failed to resend OTP.');
             }
-            return true;
+            return $otp;
         } catch (Exception $e) {
 
             throw new Exception($e->getMessage());
@@ -238,10 +235,10 @@ class AuthService
         }
     }
 
-    public function forgot(array $request): ?Pengguna
+    public function forgot(string $email): ?Pengguna
     {
         try {
-            $pengguna = $this->penggunaRepository->getPenggunaByEmail($request['Email']);
+            $pengguna = $this->penggunaRepository->getPenggunaByEmail($email);
             if ($pengguna === null) {
                 throw new ValidationException(['Email' => 'Email is not registered.']);
             }
@@ -261,7 +258,7 @@ class AuthService
     public function reset(array $request): ?Pengguna
     {
         try {
-            $pengguna = $this->penggunaRepository->getPenggunaById($request['ID_Pengguna']);
+            $pengguna = $this->penggunaRepository->getDetailPenggunaById($request['ID_Pengguna']);
 
             if ($pengguna === null) {
                 throw new Exception('User not found.');

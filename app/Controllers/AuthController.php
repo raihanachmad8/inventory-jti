@@ -127,28 +127,14 @@ class AuthController
                 http_response_code(405);
                 throw new Exception('Method not allowed');
             }
-            // $request = [
-            //     'ID_Pengguna' => input::post('ID_Pengguna'),
-            //     'ID_Level' => input::post('ID_Level'),
-            //     'Nomor_Identitas' => input::post('Nomor_Identitas'),
-            //     'Nama_Pengguna' => input::post('Nama_Pengguna'),
-            //     'Password' => input::post('Password'),
-            //     'Confirm_Password' => input::post('Confirm_Password'),
-            //     'Email' => input::post('Email'),
-            //     'Nomor_HP' => input::post('Nomor_HP'),
-            //     'Foto' => input::post('Foto'),
-            //     'Status' => input::post('Status'),
-            //     'Salt' => input::post('Salt'),
-            // ];
-
             $request = [
                 'Role' => input::post('role'),
-                'Nomor_Identitas' => input::post('nomor_identitas'),
+                'Nomor_Identitas' => input::post('nomor-identitas'),
                 'Nama' => input::post('nama'),
-                'Nomor_HP' => input::post('nomor_hp'),
+                'Nomor_HP' => input::post('nomor-telepon'),
                 'Email' => input::post('email'),
                 'Password' => input::post('password'),
-                'Confirm_Password' => input::post('confirm_password'),
+                'Confirm_Password' => input::post('confirm-password'),
                 'Status' => 'TIDAK AKTIF'
             ];
             $validate = (new AccountValidation($request))->validate();
@@ -171,7 +157,6 @@ class AuthController
             if ($e instanceof ValidationException) {
                 header('HTTP/1.1 400 Bad Request');
                 http_response_code(400);
-                var_dump($e->getErrors());
                 View::renderPage('users/register', [
                     'errors' => $e->getErrors(),
                     'error' => "Registeration Failed"
@@ -180,7 +165,6 @@ class AuthController
             } else {
                 header('HTTP/1.1 500 Internal Server Error');
                 http_response_code(500);
-                var_dump($e->getMessage());
                 View::renderPage('users/register', [
                     'error' => $e->getMessage()
                 ]);
@@ -191,26 +175,44 @@ class AuthController
 
     public function verifyOTPForm()
     {
-        $this->verifyIsUser();
-        View::renderPage('users/verify-otp', [
-            'title' => 'Verify OTP'
-        ]);
+        try {
+            $this->verifyIsUser('/users/register');
+            $this->hasOTP('/users/register');
+            View::renderPage('users/verify-otp', [
+                'title' => 'Verify OTP'
+            ]);
+        } catch (Exception $e) {
+            if ($e instanceof PDOException) {
+                header('HTTP/1.1 500 Internal Server Error');
+                http_response_code(500);
+                View::renderPage('users/verify-otp', [
+                    'error' => $e->getMessage()
+                ]);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                http_response_code(500);
+                View::renderPage('users/verify-otp', [
+                    'error' => $e->getMessage()
+                ]);
+            }
+        }
     }
 
     public function resendOTP()
     {
-        $this->verifyIsUser();
-        $request = [
-            'ID_Pengguna' => input::get('ID_Pengguna'),
-            'Email' => input::get('Email',),
-        ];
+
         try {
+            $this->verifyIsUser('/users/register');
+            $request = [
+                'ID_Pengguna' => input::get('ID_Pengguna'),
+                'Email' => input::get('Email', true),
+            ];
             $validate = (new AccountValidation($request))->validateIDPengguna();
             $validate = (new AuthValidation($request))->validateEmail();
             if ($validate->hasError()) {
                 throw new ValidationException($validate->getErrors());
             }
-            $response = $this->authService->resendOTP($request['Email']);
+            $response = $this->authService->resendOTP($request['ID_Pengguna']);
             $OTPID = $this->authService->getOTPByIdPengguna($request['ID_Pengguna']);
             if (empty($response)) {
                 throw new Exception('Failed to create OTP.');
@@ -221,33 +223,49 @@ class AuthController
                 'Email' => input::get('Email',),
                 'o' => $OTPID->getID()
             ]));
-        } catch (ValidationException $e) {
-            View::setFlashData('error', 'Failed to resend OTP');
-            View::renderPage('users/verify-otp', [
-                'error' => $e->getErrors()
-            ]);
-            exit();
         } catch (Exception $e) {
-            View::setFlashData('error', $e->getMessage());
-            View::redirect('/users/register/verification?' . http_build_query([
-                'ID_Pengguna' => input::get('ID_Pengguna'),
-                'Email' => input::get('Email',),
-                'o' => input::get('o')
-            ]));
-            exit();
+            if ($e instanceof PDOException) {
+                header('HTTP/1.1 500 Internal Server Error');
+                http_response_code(500);
+                View::setFlashData('error', $e->getMessage());
+                View::redirect('/users/register/verification?' . http_build_query([
+                    'ID_Pengguna' => input::get('ID_Pengguna'),
+                    'Email' => input::get('Email',),
+                    'o' => input::get('o')
+                ]));
+            } else if ($e instanceof ValidationException) {
+                header('HTTP/1.1 400 Bad Request');
+                http_response_code(400);
+                View::setFlashData('error', $e->getErrors()[0]);
+                View::redirect('/users/register/verification?' . http_build_query([
+                    'ID_Pengguna' => input::get('ID_Pengguna'),
+                    'Email' => input::get('Email',),
+                    'o' => input::get('o')
+                ]));
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                http_response_code(500);
+                View::setFlashData('error', $e->getMessage());
+                View::redirect('/users/register/verification?' . http_build_query([
+                    'ID_Pengguna' => input::get('ID_Pengguna'),
+                    'Email' => input::get('Email',),
+                    'o' => input::get('o')
+                ]));
+            }
         }
     }
 
     public function verifyOTP()
     {
-        $this->verifyIsUser();
-        $request = [
-            'ID_Pengguna' => input::get('ID_Pengguna'),
-            'Email' => input::get('Email',),
-            'Kode' => input::post('code_1') . input::post('code_2') . input::post('code_3') . input::post('code_4') . input::post('code_5') . input::post('code_6'),
-        ];
 
         try {
+            $this->verifyIsUser('/users/register');
+            $this->hasOTP('/users/register/verification');
+            $request = [
+                'ID_Pengguna' => input::get('ID_Pengguna'),
+                'Email' => input::get('Email',),
+                'Kode' => input::post('code_1') . input::post('code_2') . input::post('code_3') . input::post('code_4') . input::post('code_5') . input::post('code_6'),
+            ];
             $validate = (new OTPValidation($request))->validate();
             if ($validate->hasError()) {
                 throw new ValidationException($validate->getErrors());
@@ -274,22 +292,30 @@ class AuthController
     }
 
     public function forgotForm()
-    {
-        View::renderPage('users/forgot');
+    {   try {
+            View::renderPage('users/forgot');
+        } catch (Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            http_response_code(500);
+            View::renderPage('500', [
+                'error' => $e->getMessage()
+            ]);
+            exit();
+        }
     }
 
     public function forgot()
     {
-        $request = [
-            'Email' => input::post('Email')
-        ];
 
         try {
+            $request = [
+                'Email' => input::post('email')
+            ];
             $validate = (new AuthValidation($request))->validateEmail();
             if ($validate->hasError()) {
                 throw new ValidationException($validate->getErrors());
             }
-            $pengguna = $this->authService->forgot($request);
+            $pengguna = $this->authService->forgot($request['Email']);
             $OTPID = $this->authService->getOTPByIdPengguna($pengguna->ID_Pengguna);
             if (empty($pengguna)) {
                 throw new Exception('Failed to send Email.');
@@ -315,26 +341,37 @@ class AuthController
 
     public function forgotVerifyForm()
     {
-        View::renderPage('users/verify-forgot-otp', [
-            'title' => 'Verify OTP'
-        ]);
+        try {
+            $this->verifyIsUser('/users/forgot');
+            $this->hasOTP('/users/forgot/verification');
+            View::renderPage('users/verify-forgot-otp', [
+                'title' => 'Verify OTP'
+            ]);
+        } catch (Exception $e) {
+            header('HTTP/1.1 500 Internal Server Error');
+            http_response_code(500);
+            View::renderPage('500', [
+                'error' => $e->getMessage()
+            ]);
+            exit();
+        }
     }
 
     public function forgotVerifyResend()
     {
-        $this->verifyOTPReset('/users/forgot');
-        $request = [
-            'ID_Pengguna' => input::get('ID_Pengguna'),
-            'Email' => input::get('Email',),
-            'o' => input::get('o')
-        ];
 
         try {
+            $this->verifyIsUser('/users/forgot');
+            $request = [
+                'ID_Pengguna' => input::get('ID_Pengguna'),
+                'Email' => input::get('Email',),
+                'o' => input::get('o')
+            ];
             $validate = (new AuthValidation($request))->validateEmail();
             if ($validate->hasError()) {
                 throw new ValidationException($validate->getErrors());
             }
-            $pengguna = $this->authService->resendOTP($request['Email']);
+            $pengguna = $this->authService->resendOTP($request['ID_Pengguna']);
             $OTPID = $this->authService->getOTPByIdPengguna($request['ID_Pengguna']);
             if (empty($pengguna)) {
                 throw new Exception('Failed to create OTP.');
@@ -364,14 +401,15 @@ class AuthController
 
     public function forgotVerify()
     {
-        $this->verifyOTPReset();
-        $request = [
-            'ID_Pengguna' => input::get('ID_Pengguna'),
-            'Email' => input::get('Email',),
-            'Kode' => input::post('code_1') . input::post('code_2') . input::post('code_3') . input::post('code_4') . input::post('code_5') . input::post('code_6'),
-        ];
 
         try {
+            $this->verifyIsUser('/users/forgot');
+            $this->hasOTP('/users/forgot/verification');
+            $request = [
+                'ID_Pengguna' => input::get('ID_Pengguna'),
+                'Email' => input::get('Email',),
+                'Kode' => input::post('code_1') . input::post('code_2') . input::post('code_3') . input::post('code_4') . input::post('code_5') . input::post('code_6'),
+            ];
             $validate = (new OTPValidation($request))->validate();
             if ($validate->hasError()) {
                 throw new ValidationException($validate->getErrors());
@@ -406,20 +444,31 @@ class AuthController
 
     public function forgotResetForm()
     {
-        $this->verifyOTPReset();
-        View::renderPage('users/reset');
+        try {
+            $this->verifyIsUser('/users/forgot');
+            View::renderPage('users/reset');
+        } catch (Exception $e) {
+            View::setFlashData('error', $e->getMessage());
+            View::redirect('/users/forgot/reset?' . http_build_query([
+                'ID_Pengguna' => input::get('ID_Pengguna'),
+                'Email' => input::get('Email',),
+                'o' => input::get('o')
+            ]));
+            exit();
+        }
     }
 
     public function forgotReset()
     {
-        $this->verifyOTPReset();
-        $request = [
-            'Email' => input::get('Email',),
-            'Password' => input::post('Password'),
-            'Confirm_Password' => input::post('Confirm_Password')
-        ];
 
         try {
+            $this->verifyIsUser('/users/forgot');
+            $request = [
+                'ID_Pengguna' => input::get('ID_Pengguna'),
+                'Email' => input::get('Email',),
+                'Password' => input::post('password'),
+                'Confirm_Password' => input::post('confirm-password')
+            ];
             $validate = (new AuthValidation($request))->validateForgotPassword();
             if ($validate->hasError()) {
                 throw new ValidationException($validate->getErrors());
@@ -433,7 +482,8 @@ class AuthController
         } catch (ValidationException $e) {
             View::setFlashData('error', 'Failed to reset Password');
             View::renderPage('users/reset', [
-                'error' => $e->getErrors()
+                'error' => 'Failed to reset Password',
+                'errors' => $e->getErrors()
             ]);
             exit();
         } catch (Exception $e) {
@@ -447,70 +497,76 @@ class AuthController
         }
     }
 
-    private function verifyOTPReset(){
-        try {
-            $ID_PenggunaInput = input::get('ID_Pengguna');
-            $EmailInput = input::get('Email');
-
-            if (empty($ID_PenggunaInput) || empty($EmailInput)) {
-                View::setFlashData('error', 'Verification failed. Please provide valid link');
-                View::redirect('/users/forgot');
-                exit();
-            }
-
-            $pengguna = $this->authService->getPenggunaById($ID_PenggunaInput);
-
-            if (empty($pengguna) || $ID_PenggunaInput !== $pengguna->ID_Pengguna) {
-                View::setFlashData('error', 'Verification failed. User not found.');
-                View::redirect('/users/forgot');
-                exit();
-            }
-            if ($EmailInput !== $pengguna->Email) {
-                View::setFlashData('error', 'Verification failed. Email does not match.');
-                View::redirect('/users/forgot');
-                exit();
-            }
-        } catch (Exception $e) {
-            View::setFlashData('error', $e->getMessage());
-            View::redirect('/users/forgot');
-            exit();
-        }
-    }
     private function verifyIsUser($redirect = '/users/register')
     {
         try {
             $ID_PenggunaInput = input::get('ID_Pengguna');
             $EmailInput = input::get('Email', true);
-            $OTPID = input::get('o');
-
-            if (empty($ID_PenggunaInput) || empty($EmailInput) || empty($OTPID)) {
-                View::setFlashData('error', 'Verification failed. Please provide valid link');
-                View::redirect($redirect);
-                exit();
+            if (empty($ID_PenggunaInput) || empty($EmailInput) ) {
+                throw new Exception('Verification failed. Please provide valid link');
             }
             $pengguna = $this->authService->getPenggunaById($ID_PenggunaInput);
-            $expectedOtpId = $this->authService->getOTPByIdPengguna($ID_PenggunaInput);
 
             if (empty($pengguna) || $ID_PenggunaInput !== $pengguna->ID_Pengguna) {
-                View::setFlashData('error', 'Verification failed. User not found.');
+                throw new Exception('Verification failed. ID Pengguna not found.');
+            }
+            if ($EmailInput !== $pengguna->Email) {
+                throw new Exception('Verification failed. Email not found.');
+            }
+
+
+        } catch (Exception $e) {
+            if ($e instanceof PDOException) {
+                header('HTTP/1.1 500 Internal Server Error');
+                http_response_code(500);
+                View::setFlashData('error', $e->getMessage());
+                View::redirect($redirect);
+                exit();
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                http_response_code(500);
+                View::setFlashData('error', $e->getMessage());
                 View::redirect($redirect);
                 exit();
             }
-            if ($EmailInput !== $pengguna->Email) {
-                View::setFlashData('error', 'Verification failed. Email does not match.');
-                View::redirect($redirect);
+        }
+    }
+
+    public function hasOTP() {
+        try {
+            $OTPID = input::get('o');
+            if (empty($OTPID)) {
+                header('HTTP/1.1 404 Not Found');
+                http_response_code(404);
+                View::renderPage('users/verify-otp', [
+                    'error' => 'Verification failed. Please provide valid link'
+                ]);
                 exit();
             }
 
+            $expectedOtpId = $this->authService->getOTPByIdPengguna(input::get('ID_Pengguna'));
             if ($OTPID !== $expectedOtpId->getID()) {
-                View::setFlashData('error', 'Verification failed. Invalid OTP ID.');
-                View::redirect($redirect);
+                header('HTTP/1.1 404 Not Found');
+                http_response_code(404);
+                View::renderPage('users/verify-otp', [
+                    'error' => 'Verification failed. Please provide valid link'
+                ]);
                 exit();
             }
         } catch (Exception $e) {
-            View::setFlashData('error', $e->getMessage());
-            View::redirect($redirect);
-            exit();
+            if ($e instanceof PDOException) {
+                header('HTTP/1.1 500 Internal Server Error');
+                http_response_code(500);
+                View::renderPage('users/verify-otp', [
+                    'error' => $e->getMessage()
+                ]);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                http_response_code(500);
+                View::renderPage('users/verify-otp', [
+                    'error' => $e->getMessage()
+                ]);
+            }
         }
     }
 

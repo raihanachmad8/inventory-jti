@@ -21,7 +21,7 @@ class OTPService
                 $subject = 'Kode OTP';
                 // $this->sendOTP($Email, $subject, $otpCode);
             }
-            return $success;
+            return $success ? $otpCode : false;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

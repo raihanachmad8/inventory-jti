@@ -114,6 +114,7 @@ class AccountValidation extends Validation
         if (substr($this->request['Nomor_HP'], 0, 1) == '0') {
             $this->addError('Nomor_HP', 'Nomor HP must be not start with 0');
         }
+
         if (strlen($this->request['Nomor_HP']) < 10) {
             $this->addError('Nomor_HP', 'Nomor HP must be valid');
         }

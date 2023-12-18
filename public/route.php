@@ -70,7 +70,7 @@ Router::post('/users/forgot', [AuthController::class, 'forgot']);
 // Router User Forgot Password Verification
 Router::get('/users/forgot/verification', [AuthController::class, 'forgotVerifyForm']);
 Router::post('/users/forgot/verification', [AuthController::class, 'forgotVerify']);
-Router::get('/users/forgot/resend-verification', [AuthController::class, 'forgotVerify']);
+Router::get('/users/forgot/resend-verification', [AuthController::class, 'forgotVerifyResend']);
 // Router User Reset Password
 Router::get('/users/forgot/reset', [AuthController::class, 'forgotResetForm']);
 Router::post('/users/forgot/reset', [AuthController::class, 'forgotReset']);

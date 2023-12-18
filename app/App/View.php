@@ -111,24 +111,28 @@ class View implements ViewInterface
 
     public static function setFlashData(string $key, string $message)
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+
         $_SESSION[$key] = $message;
         session_write_close();
     }
 
     public static function getFlashData()
     {
-        session_start();
-
         if (isset($_SESSION['error'])) {
             $errorMessage = $_SESSION['error'];
-            echo '<div style="background-color: #ffcccc; padding: 10px;">' . $errorMessage . '</div>';
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            ' . $errorMessage . '
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
             unset($_SESSION['error']);
         } else if (isset($_SESSION['success'])) {
             $successMessage = $_SESSION['success'];
-            echo '<div style="background-color: green; padding: 10px;">' . $successMessage . '</div>';
+            echo '
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ' . $successMessage . '
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
+
             unset($_SESSION['success']);
         }
 

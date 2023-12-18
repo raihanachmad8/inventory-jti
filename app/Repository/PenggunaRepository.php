@@ -38,7 +38,7 @@ class PenggunaRepository
     public function getDetailPenggunaById(string $id) : Pengguna
     {
         try {
-            $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, Password, ID_Level, Status, Email, Nomor_HP, Foto FROM pengguna WHERE ID_Pengguna = :id";
+            $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, Password, ID_Level, Status, Email, Nomor_HP, Foto, Salt FROM pengguna WHERE ID_Pengguna = :id";
             $statement = $this->connection->prepare($query);
             $statement->execute([
                 'id' => $id
@@ -185,7 +185,7 @@ class PenggunaRepository
 
     public function getPenggunaByEmail(string $Email) : ?Pengguna {
         try {
-            $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, Password, ID_Level, Status FROM pengguna WHERE Email = :Email";
+            $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, Password, ID_Level, Status, Email FROM pengguna WHERE Email = :Email";
             $statement = $this->connection->prepare($query);
             $statement->execute([
                 'Email' => $Email

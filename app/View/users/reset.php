@@ -20,14 +20,32 @@
             </div>
             <div class="w-100 h-100 flex-grow-1 d-flex flex-column align-items-center justify-content-lg-center  justify-content-between p-5 ">
                 <strong style="font-size: 1.5rem;">Buat Password Baru</strong>
-                <form action="/users/login" method="post" class="w-100">
+                <form action="/users/forgot/reset?ID_Pengguna=<?=$_GET['ID_Pengguna']?>&Email=<?=$_GET['Email']?>" method="post" class="w-100">
                     <div class="d-flex flex-column ">
-                        <label for="email" class="mb-1 fw-bold ">Password</label>
-                        <input type="password" id="email" required name="email" placeholder="********" class="px-3 py-2  rounded-3 " style="border: 1px solid #023670;">
+                        <label for="password" class="mb-1 fw-bold ">Password</label>
+                        <input type="password" id="password" required name="password" placeholder="********" class="px-3 py-2  rounded-3 " style="border: 1px solid #023670;">
+                        <?php if (isset($model['errors']['Password'])) : ?>
+                            <small class="text-danger">
+                                <?php if (is_array($model['errors']['Password'])) : ?>
+                                    <div><?= $model['errors']['Password'][0] ?></div>
+                                <?php else : ?>
+                                    <?= $model['errors']['Password'] ?>
+                                <?php endif; ?>
+                            </small>
+                        <?php endif; ?>
                     </div>
                     <div class="d-flex flex-column mt-3">
-                        <label for="password" class="mb-1 fw-bold ">Password</label>
-                        <input type="password" id="password" name="password" placeholder="**********" class="px-3 py-2  rounded-3 " style="border: 1px solid #023670;">
+                        <label for="confirm-password" class="mb-1 fw-bold ">Konfirmasi Password</label>
+                        <input type="password" id="confirm-password" name="confirm-password" placeholder="**********" class="px-3 py-2  rounded-3 " style="border: 1px solid #023670;">
+                        <?php if (isset($model['errors']['Password'])) : ?>
+                            <small class="text-danger">
+                                <?php if (is_array($model['errors']['Password'])) : ?>
+                                    <div><?= $model['errors']['Password'][0] ?></div>
+                                <?php else : ?>
+                                    <?= $model['errors']['Password'] ?>
+                                <?php endif; ?>
+                            </small>
+                        <?php endif; ?>
                     </div>
                     <button type="submit" value="Login" class="btn rounded-3 w-100 text-white mt-3 " style="background-color: #023670;">Perbarui</button>
                 </form>
