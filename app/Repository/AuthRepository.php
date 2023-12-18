@@ -76,7 +76,6 @@ class AuthRepository
     public function create(User $data): ?User
     {
         try {
-            var_dump($data);
             DB::connect()->beginTransaction();
             $levelId = $this->getLevelById($data->id_level);
             $id = 'Account_ID_' . base64_encode(random_bytes(4) . '-' . base64_encode(random_bytes(8)));

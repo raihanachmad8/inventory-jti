@@ -17,8 +17,8 @@ class SessionManagerService
             $sessionId = $userId;
             $session = [
                 'id' => $sessionId,
-                'nomor_identitas' => $nomor_identitas,
-                'level' => $level
+                'Nomor_Identitas' => $nomor_identitas,
+                'Level' => $level
             ];
             return $this->sessionManagerRepository->save($sessionId, $session, $this->secretKey);
 
@@ -41,7 +41,7 @@ class SessionManagerService
     public function destroy(string $userId): void
     {
         try {
-            $this->sessionManagerRepository->delete($userId);
+            $this->sessionManagerRepository->destroy($userId);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

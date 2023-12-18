@@ -18,61 +18,36 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>001</td>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block " style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            </td>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            </td>
-            <td>
-              <span class="rounded-2 " style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.6rem 1rem; user-select: none;">Selesai</span>
-            </td>
-            <td><button class="button-detail-history-loan btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
-          </tr>
-          <tr>
-            <td>001</td>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block " style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            </td>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            </td>
-            <td>
-              <span class="rounded-2 " style="color: #960000;background-color: rgba(252, 64, 86, 0.30); padding: 0.6rem 1rem; user-select: none;">Dibatalkan</span>
-            </td>
-            <td><button class="button-detail-history-loan btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
-          </tr>
-          <tr>
-            <td>001</td>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block " style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            </td>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            </td>
-            <td>
-              <span class="rounded-2 " style="color: #C58208;background-color: #FFF9E1; padding: 0.6rem 1rem; user-select: none;">Proses</span>
-            </td>
-            <td><button class="button-detail-history-loan btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
-          </tr>
-          <tr>
-            <td>001</td>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block " style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            </td>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            </td>
-            <td>
-              <span class="rounded-2 " style="color: #A45B18; background-color: rgba(218, 114, 19, 0.30); padding: 0.6rem 1rem; user-select: none;">Menunggu</span>
-            </td>
-            <td><button class="button-detail-history-loan btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
-          </tr>
-          <tr>
-            <td>001</td>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block " style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            </td>
-            <td>Sept 20, 2023<br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;">11.00 AM</span>
-            </td>
-            <td>
-              <span class="rounded-2 " style="color: #074B81;background-color: rgba(158, 214, 251, 0.65); padding: 0.6rem 1rem; user-select: none;">Diterima</span>
-            </td>
-            <td><button class="button-detail-history-loan btn" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
-          </tr>
+            <?php if (count($model['riwayat']) > 0) : ?>
+                <?php foreach ($model['riwayat'] as $riwayat) : ?>
+                    <tr>
+                        <td><?= $riwayat->ID_Transaksi ?></td>
+                        <td><?= (new DateTime($riwayat->StartDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;" ><?= (new DateTime($riwayat->StartDate))->format('h:i A') ?></span></td>
+                    <td><?= (new DateTime($riwayat->EndDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;" ><?= (new DateTime($riwayat->EndDate))->format('h:i A') ?></span></td>
+                        <td>
+                            <?php if ($riwayat->Status->ID_Status == 'S1' || $riwayat->Status->ID_Status == 'S7') : ?>
+                                <span class="rounded-2 " style="color: #A45B18; background-color: rgba(218, 114, 19, 0.30); padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
+                            <?php elseif ($riwayat->Status->ID_Status == 'S2') : ?>
+                                <span class="rounded-2 " style="color: #960000;background-color: rgba(252, 64, 86, 0.30); padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
+                            <?php elseif ($riwayat->Status->ID_Status == 'S3') : ?>
+                                <span class="rounded-2 " style="color: #074B81;background-color: rgba(158, 214, 251, 0.65); padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
+                            <?php elseif ($riwayat->Status->ID_Status == 'S4') : ?>
+                                <span class="rounded-2 " style="color: #C58208;background-color: #FFF9E1; padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
+                            <?php elseif ($riwayat->Status->ID_Status == 'S5') : ?>
+                                <span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
+                            <?php elseif ($riwayat->Status->ID_Status == 'S6') : ?>
+                                <span class="rounded-2 " style="color: #960000;background-color: rgba(252, 64, 86, 0.30); padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
+                            <?php endif; ?>
+                        </td>
+                        <td><button class="button-detail-history-loan btn" data-kode="<?= $riwayat->ID_Transaksi ?>" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <tr>
+                    <td colspan="5" class="text-center">Tidak ada riwayat peminjaman</td>
+                </tr>
+            <?php endif; ?>
+
         </tbody>
       </table>
     </div>
@@ -89,41 +64,35 @@
         <tr>
           <td><strong>Nama</strong></td>
           <td><strong>:</strong></td>
-          <td>Putra Zakaria Muzaki</td>
+          <td id="nama">Putra Zakaria Muzaki</td>
         </tr>
         <tr>
           <td><strong>Nomor ID</strong></td>
           <td><strong>:</strong></td>
-          <td>23946238947</td>
+          <td id="nomor-identitas">23946238947</td>
         </tr>
         <tr>
           <td><strong>Status Peminjam</strong></td>
           <td><strong>:</strong></td>
-          <td>Mahasiswa</td>
+          <td id="status-peminjam">Mahasiswa</td>
         </tr>
         <tr>
           <td><strong>Status Peminjaman</strong></td>
           <td><strong>:</strong></td>
-          <td>Menunggu</td>
+          <td id="status">Menunggu</td>
         </tr>
         <tr>
           <td><strong>Keterangan</strong></td>
           <td><strong>:</strong></td>
-          <td></td>
+          <td id="keterangan"></td>
         </tr>
         <tr>
           <td><strong>Alasan Peminjaman</strong></td>
           <td><strong>:</strong></td>
-          <td>
-            Kiw kepo banget>
+          <td id="deskripsi-keperluan">
           </td>
         </tr>
-        <tr>
-          <td><strong>Kartu Tanda Pengenal</strong></td>
-          <td><strong>:</strong></td>
-          <td>
-            <div style="width: 250px; height: 150px;"><img src="/public/assets/images/anggap-aja-ktm.jpg" alt="" class="w-100 h-100 object-fit-cover ratio-16x9 rounded-3 "></div>
-          </td>
+        <tr id="tanda-pengenal">
         </tr>
       </tbody>
     </table>
@@ -140,22 +109,16 @@
             <th>Nama Barang</th>
             <th>Jumlah</th>
             <th>Kategori</th>
+            <th>Kondisi</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1001</td>
-            <td>Kursi</td>
-            <td>5</td>
-            <td>Barang</td>
-          </tr>
         </tbody>
       </table>
     </div>
   </div>
   <div class="py-4 d-flex justify-content-end column-gap-3 ">
     <button class="button-back-loan btn text-white" style="background-color: #01305D;">Kembali</button>
-    <button class="button-cancel-loan btn btn-danger text-white">Batalkan</button>
   </div>
 </div>
 
@@ -199,3 +162,119 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
     </div>
   </div>
 </div>
+
+<script>
+     $('.button-detail-history-loan').each(function() {
+            $(this).click(async function() {
+                const kode = $(this).data('kode');
+                await $.ajax({
+                    url: '/inventory/historyPeminjaman',
+                    method: 'GET',
+                    data: {
+                        kode: kode
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        $(document).ready(() => {
+                            const options = {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                    hour: "numeric",
+                                    minute: "numeric",
+                                    hour12: false, // Use 24-hour format
+                                };
+                            $('#nama').html(data.data.Pengguna.Nama_Pengguna);
+                            $('#nomor-identitas').html(data.data.Pengguna.Nomor_Identitas);
+                            $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
+                            $('#status').html(data.data.Status.Nama_Status);
+                            if (data.data.Status.Nama_Status == "Menunggu") {
+                                $('.detail-loan-button').append(`<button class="button-cancel-loan btn btn-danger text-white">Batalkan</button>`);
+                            }
+                            $('#keterangan').html(data.data.Pesan);
+                            $('#deskripsi-keperluan').html(data.data.Deskripsi_Keperluan);
+                            $('#start-date').html(new Date(data.data.StartDate).toLocaleDateString("id-ID", options));
+                            $('#end-date').html(new Date(data.data.EndDate).toLocaleDateString("id-ID", options));
+                            if (data.data.Pengguna.Level.Nama_Level == 'Mahasiswa') {
+                                $('#tanda-pengenal').html(`
+                                <td><strong>Kartu Tanda Pengenal</strong></td>
+                                <td><strong>:</strong></td>
+                                <td>
+                                    <div style="width: 250px; height: 150px;"><img src="" alt="" class="w-100 h-100 object-fit-cover ratio-16x9 rounded-3 "></div>
+                                </td>
+                                    `);
+                                $('#tanda-pengenal img').attr('src', `/public/assets/images/jaminan/${data.data.Jaminan}`);
+                            } else {
+                                $('#tanda-pengenal').html('');
+                            }
+                            const table = function ()  {
+                                let html = '';
+                                data.data.DetailTransaksi.forEach((detail) => {
+                                    html += `
+                                    <tr>
+                                        <td>${detail.Inventaris.ID_Inventaris}</td>
+                                        <td>${detail.Inventaris.Nama_Inventaris}</td>
+                                        <td>${detail.Jumlah}</td>
+                                        <td>${detail.Inventaris.Kategori.Nama_Kategori}</td>
+                                        <td>${detail.Kondisi}</td>
+                                    </tr>
+                                    `;
+                                })
+                                return html;
+                            }
+                            $('.loan-detail-table tbody').html(table)
+                            $('.cancel-loan-button').attr('data-kode', data.data.ID_Transaksi);
+                            $('.content').addClass('d-none')
+                            $('.modal-detail-container').removeClass('d-none');
+                        })
+
+                    },
+                    error: (error) => {
+                        $(document).ready(function() {
+                            $('.modal-container-failed').removeClass('d-none');
+                            $('#modal-container-failed-title').html('Gagal');
+                            $('#modal-container-failed-message').html(error.responseJSON.error);
+
+                        })
+                    }
+                });
+            })
+  })
+
+  $('.cancel-loan-button').click(function (e) {
+    e.preventDefault();
+    const kode = $(this).data('kode');
+    $.ajax({
+            url: `/inventory/history/delete?kode=${kode}`,
+            method: 'DELETE',
+            success: (data) => {
+                $(document).ready(function() {
+                    $('.delete-item-modal-container').addClass('d-none');
+                    $('.modal-container').removeClass('d-none');
+                    $('#modal-container-title').html('Berhasil');
+                    $('#modal-container-message').html(data.message);
+
+                })
+            },
+            error: (error) => {
+                $(document).ready(function() {
+                    $('.modal-container-failed').removeClass('d-none');
+                    $('#modal-container-failed-title').html('Gagal');
+                    $('#modal-container-failed-message').html(error.responseJSON.error);
+
+                })
+            }
+        })
+  })
+
+  $(document).on('click', '.button-back-loan ', () => {
+    $('.content').removeClass('d-none')
+    $('.modal-detail-container').addClass('d-none');
+  })
+  $(document).on('click', '.delete-item-button-back ', () => {
+    $('.cancel-loan-modal-container').addClass('d-none');
+  })
+  $(document).on('click', '.button-cancel-loan ', () => {
+    $('.cancel-loan-modal-container').removeClass('d-none');
+  })
+</script>

@@ -45,7 +45,19 @@ class PeminjamanService
         }, $result);
         return $result;
     }
-    public function searchRiwayatDataPeminjaman(string $keyword = '' ) : array
+    public function searchRiwayatDataPeminjamanPengguna(string $ID_Pengguna, string $keyword = '' ) : array
+    {
+        $result = $this->transaksiRepository->searchListRiwayatTransaksiByStatus(['Menunggu', 'Ditolak', 'Diterima', 'Proses', 'Selesai', 'Dibatalkan', 'Menunggu Ganti'], $keyword, $ID_Pengguna);
+        $result = array_map(function($item) {
+            $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
+            $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
+            $item->Admin = $this->maintainerRepository->getMaintainerById($item->ID_Admin);
+            $item->Pengguna->Level = $this->levelRepository->getLevelById($item->Pengguna->ID_Level);
+            return $item;
+        }, $result);
+        return $result;
+    }
+    public function searchRiwayatDataPeminjaman(string $keyword = '') : array
     {
         $result = $this->transaksiRepository->searchListRiwayatTransaksiByStatus(['Menunggu', 'Ditolak', 'Diterima', 'Proses', 'Selesai', 'Dibatalkan', 'Menunggu Ganti'], $keyword);
         $result = array_map(function($item) {
@@ -122,4 +134,74 @@ class PeminjamanService
             throw $exception;
         }
     }
+    public function getListStatusPeminjamanPengguna(string $ID_Pengguna) : array
+    {
+        try {
+            $result = $this->transaksiRepository->countStatusTransaksi(['Menunggu', 'Diterima', 'Selesai', 'Proses'], $ID_Pengguna);
+            return $result;
+        } catch (PDOException $exception) {
+            throw $exception;
+        }
+    }
+
+    public function searchPeminjamanByPengguna(string $ID_Pengguna) {
+        try {
+            $result = $this->transaksiRepository->searchListTransaksiByStatus(['Menunggu', 'Diterima', 'Proses', 'Menunggu Ganti'], '', $ID_Pengguna);
+            $result = array_map(function($item) {
+                $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
+                $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
+                $item->Admin = $this->maintainerRepository->getMaintainerById($item->ID_Admin);
+                $item->Pengguna->Level = $this->levelRepository->getLevelById($item->Pengguna->ID_Level);
+                return $item;
+            }, $result);
+            return $result;
+        } catch (PDOException $exception) {
+            throw $exception;
+        }
+    }
+
+    public function availableStok() {
+        try {
+            $result = $this->transaksiRepository->avaibleStok();
+            return $result;
+        } catch (PDOException $exception) {
+            throw $exception;
+        }
+    }
+    public function availableStokInventory() {
+        try {
+            $result = $this->transaksiRepository->avaibleStok();
+            return $result;
+        } catch (PDOException $exception) {
+            throw $exception;
+        }
+    }
+    // public function availableStok() {
+    //     try {
+    //         $result = $this->transaksiRepository->avaibleStok();
+    //         return $result;
+    //     } catch (PDOException $exception) {
+    //         throw $exception;
+    //     }
+    // }
+
+    public function deleteHistoryPeminjaman(string $ID_transaksi)
+    {
+        try {
+            $result = $this->transaksiRepository->getTransaksiById($ID_transaksi);
+            if ($result->ID_Status !== 'S1' ) {
+                throw new Exception('Peminjaman tidak dapat dibatalkan');
+            }
+            $batasWaktuPembatalan = strtotime($result->StartDate . ' +1 day');
+            if (time() > $batasWaktuPembatalan) {
+                throw new Exception('Peminjaman tidak dapat dibatalkan karena sudah melewati batas waktu pembatalan');
+            }
+
+            $result = $this->transaksiRepository->batalkanPeminjaman($ID_transaksi);
+            return $result;
+        } catch (PDOException $exception) {
+            throw $exception;
+        }
+    }
+
 }

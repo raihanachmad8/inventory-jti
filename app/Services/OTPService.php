@@ -1,6 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../Validation/OTPVerifyRequest.php';
 require_once __DIR__ . '/../Exceptions/ValidationException.php';
 
 class OTPService
@@ -13,14 +12,14 @@ class OTPService
         $this->otpRepository = $otpRepository;
     }
 
-    public function createOTP(string $userId): bool
+    public function createOTP(string $userId, string $Email): bool
     {
         try {
             $otpCode = rand(100000, 999999);
             $success = $this->otpRepository->createOTP($userId, $otpCode);
             if ($success) {
                 $subject = 'Kode OTP';
-                // $this->sendOTP($email, $subject, $otpCode);
+                // $this->sendOTP($Email, $subject, $otpCode);
             }
             return $success;
         } catch (Exception $e) {
@@ -28,34 +27,27 @@ class OTPService
         }
     }
 
-    public function verifyOTP(OTPVerifyRequest $OTPVerifyRequest): bool
+    public function verifyOTP(array $request): bool
     {
         try {
-            $request = $OTPVerifyRequest->validate();
-
-            if (!empty($request)) {
-                throw new ValidationException($request);
-            }
-
-            $otp = $this->otpRepository->getOTP($OTPVerifyRequest->id_pengguna, $OTPVerifyRequest->otp);
+            $otp = $this->otpRepository->getOTP($request['ID_Pengguna'], $request['Kode']);
 
             if ($otp === null) {
                 throw new Exception('OTP not found.');
             }
 
-            if (new DateTime() > new DateTime($otp['Expired'])) {
+            if (new DateTime() > $otp->Expired)  {
                 throw new Exception('OTP has expired.');
             }
 
-            if ($otp['Kode'] !== $OTPVerifyRequest->otp) {
+            if ($otp->Kode !== $request['Kode']) {
                 throw new Exception('OTP is invalid.');
             }
 
-            if ($otp['ID_Pengguna'] !== $OTPVerifyRequest->id_pengguna) {
+            if ($otp->getIDPengguna() !== $request['ID_Pengguna']) {
                 throw new Exception('OTP is invalid.');
             }
-
-            if (!$this->deleteOTP($OTPVerifyRequest->id_pengguna, $OTPVerifyRequest->otp)) {
+            if (!$this->deleteOTP($request['ID_Pengguna'])) {
                 throw new Exception('Failed to delete OTP.');
             }
             return true;
@@ -69,6 +61,16 @@ class OTPService
         try {
             $success = $this->otpRepository->deleteOTP($userId);
             return $success;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function getOTPByIdPengguna(string $ID_Pengguna): ?OTP
+    {
+        try {
+            $otp = $this->otpRepository->getOTPByIdPengguna($ID_Pengguna);
+            return $otp;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -104,7 +106,7 @@ class OTPService
                             </tr>
                             <tr>
                                 <td style='background-color: #fff; padding: 16px 32px;'>
-                                    <h1 style='font-weight: 600; font-size: 1.25rem;'>Verify your email address</h1>
+                                    <h1 style='font-weight: 600; font-size: 1.25rem;'>Verify your Email address</h1>
                                     <p style='color: #333; font-weight: 500; font-size: .8rem;'>Thank you for starting the process of creating a new JTI Inventory account. We want to make sure that this is really you. Please enter the following verification code when prompted. If you don't want to create an account, you can ignore this message.</p>
 
                                     <table role='presentation' cellspacing='0' cellpadding='0' style='width: 100%; text-align: center;'>
@@ -120,7 +122,7 @@ class OTPService
                                     </table>
 
                                     <div style='border-top: 2px solid #e5e5e5; padding: 16px;'>
-                                        <p style='font-size: .8rem;'>JTI Inventory will never send you an email asking you to disclose or verify your password, credit card, or banking account number.</p>
+                                        <p style='font-size: .8rem;'>JTI Inventory will never send you an Email asking you to disclose or verify your password, credit card, or banking account number.</p>
                                     </div>
 
                                 </td>

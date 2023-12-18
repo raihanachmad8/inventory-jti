@@ -74,7 +74,7 @@ function user_role()
             <div class="sidebar-menu">
                 <ul class="d-flex justify-content-center align-items-center  flex-column row-gap-4" style="list-style: none; padding: 0">
                     <li class="nav-menu-container d-flex justify-content-center p-2 rounded-2 <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'background-color: #01305d;' : '' ?> width: fit-content">
-                        <a href="<?= user_role() == 'user' ? '/dashboard' : '/admin' ?>" class="nav-menu-icon text-decoration-none <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
+                        <a href="<?= user_role() == 'user' ? '/inventory/dashboard' : '/admin' ?>" class="nav-menu-icon text-decoration-none <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
                             <i data-feather="grid" class="menu-icon"></i>
                             <p class="text-menu d-none">
                                 Dashboard
@@ -82,14 +82,14 @@ function user_role()
                         </a>
                     </li>
                     <li class="nav-menu-container d-flex justify-content-center p-2 rounded-2 <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'background-color: #01305d;' : '' ?> width: fit-content">
-                        <a href="<?= user_role() == 'user' ? '/peminjaman' : '/admin/data-peminjaman' ?>" class=" nav-menu-icon text-decoration-none <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
+                        <a href="<?= user_role() == 'user' ? '/inventory/peminjaman' : '/admin/data-peminjaman' ?>" class=" nav-menu-icon text-decoration-none <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
                             <i data-feather="shopping-cart" class="menu-icon"></i>
                             <p class="text-menu d-none">
                                 <?= user_role() == 'user' ? 'Peminjaman' : 'Data Peminjaman' ?></p>
                         </a>
                     </li>
                     <li class="nav-menu-container d-flex justify-content-center p-2 rounded-2 <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'background-color: #01305d;' : '' ?> width: fit-content">
-                        <a href="<?= user_role() == 'user' ? '/riwayat' : '/admin/inventarisir' ?>" class="nav-menu-icon d-flex justify-content-start align-items-center text-decoration-none <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?> " style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
+                        <a href="<?= user_role() == 'user' ? '/inventory/riwayat' : '/admin/inventarisir' ?>" class="nav-menu-icon d-flex justify-content-start align-items-center text-decoration-none <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?> " style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
                             <?php if (user_role() === 'admin') : ?>
                                 <i data-feather="archive" class="menu-icon"></i>
                             <?php else : ?>
@@ -209,7 +209,7 @@ function user_role()
                         <div class="profile-menu position-absolute bg-white end-0 rounded-4 p-3 border border-light d-none " style="width: 9rem; bottom: -6rem; opacity: 0;">
                             <ul class="d-flex flex-column row-gap-2">
                                 <li><a href="/profile/profil" class="nav-link text-start" style="color: #01305d;">Profile</a></li>
-                                <li><a href="" class="text-danger nav-link text-start ">Logout <i data-feather="log-out"></i> </a></li>
+                                <li><a href="/users/logout" class="text-danger nav-link text-start ">Logout <i data-feather="log-out"></i> </a></li>
                             </ul>
                         </div>
                     </button>

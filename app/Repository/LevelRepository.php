@@ -102,4 +102,20 @@ class LevelRepository
         return $level['ID_Level'];
 
     }
+
+    public function getLevelByName(string $nama) : ?Level
+    {
+        try {
+            $query = "SELECT ID_Level, Nama as Nama_Level FROM level WHERE Nama = :nama";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'nama' => $nama
+            ]);
+            $level = $statement->fetchObject('Level');
+
+            return $level;
+        } catch (PDOException $exception) {
+            throw $exception;
+        }
+    }
 }

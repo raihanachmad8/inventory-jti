@@ -1,6 +1,13 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+if (PHP_SESSION_NONE === session_status()) {
+    session_start();
+}
+
+$ses = $_SESSION['session_user_id'];
+
+// var_dump($ses);
+// var_dump($_SESSION['token_' . base64_decode($ses)]);
+
 
 // Core
 require_once __DIR__ . '/../app/App/Router.php';
@@ -16,8 +23,7 @@ require_once __DIR__ . '/../app/Middleware/GuestOnlyMiddleware.php';
 // Controllers
 require_once __DIR__ . '/../app/Controllers/HomeController.php';
 require_once __DIR__ . '/../app/Controllers/AdminController.php';
-require_once __DIR__ . '/../app/Controllers/AdminMaintainerController.php';
-require_once __DIR__ . '/../app/Controllers/UserController.php';
+require_once __DIR__ . '/../app/Controllers/AuthController.php';
 require_once __DIR__ . '/../app/Controllers/InventoryController.php';
 
 
@@ -46,37 +52,42 @@ Router::delete('/admin/maintainer/delete', [AdminController::class, 'deleteMaint
 
 
 // Router Landing Page
-Router::get('/', [HomeController::class, 'index']);
+Router::get('/', [HomeController::class, 'index'], [GuestOnlyMiddleware::class]);
 // Router User Login
-Router::get('/users/login', [UserController::class, 'loginForm']);
-Router::post('/users/login', [UserController::class, 'login']);
+Router::get('/users/login', [AuthController::class, 'loginForm'], [GuestOnlyMiddleware::class]);
+Router::post('/users/login', [AuthController::class, 'login'], [GuestOnlyMiddleware::class]);
 // Router User Register
-Router::get('/users/register', [UserController::class, 'registerForm']);
-Router::post('/users/register', [UserController::class, 'register']);
+Router::get('/users/register', [AuthController::class, 'registerForm']);
+Router::post('/users/register', [AuthController::class, 'register']);
 // Router User Register Verification
-Router::get('/users/register/verification', [UserController::class, 'verifyOTPForm']);
-Router::post('/users/register/verification', [UserController::class, 'verifyOTP']);
-Router::get('/users/register/resend-verification', [UserController::class, 'resendOTP']);
+Router::get('/users/register/verification', [AuthController::class, 'verifyOTPForm']);
+Router::post('/users/register/verification', [AuthController::class, 'verifyOTP']);
+Router::get('/users/register/resend-verification', [AuthController::class, 'resendOTP']);
 
 // Router User Forgot Password
-Router::get('/users/forgot', [UserController::class, 'forgotForm']);
-Router::post('/users/forgot', [UserController::class, 'forgot']);
+Router::get('/users/forgot', [AuthController::class, 'forgotForm']);
+Router::post('/users/forgot', [AuthController::class, 'forgot']);
 // Router User Forgot Password Verification
-Router::get('/users/forgot/verification', [UserController::class, 'forgotVerifyForm']);
-Router::post('/users/forgot/verification', [UserController::class, 'forgotVerify']);
-Router::get('/users/forgot/resend-verification', [UserController::class, 'forgotVerify']);
+Router::get('/users/forgot/verification', [AuthController::class, 'forgotVerifyForm']);
+Router::post('/users/forgot/verification', [AuthController::class, 'forgotVerify']);
+Router::get('/users/forgot/resend-verification', [AuthController::class, 'forgotVerify']);
 // Router User Reset Password
-Router::get('/users/forgot/reset', [UserController::class, 'forgotResetForm']);
-Router::post('/users/forgot/reset', [UserController::class, 'forgotReset']);
+Router::get('/users/forgot/reset', [AuthController::class, 'forgotResetForm']);
+Router::post('/users/forgot/reset', [AuthController::class, 'forgotReset']);
 
 
 // Router User Logout
-Router::get('/users/logout', [UserController::class, 'logout'], [AuthOnlyMiddleware::class]);
+Router::get('/users/logout', [AuthController::class, 'logout'], [AuthOnlyMiddleware::class]);
 
 
 Router::get('/inventory/dashboard', [InventoryController::class, 'dashboard']);
+Router::get('/inventory/historyPeminjaman', [InventoryController::class, 'historyPeminjaman']);
+Router::delete('/inventory/history/delete', [InventoryController::class, 'deleteHistoryPeminjaman']);
+Router::get('/inventory/dashboard', [InventoryController::class, 'dashboard']);
 Router::get('/inventory/peminjaman', [InventoryController::class, 'peminjaman']);
 Router::get('/inventory/riwayat', [InventoryController::class, 'riwayat']);
+
+
 Router::get('/profile/profil', [InventoryController::class, 'profil']);
 Router::get('/profile/keamanan', [InventoryController::class, 'keamanan']);
 Router::get('/profile/pesan', [InventoryController::class, 'pesan']);

@@ -24,8 +24,7 @@ class PenggunaRepository
 
     public function getPenggunaById($id) : Pengguna
     {
-        $query = "SELECT P.ID_Pengguna, P.Nama as Nama_Pengguna, P.Nomor_Identitas, L.ID_Level FROM pengguna P
-        INNER JOIN Level L ON P.ID_Level = L.ID_Level
+        $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, ID_Level, Email, Status FROM pengguna
         WHERE ID_Pengguna = :id";
         $statement = $this->connection->prepare($query);
         $statement->execute([
@@ -39,10 +38,28 @@ class PenggunaRepository
     public function getDetailPenggunaById(string $id) : Pengguna
     {
         try {
-            $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, Password, ID_Level, Status, Email, No_HP, Foto FROM pengguna WHERE ID_Pengguna = :id";
+            $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, Password, ID_Level, Status, Email, Nomor_HP, Foto FROM pengguna WHERE ID_Pengguna = :id";
             $statement = $this->connection->prepare($query);
             $statement->execute([
                 'id' => $id
+            ]);
+            $pengguna = $statement->fetchObject('Pengguna');
+
+            return $pengguna;
+        } catch (PDOException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    public function getDetailPenggunaByEmail(string $Email) : Pengguna
+    {
+        try {
+            $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, Password, ID_Level, Status, Email, Nomor_HP, Foto, Salt FROM pengguna WHERE Email = :Email";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'Email' => $Email
             ]);
             $pengguna = $statement->fetchObject('Pengguna');
 
@@ -58,7 +75,7 @@ class PenggunaRepository
     {
         try {
             $this->connection->beginTransaction();
-            $query = "INSERT INTO pengguna (ID_Pengguna, ID_Level, Nomor_Identitias, Nama, Password, Email, No_HP, Foto, Status, Salt) VALUES (:id, :id_level, :nomor_identitas, :nama_pengguna, :password, :email, :no_hp, :foto, :status, :salt)";
+            $query = "INSERT INTO pengguna (ID_Pengguna, ID_Level,  Nomor_Identitas, Nama, Password, Email, Nomor_HP, Foto, Status, Salt) VALUES (:id, :id_level, :nomor_identitas, :nama_pengguna, :password, :email, :Nomor_HP, :foto, :status, :salt)";
             $statement = $this->connection->prepare($query);
             $statement->execute([
                 'id' => $pengguna->ID_Pengguna,
@@ -67,7 +84,7 @@ class PenggunaRepository
                 'nama_pengguna' => $pengguna->Nama_Pengguna,
                 'password' => $pengguna->Password,
                 'email' => $pengguna->Email,
-                'no_hp' => $pengguna->No_HP,
+                'Nomor_HP' => $pengguna->Nomor_HP,
                 'foto' => $pengguna->Foto,
                 'status' => $pengguna->Status,
                 'salt' => $pengguna->Salt
@@ -85,7 +102,7 @@ class PenggunaRepository
     {
         try {
             $this->connection->beginTransaction();
-            $query = "UPDATE pengguna SET ID_Level = :id_level, Nomor_Identitas = :nomor_identitas, Nama = :nama_pengguna, Password = :password, Email = :email, No_HP = :no_hp, Foto = :foto, Status = :status, Salt = :salt WHERE ID_Pengguna = :id";
+            $query = "UPDATE pengguna SET ID_Level = :id_level, Nomor_Identitas = :nomor_identitas, Nama = :nama_pengguna, Password = :password, Email = :email, Nomor_HP = :Nomor_HP, Foto = :foto, Status = :status, Salt = :salt WHERE ID_Pengguna = :id";
             $statement = $this->connection->prepare($query);
             $statement->execute([
                 'id' => $pengguna->ID_Pengguna,
@@ -94,7 +111,7 @@ class PenggunaRepository
                 'nama_pengguna' => $pengguna->Nama_Pengguna,
                 'password' => $pengguna->Password,
                 'email' => $pengguna->Email,
-                'no_hp' => $pengguna->No_HP,
+                'Nomor_HP' => $pengguna->Nomor_HP,
                 'foto' => $pengguna->Foto,
                 'status' => $pengguna->Status,
                 'salt' => $pengguna->Salt
@@ -150,6 +167,72 @@ class PenggunaRepository
             $pengguna[] = $row;
         }
         return $pengguna;
+    }
+
+    public function deleteByField(string $fieldName, string $fieldValue): bool
+    {
+        try {
+            $sql = "DELETE FROM pengguna WHERE $fieldName = :fieldValue AND Status = 'TIDAK AKTIF'";
+            $statement = $this->connection->prepare($sql);
+            $statement->execute([':fieldValue' => $fieldValue]);
+            return $statement->rowCount() > 0;
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function getPenggunaByEmail(string $Email) : ?Pengguna {
+        try {
+            $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, Password, ID_Level, Status FROM pengguna WHERE Email = :Email";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'Email' => $Email
+            ]);
+            $pengguna = $statement->fetchObject('Pengguna');
+            return $pengguna ? $pengguna : null;
+        } catch (PDOException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
+    public function updateStatus(string $ID_Pengguna, string $Status = 'AKTIF'): bool
+    {
+        try {
+            $sql = "UPDATE pengguna SET Status = :Status WHERE ID_Pengguna = :ID_Pengguna";
+            $statement = $this->connection->prepare($sql);
+            $statement->execute([
+                ':Status' => $Status,
+                ':ID_Pengguna' => $ID_Pengguna
+            ]);
+            return true;
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function getPenggunaByNomorIdentitas(string $Nomor_Identitas): ?Pengguna
+    {
+        try {
+            $sql = "SELECT * FROM pengguna WHERE Nomor_Identitas = :Nomor_Identitas";
+            $statement = $this->connection->prepare($sql);
+            $statement->execute([
+                'Nomor_Identitas' => $Nomor_Identitas
+            ]);
+            $result = $statement->fetchObject('Pengguna');
+            if (!$result) {
+                return null;
+            }
+            return $result;
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 }
 

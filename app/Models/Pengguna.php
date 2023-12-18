@@ -8,7 +8,7 @@ class Pengguna
     public string $Nama_Pengguna;
     public string $Password;
     public string $Email;
-    public string $No_HP;
+    public string $Nomor_HP;
     public ?string $Foto;
     public string $Status;
     public string $Salt;

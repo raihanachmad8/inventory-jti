@@ -210,7 +210,7 @@ class TransaksiRepository
         }
     }
 
-    public function searchListTransaksiByStatus(array $status, string $keyword = '') : array
+    public function searchListTransaksiByStatus(array $status, string $keyword = '', string $ID_Pengguna = null) : array
     {
         try {
             $query = "
@@ -230,6 +230,10 @@ class TransaksiRepository
         $query = rtrim($query, ', ');  // Remove the trailing comma and space
         $query .= ") AND (P.Nomor_Identitas LIKE :keyword OR L.Nama LIKE :keyword OR P.Nama LIKE :keyword OR A.Nama LIKE :keyword OR T.StartDate LIKE :keyword OR T.EndDate LIKE :keyword )";
         $query .= " AND T.StartDate >= CURDATE()";
+        if ($ID_Pengguna != null) {
+            $query .= " AND T.ID_Pengguna = :ID_Pengguna";
+        }
+        $query .= " ORDER BY CAST(SUBSTRING(T.ID_Transaksi FROM 2) AS SIGNED) DESC, T.ID_Transaksi";
         $statement = $this->connection->prepare($query);
 
         $i = 0;
@@ -238,7 +242,10 @@ class TransaksiRepository
             $i++;
         }
 
-        $statement->bindValue(':keyword', "%%");  // Bind the keyword outside of the loop
+        $statement->bindValue(':keyword', "%$keyword%");  // Bind the keyword outside of the loop
+        if ($ID_Pengguna != null) {
+            $statement->bindValue(':ID_Pengguna', $ID_Pengguna);
+        }
         $statement->execute();
 
         while ($row = $statement->fetchObject('Transaksi')) {
@@ -252,7 +259,7 @@ class TransaksiRepository
             throw $exception;
         }
     }
-    public function searchListRiwayatTransaksiByStatus(array $status, string $keyword = '') : array
+    public function searchListRiwayatTransaksiByStatus(array $status, string $keyword = '', string $ID_Pengguna = null) : array
     {
         try {
             $query = "
@@ -271,7 +278,10 @@ class TransaksiRepository
         }
         $query = rtrim($query, ', ');  // Remove the trailing comma and space
         $query .= ") AND (P.Nomor_Identitas LIKE :keyword OR L.Nama LIKE :keyword OR P.Nama LIKE :keyword OR A.Nama LIKE :keyword OR T.StartDate LIKE :keyword OR T.EndDate LIKE :keyword )";
-
+        if ($ID_Pengguna != null) {
+            $query .= " AND T.ID_Pengguna = :ID_Pengguna";
+        }
+        $query .= " ORDER BY CAST(SUBSTRING(T.ID_Transaksi FROM 2) AS SIGNED) DESC, T.ID_Transaksi";
         $statement = $this->connection->prepare($query);
 
         $i = 0;
@@ -281,6 +291,9 @@ class TransaksiRepository
         }
 
         $statement->bindValue(':keyword', "%%");  // Bind the keyword outside of the loop
+        if ($ID_Pengguna != null) {
+            $statement->bindValue(':ID_Pengguna', $ID_Pengguna);
+        }
         $statement->execute();
 
         while ($row = $statement->fetchObject('Transaksi')) {
@@ -295,39 +308,9 @@ class TransaksiRepository
         }
     }
 
-    public function getListTransaksiIsNotStatus(array $status) : bool
-    {
-        try {
-            $query = "
-            SELECT T.ID_Transaksi, T.ID_Pengguna, T.ID_Admin, T.StartDate, T.EndDate, T.Deskripsi_Keperluan, T.Jaminan, T.Pesan, T.ID_Status FROM transaksi T
-            INNER JOIN pengguna p ON T.ID_Pengguna = p.ID_Pengguna
-            INNER JOIN status s ON T.ID_Status = s.ID_Status
-            INNER JOIN maintainer a on T.ID_Admin = a.ID_Maintainer
-            WHERE s.Nama NOT IN (";
-            $i = 0;
-            foreach ($status as $stat) {
-                $query .= ":status$i, ";
-                $i++;
-            }
-            $query = substr($query, 0, -2);
-            $query .= ")";
-            $statement = $this->connection->prepare($query);
-            $i = 0;
-            foreach ($status as $stat) {
-                $statement->bindValue(":status$i", $stat);
-                $i++;
-            }
-            $statement->execute();
 
-            return $statement->rowCount() > 0;
-        } catch (PDOException $exception) {
-            throw $exception;
-        } catch (Exception $exception) {
-            throw $exception;
-        }
-    }
 
-    public function countStatusTransaksi(array $statusName) : array
+    public function countStatusTransaksi(array $statusName, string $ID_Pengguna = null) : array
     {
         try {
 
@@ -336,16 +319,76 @@ class TransaksiRepository
                 SELECT COUNT(*) as $stat FROM transaksi
                 INNER JOIN status ON transaksi.ID_Status = status.ID_Status";
                 $newQuery = $query . " WHERE status.Nama = :status";
+                if ($ID_Pengguna != null) {
+                    $newQuery .= " AND transaksi.ID_Pengguna = :ID_Pengguna";
+                }
                 $statement = $this->connection->prepare($newQuery);
-                $statement->execute([
-                    'status' => $stat
-                ]);
+                $statement->bindValue('status',  $stat);
+                if ($ID_Pengguna != null) {
+                    $statement->bindValue('ID_Pengguna', $ID_Pengguna);
+                }
+                $statement->execute();
                 $result[$stat] = $statement->fetch(PDO::FETCH_ASSOC)[$stat];
             }
             return $result ?? [];
         } catch (PDOException $exception) {
             throw $exception;
         } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    public function avaibleStok() : array
+    {
+        try {
+            $query = "
+            SELECT
+                I.ID_Inventaris,
+                I.Nama,
+                I.`Gambar`,
+                I.Stok - COALESCE(SUM(DT.Jumlah), 0) AS StokTersedia
+            FROM
+                Inventaris I
+            LEFT JOIN
+                DetailTransaksi DT ON I.ID_Inventaris = DT.ID_Inventaris
+            GROUP BY
+                I.ID_Inventaris, I.Nama, I.Stok
+            HAVING
+                StokTersedia > 0
+            ORDER BY
+                I.Stok DESC
+            LIMIT 3;";
+            $statement = $this->connection->prepare($query);
+            $statement->execute();
+            while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                $barang[] = $row;
+            }
+
+            return $barang ?? [];
+        } catch (PDOException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    public function batalkanPeminjaman(string $ID_Transaksi) : bool
+    {
+        try {
+            $this->connection->beginTransaction();
+            $query = "UPDATE transaksi SET ID_Status = 'S6' WHERE ID_Transaksi = :id";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'id' => $ID_Transaksi
+            ]);
+
+            $this->connection->commit();
+            return true;
+        } catch (PDOException $exception) {
+            $this->connection->rollBack();
+            throw $exception;
+        } catch (Exception $exception) {
+            $this->connection->rollBack();
             throw $exception;
         }
     }

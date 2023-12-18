@@ -7,4 +7,3 @@ class HomeController
         return View::renderPage('home');
     }
 }
-

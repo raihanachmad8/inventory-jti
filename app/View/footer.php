@@ -61,7 +61,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
         $('.modal-container-failed').addClass('d-none');
     })
 </script>
-<!-- 
+<!--
 <!-- Menu Inventarisir -->
 <!-- <script>
   /* Button tambah barang */
@@ -352,12 +352,12 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
   })
 </script>
 
-<script>
+<!-- <script>
   $(document).on('click', '.button-detail-history-loan', () => {
     $('.content').addClass('d-none')
     $('.modal-detail-container').removeClass('d-none');
   })
-</script>
+</script> -->
 
 <script>
   $(document).ready(function() {
@@ -533,20 +533,20 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
 
 <!-- Ini khusus digunakan oleh button batalkan -->
 <script>
-  $(document).on('click', '.button-cancel-loan', () => {
-    $('.cancel-loan-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.button-cancel-loan', () => {
+//     $('.cancel-loan-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.cancel-loan-button', () => {
-    $('.success-cancel-loan-modal-container').toggleClass('d-none');
-  })
+//   $(document).on('click', '.cancel-loan-button', () => {
+//     $('.success-cancel-loan-modal-container').toggleClass('d-none');
+//   })
 
-  $(document).on('click', '.cancel-loan-button-back', () => {
-    $('.success-cancel-loan-modal-container').toggleClass('d-none');
-    $('.cancel-loan-modal-container').toggleClass('d-none');
-    $('.modal-detail-container').toggleClass('d-none');
-    $('.content').toggleClass('d-none');
-  })
+//   $(document).on('click', '.cancel-loan-button-back', () => {
+//     $('.success-cancel-loan-modal-container').toggleClass('d-none');
+//     $('.cancel-loan-modal-container').toggleClass('d-none');
+//     $('.modal-detail-container').toggleClass('d-none');
+//     $('.content').toggleClass('d-none');
+//   })
 </script>
 
 <!-- Ini Khusus digunakan oleh menu maintainer -->
