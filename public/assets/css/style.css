@@ -1064,3 +1064,8 @@ div.profile-info {
     transform: rotate(0deg);
     transition: linear 0.2s;
 }
+
+.rotate-end {
+    transform: rotate(180deg);
+    transition: linear 0.2s;
+}
