@@ -343,21 +343,22 @@ class TransaksiRepository
         try {
             $query = "
             SELECT
-                I.ID_Inventaris,
-                I.Nama,
-                I.`Gambar`,
-                I.Stok - COALESCE(SUM(DT.Jumlah), 0) AS StokTersedia
+                i.ID_Inventaris,
+                SUM(dt.Jumlah) AS TotalBorrowed
             FROM
-                Inventaris I
-            LEFT JOIN
-                DetailTransaksi DT ON I.ID_Inventaris = DT.ID_Inventaris
+                Transaksi t
+            JOIN
+                DetailTransaksi dt ON t.ID_Transaksi = dt.ID_Transaksi
+            JOIN
+                Inventaris i ON dt.ID_Inventaris = i.ID_Inventaris
+            JOIN
+                Status s ON t.ID_Status = s.ID_Status
+            WHERE
+                t.ID_Status NOT IN ('S2', 'S5', 'S6')
             GROUP BY
-                I.ID_Inventaris, I.Nama, I.Stok
-            HAVING
-                StokTersedia > 0
+                t.ID_Status, i.ID_Inventaris
             ORDER BY
-                I.Stok DESC
-            LIMIT 3;";
+                i.ID_Inventaris;";
             $statement = $this->connection->prepare($query);
             $statement->execute();
             while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {

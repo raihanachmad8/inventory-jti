@@ -98,7 +98,7 @@ class InventarisValidation extends Validation
             $this->addError('Stok', 'Stok must not be negative');
         }
 
-        if (!is_numeric($this->request['Stok'])) {
+        if (!is_numeric((int)$this->request['Stok'])) {
             $this->addError('Stok', 'Stok must be numeric');
         }
     }

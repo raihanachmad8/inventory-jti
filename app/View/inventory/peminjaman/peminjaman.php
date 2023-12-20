@@ -3,7 +3,7 @@
     <h1 class="loans-heading">Peminjaman</h1>
     <div class="h-100 d-flex justify-content-between column-gap-4 ">
       <div class="search-bar-container d-flex gap-2 position-relative overflow-hidden d-flex justify-content-center align-items-center rounded-3">
-        <input type="text" placeholder="Cari" class="w-100 h-100 px-3 rounded-3" style="border: none; outline: none;">
+        <input type="text" placeholder="Cari" name="search-input" class="w-100 h-100 px-3 rounded-3" style="border: none; outline: none;">
         <div class="position-absolute bg-white" style="width: 1.7rem; height: 1.7rem; right: 0.7rem;">
           <img src="/public/assets/images/search.svg" alt="" class="w-100 h-100">
         </div>
@@ -11,9 +11,46 @@
     </div>
   </div>
 </div>
-
 <div class="inventory-items-container w-100 pb-4 px-4 overflow-y-scroll ">
-  <div class="inventory-item w-100 h-100  d-flex flex-column bg-body-tertiary p-2 gap-2 p-xl-3">
+    <?php if (count($model['peminjaman']) > 0) : ?>
+
+    <?php foreach ($model['peminjaman'] as $peminjaman) : ?>
+        <div class="inventory-item w-100 h-100  d-flex flex-column bg-body-tertiary p-2 gap-2 p-xl-3">
+            <div class="flex-grow-1">
+                <img src="/public/assets/images/inventarisir/<?= $peminjaman['Gambar'] ?>" alt="" class="w-100 object-fit-cover h-100 ratio-1x1 rounded-2" />
+            </div>
+            <div class="text-dark">
+                <div class="d-flex justify-content-between flex-column row-gap-4 ">
+                    <div class="inventory-item-name-data flex-grow-1 d-flex justify-content-between">
+                        <p style="font-size: 0.8rem;"><strong><?= $peminjaman['Nama_Inventaris'] ?></strong>/<?= $peminjaman['Kategori']->Nama_Kategori ?></p>
+                        <strong><?= $peminjaman['AvailableStock'] ?>/<?= $peminjaman['Stok'] ?></strong>
+                    </div>
+                    <div class="inventory-item-qty-data flex-grow-1 d-flex justify-content-between align-items-center">
+                        <p class="text-body-tertiary d-inline-block w-50" style="font-size: 0.8rem;"><?php
+                        if (isset($peminjaman['MaintainerNames']) && !empty($peminjaman['MaintainerNames'])) {
+                            $print = (count($peminjaman['MaintainerNames']) > 1) ? $peminjaman['MaintainerNames'][0] . ",..." : $peminjaman['MaintainerNames'][0];
+                            echo $print;
+                        }
+                        ?></p>
+                        <div class="inventory-item-button-container flex-grow-1 w-75 d-flex justify-content-between align-items-center">
+                            <div class="counter-container w-100 d-flex justify-content-between d-none">
+                                <label for="pinjam" class="btn-counter btn-counter-min btn btn-primary">-</label>
+                                <input id="pinjam" type="text" class="counter-input w-50 rounded bg-dark-subtle" />
+                                <label for="pinjam" class="btn-counter btn-counter-plus btn btn-primary">+</label>
+                            </div>
+                            <button class="inventory-item-button w-100 h-100  btn text-white" style="background-color: #01305d; font-size: 0.8rem;" type="button">Pinjam</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+        <?php else : ?>
+        <div class="w-100 position-absolute d-flex justify-content-center align-items-center">
+            <h1 style="font-size: 1.5rem;" class="text-body-tertiary">Tidak ada data</h1>
+    <?php endif; ?>
+
+  <!-- <div class="inventory-item w-100 h-100  d-flex flex-column bg-body-tertiary p-2 gap-2 p-xl-3">
     <div class="flex-grow-1">
       <img src="/public/assets/images/jay-zhang-ZByWaPXD2fU-unsplash.jpg" alt="" class="w-100 object-fit-cover h-100 ratio-1x1 rounded-2" />
     </div>
@@ -84,31 +121,7 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="inventory-item w-100 h-100  d-flex flex-column bg-body-tertiary p-2 gap-2 p-xl-3">
-    <div class="flex-grow-1">
-      <img src="/public/assets/images/jay-zhang-ZByWaPXD2fU-unsplash.jpg" alt="" class="w-100 object-fit-cover h-100 ratio-1x1 rounded-2" />
-    </div>
-    <div class="text-dark">
-      <div class="d-flex justify-content-between flex-column row-gap-4 ">
-        <div class="inventory-item-name-data flex-grow-1 d-flex justify-content-between">
-          <p style="font-size: 0.8rem;"><strong>Keyboard</strong>/Elektronik</p>
-          <strong>20/20</strong>
-        </div>
-        <div class="inventory-item-qty-data flex-grow-1 d-flex justify-content-between align-items-center">
-          <p class="text-body-tertiary d-inline-block w-50" style="font-size: 0.8rem;">Mas Awun</p>
-          <div class="inventory-item-button-container flex-grow-1 w-75 d-flex justify-content-between align-items-center">
-            <div class="counter-container w-100 d-flex justify-content-between d-none">
-              <label for="pinjam" class="btn-counter btn-counter-min btn btn-primary">-</label>
-              <input id="pinjam" type="text" class="counter-input w-50 rounded bg-dark-subtle" />
-              <label for="pinjam" class="btn-counter btn-counter-plus btn btn-primary">+</label>
-            </div>
-            <button class="inventory-item-button w-100 h-100  btn text-white" style="background-color: #01305d; font-size: 0.8rem;" type="button">Pinjam</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </div> -->
 </div>
 
 <div class="loan-button-container w-100 py-3 px-3 bg-body-tertiary position-fixed bottom-0 d-flex justify-content-between">
@@ -375,3 +388,13 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
     </div>
   </div>
 </div>
+
+
+<script>
+    $('input[name="search-input"]').keypress(function(e) {
+        const keyword = e.target.value;
+        if (e.key === 'Enter') {
+            window.location.href = `/inventory/peminjaman?search=${keyword}`;
+        }
+    })
+</script>

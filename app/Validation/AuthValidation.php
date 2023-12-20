@@ -113,7 +113,7 @@ class AuthValidation extends Validation
         // if (!preg_match('/[^A-Za-z0-9]/', $this->request['Password'])) {
         //     $this->addError('Password', 'Password must contain at least one special character.');
         // }
-
+        return $this;
     }
 
     public function validateConfirmPassword()
@@ -121,6 +121,7 @@ class AuthValidation extends Validation
         if ($this->request['Password'] !== $this->request['Confirm_Password']) {
             $this->addError('Password', 'Password confirmation does not match.');
         }
+        return $this;
     }
 
 

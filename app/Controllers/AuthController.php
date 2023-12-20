@@ -57,9 +57,14 @@ class AuthController
             }
             $pengguna = $this->authService->login($request);
             $this->sessionManagerService->create($pengguna->ID_Pengguna, $pengguna->Nomor_Identitas, $pengguna->Level->Nama_Level);
+            $session = $this->sessionManagerService->get();
             header('HTTP/1.1 302 Found');
             http_response_code(302);
-            View::redirect('/inventory/dashboard');
+            if ($session->Level === 'Admin') {
+                View::redirect('/admin/dashboard');
+            } else if (in_array($session->Level, ['Dosen', 'Mahasiswa'])) {
+                View::redirect('/inventory/dashboard');
+            }
         } catch (Exception $e) {
             if ($e instanceof ValidationException) {
                 header('HTTP/1.1 400 Bad Request');
@@ -149,7 +154,7 @@ class AuthController
             header('HTTP/1.1 302 Found');
             http_response_code(302);
             View::redirect('/users/register/verification?' . http_build_query([
-                'ID_Pengguna' => $pengguna->ID_Pengguna,
+                'ID_Pengguna' => urlencode($pengguna->ID_Pengguna),
                 'Email' => urlencode($pengguna->Email),
                 'o' => $OTPID->getID()
             ]));
@@ -204,7 +209,7 @@ class AuthController
         try {
             $this->verifyIsUser('/users/register');
             $request = [
-                'ID_Pengguna' => input::get('ID_Pengguna'),
+                'ID_Pengguna' => input::get('ID_Pengguna', true),
                 'Email' => input::get('Email', true),
             ];
             $validate = (new AccountValidation($request))->validateIDPengguna();
@@ -219,8 +224,8 @@ class AuthController
             }
             View::setFlashData('success', 'OTP was send to your email');
             View::redirect('/users/register/verification?' . http_build_query([
-                'ID_Pengguna' => $request['ID_Pengguna'],
-                'Email' => input::get('Email',),
+                'ID_Pengguna' => input::get('ID_Pengguna'),
+                'Email' => input::get('Email'),
                 'o' => $OTPID->getID()
             ]));
         } catch (Exception $e) {
@@ -262,8 +267,8 @@ class AuthController
             $this->verifyIsUser('/users/register');
             $this->hasOTP('/users/register/verification');
             $request = [
-                'ID_Pengguna' => input::get('ID_Pengguna'),
-                'Email' => input::get('Email',),
+                'ID_Pengguna' => input::get('ID_Pengguna',true),
+                'Email' => input::get('Email', true),
                 'Kode' => input::post('code_1') . input::post('code_2') . input::post('code_3') . input::post('code_4') . input::post('code_5') . input::post('code_6'),
             ];
             $validate = (new OTPValidation($request))->validate();
@@ -322,8 +327,8 @@ class AuthController
             }
             View::setFlashData('success', 'Email Sent');
             View::redirect('/users/forgot/verification?' . http_build_query([
-                'ID_Pengguna' => $pengguna->ID_Pengguna,
-                'Email' => $pengguna->Email,
+                'ID_Pengguna' => urlencode($pengguna->ID_Pengguna),
+                'Email' => urlencode($pengguna->Email),
                 'o' => $OTPID->getID()
             ]));
         } catch (ValidationException $e) {
@@ -363,8 +368,8 @@ class AuthController
         try {
             $this->verifyIsUser('/users/forgot');
             $request = [
-                'ID_Pengguna' => input::get('ID_Pengguna'),
-                'Email' => input::get('Email',),
+                'ID_Pengguna' => input::get('ID_Pengguna', true),
+                'Email' => input::get('Email', true),
                 'o' => input::get('o')
             ];
             $validate = (new AuthValidation($request))->validateEmail();
@@ -378,14 +383,18 @@ class AuthController
             }
             View::setFlashData('success', 'OTP was send to your email');
             View::redirect('/users/forgot/verification?' . http_build_query([
-                'ID_Pengguna' => $request['ID_Pengguna'],
-                'Email' => $request['Email'],
+                'ID_Pengguna' => input::get('ID_Pengguna'),
+                'Email' => input::get('Email'),
                 'o' => $OTPID->getID()
             ]));
         } catch (ValidationException $e) {
             View::setFlashData('error', 'Failed to resend OTP');
             View::renderPage('users/verify-forgot-otp', [
-                'error' => $e->getErrors()
+                'errors' => $e->getErrors(),
+                'title' => 'Verify OTP',
+                'ID_Pengguna' => input::get('ID_Pengguna'),
+                'Email' => input::get('Email',),
+                'o' => input::get('o')
             ]);
             exit();
         } catch (Exception $e) {
@@ -406,8 +415,8 @@ class AuthController
             $this->verifyIsUser('/users/forgot');
             $this->hasOTP('/users/forgot/verification');
             $request = [
-                'ID_Pengguna' => input::get('ID_Pengguna'),
-                'Email' => input::get('Email',),
+                'ID_Pengguna' => input::get('ID_Pengguna', true),
+                'Email' => input::get('Email', true),
                 'Kode' => input::post('code_1') . input::post('code_2') . input::post('code_3') . input::post('code_4') . input::post('code_5') . input::post('code_6'),
             ];
             $validate = (new OTPValidation($request))->validate();
@@ -464,8 +473,8 @@ class AuthController
         try {
             $this->verifyIsUser('/users/forgot');
             $request = [
-                'ID_Pengguna' => input::get('ID_Pengguna'),
-                'Email' => input::get('Email',),
+                'ID_Pengguna' => input::get('ID_Pengguna', true),
+                'Email' => input::get('Email', true),
                 'Password' => input::post('password'),
                 'Confirm_Password' => input::post('confirm-password')
             ];
@@ -490,7 +499,7 @@ class AuthController
             View::setFlashData('error', $e->getMessage());
             View::redirect('/users/forgot/reset?' . http_build_query([
                 'ID_Pengguna' => input::get('ID_Pengguna'),
-                'Email' => input::get('Email',),
+                'Email' => input::get('Email'),
                 'o' => input::get('o')
             ]));
             exit();
@@ -500,7 +509,7 @@ class AuthController
     private function verifyIsUser($redirect = '/users/register')
     {
         try {
-            $ID_PenggunaInput = input::get('ID_Pengguna');
+            $ID_PenggunaInput = input::get('ID_Pengguna' , true);
             $EmailInput = input::get('Email', true);
             if (empty($ID_PenggunaInput) || empty($EmailInput) ) {
                 throw new Exception('Verification failed. Please provide valid link');

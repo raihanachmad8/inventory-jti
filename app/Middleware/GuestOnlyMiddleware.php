@@ -19,7 +19,13 @@ class GuestOnlyMiddleware implements Middleware
             $session = $this->sessionManagerService->get();
             http_response_code(401);
             if ($session !== null) {
-                View::redirect('/inventory/dashboard');
+                if ($session->Level === 'Admin') {
+                    View::redirect('/admin/dashboard');
+                    exit();
+                } else if (in_array($session->Level, ['Dosen', 'Mahasiswa'])) {
+                    View::redirect('/inventory/dashboard');
+                    exit();
+                }
             }
         } catch (Exception $e) {
             http_response_code(500); // Internal Server Error

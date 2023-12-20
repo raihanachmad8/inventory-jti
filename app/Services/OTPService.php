@@ -4,7 +4,7 @@ require_once __DIR__ . '/../Exceptions/ValidationException.php';
 
 class OTPService
 {
-    private string $senderEmail = "raih443@gmail.com";
+    private string $senderEmail = "inti-support@gmail.com";
     private OTPRepository $otpRepository;
 
     public function __construct(OTPRepository $otpRepository)
@@ -18,7 +18,7 @@ class OTPService
             $otpCode = rand(100000, 999999);
             $success = $this->otpRepository->createOTP($userId, $otpCode);
             if ($success) {
-                $subject = 'Kode OTP';
+                $subject = 'Verification Code';
                 // $this->sendOTP($Email, $subject, $otpCode);
             }
             return $success ? $otpCode : false;
@@ -99,11 +99,14 @@ class OTPService
                     <td align='center' style='padding: 20px;'>
 
                         <table role='presentation' cellspacing='0' cellpadding='0' style='max-width: 500px; width: 100%; background-color: #fff; border-radius: 4px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);'>
-                            <tr>
-                                <td style='background-color: #ffd700; padding: 10px; text-align: center;'>
-                                    <h1 style='margin: 0; font-size: 1.5rem; font-weight: 600;'>Inti</h1>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td style='padding: 16px 32px;'>
+                                <img src='/public/assets/images/logo.jpeg.jpg' alt='JTI Inventory' style='width: 50vw;'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style='border-top: 2px solid #e5e5e5;'></td>
+                        </tr>
                             <tr>
                                 <td style='background-color: #fff; padding: 16px 32px;'>
                                     <h1 style='font-weight: 600; font-size: 1.25rem;'>Verify your Email address</h1>

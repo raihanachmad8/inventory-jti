@@ -88,8 +88,8 @@ class InventarisirService
     {
         try {
 
-            $maintainerInventaris = $this->maintainerInventarisRepository->update($maintainerInventaris[0]->ID_Inventaris, $maintainerInventaris);
-            return $maintainerInventaris ?? false;
+            $maintainer = $this->maintainerInventarisRepository->update($maintainerInventaris[0]->ID_Inventaris, $maintainerInventaris);
+            return $maintainer;
         } catch (PDOException $exception) {
             throw new Exception($exception->getMessage());
         } catch (Exception $exception) {
@@ -148,8 +148,8 @@ class InventarisirService
     public function updateInvertarisir(Inventaris $inventaris) : bool
     {
         try {
-            $inventaris = $this->inventarisRepository->update($inventaris);
-            return $inventaris;
+            $result = $this->inventarisRepository->update($inventaris);
+            return $result;
         } catch (PDOException $exception) {
             throw new Exception($exception->getMessage());
         } catch (Exception $exception) {

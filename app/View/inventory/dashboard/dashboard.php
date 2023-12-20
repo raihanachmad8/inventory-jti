@@ -106,18 +106,20 @@
                     <img src="/public/assets/images/icon-barang-baru.svg" alt="" class="h-100  w-100 object-fit-cover">
                 </div>
             </div>
-            <div class="overflow-y-scroll d-flex flex-column gap-4 h-100 py-2 mt-2 ">
+            <div class="overflow-y-scroll d-flex flex-column gap-4 h-100 py-4 mt-2 ">
                 <?php if (count($model['stok']) > 0) : ?>
                     <?php foreach ($model['stok'] as $stok) : ?>
-                        <div class="d-flex gap-4">
+                        <?php if ($stok['AvailableStock'] > 0) : ?>
+                            <div class="d-flex gap-4 my-4">
                             <div class="new-item-image-container">
                                 <img src="/public/assets/images/inventarisir/<?= $stok['Gambar'] ?>" alt="" class="w-100 h-100 object-fit-cover rounded-3" />
                             </div>
                             <div>
-                                <strong class="new-item-title"><?= $stok['Nama'] ?></strong>
-                                <p class="new-item-stock text-body-tertiary">Stok: <?= $stok['StokTersedia'] ?></p>
+                                <strong class="new-item-title"><?= $stok['Nama_Inventaris'] ?></strong>
+                                <p class="new-item-stock text-body-tertiary">Stok: <?= $stok['AvailableStock'] ?></p>
                             </div>
                         </div>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 <?php else : ?>
                     <div class="d-flex justify-content-center align-items-center h-100">

@@ -71,7 +71,7 @@ class DetailTransaksi extends Validation
             $this->addError('Jumlah', 'Jumlah must not be negative');
         }
 
-        if (!is_numeric($this->request['Jumlah'])) {
+        if (!is_numeric((int)$this->request['Jumlah'])) {
             $this->addError('Jumlah', 'Jumlah must be numeric');
         }
     }

@@ -52,9 +52,43 @@
       </div>
       <div class="d-flex flex-column rounded-4 row-gap-3 ">
         <div>
-          <button class="btn btn-danger float-end ">Hapus Akun</button>
+          <button class="btn btn-danger btn-hapus-akun float-end ">Hapus Akun</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="delete-akun-modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
+    <div class="delete-akun-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 65%);">
+        <div class="d-flex flex-column align-items-center ">
+            <img src="/public/assets/images/batalkan.svg" alt="">
+            <h3 style="color: #CC3333;">
+                <strong>
+                    Hapus Akun
+                </strong>
+            </h3>
+        </div>
+        <div>
+            <p>Apakah Anda yakin ingin menghapus akun ini?</p>
+        </div>
+        <div class="d-flex gap-3 w-100 justify-content-evenly ">
+            <button class="btn text-white delete-akun-button-back" style="background-color: #01305D; padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
+            <button class="btn btn-danger delete-item-button"><strong>Hapus</strong></button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('.btn-hapus-akun').click(function() {
+        $('.delete-akun-modal-container').removeClass('d-none')
+    })
+
+    $('.delete-akun-button-back').click(function() {
+        $('.delete-akun-modal-container').addClass('d-none')
+    })
+
+
+</script>

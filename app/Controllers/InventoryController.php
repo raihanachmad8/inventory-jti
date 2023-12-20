@@ -1,21 +1,20 @@
 <?php
 
-require_once __DIR__ . '/../Services/InventarisirService.php';
 require_once __DIR__ . '/../Services/PeminjamanService.php';
 require_once __DIR__ . '/../Services/SessionManagerService.php';
-require_once __DIR__ . '/../Repository/SessionManagerRepository.php';
+require_once __DIR__ . '/../Services/ProfileService.php';
 
 class InventoryController
 {
-    private InventarisirService $inventarisirService;
     private PeminjamanService $peminjamanService;
     private SessionManagerService $sessionManagerService;
+    private ProfileService $profileService;
 
     public function __construct()
     {
-        $this->inventarisirService = new InventarisirService();
         $this->peminjamanService = new PeminjamanService();
         $this->sessionManagerService = new SessionManagerService(new SessionManagerRepository());
+        $this->profileService = new ProfileService();
 
     }
 
@@ -33,11 +32,12 @@ class InventoryController
             }
 
             // $inventory = $this->peminjamanService->searchPeminjamanByPengguna();
-            $pengguna = $this->sessionManagerService->get();
-            $peminjaman = $this->peminjamanService->searchPeminjamanByPengguna($pengguna->id);
-            $status = $this->peminjamanService->getListStatusPeminjamanPengguna($pengguna->id);
+            $session = $this->sessionManagerService->get();
+            $pengguna = $this->profileService->getProfile($session->id);
+            $peminjaman = $this->peminjamanService->searchPeminjamanByPengguna($pengguna->ID_Pengguna);
+            $status = $this->peminjamanService->getListStatusPeminjamanPengguna($pengguna->ID_Pengguna);
             $stok = $this->peminjamanService->availableStok();
-            View::renderView('inventory/dashboard/dashboard', compact('peminjaman', 'status', 'stok'));
+            View::renderView('inventory/dashboard/dashboard', compact('peminjaman', 'status', 'stok', 'pengguna'));
         } catch (Exception $e) {
             if ($e instanceof PDOException) {
                 View::renderView('inventory/dashboard/dashboard', ['error' => $e->getMessage()]);
@@ -161,7 +161,11 @@ class InventoryController
 
     public function peminjaman()
     {
-        View::renderView('inventory/peminjaman/peminjaman');
+        $session = $this->sessionManagerService->get();
+        $pengguna = $this->profileService->getProfile($session->id);
+        $search = input::get('search') ?? '';
+        $peminjaman = $this->peminjamanService->getListPeminjamanWithAvailableStockAndSearch($search);
+        View::renderView('inventory/peminjaman/peminjaman', compact('peminjaman', 'pengguna'));
     }
 
     public function riwayat()
@@ -177,10 +181,11 @@ class InventoryController
                 exit(405);
             }
 
-            $pengguna = $this->sessionManagerService->get();
-            $riwayat = $this->peminjamanService->searchRiwayatDataPeminjamanPengguna($pengguna->id);
+            $session = $this->sessionManagerService->get();
+            $pengguna = $this->profileService->getProfile($session->id);
+            $riwayat = $this->peminjamanService->searchRiwayatDataPeminjamanPengguna($pengguna->ID_Pengguna);
 
-            View::renderView('inventory/riwayat/riwayat', compact('riwayat'));
+            View::renderView('inventory/riwayat/riwayat', compact('riwayat', 'pengguna'));
         } catch (Exception $e) {
             if ($e instanceof PDOException) {
                 View::renderView('inventory/riwayat/riwayat', ['error' => $e->getMessage()]);

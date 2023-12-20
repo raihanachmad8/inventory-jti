@@ -24,7 +24,7 @@ class PenggunaRepository
 
     public function getPenggunaById($id) : Pengguna
     {
-        $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, ID_Level, Email, Status FROM pengguna
+        $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, ID_Level, Email, Nomor_HP, Foto, Status FROM pengguna
         WHERE ID_Pengguna = :id";
         $statement = $this->connection->prepare($query);
         $statement->execute([
@@ -97,23 +97,53 @@ class PenggunaRepository
             throw $exception;
         }
     }
-
-    public function update(Pengguna $pengguna) : bool
+    public function updateProfile(Pengguna $pengguna) : bool
     {
         try {
             $this->connection->beginTransaction();
-            $query = "UPDATE pengguna SET ID_Level = :id_level, Nomor_Identitas = :nomor_identitas, Nama = :nama_pengguna, Password = :password, Email = :email, Nomor_HP = :Nomor_HP, Foto = :foto, Status = :status, Salt = :salt WHERE ID_Pengguna = :id";
+            $query = "UPDATE pengguna SET Nama = :nama_pengguna, Foto = :foto WHERE ID_Pengguna = :id";
             $statement = $this->connection->prepare($query);
             $statement->execute([
                 'id' => $pengguna->ID_Pengguna,
-                'id_level' => $pengguna->ID_Level,
-                'nomor_identitas' => $pengguna->Nomor_Identitas,
                 'nama_pengguna' => $pengguna->Nama_Pengguna,
-                'password' => $pengguna->Password,
+                'foto' => $pengguna->Foto,
+            ]);
+
+            $this->connection->commit();
+            return $statement->rowCount() > 0;
+        } catch (PDOException $exception) {
+            $this->connection->rollBack();
+            throw $exception;
+        }
+    }
+    public function updateAccountInformation(Pengguna $pengguna) : bool
+    {
+        try {
+            $this->connection->beginTransaction();
+            $query = "UPDATE pengguna SET Email = :email, Nomor_HP = :Nomor_HP WHERE ID_Pengguna = :id";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'id' => $pengguna->ID_Pengguna,
                 'email' => $pengguna->Email,
                 'Nomor_HP' => $pengguna->Nomor_HP,
-                'foto' => $pengguna->Foto,
-                'status' => $pengguna->Status,
+            ]);
+
+            $this->connection->commit();
+            return $statement->rowCount() > 0;
+        } catch (PDOException $exception) {
+            $this->connection->rollBack();
+            throw $exception;
+        }
+    }
+    public function updateAccountSecurity(Pengguna $pengguna) : bool
+    {
+        try {
+            $this->connection->beginTransaction();
+            $query = "UPDATE pengguna SET Password = :password,  Salt = :salt WHERE ID_Pengguna = :id";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'id' => $pengguna->ID_Pengguna,
+                'password' => $pengguna->Password,
                 'salt' => $pengguna->Salt
             ]);
 

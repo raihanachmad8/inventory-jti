@@ -61,6 +61,7 @@
             </div>
             <div id="content" class=" h-100 align-items-center justify-content-center align-self-center px-4 ">
                 <strong class="text-center py-4" style="font-size: 1.5rem; color: #022f63">Masuk</strong>
+                <?php View::getFlashData() ?>
                 <?php if (isset($model['error'])) : ?>
                         <div class="alert alert-danger" role="alert">
                             <?= $model['error'] ?>

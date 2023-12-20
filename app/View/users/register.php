@@ -175,12 +175,12 @@
                             <div class="mt-2">
                                 <label for="email">Email</label>
                                 <input type="email" id="email" name="email" placeholder="email" class="form-control  " style="border: 1px solid #022f63 !important;">
-                                <?php if (isset($model['errors']['Password'])) : ?>
+                                <?php if (isset($model['errors']['Email'])) : ?>
                                 <small class="text-danger">
-                                    <?php if (is_array($model['errors']['Password'])) : ?>
-                                        <div><?= $model['errors']['Password'][0] ?></div>
+                                    <?php if (is_array($model['errors']['Email'])) : ?>
+                                        <div><?= $model['errors']['Email'][0] ?></div>
                                     <?php else : ?>
-                                        <?= $model['errors']['Password'] ?>
+                                        <?= $model['errors']['Email'] ?>
                                     <?php endif; ?>
                                 </small>
                             <?php endif; ?>

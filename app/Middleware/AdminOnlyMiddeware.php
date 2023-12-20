@@ -2,10 +2,7 @@
 
 require_once __DIR__ . '/Middleware.php';
 
-require_once __DIR__ . '/../Services/SessionManagerService.php';
-require_once __DIR__ . '/../Repository/SessionManagerRepository.php';
-
-class AuthOnlyMiddleware implements Middleware
+class AdminOnlyMiddleware implements Middleware
 {
     private SessionManagerService $sessionManagerService;
 
@@ -19,9 +16,9 @@ class AuthOnlyMiddleware implements Middleware
         try {
             $session = $this->sessionManagerService->get();
 
-            if (!$session) {
+            if (!$session || $session->Level !== 'Admin') {
                 $this->handleUnauthorizedAccess();
-            } 
+            }
         } catch (Exception $e) {
             $this->handleInternalServerError();
         }
@@ -29,9 +26,8 @@ class AuthOnlyMiddleware implements Middleware
 
     private function handleUnauthorizedAccess(): void
     {
-        header('HTTP/1.1 401 Unauthorized');
-        View::setFlashData('error', 'Unauthorized access. Please log in.');
-        View::redirect('/users/login');
+        header('HTTP/1.1 404 Not Found');
+        View::renderView('404', ['message' => 'Page not found']);
         exit();
     }
 

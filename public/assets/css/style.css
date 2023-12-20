@@ -129,6 +129,7 @@ ul {
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 1rem 1rem;
+    width: -moz-fit-content;
     width: fit-content;
 }
 
@@ -625,6 +626,7 @@ div.profile-info {
 
 @media only screen and (min-width: 992px) {
     div.profile-info {
+        width: -moz-fit-content;
         width: fit-content;
     }
 
@@ -682,6 +684,7 @@ div.profile-info {
     }
 
     div.logo-container {
+        width: -moz-fit-content;
         width: fit-content;
     }
 
@@ -694,6 +697,7 @@ div.profile-info {
     }
 
     header > .header-logo {
+        width: -moz-fit-content;
         width: fit-content;
         padding: 0.5rem;
     }
