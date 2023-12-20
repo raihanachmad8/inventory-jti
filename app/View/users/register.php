@@ -62,7 +62,7 @@
 <body style="font-family: 'Poppins', sans-serif;">
     <div class="vw-100 vh-100 d-flex justify-content-center align-items-center ">
         <div class="register-content border rounded-3 overflow-hidden shadow position-relative">
-            <a href="/" class="position-absolute top-0 end-0 p-3 link-body-emphasis "><i data-feather="x" style="width: 2.5rem; height: 2.5rem;"></i></a>
+            <a href="/" class="close-button position-absolute top-0 end-0 p-3 link-body-emphasis "><i data-feather="x" style="width: 2.5rem; height: 2.5rem;"></i></a>
             <div class="w-100 h-100 d-none d-lg-inline-block position-relative">
                 <div class="w-100 h-100 position-absolute p-3 d-flex align-items-end bg-black bg-opacity-25 ">
                     <div class="p-3 bg-body rounded-3">
@@ -74,10 +74,10 @@
             </div>
             <form action="/users/register" method="post" class="content-container align-self-center px-4 position-relative d-flex align-items-center justify-content-center  overflow-hidden">
                 <div id="content1" class=" align-items-center justify-content-center align-self-center position-absolute start-0 " style="transition: transform 300ms ease;"><?php if (isset($model['error'])) : ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?= $model['error'] ?>
-                    </div>
-                <?php endif; ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?= $model['error'] ?>
+                        </div>
+                    <?php endif; ?>
                     <strong class="text-center py-4" style="font-size: 1.5rem; color: #022f63">Pilih role anda</strong>
                     <div style="display: grid; grid-template-rows:1fr auto; gap: 3rem;">
                         <div class="d-flex justify-content-center align-items-center column-gap-3 ">
@@ -105,10 +105,12 @@
                     </div>
                 </div>
                 <div id="content2" class="px-3 bg-white align-self-center position-absolute start-0" style="transform: translateX(100%); transition: transform 300ms ease;">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <button id="button_kembali1" class="btn px-0" style="color: #022f63">
-                            < Kembali </button>
-                                <strong class="text-center py-4" style="font-size: 1.5rem; color: #022f63">Daftar</strong>
+                    <div id="button_kembali1" class="btn position-absolute " style="color: #022f63; top: 2rem;">
+                        <i data-feather="chevron-left"></i>
+                        Kembali
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <strong class="text-center py-4" style="font-size: 1.5rem; color: #022f63">Daftar</strong>
                     </div>
                     <div style="display: grid; grid-template-rows:1fr; gap: 3rem;">
                         <div>
@@ -116,27 +118,27 @@
                                 <label for="nomor-identitas">Nomor Identitas</label>
                                 <input type="number" id="nomor-identitas" name="nomor-identitas" placeholder="NIM / NIP" class="form-control  " style="border: 1px solid #022f63 !important;">
                                 <?php if (isset($model['errors']['Nomor_Identitas'])) : ?>
-                                <small class="text-danger">
-                                    <?php if (is_array($model['errors']['Nomor_Identitas'])) : ?>
-                                        <div><?= $model['errors']['Nomor_Identitas'][0] ?></div>
-                                    <?php else : ?>
-                                        <?= $model['errors']['Nomor_Identitas'] ?>
-                                    <?php endif; ?>
-                                </small>
-                            <?php endif; ?>
+                                    <small class="text-danger">
+                                        <?php if (is_array($model['errors']['Nomor_Identitas'])) : ?>
+                                            <div><?= $model['errors']['Nomor_Identitas'][0] ?></div>
+                                        <?php else : ?>
+                                            <?= $model['errors']['Nomor_Identitas'] ?>
+                                        <?php endif; ?>
+                                    </small>
+                                <?php endif; ?>
                             </div>
                             <div class="mt-2">
                                 <label for="nama">Nama Lengkap</label>
                                 <input type="text" id="nama" name="nama" class="form-control" placeholder="John Doe" style="border: 1px solid #022f63 !important;">
                                 <?php if (isset($model['errors']['Nama'])) : ?>
-                            <small class="text-danger">
-                                <?php if (is_array($model['errors']['Nama'])) : ?>
-                                    <div><?= $model['errors']['Nama'][0] ?></div>
-                                <?php else : ?>
-                                    <?= $model['errors']['Nama'] ?>
+                                    <small class="text-danger">
+                                        <?php if (is_array($model['errors']['Nama'])) : ?>
+                                            <div><?= $model['errors']['Nama'][0] ?></div>
+                                        <?php else : ?>
+                                            <?= $model['errors']['Nama'] ?>
+                                        <?php endif; ?>
+                                    </small>
                                 <?php endif; ?>
-                            </small>
-                        <?php endif; ?>
                             </div>
                             <div class="mt-2">
                                 <label class="sr-only" for="nomor-telepon">Nomor Telepon</label>
@@ -165,10 +167,12 @@
                     </div>
                 </div>
                 <div id="content3" class="bg-white px-3 align-self-center position-absolute start-0" style="transform: translateX(100%); transition: transform 300ms ease;">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <button type="button" id="button_kembali2" class="btn px-0" style="color: #022f63">
-                            < Kembali </button>
-                                <strong class=" text-center py-4" style="font-size: 1.5rem; color: #022f63">Daftar</strong>
+                    <div id="div_kembali2" class="btn px-1 position-absolute " style="color: #022f63; top: 2rem;">
+                        <i data-feather="chevron-left"></i>
+                        Kembali
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <strong class=" text-center py-4" style="font-size: 1.5rem; color: #022f63">Daftar</strong>
                     </div>
                     <div style="display: grid; grid-template-rows:1fr; gap: 3rem;">
                         <div>
@@ -176,14 +180,14 @@
                                 <label for="email">Email</label>
                                 <input type="email" id="email" name="email" placeholder="email" class="form-control  " style="border: 1px solid #022f63 !important;">
                                 <?php if (isset($model['errors']['Password'])) : ?>
-                                <small class="text-danger">
-                                    <?php if (is_array($model['errors']['Password'])) : ?>
-                                        <div><?= $model['errors']['Password'][0] ?></div>
-                                    <?php else : ?>
-                                        <?= $model['errors']['Password'] ?>
-                                    <?php endif; ?>
-                                </small>
-                            <?php endif; ?>
+                                    <small class="text-danger">
+                                        <?php if (is_array($model['errors']['Password'])) : ?>
+                                            <div><?= $model['errors']['Password'][0] ?></div>
+                                        <?php else : ?>
+                                            <?= $model['errors']['Password'] ?>
+                                        <?php endif; ?>
+                                    </small>
+                                <?php endif; ?>
                             </div>
                             <div class="mt-2">
                                 <label for="password">password</label>
@@ -228,6 +232,7 @@
         $(document).ready(() => {
             $('#lanjutkan_button1').prop('disabled', true);
             $(document).on('click', '#lanjutkan_button1', () => {
+                $('.close-button').addClass('d-none');
                 $('#content1').css('transform', 'translateX(100%)');
                 $('#content2').css('transform', 'translateX(0)');
             });
@@ -243,35 +248,8 @@
                 }
             })
 
-            // $(document).on('click', '#lanjutkan_button3', (e) => {
-            //     if ($('#email').val() != '' && $('#password').val() != '' && $('#confirm_password').val() != '') {
-            //         if (formData.has('email')) {
-            //             formData.set('email', $('#email').val())
-            //         } else {
-            //             formData.append('email', $('#email').val())
-            //         }
-
-            //         if (formData.has('password')) {
-            //             formData.set('password', $('#password').val())
-            //         } else {
-            //             formData.append('password', $('#password').val())
-            //         }
-
-            //         if (formData.has('confirm_password')) {
-            //             formData.set('confirm_password', $('#confirm_password').val())
-            //         } else {
-            //             formData.append('confirm_password', $('#confirm-password').val())
-            //         }
-            //     } else {
-            //         if ($(`.alert-danger`).length == 0) {
-            //             $('#content').children(':nth-child(2)').before(`<div class="alert alert-danger alert-dismissible fade show" role="alert"> Mohon isi semua data terlebih dahulu <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`)
-            //         }
-            //     }
-            // })
-
-
-
             $(document).on('click', '#button_kembali1', () => {
+                $('.close-button').removeClass('d-none');
                 $('#content1').css('transform', 'translateX(0)');
                 $('#content2').css('transform', 'translateX(100%)');
             })
