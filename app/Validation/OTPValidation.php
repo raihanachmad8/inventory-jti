@@ -43,7 +43,7 @@ class OTPValidation extends Validation
             $this->addError('Kode', 'Kode must be at least 6 characters long.');
         }
 
-        if (!is_numeric($this->request['Kode'])) {
+        if (!is_numeric((int)$this->request['Kode'])) {
             $this->addError('Kode', 'Kode must be numeric');
         }
     }

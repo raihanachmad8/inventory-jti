@@ -17,6 +17,12 @@ class TransaksiRepository
         $result = $this->connection->query($query);
         $transaksi = [];
         while ($row = $result->fetchObject('Transaksi')) {
+            $message = $row->Pesan;
+            $lastSeparatorPosition = strrpos($message, "||");
+            $firstPart = trim(substr($message, 0, $lastSeparatorPosition));
+            $secondPart = trim(substr($message, $lastSeparatorPosition + strlen("||")));
+            $row->Pesan = $firstPart;
+            $row->Timestamp = $secondPart;
             $transaksi[] = $row;
         }
         return $transaksi;
@@ -30,6 +36,12 @@ class TransaksiRepository
             'id' => $ID_Transaksi
         ]);
         $transaksi = $statement->fetchObject('Transaksi');
+        $message = $transaksi->Pesan;
+        $lastSeparatorPosition = strrpos($message, "||");
+        $firstPart = trim(substr($message, 0, $lastSeparatorPosition));
+        $secondPart = trim(substr($message, $lastSeparatorPosition + strlen("||")));
+        $transaksi->Pesan = $firstPart;
+        $transaksi->Timestamp = $secondPart;
 
         return $transaksi;
     }
@@ -38,18 +50,18 @@ class TransaksiRepository
     {
         try {
             $this->connection->beginTransaction();
-            $query = "INSERT INTO transaksi (ID_Transaksi, ID_Pengguna, ID_Admin, StartDate, EndDate, Deskripsi_Keperluan, Jaminan, Pesan, Status) VALUES (:id, :id_pengguna, :id_admin, :start_date, :end_date, :deskripsi_keperluan, :jaminan, :pesan, :status)";
+            $query = "INSERT INTO transaksi (ID_Transaksi, ID_Pengguna, ID_Admin, ID_Status, StartDate, EndDate, Deskripsi_Keperluan, Jaminan, Pesan) VALUES (:id, :id_pengguna, :id_admin, :id_status, :start_date, :end_date, :deskripsi_keperluan, :jaminan, :pesan)";
             $statement = $this->connection->prepare($query);
             $statement->execute([
                 'id' => $transaksi->ID_Transaksi,
                 'id_pengguna' => $transaksi->ID_Pengguna,
                 'id_admin' => $transaksi->ID_Admin,
+                'id_status' => $transaksi->ID_Status,
                 'start_date' => $transaksi->StartDate,
                 'end_date' => $transaksi->EndDate,
                 'deskripsi_keperluan' => $transaksi->Deskripsi_Keperluan,
                 'jaminan' => $transaksi->Jaminan,
-                'pesan' => $transaksi->Pesan,
-                'status' => $transaksi->Status
+                'pesan' => $transaksi->Pesan
             ]);
 
             $this->connection->commit();
@@ -163,6 +175,12 @@ class TransaksiRepository
                 'keyword' => "%$keyword%"
             ]);
             while ($row = $statement->fetchObject('Transaksi')) {
+                $message = $row->Pesan;
+                $lastSeparatorPosition = strrpos($message, "||");
+                $firstPart = trim(substr($message, 0, $lastSeparatorPosition));
+                $secondPart = trim(substr($message, $lastSeparatorPosition + strlen("||")));
+                $row->Pesan = $firstPart;
+                $row->Timestamp = $secondPart;
                 $transaksi[] = $row;
             }
 
@@ -199,6 +217,12 @@ class TransaksiRepository
             $statement->execute();
 
             while ($row = $statement->fetchObject('Transaksi')) {
+                $message = $row->Pesan;
+                $lastSeparatorPosition = strrpos($message, "||");
+                $firstPart = trim(substr($message, 0, $lastSeparatorPosition));
+                $secondPart = trim(substr($message, $lastSeparatorPosition + strlen("||")));
+                $row->Pesan = $firstPart;
+                $row->Timestamp = $secondPart;
                 $transaksi[] = $row;
             }
 
@@ -216,10 +240,10 @@ class TransaksiRepository
             $query = "
             SELECT T.ID_Transaksi, T.ID_Pengguna, T.ID_Admin, T.StartDate, T.EndDate, T.Deskripsi_Keperluan, T.Jaminan, T.Pesan, T.ID_Status
             FROM transaksi T
-            INNER JOIN pengguna P ON T.ID_Pengguna = P.ID_Pengguna
-            INNER JOIN Level L ON P.ID_Level = L.ID_Level
-            INNER JOIN status S ON T.ID_Status = S.ID_Status
-            INNER JOIN maintainer A ON T.ID_Admin = A.ID_Maintainer
+            LEFT JOIN pengguna P ON T.ID_Pengguna = P.ID_Pengguna
+            LEFT JOIN Level L ON P.ID_Level = L.ID_Level
+            LEFT JOIN status S ON T.ID_Status = S.ID_Status
+            LEFT JOIN maintainer A ON T.ID_Admin = A.ID_Maintainer
             WHERE S.Nama IN (";
 
         $i = 0;
@@ -249,6 +273,12 @@ class TransaksiRepository
         $statement->execute();
 
         while ($row = $statement->fetchObject('Transaksi')) {
+            $message = $row->Pesan;
+            $lastSeparatorPosition = strrpos($message, "||");
+            $firstPart = trim(substr($message, 0, $lastSeparatorPosition));
+            $secondPart = trim(substr($message, $lastSeparatorPosition + strlen("||")));
+            $row->Pesan = $firstPart;
+            $row->Timestamp = $secondPart;
             $transaksi[] = $row;
         }
         return $transaksi ?? [];
@@ -265,10 +295,10 @@ class TransaksiRepository
             $query = "
             SELECT T.ID_Transaksi, T.ID_Pengguna, T.ID_Admin, T.StartDate, T.EndDate, T.Deskripsi_Keperluan, T.Jaminan, T.Pesan, T.ID_Status
             FROM transaksi T
-            INNER JOIN pengguna P ON T.ID_Pengguna = P.ID_Pengguna
-            INNER JOIN Level L ON P.ID_Level = L.ID_Level
-            INNER JOIN status S ON T.ID_Status = S.ID_Status
-            INNER JOIN maintainer A ON T.ID_Admin = A.ID_Maintainer
+            LEFT JOIN pengguna P ON T.ID_Pengguna = P.ID_Pengguna
+            LEFT JOIN Level L ON P.ID_Level = L.ID_Level
+            LEFT JOIN status S ON T.ID_Status = S.ID_Status
+            LEFT JOIN maintainer A ON T.ID_Admin = A.ID_Maintainer
             WHERE S.Nama IN (";
 
         $i = 0;
@@ -297,6 +327,12 @@ class TransaksiRepository
         $statement->execute();
 
         while ($row = $statement->fetchObject('Transaksi')) {
+            $message = $row->Pesan;
+            $lastSeparatorPosition = strrpos($message, "||");
+            $firstPart = trim(substr($message, 0, $lastSeparatorPosition));
+            $secondPart = trim(substr($message, $lastSeparatorPosition + strlen("||")));
+            $row->Pesan = $firstPart;
+            $row->Timestamp = $secondPart;
             $transaksi[] = $row;
         }
         return $transaksi ?? [];
@@ -310,27 +346,52 @@ class TransaksiRepository
 
 
 
-    public function countStatusTransaksi(array $statusName, string $ID_Pengguna = null) : array
+
+
+    public function countStatusTransaksi(array $statusCodes, string $ID_Pengguna = null) : array
     {
         try {
+            $statusMapping = [
+                'S1' => 'Menunggu',
+                'S2' => 'Ditolak',
+                'S3' => 'Diterima',
+                'S4' => 'Proses',
+                'S5' => 'Selesai',
+                'S6' => 'Dibatalkan',
+                'S7' => 'Menunggu Ganti'
+            ];
 
-            foreach ($statusName as $stat) {
-                $query = "
-                SELECT COUNT(*) as $stat FROM transaksi
-                INNER JOIN status ON transaksi.ID_Status = status.ID_Status";
-                $newQuery = $query . " WHERE status.Nama = :status";
-                if ($ID_Pengguna != null) {
-                    $newQuery .= " AND transaksi.ID_Pengguna = :ID_Pengguna";
+            $result = [];
+
+            foreach ($statusCodes as $statusCode) {
+                // Get the corresponding status name from the mapping
+                $statusName = $statusMapping[$statusCode] ?? null;
+
+                if ($statusName) {
+                    $query = "
+                        SELECT COALESCE(COUNT(*), 0) as count FROM transaksi
+                        LEFT JOIN status ON transaksi.ID_Status = status.ID_Status
+                        WHERE status.Nama = :status";
+
+                    if ($ID_Pengguna !== null) {
+                        $query .= " AND transaksi.ID_Pengguna = :ID_Pengguna";
+                    }
+
+                    $statement = $this->connection->prepare($query);
+                    $statement->bindValue('status', $statusName);
+
+                    if ($ID_Pengguna !== null) {
+                        $statement->bindValue('ID_Pengguna', $ID_Pengguna);
+                    }
+
+                    $statement->execute();
+                    $count = $statement->fetch(PDO::FETCH_ASSOC)['count'];
+
+                    // Add the result to the mapped status name
+                    $result[$statusName] = $count;
                 }
-                $statement = $this->connection->prepare($newQuery);
-                $statement->bindValue('status',  $stat);
-                if ($ID_Pengguna != null) {
-                    $statement->bindValue('ID_Pengguna', $ID_Pengguna);
-                }
-                $statement->execute();
-                $result[$stat] = $statement->fetch(PDO::FETCH_ASSOC)[$stat];
             }
-            return $result ?? [];
+            return $result;
         } catch (PDOException $exception) {
             throw $exception;
         } catch (Exception $exception) {
@@ -343,21 +404,22 @@ class TransaksiRepository
         try {
             $query = "
             SELECT
-                I.ID_Inventaris,
-                I.Nama,
-                I.`Gambar`,
-                I.Stok - COALESCE(SUM(DT.Jumlah), 0) AS StokTersedia
+                i.ID_Inventaris,
+                SUM(dt.Jumlah) AS TotalBorrowed
             FROM
-                Inventaris I
-            LEFT JOIN
-                DetailTransaksi DT ON I.ID_Inventaris = DT.ID_Inventaris
+                Transaksi t
+            JOIN
+                DetailTransaksi dt ON t.ID_Transaksi = dt.ID_Transaksi
+            JOIN
+                Inventaris i ON dt.ID_Inventaris = i.ID_Inventaris
+            JOIN
+                Status s ON t.ID_Status = s.ID_Status
+            WHERE
+                t.ID_Status NOT IN ('S2', 'S5', 'S6')
             GROUP BY
-                I.ID_Inventaris, I.Nama, I.Stok
-            HAVING
-                StokTersedia > 0
+                t.ID_Status, i.ID_Inventaris
             ORDER BY
-                I.Stok DESC
-            LIMIT 3;";
+                i.ID_Inventaris;";
             $statement = $this->connection->prepare($query);
             $statement->execute();
             while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
@@ -389,6 +451,52 @@ class TransaksiRepository
             throw $exception;
         } catch (Exception $exception) {
             $this->connection->rollBack();
+            throw $exception;
+        }
+    }
+
+    public function getListPesan(string $ID_Pengguna) : array {
+        try {
+            $query = "SELECT ID_Transaksi, Pesan FROM transaksi WHERE ID_Pengguna = :id";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'id' => $ID_Pengguna
+            ]);
+            $statement->execute();
+            while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                $message = $row['Pesan'];
+                $lastSeparatorPosition = strrpos($message, "||");
+                $firstPart = trim(substr($message, 0, $lastSeparatorPosition));
+                $secondPart = trim(substr($message, $lastSeparatorPosition + strlen("||")));
+                $row['Pesan'] = $firstPart;
+                $row['Timestamp'] = $secondPart;
+                $pesan[] = $row;
+            }
+
+            return $pesan ?? [];
+        } catch (PDOException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    public function getListDate(string $ID_Pengguna) : array {
+        try {
+            $query = "SELECT ID_Transaksi, StartDate, EndDate FROM transaksi WHERE ID_Pengguna = :id AND ID_Status = 'S4'";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'id' => $ID_Pengguna
+            ]);
+            $statement->execute();
+
+            while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                $result[] = $row;
+            }
+            return $result ?? [];
+        } catch (PDOException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
             throw $exception;
         }
     }

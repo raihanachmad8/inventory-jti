@@ -54,7 +54,7 @@
 
 <div style="background-color: rgba(0, 0, 0, 0.5);" class="detail-item-modal-container vw-100 position-fixed overflow-y-scroll d-none">
     <div class="detail-item-modal bg-light overflow-hidden rounded-4 ">
-        <div class="order-last order-lg-first p-4 row-gap-3 d-flex flex-column  overflow-y-scroll ">
+        <div class="order-last order-lg-first p-4 row-gap-3 d-flex flex-column overflow-y-scroll ">
             <form action="" class="edit-item-form flex-grow-1 ">
                 <div class="d-flex flex-column gap-3">
                     <label class="fw-semibold ">Kode Barang</label>

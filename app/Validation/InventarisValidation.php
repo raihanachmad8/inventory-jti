@@ -43,6 +43,72 @@ class InventarisValidation extends Validation
         return $this;
     }
 
+    public function validateCheckoutPeminjaman() {
+
+        if (!isset($this->request['StartDate']) || $this->request['StartDate'] === '') {
+            $this->addError('StartDate', 'Start Date is required');
+        }
+
+        if (!isset($this->request['EndDate']) || $this->request['EndDate'] === '') {
+            $this->addError('EndDate', 'End Date is required');
+        }
+
+        if (!isset($this->request['Deskripsi_Keperluan']) || $this->request['Deskripsi_Keperluan'] === '') {
+            $this->addError('Deskripsi_Keperluan', 'Deskripsi Keperluan is required');
+        }
+
+        if (!isset($this->request['items']) || count($this->request['items']) === 0) {
+            $this->addError('items', 'Items is required');
+        }
+
+        if (empty($this->errors)) {
+            $this->validateDates();
+            $this->validateItems();
+        }
+        return $this;
+    }
+
+    public function validateDates()
+    {
+        if (strtotime($this->request['StartDate']) > strtotime($this->request['EndDate'])) {
+            $this->addError('StartDate', 'Start Date must be before End Date');
+        }
+        if (strtotime($this->request['EndDate']) < strtotime($this->request['StartDate'])) {
+            $this->addError('EndDate', 'End Date must be after Start Date');
+        }
+
+        return $this;
+    }
+
+
+    public function validateItems()
+    {
+        foreach ($this->request['items'] as $item) {
+            if (!isset($item->ID_Inventaris) || $item->ID_Inventaris === '') {
+                $this->addError('ID_Inventaris', 'ID Inventaris is required');
+            }
+
+            if (!isset($item->Jumlah) || $item->Jumlah === '') {
+                $this->addError('Jumlah', 'Jumlah is required');
+            }
+
+            if (empty($this->errors)) {
+                $this->validateJumlah($item->Jumlah);
+            }
+        }
+    }
+
+    public function validateJumlah($count)
+    {
+        if (strlen($count) < 0) {
+            $this->addError('Jumlah', 'Jumlah must not be negative');
+        }
+
+        if (!is_numeric($count)) {
+            $this->addError('Jumlah', 'Jumlah must be numeric');
+        }
+    }
+
     public function validateUpdate()
     {
         if (!isset($this->request['ID_Inventaris']) || $this->request['ID_Inventaris'] === '') {
@@ -98,7 +164,7 @@ class InventarisValidation extends Validation
             $this->addError('Stok', 'Stok must not be negative');
         }
 
-        if (!is_numeric($this->request['Stok'])) {
+        if (!is_numeric((int)$this->request['Stok'])) {
             $this->addError('Stok', 'Stok must be numeric');
         }
     }

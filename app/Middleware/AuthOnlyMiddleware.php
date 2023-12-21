@@ -21,7 +21,7 @@ class AuthOnlyMiddleware implements Middleware
 
             if (!$session) {
                 $this->handleUnauthorizedAccess();
-            }
+            } 
         } catch (Exception $e) {
             $this->handleInternalServerError();
         }

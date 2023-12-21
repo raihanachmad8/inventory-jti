@@ -5,6 +5,7 @@ require_once __DIR__ . '/../Exceptions/ValidationException.php';
 require_once __DIR__ . '/../Repository/OTPRepository.php';
 require_once __DIR__ . '/../Repository/LevelRepository.php';
 require_once __DIR__ . '/../Services/OTPService.php';
+require_once __DIR__ . '/../Services/ProfileService.php';
 
 
 class AuthService
@@ -12,12 +13,14 @@ class AuthService
     private PenggunaRepository $penggunaRepository;
     private OTPService $otpService;
     private LevelRepository $levelRepository;
+    private ProfileService $profileService;
 
     public function __construct(PenggunaRepository $penggunaRepository)
     {
         $this->penggunaRepository = $penggunaRepository;
         $this->otpService = new OTPService(new OTPRepository(DB::connect()));
         $this->levelRepository = new LevelRepository(DB::connect());
+        $this->profileService = new ProfileService();
     }
 
     public function register(array $request): ?Pengguna
@@ -40,6 +43,9 @@ class AuthService
         try {
             $this->validateLogin($request);
             $pengguna = $this->penggunaRepository->getDetailPenggunaByEmail($request['Email']);
+            if ($pengguna->Status === 'TIDAK AKTIF') {
+                throw new Exception('Email & Password is incorrect.');
+            }
             $pengguna->Level = $this->levelRepository->getLevelById($pengguna->ID_Level);
             $this->validatePassword($request['Password'], $pengguna);
             return $pengguna;
@@ -258,57 +264,16 @@ class AuthService
     public function reset(array $request): ?Pengguna
     {
         try {
-            $pengguna = $this->penggunaRepository->getDetailPenggunaById($request['ID_Pengguna']);
+            $result = $this->profileService->updateAccountSecurity($request);
 
-            if ($pengguna === null) {
-                throw new Exception('User not found.');
-            }
-
-            $password = $request['Password'] . $pengguna->Nomor_Identitas . $pengguna->Salt;
-            $pengguna->Password = password_hash( $password, PASSWORD_BCRYPT);
-            $result = $this->penggunaRepository->update($pengguna);
-
-            if ($result === null) {
+            if (!$result) {
                 throw new Exception('Failed to reset Password.');
             }
-            $pengguna = $this->penggunaRepository->getPenggunaById($pengguna->ID_Pengguna);
+            $pengguna = $this->penggunaRepository->getPenggunaById($request['ID_Pengguna']);
             return $pengguna;
         } catch (ValidationException $e) {
             throw new ValidationException($e->getErrors());
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public function changePassword(string $userId, string $currentPassword, string $newPassword): bool
-    {
-        try {
-
-
-            $pengguna = $this->penggunaRepository->getPenggunaById($userId);
-
-            if ($pengguna === null) {
-                throw new Exception('User not found.');
-            }
-
-            // Verifikasi Password saat ini
-            if (!password_verify($currentPassword, $pengguna->Password)) {
-                throw new Exception('Current Password not be same with Last Password.');
-            }
-
-            // Ubah Password baru
-            $pengguna->Password = password_hash($newPassword, PASSWORD_BCRYPT);
-            $pengguna = $this->penggunaRepository->update($pengguna);
-
-            if ($pengguna === null) {
-                throw new Exception('Failed to change Password.');
-            }
-
-
-
-            return true;
-        } catch (Exception $e) {
-
             throw new Exception($e->getMessage());
         }
     }
@@ -323,16 +288,12 @@ class AuthService
             if ($pengguna === null) {
                 throw new Exception('User not found.');
             }
-
-            $pengguna->Status = 'AKTIF';
-            $pengguna = $this->penggunaRepository->update($pengguna);
+            $pengguna = $this->penggunaRepository->updateStatus($userId, "AKTIF");
 
             if ($pengguna === null) {
                 throw new Exception('Failed to activate account.');
             }
 
-
-
             return true;
         } catch (Exception $e) {
 
@@ -340,32 +301,6 @@ class AuthService
         }
     }
 
-    public function resendActivationEmail(string $userId): bool
-    {
-        try {
-
-
-            $pengguna = $this->penggunaRepository->getPenggunaById($userId);
-
-            if ($pengguna === null) {
-                throw new Exception('User not found.');
-            }
-
-            // Kirim ulang Email aktivasi
-            $otp = $this->otpService->createOTP($pengguna->ID_Pengguna, $pengguna->Email);
-
-            if ($otp === null) {
-                throw new Exception('Failed to resend activation Email.');
-            }
-
-
-
-            return true;
-        } catch (Exception $e) {
-
-            throw new Exception($e->getMessage());
-        }
-    }
 
     public function getOTPByIdPengguna(string $idPengguna): ?OTP
     {

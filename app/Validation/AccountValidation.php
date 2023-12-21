@@ -90,7 +90,7 @@ class AccountValidation extends Validation
             $this->addError('Nomor_Identitas', 'Nomor Identitas must be valid');
         }
 
-        if (!is_numeric($this->request['Nomor_Identitas'])) {
+        if (!is_numeric((int)$this->request['Nomor_Identitas'])) {
             $this->addError('Nomor_Identitas', 'Nomor Identitas must be numeric');
         }
     }
@@ -109,7 +109,7 @@ class AccountValidation extends Validation
 
 
 
-    private function validatePhone()
+    public function validatePhone()
     {
         if (substr($this->request['Nomor_HP'], 0, 1) == '0') {
             $this->addError('Nomor_HP', 'Nomor HP must be not start with 0');
@@ -118,10 +118,14 @@ class AccountValidation extends Validation
         if (strlen($this->request['Nomor_HP']) < 10) {
             $this->addError('Nomor_HP', 'Nomor HP must be valid');
         }
+        if (strlen($this->request['Nomor_HP']) > 15) {
+            $this->addError('Nomor_HP', 'Nomor HP must be less than 15 characters');
+        }
 
-        if (!is_numeric($this->request['Nomor_HP'])) {
+        if (!is_numeric((int)$this->request['Nomor_HP'])) {
             $this->addError('Nomor_HP', 'Nomor HP must be numeric');
         }
+        return $this;
     }
 
 

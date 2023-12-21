@@ -1,10 +1,9 @@
 <?php
+
 $current_page_url = $_SERVER['REQUEST_URI'];
 
-
-
 $menu_items = [
-    'admin' => '/admin',
+    'admin' => '/admin/dashboard',
     'admin/data-peminjaman' => '/admin/data-peminjaman',
     'admin/inventarisir' => '/admin/inventarisir',
     'admin/riwayat-peminjaman' => '/admin/riwayat-peminjaman',
@@ -12,7 +11,7 @@ $menu_items = [
     'dashboard' => '/inventory/dashboard',
     'peminjaman' => '/inventory/peminjaman',
     'riwayat' => '/inventory/riwayat',
-    'profil' => '/profile/profil',
+    'profil' => '/profile/profile',
     'keamanan' => '/profile/keamanan',
     'pesan' => '/profile/pesan',
     'hapus-akun' => '/profile/hapus-akun',
@@ -67,14 +66,14 @@ function user_role()
                 </div>
             </div>
             <div class="logo-container duration-300 hidden">
-                <div class="logo-container-inner" style="<?= user_role() === 'admin' ? 'width: 23rem' : 'width: 14rem' ?> height: fit-content;">
-                    <img src="<?= user_role() == 'admin' ? '/public/assets/images/logo-polinema-admin.svg' : '/public/assets/images/polinema-logo.png' ?>" alt="" class="object-fit-cover ratio-16x9 w-100" />
+                <div class="logo-container-inner" style="<?= ($model['pengguna']->Level->Nama_Level) === 'Admin' ? 'width: 23rem' : 'width: 14rem' ?> height: fit-content;">
+                    <img src="<?= ($model['pengguna']->Level->Nama_Level) == 'Admin' ? '/public/assets/images/logo-polinema-admin.svg' : '/public/assets/images/polinema-logo.png' ?>" alt="" class="object-fit-cover ratio-16x9 w-100" />
                 </div>
             </div>
             <div class="sidebar-menu">
                 <ul class="d-flex justify-content-center align-items-center  flex-column row-gap-4" style="list-style: none; padding: 0">
                     <li class="nav-menu-container d-flex justify-content-center p-2 rounded-2 <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'background-color: #01305d;' : '' ?> width: fit-content">
-                        <a href="<?= user_role() == 'user' ? '/inventory/dashboard' : '/admin' ?>" class="nav-menu-icon text-decoration-none <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
+                        <a href="<?= ($model['pengguna']->Level->Nama_Level) !== 'Admin' ? '/inventory/dashboard' : '/admin/dashboard' ?>" class="nav-menu-icon text-decoration-none <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
                             <i data-feather="grid" class="menu-icon"></i>
                             <p class="text-menu d-none">
                                 Dashboard
@@ -82,21 +81,21 @@ function user_role()
                         </a>
                     </li>
                     <li class="nav-menu-container d-flex justify-content-center p-2 rounded-2 <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'background-color: #01305d;' : '' ?> width: fit-content">
-                        <a href="<?= user_role() == 'user' ? '/inventory/peminjaman' : '/admin/data-peminjaman' ?>" class=" nav-menu-icon text-decoration-none <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
+                        <a href="<?= ($model['pengguna']->Level->Nama_Level) !== 'Admin' ? '/inventory/peminjaman' : '/admin/data-peminjaman' ?>" class=" nav-menu-icon text-decoration-none <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
                             <i data-feather="shopping-cart" class="menu-icon"></i>
                             <p class="text-menu d-none">
-                                <?= user_role() == 'user' ? 'Peminjaman' : 'Data Peminjaman' ?></p>
+                                <?= ($model['pengguna']->Level->Nama_Level) !== 'Admin' ? 'Peminjaman' : 'Data Peminjaman' ?></p>
                         </a>
                     </li>
                     <li class="nav-menu-container d-flex justify-content-center p-2 rounded-2 <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'background-color: #01305d;' : '' ?> width: fit-content">
-                        <a href="<?= user_role() == 'user' ? '/inventory/riwayat' : '/admin/inventarisir' ?>" class="nav-menu-icon d-flex justify-content-start align-items-center text-decoration-none <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?> " style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
-                            <?php if (user_role() === 'admin') : ?>
+                        <a href="<?= ($model['pengguna']->Level->Nama_Level) !== 'Admin' ? '/inventory/riwayat' : '/admin/inventarisir' ?>" class="nav-menu-icon d-flex justify-content-start align-items-center text-decoration-none <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?> " style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
+                            <?php if (($model['pengguna']->Level->Nama_Level) === 'Admin') : ?>
                                 <i data-feather="archive" class="menu-icon"></i>
                             <?php else : ?>
                                 <i data-feather="clock"></i>
-                            <?php endif; ?><p class="text-menu d-none"><?= user_role() == 'user' ? 'Riwayat' : 'Inventarisir' ?></p></a>
+                            <?php endif; ?><p class="text-menu d-none"><?= ($model['pengguna']->Level->Nama_Level) !== 'Admin' ? 'Riwayat' : 'Inventarisir' ?></p></a>
                     </li>
-                    <li class="nav-menu-container d-flex justify-content-center p-2 rounded-2 <?= user_role() == 'admin' ? 'd-block' : 'd-none' ?> <?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'background-color: #01305d;' : '' ?> width: fit-content">
+                    <li class="nav-menu-container d-flex justify-content-center p-2 rounded-2 <?= ($model['pengguna']->Level->Nama_Level) === 'Admin' ? 'd-block' : 'd-none' ?> <?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'background-color: #01305d;' : '' ?> width: fit-content">
                         <a href="/admin/riwayat-peminjaman" class="nav-menu-icon d-flex justify-content-start align-items-center w-100 text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
                             <i data-feather="clock" class="menu-icon"></i>
                             <p class="text-menu d-none">
@@ -104,7 +103,7 @@ function user_role()
                             </p>
                         </a>
                     </li>
-                    <li class="nav-menu-container d-flex justify-content-center p-2 rounded-2 <?= user_role() == 'admin' ? 'd-block' : 'd-none' ?> <?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'background-color: #01305d;' : '' ?> width: fit-content">
+                    <li class="nav-menu-container d-flex justify-content-center p-2 rounded-2 <?= ($model['pengguna']->Level->Nama_Level) === 'Admin' ? 'd-block' : 'd-none' ?> <?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'background-color: #01305d;' : '' ?> width: fit-content">
                         <a href="/admin/maintainer" class="nav-menu-icon d-flex justify-content-start align-items-center w-100 text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'text-white' : 'text-dark' ?>" style="display: grid; grid-template-columns: auto auto; justify-content: between; align-content: center; width: fit-content;">
                             <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" width="24" height="24" viewBox="0 0 24 24">
                                 <path fill="<?= active_page($current_page_url, $menu_items['admin/maintainer']) ? '#fff' : '#000' ?>" d="m8,12c3.309,0,6-2.691,6-6S11.309,0,8,0,2,2.691,2,6s2.691,6,6,6Zm0-10c2.206,0,4,1.794,4,4s-1.794,4-4,4-4-1.794-4-4,1.794-4,4-4Zm.992,12.938c.068.548-.32,1.047-.869,1.116-3.491.436-6.124,3.421-6.124,6.946,0,.552-.448,1-1,1s-1-.448-1-1c0-4.531,3.386-8.37,7.876-8.93.542-.069,1.047.32,1.116.869Zm13.704,4.195l-.974-.562c.166-.497.278-1.019.278-1.572s-.111-1.075-.278-1.572l.974-.562c.478-.276.642-.888.366-1.366-.277-.479-.888-.643-1.366-.366l-.973.562c-.705-.794-1.644-1.375-2.723-1.594v-1.101c0-.552-.448-1-1-1s-1,.448-1,1v1.101c-1.079.22-2.018.801-2.723,1.594l-.973-.562c-.481-.277-1.09-.113-1.366.366-.276.479-.112,1.09.366,1.366l.974.562c-.166.497-.278,1.019-.278,1.572s.111,1.075.278,1.572l-.974.562c-.478.276-.642.888-.366,1.366.186.321.521.5.867.5.169,0,.341-.043.499-.134l.973-.562c.705.794,1.644,1.375,2.723,1.594v1.101c0,.552.448,1,1,1s1-.448,1-1v-1.101c1.079-.22,2.018-.801,2.723-1.594l.973.562c.158.091.33.134.499.134.346,0,.682-.179.867-.5.276-.479.112-1.09-.366-1.366Zm-5.696.866c-1.654,0-3-1.346-3-3s1.346-3,3-3,3,1.346,3,3-1.346,3-3,3Z" />
@@ -122,7 +121,7 @@ function user_role()
             <div class="w-75 h-100 bg-white" style="padding: 7rem 1.5rem 0 1.5rem;">
                 <ul class="d-flex flex-column row-gap-4" style="list-style: none; padding: 0">
                     <li class="d-flex gap-3 p-3 rounded-2 <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'background-color: #01305d' : '' ?>">
-                        <a href="<?= user_role() == 'user' ? '/dashboard' : '/admin' ?>" class=" d-flex justify-content-start align-items-center w-100  text-decoration-none d-flex gap-3 <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>">
+                        <a href="<?= ($model['pengguna']->Level->Nama_Level) !== 'Admin' ? '/inventory/dashboard' : '/admin' ?>" class=" d-flex justify-content-start align-items-center w-100  text-decoration-none d-flex gap-3 <?= active_page($current_page_url, $menu_items['dashboard']) || active_page($current_page_url, $menu_items['admin']) ? 'text-white' : 'text-dark' ?>">
                             <i data-feather="grid" class="menu-icon"></i>
                             <p class="text-menu">
                                 Dashboard
@@ -130,21 +129,21 @@ function user_role()
                         </a>
                     </li>
                     <li class="d-flex gap-3  p-3  rounded-2 <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'background-color: #01305d' : '' ?>">
-                        <a href="<?= user_role() == 'user' ? '/peminjaman' : '/admin/data-peminjaman' ?>" class="d-flex justify-content-start align-items-center w-100 text-decoration-none d-flex gap-3 <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>">
+                        <a href="<?= ($model['pengguna']->Level->Nama_Level) !== 'Admin' ? '/inventory/peminjaman' : '/admin/data-peminjaman' ?>" class="d-flex justify-content-start align-items-center w-100 text-decoration-none d-flex gap-3 <?= active_page($current_page_url, $menu_items['peminjaman']) || active_page($current_page_url, $menu_items['admin/data-peminjaman']) ? 'text-white' : 'text-dark' ?>">
                             <i data-feather="shopping-cart" class="menu-icon"></i>
                             <p class="text-menu">
-                                <?= user_role() == 'user' ? 'Peminjaman' : 'Data Peminjaman' ?></p>
+                                <?= ($model['pengguna']->Level->Nama_Level) == 'Admin' ? 'Peminjaman' : 'Data Peminjaman' ?></p>
                         </a>
                     </li>
                     <li class="d-flex gap-3  p-3  rounded-2 <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'background-color: #01305d' : '' ?>">
-                        <a href="<?= user_role() == 'user' ? '/riwayat' : '/admin/inventarisir' ?>" class="d-flex justify-content-start align-items-center w-100 text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?>">
-                            <?php if (user_role() === 'admin') : ?>
+                        <a href="<?= ($model['pengguna']->Level->Nama_Level) !== 'Admin' ? '/inventory/riwayat' : '/admin/inventarisir' ?>" class="d-flex justify-content-start align-items-center w-100 text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['riwayat']) || active_page($current_page_url, $menu_items['admin/inventarisir']) ? 'text-white' : 'text-dark' ?>">
+                            <?php if (($model['pengguna']->Level->Nama_Level) === 'admin') : ?>
                                 <i data-feather="archive" class="menu-icon"></i>
                             <?php else : ?>
                                 <i data-feather="clock"></i>
-                            <?php endif; ?><p class="text-menu"><?= user_role() == 'user' ? 'Riwayat' : 'Inventarisir' ?></p></a>
+                            <?php endif; ?><p class="text-menu"><?= ($model['pengguna']->Level->Nama_Level) !==  'Admin' ? 'Riwayat' : 'Inventarisir' ?></p></a>
                     </li>
-                    <li class="d-flex gap-3  p-3  rounded-2 <?= user_role() == 'admin' ? 'd-block' : 'd-none' ?> <?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'background-color: #01305d' : '' ?>">
+                    <li class="d-flex gap-3  p-3  rounded-2 <?= ($model['pengguna']->Level->Nama_Level) === 'admin' ? 'd-block' : 'd-none' ?> <?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'background-color: #01305d' : '' ?>">
                         <a href="/admin/riwayat-peminjaman" class="d-flex justify-content-start align-items-center w-100 text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['admin/riwayat-peminjaman']) ? 'text-white' : 'text-dark' ?>">
                             <i data-feather="clock" class="menu-icon"></i>
                             <p class="text-menu">
@@ -152,7 +151,7 @@ function user_role()
                             </p>
                         </a>
                     </li>
-                    <li class="d-flex gap-3  p-3  rounded-2 <?= user_role() == 'admin' ? 'd-block' : 'd-none' ?> <?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'background-color: #01305d' : '' ?>">
+                    <li class="d-flex gap-3  p-3  rounded-2 <?= ($model['pengguna']->Level->Nama_Level) === 'Admin' ? 'd-block' : 'd-none' ?> <?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'text-white' : 'text-dark' ?>" style="<?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'background-color: #01305d' : '' ?>">
                         <a href="/admin/maintainer" class="d-flex justify-content-start align-items-center w-100 text-decoration-none d-flex gap-3  <?= active_page($current_page_url, $menu_items['admin/maintainer']) ? 'text-white' : 'text-dark' ?>">
                             <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" width="24" height="24" viewBox="0 0 24 24">
                                 <path fill="<?= active_page($current_page_url, $menu_items['admin/maintainer']) ? '#fff' : '#000' ?>" d="m8,12c3.309,0,6-2.691,6-6S11.309,0,8,0,2,2.691,2,6s2.691,6,6,6Zm0-10c2.206,0,4,1.794,4,4s-1.794,4-4,4-4-1.794-4-4,1.794-4,4-4Zm.992,12.938c.068.548-.32,1.047-.869,1.116-3.491.436-6.124,3.421-6.124,6.946,0,.552-.448,1-1,1s-1-.448-1-1c0-4.531,3.386-8.37,7.876-8.93.542-.069,1.047.32,1.116.869Zm13.704,4.195l-.974-.562c.166-.497.278-1.019.278-1.572s-.111-1.075-.278-1.572l.974-.562c.478-.276.642-.888.366-1.366-.277-.479-.888-.643-1.366-.366l-.973.562c-.705-.794-1.644-1.375-2.723-1.594v-1.101c0-.552-.448-1-1-1s-1,.448-1,1v1.101c-1.079.22-2.018.801-2.723,1.594l-.973-.562c-.481-.277-1.09-.113-1.366.366-.276.479-.112,1.09.366,1.366l.974.562c-.166.497-.278,1.019-.278,1.572s.111,1.075.278,1.572l-.974.562c-.478.276-.642.888-.366,1.366.186.321.521.5.867.5.169,0,.341-.043.499-.134l.973-.562c.705.794,1.644,1.375,2.723,1.594v1.101c0,.552.448,1,1,1s1-.448,1-1v-1.101c1.079-.22,2.018-.801,2.723-1.594l.973.562c.158.091.33.134.499.134.346,0,.682-.179.867-.5.276-.479.112-1.09-.366-1.366Zm-5.696.866c-1.654,0-3-1.346-3-3s1.346-3,3-3,3,1.346,3,3-1.346,3-3,3Z" />
@@ -173,42 +172,18 @@ function user_role()
                     <img src="/public/assets/images/logo-tulisan.svg" alt="" class="w-100 object-fit-cover ratio-16x9" />
                 </div>
                 <div class="d-flex justify-content-center align-items-center gap-2 gap-md-3 ">
-                    <div class="position-relative">
-                        <button aria-label="button-mail" type="button" class="btn button-mail">
-                            <i data-feather="mail"></i>
-                        </button>
-                        <div class="message-notification d-none  position-absolute bg-body-tertiary  rounded-3 end-0 overflow-hidden p-2 overflow-y-scroll " style="width: 200px; height: 150px; top: 40px; opacity: 0;">
-                            <strong>Pesan</strong>
-                            <ul class="d-flex flex-column row-gap-2">
-                                <li class="p-2 rounded-3 " style="background: #E3F2F9;">
-                                    <p style="font-size: 0.8rem;">Silahkan ambil di lantai 7</p>
-                                </li>
-                                <li class="p-2 rounded-3 " style="background: #E3F2F9;">
-                                    <p style="font-size: 0.8rem;">Silahkan ambil di lantai 7</p>
-                                </li>
-                                <li class="p-2 rounded-3 " style="background: #E3F2F9;">
-                                    <p style="font-size: 0.8rem;">Silahkan ambil di lantai 7</p>
-                                </li>
-                                <li class="p-2 rounded-3 " style="background: #E3F2F9;">
-                                    <p style="font-size: 0.8rem;">Silahkan ambil di lantai 7</p>
-                                </li>
-                                <li class="p-2 rounded-3 " style="background: #E3F2F9;">
-                                    <p style="font-size: 0.8rem;">Silahkan ambil di lantai 7</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <?= ($model['pengguna']) ? $model['pengguna']->ID_Pengguna : $model['profile']->ID_Pengguna ?>
                     <!-- Profile -->
-                    <button  aria-label="button-profile" type="button" class="button-profile btn d-flex justify-content-center align-items-center gap-2 rounded-5 p-2 position-relative ">
+                    <button aria-label="button-profile" type="button" class="button-profile btn d-flex justify-content-center align-items-center gap-2 rounded-5 p-2 position-relative ">
                         <div style="width: 3rem; height: 3rem" class="rounded-circle position-relative ">
                             <div class="position-absolute -top-0 end-0 bg-success rounded-circle" style="width: 1rem; height: 1rem"></div>
                             <div class="rounded-circle overflow-hidden w-100 h-100">
-                                <img src="https://source.unsplash.com/random/900×700/?potrait" alt="" class="object-fit-cover ratio-1x1 w-100 h-100" />
+                                <img src="/public/assets/images/profile/<?= ($model['profile']->Foto) ?? 'default.jpeg' ?>" style="width: 3rem; height: 3rem; border-radius: 50%; object-fit: contain; background-repeat: no-repeat; object-position: center;" alt="default-profile">
                             </div>
                         </div>
-                        <div class="profile-menu position-absolute bg-white end-0 rounded-4 p-3 border border-light d-none " style="width: 9rem; bottom: -6rem; opacity: 0;">
+                        <div class="profile-menu position-absolute bg-white end-0 rounded-4 p-3 border border-light d-none z-100 " style="width: 9rem; bottom: -6rem; opacity: 0;">
                             <ul class="d-flex flex-column row-gap-2">
-                                <li><a href="/profile/profil" class="nav-link text-start" style="color: #01305d;">Profile</a></li>
+                                <li><a href="/profile/profile" class="nav-link text-start" style="color: #01305d;">Profile</a></li>
                                 <li><a href="/users/logout" class="text-danger nav-link text-start ">Logout <i data-feather="log-out"></i> </a></li>
                             </ul>
                         </div>

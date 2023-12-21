@@ -64,7 +64,7 @@ class DetailTransaksiRepository
     {
         try {
             $this->connection->beginTransaction();
-            $query = "INSERT INTO detail_transaksi
+            $query = "INSERT INTO DetailTransaksi
             (ID_DetailTrc, ID_Transaksi, ID_Inventaris, Kondisi, Jumlah) VALUES
             (:id, :id_transaksi, :id_inventaris, :kondisi, :jumlah)";
             $statement = $this->connection->prepare($query);
@@ -118,6 +118,17 @@ class DetailTransaksiRepository
             throw $exception;
         }
 
+    }
+
+    public function getLastId() : string
+    {
+        $query = "SELECT ID_DetailTrc
+        FROM DetailTransaksi
+        ORDER BY CAST(SUBSTRING(ID_DetailTrc FROM 3) AS SIGNED) DESC, ID_DetailTrc
+        LIMIT 1";
+        $result = $this->connection->query($query);
+        $transaksi = $result->fetch(PDO::FETCH_ASSOC);
+        return $transaksi['ID_DetailTrc'];
     }
 
 }

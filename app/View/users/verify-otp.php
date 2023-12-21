@@ -126,7 +126,7 @@
                     urlParams = new URLSearchParams(window.location.search);
                     const email = urlParams.get('Email') || '';
                     const id = urlParams.get('ID_Pengguna') || '';
-                    countdownElement.innerHTML = `<a href="/users/forgot/resend-verification?ID_Pengguna=${id}&Email=${email}">Kirim ulang</a>`
+                    countdownElement.innerHTML = `<a href="/users/register/resend-verification?ID_Pengguna=${id}&Email=${email}">Kirim ulang</a>`
                 }
             }
 

@@ -122,7 +122,6 @@ class View implements ViewInterface
             $errorMessage = $_SESSION['error'];
             echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             ' . $errorMessage . '
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>';
             unset($_SESSION['error']);
         } else if (isset($_SESSION['success'])) {
@@ -130,7 +129,6 @@ class View implements ViewInterface
             echo '
             <div class="alert alert-success alert-dismissible fade show" role="alert">
             ' . $successMessage . '
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>';
 
             unset($_SESSION['success']);

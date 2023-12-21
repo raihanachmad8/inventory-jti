@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="text-center">
-            <h1><?= $model['status']['Selesai'] ?></h1>
+            <h1><?= ((int)$model['status']['Selesai'] + (int) $model['status']['Dibatalkan'] + (int) $model['status']['Ditolak']) ?></h1>
         </div>
         <div>
             <small>Peminjaman yang sudah selesai</small>
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="text-center">
-            <h1><?= $model['status']['Proses'] ?></h1>
+            <h1><?= ((int)$model['status']['Proses'] + (int) $model['status']['Menunggu Ganti']) ?></h1>
         </div>
         <div>
             <small>Peminjaman yang belum selesai</small>
@@ -83,9 +83,29 @@
                                 <td><?= $peminjaman->ID_Transaksi ?></td>
                                 <td><?= (new DateTime($peminjaman->StartDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;"><?= (new DateTime($peminjaman->StartDate))->format('h:i A') ?></span></td>
                                 <td><?= (new DateTime($peminjaman->EndDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;"><?= (new DateTime($peminjaman->EndDate))->format('h:i A') ?></span></td>
-                                <td>
-                                    <span class="rounded-2 " style="color: #A45B18; background-color: rgba(218, 114, 19, 0.30); padding: 0.6rem 1rem; user-select: none;"><?= $peminjaman->Status->Nama_Status ?></span>
-                                </td>
+                                <td><span class="rounded-2 mt-1 d-inline-block" style="color: <?php
+                                                                                                if ($peminjaman->Status->Nama_Status == 'Selesai') {
+                                                                                                    echo '#28A461';
+                                                                                                } elseif ($peminjaman->Status->Nama_Status == 'Menunggu') {
+                                                                                                    echo '#A45B18';
+                                                                                                } elseif ($peminjaman->Status->Nama_Status == "Proses") {
+                                                                                                    echo '#C58208';
+                                                                                                } elseif ($peminjaman->Status->Nama_Status == 'Diterima') {
+                                                                                                    echo '#074B81';
+                                                                                                } else {
+                                                                                                    echo '#960000';
+                                                                                                } ?>;background-color: <?php
+                                                                                                                        if ($peminjaman->Status->Nama_Status == 'Selesai') {
+                                                                                                                            echo 'rgba(40, 164, 97, 0.15)';
+                                                                                                                        } elseif ($peminjaman->Status->Nama_Status == 'Menunggu') {
+                                                                                                                            echo 'rgba(218, 114, 19, 0.15)';
+                                                                                                                        } elseif ($peminjaman->Status->Nama_Status == "Proses") {
+                                                                                                                            echo '#FFF9E1';
+                                                                                                                        } elseif ($peminjaman->Status->Nama_Status == 'Diterima') {
+                                                                                                                            echo 'rgba(158, 214, 251, 0.65)';
+                                                                                                                        } else {
+                                                                                                                            echo 'rgba(252, 64, 86, 0.30)';
+                                                                                                                        } ?>; padding: 0.3rem 1rem; user-select: none;"><?= $peminjaman->Status->Nama_Status ?></span></td>
                                 <td><button class="button-detail-history-loan btn" style="background-color: #CEE7FF; color:#01305D;" data-kode="<?= $peminjaman->ID_Transaksi ?>">Detail</button></td>
                             </tr>
                         <?php endforeach; ?>
@@ -106,18 +126,20 @@
                     <img src="/public/assets/images/icon-barang-baru.svg" alt="" class="h-100  w-100 object-fit-cover">
                 </div>
             </div>
-            <div class="overflow-y-scroll d-flex flex-column gap-4 h-100 py-2 mt-2 ">
+            <div class="overflow-y-scroll d-flex flex-column gap-4 h-100 py-4 mt-2 ">
                 <?php if (count($model['stok']) > 0) : ?>
                     <?php foreach ($model['stok'] as $stok) : ?>
-                        <div class="d-flex gap-4">
-                            <div class="new-item-image-container">
-                                <img src="/public/assets/images/inventarisir/<?= $stok['Gambar'] ?>" alt="" class="w-100 h-100 object-fit-cover rounded-3" />
+                        <?php if ($stok['AvailableStock'] > 0) : ?>
+                            <div class="d-flex gap-4 my-4">
+                                <div class="new-item-image-container">
+                                    <img src="/public/assets/images/inventarisir/<?= $stok['Gambar'] ?>" alt="" class="w-100 h-100 object-fit-cover rounded-3" />
+                                </div>
+                                <div>
+                                    <strong class="new-item-title"><?= $stok['Nama_Inventaris'] ?></strong>
+                                    <p class="new-item-stock text-body-tertiary">Stok: <?= $stok['AvailableStock'] ?></p>
+                                </div>
                             </div>
-                            <div>
-                                <strong class="new-item-title"><?= $stok['Nama'] ?></strong>
-                                <p class="new-item-stock text-body-tertiary">Stok: <?= $stok['StokTersedia'] ?></p>
-                            </div>
-                        </div>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 <?php else : ?>
                     <div class="d-flex justify-content-center align-items-center h-100">
@@ -324,53 +346,53 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
     </div>
 </div>
 <script>
-  $('.button-detail-history-loan').each(function() {
-            $(this).click(async function() {
-                const kode = $(this).data('kode');
-                await $.ajax({
-                    url: '/inventory/historyPeminjaman',
-                    method: 'GET',
-                    data: {
-                        kode: kode
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        $(document).ready(() => {
-                            const options = {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                    hour: "numeric",
-                                    minute: "numeric",
-                                    hour12: false, // Use 24-hour format
-                                };
-                            $('#nama').html(data.data.Pengguna.Nama_Pengguna);
-                            $('#nomor-identitas').html(data.data.Pengguna.Nomor_Identitas);
-                            $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
-                            $('#status').html(data.data.Status.Nama_Status);
-                            if (data.data.Status.Nama_Status == "Menunggu") {
-                                $('.detail-loan-button').append(`<button class="button-cancel-loan btn btn-danger text-white">Batalkan</button>`);
-                            }
-                            $('#keterangan').html(data.data.Pesan);
-                            $('#deskripsi-keperluan').html(data.data.Deskripsi_Keperluan);
-                            $('#start-date').html(new Date(data.data.StartDate).toLocaleDateString("id-ID", options));
-                            $('#end-date').html(new Date(data.data.EndDate).toLocaleDateString("id-ID", options));
-                            if (data.data.Pengguna.Level.Nama_Level == 'Mahasiswa') {
-                                $('#tanda-pengenal').html(`
+    $('.button-detail-history-loan').each(function() {
+        $(this).click(async function() {
+            const kode = $(this).data('kode');
+            await $.ajax({
+                url: '/inventory/historyPeminjaman',
+                method: 'GET',
+                data: {
+                    kode: kode
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $(document).ready(() => {
+                        const options = {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: false, // Use 24-hour format
+                        };
+                        $('#nama').html(data.data.Pengguna.Nama_Pengguna);
+                        $('#nomor-identitas').html(data.data.Pengguna.Nomor_Identitas);
+                        $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
+                        $('#status').html(data.data.Status.Nama_Status);
+                        if (data.data.Status.Nama_Status == "Menunggu") {
+                            $('.detail-loan-button').append(`<button class="button-cancel-loan btn btn-danger text-white">Batalkan</button>`);
+                        }
+                        $('#keterangan').html(data.data.Pesan);
+                        $('#deskripsi-keperluan').html(data.data.Deskripsi_Keperluan === "undefined" ? "-" : data.data.Deskripsi_Keperluan);
+                        $('#start-date').html(new Date(data.data.StartDate).toLocaleDateString("id-ID", options));
+                        $('#end-date').html(new Date(data.data.EndDate).toLocaleDateString("id-ID", options));
+                        if (data.data.Pengguna.Level.Nama_Level == 'Mahasiswa') {
+                            $('#tanda-pengenal').html(`
                                 <td><strong>Kartu Tanda Pengenal</strong></td>
                                 <td><strong>:</strong></td>
                                 <td>
                                     <div style="width: 250px; height: 150px;"><img src="" alt="" class="w-100 h-100 object-fit-cover ratio-16x9 rounded-3 "></div>
                                 </td>
                                     `);
-                                $('#tanda-pengenal img').attr('src', `/public/assets/images/jaminan/${data.data.Jaminan}`);
-                            } else {
-                                $('#tanda-pengenal').html('');
-                            }
-                            const table = function ()  {
-                                let html = '';
-                                data.data.DetailTransaksi.forEach((detail) => {
-                                    html += `
+                            $('#tanda-pengenal img').attr('src', `/public/assets/images/jaminan/${data.data.Jaminan}`);
+                        } else {
+                            $('#tanda-pengenal').html('');
+                        }
+                        const table = function() {
+                            let html = '';
+                            data.data.DetailTransaksi.forEach((detail) => {
+                                html += `
                                     <tr>
                                         <td>${detail.Inventaris.ID_Inventaris}</td>
                                         <td>${detail.Inventaris.Nama_Inventaris}</td>
@@ -379,32 +401,32 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
                                         <td>${detail.Kondisi}</td>
                                     </tr>
                                     `;
-                                })
-                                return html;
-                            }
-                            $('.loan-detail-table tbody').html(table)
-                            $('.cancel-loan-button').attr('data-kode', data.data.ID_Transaksi);
-                            $('.content').addClass('d-none')
-                            $('.modal-detail-container').removeClass('d-none');
-                        })
+                            })
+                            return html;
+                        }
+                        $('.loan-detail-table tbody').html(table)
+                        $('.cancel-loan-button').attr('data-kode', data.data.ID_Transaksi);
+                        $('.content').addClass('d-none')
+                        $('.modal-detail-container').removeClass('d-none');
+                    })
 
-                    },
-                    error: (error) => {
-                        $(document).ready(function() {
-                            $('.modal-container-failed').removeClass('d-none');
-                            $('#modal-container-failed-title').html('Gagal');
-                            $('#modal-container-failed-message').html(error.responseJSON.error);
+                },
+                error: (error) => {
+                    $(document).ready(function() {
+                        $('.modal-container-failed').removeClass('d-none');
+                        $('#modal-container-failed-title').html('Gagal');
+                        $('#modal-container-failed-message').html(error.responseJSON.error);
 
-                        })
-                    }
-                });
-            })
-  })
+                    })
+                }
+            });
+        })
+    })
 
-  $('.cancel-loan-button').click(function (e) {
-    e.preventDefault();
-    const kode = $(this).data('kode');
-    $.ajax({
+    $('.cancel-loan-button').click(function(e) {
+        e.preventDefault();
+        const kode = $(this).data('kode');
+        $.ajax({
             url: `/inventory/history/delete?kode=${kode}`,
             method: 'DELETE',
             success: (data) => {
@@ -425,16 +447,16 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
                 })
             }
         })
-  })
+    })
 
-  $(document).on('click', '.button-back-loan ', () => {
-    $('.content').removeClass('d-none')
-    $('.modal-detail-container').addClass('d-none');
-  })
-  $(document).on('click', '.delete-item-button-back ', () => {
-    $('.cancel-loan-modal-container').addClass('d-none');
-  })
-  $(document).on('click', '.button-cancel-loan ', () => {
-    $('.cancel-loan-modal-container').removeClass('d-none');
-  })
+    $(document).on('click', '.button-back-loan ', () => {
+        $('.content').removeClass('d-none')
+        $('.modal-detail-container').addClass('d-none');
+    })
+    $(document).on('click', '.delete-item-button-back ', () => {
+        $('.cancel-loan-modal-container').addClass('d-none');
+    })
+    $(document).on('click', '.button-cancel-loan ', () => {
+        $('.cancel-loan-modal-container').removeClass('d-none');
+    })
 </script>

@@ -56,17 +56,17 @@ INSERT INTO MaintainerInventaris (ID_Inventaris, ID_Maintainer) VALUES
 
 
 INSERT INTO Transaksi (ID_Transaksi, ID_Pengguna, ID_Admin, ID_Status, StartDate, EndDate, Deskripsi_Keperluan, Jaminan, Pesan) VALUES
-	('T1', 'P2', 'M1', 'S5', '2023-11-01 8:00:00', '2023-11-05 15:00:00', 'Perlu untuk acara seminar', null, 'Silahkan diambil diruang admin lt.6'),
-	('T2', 'P3', 'M1', 'S5', '2023-11-02 9:00:00', '2023-11-08 15:00:00', 'Untuk keperluan riset', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.7'),
-	('T3', 'P2', 'M2', 'S2', '2023-11-05 10:00:00', '2023-11-15 15:00:00', 'Acara workshop', null, 'Silahkan diambil diruang teknisi lt.5'),
-	('T4', 'P3', 'M1', 'S5', '2023-11-10 11:00:00', '2023-11-20 15:00:00', 'Untuk keperluan presentasi', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang admin lt.6'),
-	('T5', 'P2', 'M3', 'S5', '2023-11-15 12:00:00', '2023-11-25 15:00:00', 'Acara pelatihan', null, 'Silahkan diambil diruang teknisi lt.7'),
-	('T6', 'P3', 'M3', 'S6', '2023-12-19 13:00:00', '2023-11-30 15:00:00', 'Untuk tugas kuliah', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang admin lt.6'),
-	('T7', 'P3', 'M2', 'S4', '2023-11-30 15:00:00', '2023-12-10 15:00:00', 'Untuk presentasi akhir', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.7'),
-	('T8', 'P2', 'M1', 'S7', '2023-12-25 14:00:00', '2023-12-05 15:00:00', 'Acara seminar ', null, 'Silahkan diambil diruang teknisi lt.5'),
-	('T9', 'P2', 'M3', 'S4', '2023-12-01 16:00:00', '2023-12-12 15:00:00', 'Acara workshop akhir tahun', null, 'Silahkan diambil diruang admin lt. 6'),
-	('T10', 'P3', 'M2', 'S3', '2023-12-05 17:00:00', '2023-12-15 15:00:00', 'Untuk kegiatan UKM', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.7'),
-	('T11', 'P3', 'M1', 'S1', '2023-12-18 17:00:00', '2023-12-15 15:00:00', 'Untuk mengerjakan tugas akhir', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.5');
+	('T1', 'P2', 'M1', 'S5', '2023-11-01 8:00:00', '2023-11-05 15:00:00', 'Perlu untuk acara seminar', null, 'Silahkan diambil diruang admin lt.6 || 2023-11-01 8:10:00'),
+	('T2', 'P3', 'M1', 'S5', '2023-11-02 9:00:00', '2023-11-08 15:00:00', 'Untuk keperluan riset', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.7 || 2023-11-02 9:10:00'),
+	('T3', 'P2', 'M2', 'S2', '2023-11-05 10:00:00', '2023-11-15 15:00:00', 'Acara workshop', null, 'Silahkan diambil diruang teknisi lt.5 || 2023-11-05 10:10:00'),
+	('T4', 'P3', 'M1', 'S5', '2023-11-10 11:00:00', '2023-11-20 15:00:00', 'Untuk keperluan presentasi', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang admin lt.6 || 2023-11-10 11:10:00'),
+	('T5', 'P2', 'M3', 'S5', '2023-11-15 12:00:00', '2023-11-25 15:00:00', 'Acara pelatihan', null, 'Silahkan diambil diruang teknisi lt.7 || 2023-11-15 12:10:00'),
+	('T6', 'P3', 'M3', 'S6', '2023-12-19 13:00:00', '2023-11-30 15:00:00', 'Untuk tugas kuliah', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang admin lt.6 || 2023-12-19 13:10:00'),
+	('T7', 'P3', 'M2', 'S4', '2023-11-30 15:00:00', '2023-12-10 15:00:00', 'Untuk presentasi akhir', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.7 || 2023-11-30 15:10:00'),
+	('T8', 'P2', 'M1', 'S7', '2023-12-25 14:00:00', '2023-12-05 15:00:00', 'Acara seminar ', null, 'Silahkan diambil diruang teknisi lt.5 || 2023-12-25 14:10:00'),
+	('T9', 'P2', 'M3', 'S4', '2023-12-01 16:00:00', '2023-12-12 15:00:00', 'Acara workshop akhir tahun', null, 'Silahkan diambil diruang admin lt. 6 || 2023-12-01 16:10:00'),
+	('T10', 'P3', 'M2', 'S3', '2023-12-05 17:00:00', '2023-12-15 15:00:00', 'Untuk kegiatan UKM', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.7 || 2023-12-05 17:10:00'),
+	('T11', 'P3', 'M1', 'S1', '2023-12-18 17:00:00', '2023-12-15 15:00:00', 'Untuk mengerjakan tugas akhir', 'anggap-aja-ktm.jpg', 'Silahkan diambil diruang teknisi lt.5 || 2023-12-18 17:10:00');
 
 INSERT INTO DetailTransaksi (ID_DetailTrc, ID_Transaksi, ID_Inventaris, Jumlah, Kondisi) VALUES
 	('DT1', 'T1', 'I1', '2', 'Normal'),

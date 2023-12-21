@@ -4,6 +4,8 @@ require_once __DIR__ . '/../Services/InventarisirService.php';
 require_once __DIR__ . '/../Services/PeminjamanService.php';
 require_once __DIR__ . '/../Services/MaintainerService.php';
 require_once __DIR__ . '/../Services/FileImageService.php';
+require_once __DIR__ . '/../Services/SessionManagerService.php';
+require_once __DIR__ . '/../Services/ProfileService.php';
 
 class AdminController
 {
@@ -11,13 +13,17 @@ class AdminController
     private PeminjamanService $peminjamanService;
     private MaintainerService $maintainerService;
     private FileImageService $fileImageService;
+    private SessionManagerService $sessionManagerService;
+    private ProfileService $profileService;
 
     public function __construct()
     {
         $this->inventarisirService = new InventarisirService();
         $this->peminjamanService = new PeminjamanService();
         $this->maintainerService = new MaintainerService();
-        $this->fileImageService = new FileImageService('/../../public/assets/images/');
+        $this->fileImageService = new FileImageService();
+        $this->sessionManagerService = new SessionManagerService(new SessionManagerRepository());
+        $this->profileService = new ProfileService();
 
     }
     public function dashboard()
@@ -31,7 +37,10 @@ class AdminController
                 if (empty($peminjaman)) {
                     $peminjaman = [];
                 }
-                return View::renderView('admin/dashboard/dashboard', compact('peminjaman', 'maintainer', 'status', 'statusPeminjaman'));
+
+                $session = $this->sessionManagerService->get();
+                $pengguna = $this->profileService->getProfile($session->id);
+                return View::renderView('admin/dashboard/dashboard', compact('peminjaman', 'maintainer', 'status', 'statusPeminjaman', 'pengguna'));
             } else {
                 header('HTTP/1.1 405 Method Not Allowed');
                 header('Content-Type: application/json');
@@ -60,7 +69,9 @@ class AdminController
                 if (empty($peminjaman)) {
                     $peminjaman = [];
                 }
-                return View::renderView('admin/data-peminjaman/dataPeminjaman', compact('peminjaman', 'maintainer', 'status'));
+                $session = $this->sessionManagerService->get();
+                $pengguna = $this->profileService->getProfile($session->id);
+                return View::renderView('admin/data-peminjaman/dataPeminjaman', compact('peminjaman', 'maintainer', 'status', 'pengguna'));
             } else {
                 header('HTTP/1.1 405 Method Not Allowed');
                 header('Content-Type: application/json');
@@ -206,7 +217,9 @@ class AdminController
                 if (empty($peminjaman)) {
                     $peminjaman = [];
                 }
-                return View::renderView('admin/riwayat-peminjaman/riwayat-peminjaman', compact('peminjaman', 'maintainer', 'status'));
+                $session = $this->sessionManagerService->get();
+                $pengguna = $this->profileService->getProfile($session->id);
+                return View::renderView('admin/riwayat-peminjaman/riwayat-peminjaman', compact('peminjaman', 'maintainer', 'status', 'pengguna'));
             } else {
                 header('HTTP/1.1 405 Method Not Allowed');
                 header('Content-Type: application/json');
@@ -231,7 +244,9 @@ class AdminController
             if ($maintainers == null) {
                 $maintainers = [];
             }
-            View::renderView('admin/maintainer/maintainer', compact('maintainers', 'search'));
+            $session = $this->sessionManagerService->get();
+            $pengguna = $this->profileService->getProfile($session->id);
+            View::renderView('admin/maintainer/maintainer', compact('maintainers', 'search', 'pengguna'));
         } catch (PDOException $exception) {
             View::renderPage('500');
         } catch (Exception $exception) {
@@ -478,7 +493,9 @@ class AdminController
                 if (empty($inventarisir)) {
                     $inventarisir = [];
                 }
-                return View::renderView('admin/inventarisir/inventarisir', compact('inventarisir', 'maintainer', 'kategori', 'asal'));
+                $session = $this->sessionManagerService->get();
+                $pengguna = $this->profileService->getProfile($session->id);
+                return View::renderView('admin/inventarisir/inventarisir', compact('inventarisir', 'maintainer', 'kategori', 'asal', 'pengguna'));
             } else {
                 header('HTTP/1.1 405 Method Not Allowed');
                 header('Content-Type: application/json');
@@ -546,7 +563,7 @@ class AdminController
                         'status' => '500',
                         'error' => 'Failed to save into the database'
                     ]);
-                    unlink($this->fileImageService->getPathImage('inventaris', $imageName)); // Remove the uploaded file
+                    unlink($this->fileImageService->getPathImage('inventarisir', $imageName)); // Remove the uploaded file
                     exit(500);
                 }
 
@@ -673,11 +690,11 @@ class AdminController
                 $inventarisir->Asal = input::post('edit-asal');
                 $inventarisir->Stok = input::post('edit-jumlahBarang');
                 $inventarisir->Deskripsi = input::post('edit-keterangan');
-
+                $destinationPath = '';
                 if (!empty($_FILES['edit-gambar']['name'])) {
                     $image = $_FILES['edit-gambar'];
                     $imageName = $this->fileImageService->randomImageName($image);
-                    $destinationPath = $this->fileImageService->getPathImage('inventaris', $imageName);
+                    $destinationPath = $this->fileImageService->getPathImage('inventarisir', $imageName);
                     if ($this->fileImageService->upload('inventarisir', $imageName, $image)) {
                         $inventarisir->Gambar = $imageName;
                     } else {
@@ -705,13 +722,10 @@ class AdminController
                     }
                 }
                 $maintainerInventaris = $this->inventarisirService->update($maintainerObjects);
-                if (!$inventaris || !$maintainerInventaris) {
+                if (!$inventaris && !$maintainerInventaris) {
                     header('HTTP/1.1 500 Internal Server Error');
                     header('Content-Type: application/json');
                     http_response_code(500);
-                    if ($_FILES['edit-gambar']['name'] !== null) {
-                        unlink($destinationPath);
-                    }
                     echo json_encode([
                         'status' => '500',
                         'error' => 'Failed to update data'

@@ -14,17 +14,26 @@ class MaintainerInventarisRepository
         $this->connection = DB::connect();
     }
 
+    public function getAll() : array
+    {
+        try {
+            $query = "SELECT * FROM MaintainerInventaris";
+            $result = $this->connection->query($query);
+            while ($row = $result->fetchObject('MaintainerInventaris')) {
+                $maintainerInventaris[] = $row;
+            }
+            return $maintainerInventaris ?? [];
+        } catch (PDOException $exception) {
+            throw new Exception($exception->getMessage());
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+    }
+
     public function getListMaintainerInventaris() : array
     {
         try {
-            $query = "SELECT
-            i.ID_Inventaris, i.Nama as Nama_Inventaris, i.Stok, i.ID_Kategori, i.Asal, i.Deskripsi, i.Gambar, k.Nama as Nama_Kategori, m.ID_Maintainer, m.Nama as Nama_Maintainer FROM inventaris i
-            Join kategori k on i.ID_Kategori = k.ID_Kategori
-            join MaintainerInventaris mi on i.ID_Inventaris = mi.ID_Inventaris
-            join Maintainer m on mi.ID_Maintainer = m.ID_Maintainer
-            WHERE i.ID_Kategori = k.ID_Kategori AND i.Nama LIKE :keyword OR k.Nama LIKE :keyword
-            ORDER BY i.ID_Inventaris ASC
-            FROM MaintainerInventaris";
+            $query = "SELECT * FROM MaintainerInventaris ORDER BY ID_Inventaris ASC";
             $result = $this->connection->query($query);
             while ($row = $result->fetchObject('MaintainerInventaris')) {
                 $maintainerInventaris[] = $row;
@@ -99,7 +108,7 @@ class MaintainerInventarisRepository
 
             $this->connection->commit();
 
-            return true;
+            return $stmtDelete->rowCount() > 0;
         } catch (PDOException $exception) {
             throw new Exception($exception->getMessage());
         } catch (Exception $exception) {
@@ -127,7 +136,7 @@ class MaintainerInventarisRepository
     {
         try {
             $query = "SELECT
-            i.ID_Inventaris, i.Nama as Nama_Inventaris, i.Stok, i.Asal,  m.Nama as Nama_Maintainer
+            i.ID_Inventaris, i.Nama as Nama_Inventaris, i.Stok, i.Asal,  m.Nama as Nama_Maintainer, mi.ID_Maintainer as ID_Maintainer
             FROM inventaris i
             Join kategori k on i.ID_Kategori = k.ID_Kategori
             join MaintainerInventaris mi on i.ID_Inventaris = mi.ID_Inventaris

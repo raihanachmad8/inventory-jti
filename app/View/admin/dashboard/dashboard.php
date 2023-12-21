@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="text-center">
-      <h1><?= $model['statusPeminjaman']['Selesai'] ?></h1>
+      <h1><?= ((int)$model['statusPeminjaman']['Selesai'] + (int) $model['statusPeminjaman']['Dibatalkan'] + (int) $model['statusPeminjaman']['Ditolak']) ?></h1>
     </div>
     <div>
       <small>Peminjaman yang sudah selesai</small>
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="text-center">
-      <h1><?= $model['statusPeminjaman']['Proses'] ?></h1>
+      <h1><?= ((int)$model['statusPeminjaman']['Proses'] + (int) $model['statusPeminjaman']['Menunggu Ganti']) ?></h1>
     </div>
     <div>
       <small>Peminjaman yang belum selesai</small>
@@ -122,7 +122,7 @@
   </div>
 </div>
 
-<div class="modal-detail-container position-absolute px-4 vw-100 vh-100 bg-white d-flex flex-column justify-content-between overflow-y-scroll  d-none" style="color: #01305D;">
+<div class="modal-detail-container position-fixed top-0 start-0 vw-100 vh-100 bg-white d-flex flex-column justify-content-between overflow-y-scroll  d-none" style="color: #01305D;">
   <form id="detail-pengembalian-form">
     <div class="w-100 text-center bg-warning p-2 rounded-2 ">
       <strong class="text-white">Detail Peminjaman</strong>
@@ -255,14 +255,18 @@
             $('input[name="kode"]').val(data.data.ID_Transaksi);
             $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
             $('#nama').html(data.data.Pengguna.Nama_Pengguna);
-            $('#maintainer-admin').val(data.data.Admin.ID_Maintainer);
-            // $('input[name="maintainer"]').val(data.data.Admin.ID_Maintainer);
-            // $('input[name="status"]').val(data.data.Pengguna.Level.ID_Level);
+            if (data.data.Admin != null) {
+              $('#admin').html(data.data.Admin.ID_Maintainer);
+            }
             $('#status').val(data.data.Status.ID_Status);
             $('#nomor-identitas').html(data.data.Pengguna.Nomor_Identitas);
             $('#start-date').html(new Date(data.data.StartDate).toLocaleDateString("id-ID", options));
             $('#end-date').html(new Date(data.data.EndDate).toLocaleDateString("id-ID", options));
-            $('#deskripsi-keperluan').html(data.data.Deskripsi_Keperluan);
+            if (data.data.Deskripsi_Keperluan !== "undefined") {
+              $('#deskripsi-keperluan').html(data.data.Deskripsi_Keperluan);
+            } else {
+              $('#deskripsi-keperluan').html('-');
+            }
             if (data.data.Pesan != null) {
               $('.admin-retrieval-information').val(data.data.Pesan);
             }
@@ -327,7 +331,6 @@
   $('.button-save-loan').click((e) => {
     console.log('clicked')
     const formData = new FormData(document.querySelector('#detail-pengembalian-form'));
-    console.log(formData)
     e.preventDefault();
     $.ajax({
       url: '/admin/data-peminjaman/update',

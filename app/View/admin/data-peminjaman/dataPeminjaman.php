@@ -216,7 +216,9 @@
             $('input[name="kode"]').val(data.data.ID_Transaksi);
             $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
             $('#nama').html(data.data.Pengguna.Nama_Pengguna);
-            $('#maintainer').val(data.data.Admin.ID_Maintainer);
+            if (data.data.Admin !== null) {
+              $('#maintainer').val(data.data.Admin.ID_Maintainer);
+            }
             $('#status').val(data.data.Status.ID_Status);
             $('#nomor-identitas').html(data.data.Pengguna.Nomor_Identitas);
             $('#start-date').html(new Date(data.data.StartDate).toLocaleDateString("id-ID", options));

@@ -179,6 +179,17 @@
                             <div class="mt-2">
                                 <label for="email">Email</label>
                                 <input type="email" id="email" name="email" placeholder="email" class="form-control  " style="border: 1px solid #022f63 !important;">
+<<<<<<< HEAD
+                                <?php if (isset($model['errors']['Email'])) : ?>
+                                <small class="text-danger">
+                                    <?php if (is_array($model['errors']['Email'])) : ?>
+                                        <div><?= $model['errors']['Email'][0] ?></div>
+                                    <?php else : ?>
+                                        <?= $model['errors']['Email'] ?>
+                                    <?php endif; ?>
+                                </small>
+                            <?php endif; ?>
+=======
                                 <?php if (isset($model['errors']['Password'])) : ?>
                                     <small class="text-danger">
                                         <?php if (is_array($model['errors']['Password'])) : ?>
@@ -188,6 +199,7 @@
                                         <?php endif; ?>
                                     </small>
                                 <?php endif; ?>
+>>>>>>> 98afb3b6b21ba5237244074c3eb115c2d20d0284
                             </div>
                             <div class="mt-2">
                                 <label for="password">password</label>
