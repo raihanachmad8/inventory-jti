@@ -35,7 +35,8 @@ class AuthController
             header('HTTP/1.1 500 Internal Server Error');
             http_response_code(500);
             View::renderPage('500', [
-                'message' => $e->getMessage()
+                'status' => '500',
+                'error' => $e->getMessage()
             ]);
             exit();
         }

@@ -480,4 +480,24 @@ class TransaksiRepository
             throw $exception;
         }
     }
+
+    public function getListDate(string $ID_Pengguna) : array {
+        try {
+            $query = "SELECT ID_Transaksi, StartDate, EndDate FROM transaksi WHERE ID_Pengguna = :id AND ID_Status = 'S4'";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'id' => $ID_Pengguna
+            ]);
+            $statement->execute();
+
+            while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                $result[] = $row;
+            }
+            return $result ?? [];
+        } catch (PDOException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
 }

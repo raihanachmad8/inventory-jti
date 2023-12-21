@@ -30,7 +30,7 @@ class InventoryController
                 header('Content-Type: application/json');
                 echo json_encode([
                     'status' => 'failed',
-                    'message' => 'Method not allowed'
+                    'error' => 'Method not allowed'
                 ]);
                 exit(405);
             }
@@ -59,7 +59,7 @@ class InventoryController
                 http_response_code(405);
                 echo json_encode([
                     'status' => 'failed',
-                    'message' => 'Method not allowed'
+                    'error' => 'Method not allowed'
                 ]);
                 exit(405);
             }
@@ -115,7 +115,7 @@ class InventoryController
                 http_response_code(405);
                 echo json_encode([
                     'status' => 'failed',
-                    'message' => 'Method not allowed'
+                    'error' => 'Method not allowed'
                 ]);
                 exit(405);
             }
@@ -180,7 +180,7 @@ class InventoryController
                 http_response_code(405);
                 echo json_encode([
                     'status' => 'failed',
-                    'message' => 'Method not allowed'
+                    'error' => 'Method not allowed'
                 ]);
                 exit(405);
             }
@@ -233,7 +233,7 @@ class InventoryController
                 echo json_encode([
                     'status' => '200',
                     'message' => 'Success add loan',
-                    'data' => $result
+                    'data' => json_encode($result)
                 ]);
                 exit(200);
             }
@@ -269,7 +269,7 @@ class InventoryController
                 header('Content-Type: application/json');
                 echo json_encode([
                     'status' => 'failed',
-                    'message' => 'Method not allowed'
+                    'error' => 'Method not allowed'
                 ]);
                 exit(405);
             }
@@ -295,7 +295,7 @@ class InventoryController
                 header('Content-Type: application/json');
                 echo json_encode([
                     'status' => 'failed',
-                    'message' => 'Method not allowed'
+                    'error' => 'Method not allowed'
                 ]);
                 exit(405);
             }
@@ -327,5 +327,48 @@ class InventoryController
                 View::renderView('inventory/riwayat/riwayat', ['error' => $e->getMessage()]);
             }
         }
+    }
+
+    public function getListDate() {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+                header('HTTP/1.0 405 Method Not Allowed');
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'status' => 'failed',
+                    'error' => 'Method not allowed'
+                ]);
+                exit(405);
+            }
+            $session = $this->sessionManagerService->get();
+            $pengguna = $this->profileService->getProfile($session->id);
+            $result = $this->peminjamanService->getListDate($pengguna->ID_Pengguna);
+            if (empty($result)) {
+                header('HTTP/1.1 404 Not Found');
+                header('Content-Type: application/json');
+                http_response_code(404);
+                echo json_encode([
+                    'status' => '404',
+                    'error' => 'Message not found'
+                ]);
+                exit(404);
+            }
+            header('HTTP/1.1 200 OK');
+            header('Content-Type: application/json');
+            http_response_code(200);
+            echo json_encode([
+                'status' => '200',
+                'message' => 'Success add loan',
+                'data' => $result
+            ]);
+            exit(200);
+        } catch (Exception $e) {
+            if ($e instanceof PDOException) {
+                View::renderView('inventory/riwayat/riwayat', ['error' => $e->getMessage()]);
+            } else {
+                View::renderView('inventory/riwayat/riwayat', ['error' => $e->getMessage()]);
+            }
+        }
+
     }
 }

@@ -52,19 +52,16 @@
     </div>
 </div>
 
-<div style="background-color: rgba(0, 0, 0, 0.5);" class="detail-item-modal-container vw-100 overflow-y-scroll position-absolute top-0 start-0 d-flex justify-content-center align-items-center d-none ">
-    <div style="display: grid; grid-template-columns: auto 1fr;" class="detail-item-modal align-items-center justify-content-center bg-light overflow-hidden ">
-        <div class="order-last order-lg-first flex-grow-1 d-flex flex-column h-100 p-4 row-gap-3 ">
-            <form id="detail-item-form" action="" class="flex-grow-1 h-100">
-                <div class="d-flex flex-column gap-3 input-container">
+<div style="background-color: rgba(0, 0, 0, 0.5);" class="detail-item-modal-container vw-100 position-fixed overflow-y-scroll d-none">
+    <div class="detail-item-modal bg-light overflow-hidden rounded-4 ">
+        <div class="order-last order-lg-first p-4 row-gap-3 d-flex flex-column  overflow-y-scroll ">
+            <form action="" class="edit-item-form flex-grow-1 ">
+                <div class="d-flex flex-column gap-3">
                     <label class="fw-semibold ">Kode Barang</label>
                     <p id="edit-kode"></p>
                     <input type="hidden" name="edit-kode">
                 </div>
-                <div class="d-none">
-                    <input type="file" name="edit-gambar" id="image-input">
-                </div>
-                <div class="d-flex flex-column gap-3 input-container">
+                <div>
                     <label class="fw-semibold " for="kategori">Kategori</label>
                     <select class="form-select" id="edit-kategori" name="edit-kategori" aria-label="Default select example">
                         <?php foreach ($model['kategori'] as $kategori) : ?>
@@ -72,15 +69,34 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="d-flex flex-column gap-3 input-container">
+                <div class="d-none">
+                    <input type="file" name="edit-gambar" id="image-input">
+                </div>
+                <div>
+                    <label class="fw-semibold " for="kategori">Kategori</label>
+                    <select class="form-select" id="edit-kategori" name="edit-kategori" aria-label="Default select example">
+                        <?php foreach ($model['kategori'] as $kategori) : ?>
+                            <option value="<?= $kategori->ID_Kategori ?>"><?= $kategori->Nama_Kategori ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div>
                     <label class="fw-semibold " for="namaBarang">Nama Barang</label>
-                    <input type="text" id="namaBarang" class="border rounded bg-body" name="edit-namaBarang">
+                    <input type="text" id="namaBarang" class="border rounded bg-body form-control" name="edit-namaBarang">
                 </div>
-                <div class="d-flex flex-column gap-3 input-container">
+                <div>
                     <label class="fw-semibold " for="jumlahBarang">Jumlah Barang</label>
-                    <input type="text" id="jumlahBarang" class="border rounded bg-body input" value="" name="edit-jumlahBarang">
+                    <input type="text" id="jumlahBarang" class="border rounded bg-body form-control" value="" name="edit-jumlahBarang">
                 </div>
-                <div style="grid-column: span 2;" class="d-flex flex-column input-container flex-grow-1 w-100 ">
+                <div class="d-flex flex-column flex-grow-1">
+                    <label class="fw-semibold" for="asalBarang">Asal Barang</label>
+                    <select class="form-select" id="edit-asal" name="edit-asal" aria-label="Default select example">
+                        <?php foreach ($model['asal'] as $asal) : ?>
+                            <option value="<?= $asal ?>"><?= $asal ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div style="grid-column: span 2;">
                     <p class="fw-semibold ">Maintainer</p>
                     <div style="display:grid; grid-template-columns: 1fr 1fr">
                         <?php foreach ($model['maintainer'] as $maintainer) : ?>
@@ -94,20 +110,12 @@
 
                     </div>
                 </div>
-                <div class="d-flex flex-column input-container flex-grow-1">
-                    <label class="fw-semibold" for="asalBarang">Asal Barang</label>
-                    <select class="form-select" id="edit-asal" name="edit-asal" aria-label="Default select example">
-                        <?php foreach ($model['asal'] as $asal) : ?>
-                            <option value="<?= $asal ?>"><?= $asal ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="d-flex flex-column input-container gap-3 w-100">
+                <div style="grid-column: span 2;">
                     <label class="fw-semibold " for="keterangan">Keterangan</label>
-                    <textarea name="edit-keterangan" id="keterangan" class="w-100 h-100 border bg-body rounded p-2 " style="resize: none;" value="Keyboard cetik cetik lurrr"></textarea>
+                    <textarea name="edit-keterangan" id="keterangan" class="h-100  border bg-body rounded p-2 form-control from-control-plaintext" style="resize: none;" value="Keyboard cetik cetik lurrr"></textarea>
                 </div>
             </form>
-            <div class="d-flex align-items-end justify-content-between w-100 flex-grow-1 ">
+            <div class="d-flex align-items-end justify-content-between pt-4 ">
                 <div class="flex-grow-1">
                     <button class="btn cancel-button-detail-item" style="background-color: #fff; color:#01305D; border :2px solid #01305D">Batalkan</button>
                 </div>
@@ -117,8 +125,8 @@
                 </div>
             </div>
         </div>
-        <div class="h-100 position-relative">
-            <img src="/public/assets/images/jay-zhang-ZByWaPXD2fU-unsplash.jpg" alt="" class="w-100 h-100 object-fit-cover ">
+        <div class="h-100 position-relative w-100 ">
+            <img src="/public/assets/images/gedung-jti.jpg" alt="" class="w-100 h-100 object-fit-cover">
             <label for="image-input" class="w-100 h-100 position-absolute top-0 start-0 d-flex flex-column  justify-content-center align-items-center z-2 " style=" cursor: pointer;">
                 <img src="/public/assets/images/images.svg" alt="" style="width: 5rem; height: 5rem;">
                 <strong style="font-size: 1.5rem;" class="text-white">Edit</strong>
@@ -132,16 +140,16 @@
     <div class="w-100 bg-white add-item-modal p-4 rounded-3 " style="box-sizing: border-box;">
         <form id="add-item-form" class="d-flex flex-column flex-lg-row w-100 h-100 gap-3" style="box-sizing: border-box;">
             <div class="flex-grow-1 w-100 h-100 d-flex flex-column row-gap-2">
-                <div class="d-flex flex-column  input-container ">
+                <div class="d-flex flex-column   ">
                     <label class="fw-semibold" for="namaBarang">Nama Barang</label>
                     <input id="namaBarang" type="text" class="border rounded bg-body p-2 " name="namaBarang" placeholder="Masukkan Nama Barang" required>
                 </div>
                 <div class="d-flex flex-wrap w-100 gap-2 flex-column flex-lg-row">
-                    <div class="d-flex flex-column input-container flex-grow-1">
+                    <div class="d-flex flex-column  flex-grow-1">
                         <label class="fw-semibold" for="jumlahBarang">Jumlah Barang</label>
                         <input id="jumlahBarang" type="number" min="0" name="jumlahBarang" class="border rounded bg-body p-2 " placeholder="Masukkan Jumlah Barang" required>
                     </div>
-                    <div class="d-flex flex-column input-container flex-grow-1">
+                    <div class="d-flex flex-column  flex-grow-1">
                         <label class="fw-semibold" for="asalBarang">Asal Barang</label>
                         <select id="asalBarang" class="form-select p-2" name="asal" aria-label="Default select example" required>
                             <?php foreach ($model['asal'] as $asal) : ?>
@@ -149,7 +157,7 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="d-flex flex-column input-container flex-grow-1 w-100 ">
+                    <div class="d-flex flex-column  flex-grow-1 w-100 ">
                         <label class="fw-semibold" for="kategori">Kategori</label>
                         <select id="kategori" class="form-select" name="kategori" aria-label="Default select example" required>
                             <?php foreach ($model['kategori'] as $kategori) : ?>
@@ -157,9 +165,9 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="d-flex flex-column input-container flex-grow-1 w-100 ">
+                    <div class="d-flex flex-column  flex-grow-1 w-100 ">
                         <p class="fw-semibold">Maintainer</p>
-                        <div class="maintainer-input-container">
+                        <div class="maintainer-">
                             <?php foreach ($model['maintainer'] as $maintainer) : ?>
                                 <div class="form-check d-flex align-items-center gap-3 ps-0 ">
                                     <input class="form-check-input" name="maintainers[]" type="checkbox" value="<?= $maintainer->ID_Maintainer ?>" id="<?= $maintainer->ID_Maintainer ?>">
@@ -172,7 +180,7 @@
                         <p style="color: #CC3333;" class="d-none position-relative maintainer-required my-1">Maintainer is required </p>
                     </div>
                 </div>
-                <div class="d-flex flex-column input-container h-100 ">
+                <div class="d-flex flex-column  h-100 ">
                     <label class="fw-semibold" for="keterangan">Keterangan</label>
                     <textarea name="keterangan" id="keterangan" cols="30" style="resize: none;" placeholder="Masukkan Keterangan" class="border rounded bg-body p-2 h-100"></textarea>
                 </div>
@@ -180,7 +188,7 @@
             <div class="image-upload-button-container flex-grow-1 d-flex flex-column justify-content-lg-center justify-content-start  align-items-center">
                 <div class="flex-md-grow-1 w-100 position-relative">
                     <p class="fw-semibold">Gambar</p>
-                    <img class="insert-preview-image position-absolute" style="background-repeat: no-repeat; object-fit: cover; width: 100%; height:90%; background-size:cover; background-position: center;">
+                    <img class="insert-preview-image position-absolute d-none" style="background-repeat: no-repeat; object-fit: cover; width: 100%; height:90%; background-size:cover; background-position: center;" alt="">
                     <input type="file" class="d-none " name="gambar" draggable="true" id="add-item-image-input">
                     <label for="add-item-image-input" class="position-relative d-flex justify-content-center align-items-center rounded-2" style="height: 90%; cursor: pointer; border:4px dotted rgba(0, 0, 0, 0.25);">
                         <div class="d-flex justify-content-center align-items-center flex-column h-75 row-gap-5 p-4 p-md-0">
@@ -205,36 +213,34 @@
     </div>
 </div>
 
-<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="confirmation-add-item-modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
-    <div class="confirmation-add-item-modal d-flex align-items-center justify-content-center bg-light rounded-4 overflow-hidden " style="width: 50rem; height: 40rem;">
-        <div class="flex-grow-1 d-flex flex-column w-100 h-100 p-4 row-gap-3 ">
-            <h5><strong style="color: #01305D;">Konfirmasi Penambahan Barang</strong></h5>
-            <div class="flex-grow-1 w-100 h-100 column-gap-4 d-flex flex-wrap ">
-                <div class="flex-grow-1 w-100 column-gap-4 d-flex flex-wrap " style="height: 20rem;">
-                    <div class="d-flex flex-column gap-2 input-container">
-                        <strong class="text-black-50">Kategori</strong>
-                        <strong style="color: #01305D;" id="confirmation-kategori"></strong>
-                    </div>
-                    <div class="d-flex flex-column gap-2 input-container">
-                        <strong class="text-black-50">Nama Barang</strong>
-                        <strong style="color: #01305D;" id="confirmation-namaBarang"></strong>
-                    </div>
-                    <div class="d-flex flex-column gap-2 input-container">
-                        <strong class="text-black-50">Jumlah Barang</strong>
-                        <strong style="color: #01305D;" id="confirmation-jumlahBarang"></strong>
-                    </div>
-                    <div class="d-flex flex-column gap-2 input-container">
-                        <strong class="text-black-50">Maintainer</strong>
-                        <strong style="color: #01305D;" id="confirmation-maintainer"></strong>
-                    </div>
-                    <div class="d-flex flex-column gap-2 input-container">
-                        <strong class="text-black-50">Asal Barang</strong>
-                        <strong style="color: #01305D;" id="confirmation-asal"></strong>
-                    </div>
-                    <div class="d-flex flex-column gap-2 w-100">
-                        <strong class="text-black-50">Keterangan</strong>
-                        <strong style="color: #01305D;" id="confirmation-keterangan"></strong>
-                    </div>
+<div style="background-color: rgba(0, 0, 0, 0.5);" class="confirmation-add-item-modal-container vw-100 position-fixed overflow-y-scroll ">
+    <div class="confirmation-add-item-modal bg-light overflow-hidden">
+        <div class="order-last order-lg-first p-4 row-gap-3 d-flex flex-column  overflow-y-scroll ">
+            <h4 class="fw-bold " style="color: #01305D;">Konfirmasi Penambahan Barang</h4>
+            <div action="" class="confirmation-add-item flex-grow-1 ">
+                <div>
+                    <p style="font-size: 0.8rem" class="text-black-50">Kategori</p>
+                    <strong style="color: #01305D;" id="confirmation-kategori">Ayam</strong>
+                </div>
+                <div>
+                    <p style="font-size: 0.8rem" class="text-black-50">Nama Barang</p>
+                    <strong style="color: #01305D;" id="confirmation-namaBarang">awdada</strong>
+                </div>
+                <div>
+                    <p style="font-size: 0.8rem" class="text-black-50">Jumlah Barang</p>
+                    <strong style="color: #01305D;" id="confirmation-jumlahBarang">3</strong>
+                </div>
+                <div>
+                    <p style="font-size: 0.8rem" class="text-black-50">Asal Barang</p>
+                    <strong style="color: #01305D;" id="confirmation-asal">awdad</strong>
+                </div>
+                <div style="grid-column: span 2;">
+                    <p style="font-size: 0.8rem" class="text-black-50">Maintainer</p>
+                    <strong style="color: #01305D;" id="confirmation-maintainer">awdawd, awda, awda</strong>
+                </div>
+                <div style="grid-column: span 2;">
+                    <p style="font-size: 0.8rem" class="text-black-50">Keterangan</p>
+                    <p style="color: #01305D; max-width: 100%;" id="confirmation-keterangan">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam quo quia rerum at asperiores nisi modi adipisci rem? Quam id nemo, accusamus vero incidunt quo dolor pariatur dolorum ducimus! Dolore odit veritatis iure, error ut quibusdam optio porro quos mollitia necessitatibus consequatur ex impedit hic perspiciatis laborum beatae a? Dolores quas repellendus id maiores voluptates?</p>
                 </div>
             </div>
             <div class="d-flex align-items-end justify-content-between w-100 flex-grow-1 ">
@@ -273,8 +279,6 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
         </div>
     </div>
 </div>
-
-
 
 <script>
     $('input[name="search-input"]').keypress(function(e) {
@@ -379,6 +383,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
         }, false);
 
         if (image) {
+            preview.classList.remove('d-none');
             reader.readAsDataURL(image);
         }
     })

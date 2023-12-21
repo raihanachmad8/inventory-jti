@@ -80,7 +80,7 @@ Router::get('/inventory/dashboard', [InventoryController::class, 'dashboard']);
 Router::get('/inventory/peminjaman', [InventoryController::class, 'peminjaman']);
 Router::post('/inventory/peminjaman', [InventoryController::class, 'postPeminjaman']);
 Router::get('/inventory/riwayat', [InventoryController::class, 'riwayat']);
-Router::get('/inventory/message', [InventoryController::class, 'getListMessage']);
+Router::get('/inventory/date', [InventoryController::class, 'getListDate']);
 
 Router::get('/profile/profile', [ProfileManagementController::class, 'profile']);
 Router::get('/profile/profile/detail', [ProfileManagementController::class, 'getProfileDetail']);
@@ -90,7 +90,7 @@ Router::post('/profile/keamanan/edit/security', [ProfileManagementController::cl
 Router::get('/profile/keamanan', [ProfileManagementController::class, 'security']);
 Router::get('/profile/pesan', [ProfileManagementController::class, 'message']);
 Router::get('/profile/hapus-akun', [ProfileManagementController::class, 'deleteAccount']);
-Router::get('/profile/hapus-akun/confirm', [ProfileManagementController::class, 'deleteAccountPermament']);
+Router::delete('/profile/hapus-akun/confirm', [ProfileManagementController::class, 'deleteAccountPermament']);
 
 date_default_timezone_set('Asia/Jakarta');
 

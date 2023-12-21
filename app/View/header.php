@@ -173,11 +173,11 @@ function user_role()
                     <img src="/public/assets/images/logo-tulisan.svg" alt="" class="w-100 object-fit-cover ratio-16x9" />
                 </div>
                 <div class="d-flex justify-content-center align-items-center gap-2 gap-md-3 ">
-                    <div class="position-relative">
+                    <!-- <div class="position-relative">
                         <button aria-label="button-mail" type="button" class="btn button-mail">
                             <i data-feather="mail"></i>
                         </button>
-                        <div data-id="<?=$model['pengguna']->ID_Pengguna ?>" class="message-notification d-none  position-absolute bg-body-tertiary  rounded-3 end-0 overflow-hidden p-2 overflow-y-scroll " style="width: 200px; height: 150px; top: 40px; opacity: 0;">
+                        <div data-id="<?= ($model['pengguna']) ? $model['pengguna']->ID_Pengguna : $model['profile']->ID_Pengguna ?>" class="message-notification d-none  position-absolute bg-body-tertiary  rounded-3 end-0 overflow-hidden p-2 overflow-y-scroll " style="width: 200px; height: 150px; top: 40px; opacity: 0;">
                             <strong>Pesan</strong>
                             <ul class="d-flex flex-column row-gap-2">
                                 <li class="p-2 rounded-3 " style="background: #E3F2F9;">
@@ -197,7 +197,7 @@ function user_role()
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- Profile -->
                     <button  aria-label="button-profile" type="button" class="button-profile btn d-flex justify-content-center align-items-center gap-2 rounded-5 p-2 position-relative ">
                         <div style="width: 3rem; height: 3rem" class="rounded-circle position-relative ">
@@ -206,7 +206,7 @@ function user_role()
                             <img src="/public/assets/images/profile/<?= ($model['profile']->Foto) ?? 'default.jpeg' ?>" style="width: 3rem; height: 3rem; border-radius: 50%; object-fit: contain; background-repeat: no-repeat; object-position: center;"  alt="default-profile">
                             </div>
                         </div>
-                        <div class="profile-menu position-absolute bg-white end-0 rounded-4 p-3 border border-light d-none " style="width: 9rem; bottom: -6rem; opacity: 0;">
+                        <div class="profile-menu position-absolute bg-white end-0 rounded-4 p-3 border border-light d-none z-100 " style="width: 9rem; bottom: -6rem; opacity: 0;">
                             <ul class="d-flex flex-column row-gap-2">
                                 <li><a href="/profile/profile" class="nav-link text-start" style="color: #01305d;">Profile</a></li>
                                 <li><a href="/users/logout" class="text-danger nav-link text-start ">Logout <i data-feather="log-out"></i> </a></li>
@@ -220,38 +220,3 @@ function user_role()
                     </svg>
                 </div>
             </header>
-
-
-            <script>
-                $('.button-mail').click(function(e) {
-                    const id = $('.message-notification').data('id')
-
-                    $.ajax({
-                        url: '/inventory/message',
-                        method: 'GET',
-                        data: {
-                            id: id
-                        },
-                        success: function(data) {
-                            $(document).ready(function() {
-                                var messages = data.Pesan;
-                                var htmlContent = messages.map(function(message) {
-                                    return '<li class="p-2 rounded-3" style="background: #E3F2F9;"><p style="font-size: 0.8rem;">' + message + '</p></li>';
-                                }).join('');
-
-                                // Clear existing li elements
-                                $('.message-notification ul').empty();
-
-                                // Append the HTML content to the ul element
-                                $('.message-notification ul').append(htmlContent);
-
-
-                            })
-                        },
-                        error: (error) => {
-                            $(document).ready(function() {
-                            })
-                        }
-                    })
-                })
-            </script>

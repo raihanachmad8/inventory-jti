@@ -410,5 +410,13 @@ class PeminjamanService
         }
     }
 
+    public function getListDate(string $ID_Pengguna) {
+        try {
+            $result = $this->transaksiRepository->getListDate($ID_Pengguna);
+            return $result;
+        } catch (PDOException $exception) {
+            throw $exception;
+        }
+    }
 
 }

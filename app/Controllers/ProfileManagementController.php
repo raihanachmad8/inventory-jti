@@ -28,7 +28,7 @@ class ProfileManagementController
                 header('Content-Type: application/json');
                 echo json_encode([
                     'status' => 'failed',
-                    'message' => 'Method not allowed'
+                    'error' => 'Method not allowed'
                 ]);
                 exit(405);
             }
@@ -52,7 +52,7 @@ class ProfileManagementController
                 header('Content-Type: application/json');
                 echo json_encode([
                     'status' => 'failed',
-                    'message' => 'Method not allowed'
+                    'error' => 'Method not allowed'
                 ]);
                 exit(405);
             }
@@ -62,6 +62,7 @@ class ProfileManagementController
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 'success',
+                'message' => 'Profile retrieved successfully',
                 'data' => $pengguna
             ]);
         } catch (Exception $e) {
@@ -252,7 +253,7 @@ class ProfileManagementController
                 header('Content-Type: application/json');
                 echo json_encode([
                     'status' => 'failed',
-                    'message' => 'Method not allowed'
+                    'error' => 'Method not allowed'
                 ]);
                 exit(405);
             }
@@ -277,7 +278,7 @@ class ProfileManagementController
                 header('Content-Type: application/json');
                 echo json_encode([
                     'status' => 'failed',
-                    'message' => 'Method not allowed'
+                    'error' => 'Method not allowed'
                 ]);
                 exit(405);
             }
@@ -302,7 +303,7 @@ class ProfileManagementController
                 header('Content-Type: application/json');
                 echo json_encode([
                     'status' => 'failed',
-                    'message' => 'Method not allowed'
+                    'error' => 'Method not allowed'
                 ]);
                 exit(405);
             }
@@ -314,6 +315,56 @@ class ProfileManagementController
                 View::renderView('profile/hapus-akun', ['error' => $e->getMessage()]);
             } else {
                 View::renderView('profile/hapus-akun', ['error' => $e->getMessage()]);
+            }
+        }
+    }
+
+    public function deleteAccountPermament() {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
+                header('HTTP/1.0 405 Method Not Allowed');
+                throw new Exception('Method not allowed');
+            }
+
+            $session = $this->sessionManagerService->get();
+            $pengguna = $this->profileService->getProfile($session->id);
+
+            if (empty($pengguna->ID_Pengguna)) {
+                throw new Exception('ID Pengguna must be valid');
+            }
+
+            if ($session->Level === 'Admin') {
+                throw new Exception('Admin cannot delete account');
+            }
+
+            $result = $this->profileService->deleteAccount($pengguna->ID_Pengguna);
+
+            if (!$result) {
+                throw new Exception('Failed to delete account');
+            }
+
+            header('HTTP/1.0 201 OK');
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Account deleted successfully'
+            ]);
+
+        } catch (Exception $e) {
+            if ($e instanceof PDOException) {
+                header('HTTP/1.1 500 Internal Server Error');
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'status' => 'failed',
+                    'error' => $e->getMessage()
+                ]);
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'status' => 'failed',
+                    'error' => $e->getMessage()
+                ]);
             }
         }
     }

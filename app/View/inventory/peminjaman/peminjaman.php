@@ -119,19 +119,27 @@
                     </tbody>
                 </table>
             </div>
-            <div class="py-4 d-flex row-gap-3 flex-column ">
+
+            <div class="guarantee-reason-container" style="margin-top: 5rem;">
+                <div class="d-flex row-gap-3 flex-column">
                 <strong>
                     <h5>Upload KTP / KTM</h5>
                 </strong>
-                <label for="image" class="d-flex justify-content-center align-items-center border rounded-3 w-100 " style="height: 200px; cursor: pointer;"><i data-feather="image" style="width: 3rem; height:3rem; " class="text-body-tertiary"></i></label>
+                <label for="image" class="d-flex justify-content-center align-items-center border rounded-3 w-100 h-100 " style="cursor: pointer;">
+                    <!-- <i data-feather="image" style="width: 3rem; height:3rem; " class="text-body-tertiary"></i>
+                -->
+                    <img src="/public/assets/images/gedung-jti.jpg" alt="" class="w-100 rounded-3 h-100 object-fit-contain  " style="max-height: 250px;">
+                </label>
                 <input id="image" type="file" class="d-none">
-            </div>
-            <div class="pb-4 d-flex row-gap-3 flex-column">
+                </div>
+                <div class="d-flex row-gap-3 flex-column">
                 <strong>
                     <h5>Alasan Peminjaman</h5>
                 </strong>
-                <textarea name="deskripsi_keperluan" id="" cols="30" rows="10" class="w-100 border rounded-3 p-2 "></textarea>
+                <textarea name="deskripsi_keperluan" id="" cols="30" rows="10" placeholder="Masukkan Alasan Peminjaman" style="resize: none;" class="w-100 border rounded-3 p-2 "></textarea>
+                </div>
             </div>
+
             <div class="d-flex justify-content-end pt-2">
                 <button class="btn btn-success w-100 button-submit-loan-application" type="submit">Submit</button>
             </div>

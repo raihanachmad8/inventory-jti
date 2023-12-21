@@ -1,40 +1,41 @@
-<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
-  <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
-background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 65%);">
-    <div class="d-flex flex-column align-items-center row-gap-3 ">
-      <img src="/public/assets/images/berhasil.svg" alt="">
-      <h3 style="color:#5BD794;">
-        <strong id="modal-container-title">
 
-        </strong>
-      </h3>
+<div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="modal-container vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
+    <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 65%);">
+        <div class="d-flex flex-column align-items-center row-gap-3 ">
+            <img src="/public/assets/images/berhasil.svg" alt="">
+            <h3 style="color:#5BD794;">
+                <strong id="modal-container-title">
+
+                </strong>
+            </h3>
+        </div>
+        <div>
+            <p id="modal-container-message"></p>
+        </div>
+        <div>
+            <button class="btn text-white success-button-back" style="background-color: #5BD794; padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
+        </div>
     </div>
-    <div>
-      <p id="modal-container-message"></p>
-    </div>
-    <div>
-      <button class="btn text-white success-button-back" style="background-color: #5BD794; padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
-    </div>
-  </div>
 </div>
 <div style="z-index: 9999; background-color: rgba(0, 0, 0, 0.5);" class="modal-container-failed vw-100 vh-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center d-none ">
-  <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
+    <div class="success-add-item-modal d-flex flex-column align-items-center justify-content-evenly rounded-4 overflow-hidden" style="width: 25rem; height: 25rem; background: rgb(255,255,255);
 background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 65%);">
-    <div class="d-flex flex-column align-items-center row-gap-3 ">
-      <img src="/public/assets/images/batalkan.svg" alt="">
-      <h3 style="color:#CC3333;">
-        <strong id="modal-container-failed-title">
+        <div class="d-flex flex-column align-items-center row-gap-3 ">
+        <img src="/public/assets/images/batalkan.svg" alt="">
+            <h3 style="color:#CC3333;">
+                <strong id="modal-container-failed-title">
 
-        </strong>
-      </h3>
+                </strong>
+            </h3>
+        </div>
+        <div>
+            <p id="modal-container-failed-message"></p>
+        </div>
+        <div>
+            <button class="btn btn-danger text-white failed-button-back" style=" padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
+        </div>
     </div>
-    <div>
-      <p id="modal-container-failed-message"></p>
-    </div>
-    <div>
-      <button class="btn btn-danger text-white failed-button-back" style=" padding: 0.5rem 1rem;"><strong>Kembali</strong></button>
-    </div>
-  </div>
 </div>
 
 </main>
@@ -52,132 +53,15 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
 
 
 <script>
-  $(document).on('click', '.success-button-back', () => {
-    window.location.reload();
-  })
+    $(document).on('click', '.success-button-back', () => {
+        window.location.reload();
+    })
 
-  $(document).on('click', '.failed-button-back', () => {
-    $('.modal-container-failed').addClass('d-none');
-  })
+    $(document).on('click', '.failed-button-back', () => {
+        $('.modal-container-failed').addClass('d-none');
+    })
 </script>
-<!--
-<!-- Menu Inventarisir -->
-<!-- <script>
-  /* Button tambah barang */
-  $(document).on('click', '.add-new-item-button', () => {
-    $('.add-item-modal-container').removeClass('d-none');
-  })
 
-  /* Setelah button tambah barang di klik akan muncul popup untuk ngisi data barang
-  ini digunakan ketika button batalkan di klik */
-  $(document).on('click', '.cancel-button-add-item', () => {
-    $('.add-item-modal-container').addClass('d-none');
-  })
-
-  /* ini digunakan ketika button konfirmasi diklik */
-  $(document).on('click', '.confirm-button-add-item', () => {
-    $('.confirmation-add-item-modal-container').removeClass('d-none');
-  })
-
-  /* Ketika tombol konfirmasi di klik akan muncul popup lagi yang digunakan untuk konfirmasi
-  ini digunakan ketika button batalkan di klik */
-  $(document).on('click', '.cancel-button-confirm-add-item', () => {
-    $('.confirmation-add-item-modal-container').addClass('d-none');
-  })
-
-  /* Dan ini ketika tombol simpan di klik */
-  $(document).on('click', '.save-button-confirm-add-item', () => {
-    $('.confirmation-add-item-modal-container').addClass('d-none');
-    $('.add-item-modal-container').addClass('d-none');
-    $('.success-add-item-modal-container').removeClass('d-none');
-  })
-
-  /* ketika sudah berhasil tambah barang akan muncul sebuah popup like a notifikasi bahwa
-  penambahan barang selesai dan di bagian ini akan digunakan untuk kembali */
-  $(document).on('click', '.add-item-success-button-back', () => {
-    $('.success-add-item-modal-container').addClass('d-none');
-  })
-
-  /* Bagian ini digunakan pada tombol detail pada tabel */
-  $(document).on('click', '.button-detail-item', () => {
-    $('.detail-item-modal-container').removeClass('d-none');
-  })
-
-  /* Lalu akan muncul popup untuk detail barang */
-  /* Ini digunakan ketika tombol batalkan di click */
-  $(document).on('click', '.cancel-button-detail-item', () => {
-    $('.detail-item-modal-container').addClass('d-none');
-  })
-
-  /* Ini digunakan ketika tombol hapus diklik */
-  $(document).on('click', '.delete-button-detail-item', () => {
-    $('.delete-item-modal-container').removeClass('d-none');
-  })
-
-  // Ini digunakan ketika tombol simpan di klik
-  $(document).on('click', '.save-button-detail-item', () => {
-    $('.detail-item-modal-container').addClass('d-none');
-    $('.success-edit-item-modal-container ').removeClass('d-none');
-  })
-
-  // Ini digunakan ketika tombol kembali di klik ketik sukses edit item
-  $(document).on('click', '.edit-item-success-button', () => {
-    $('.success-edit-item-modal-container ').addClass('d-none');
-  })
-
-  /* Ketika tombol hapus di klik akan muncul popup untuk konfirmasi apakah yakin ingin menghapus? */
-  /* Bagian ini digunakan untuk menghandle tombol di dalam popup tersebut */
-  // Ini digunakan ketika tombol batalkan di klik
-  $(document).on('click', '.delete-item-button-back', () => {
-    $('.delete-item-modal-container').addClass('d-none');
-  })
-
-  // ini digunakan ketika tombol hapus di klik
-  $(document).on('click', '.delete-item-button', () => {
-    $('.delete-item-modal-container').addClass('d-none');
-    $('.detail-item-modal-container').addClass('d-none');
-    $('.success-delete-item-modal-container').removeClass('d-none');
-  })
-
-  // ini digunakan ketika tombol kembali pada popup berhasil menghapus di klik
-  $(document).on('click', '.delete-item-success-button', () => {
-    $('.success-delete-item-modal-container').addClass('d-none');
-  })
-</script> -->
-
-<!-- Ini khusus digunakan pada menu dashboard admin dan data peminjaman -->
-<script>
-  // Bagian ini digunakan ketika tombol detail pada field peminjaman di klik
-  //   $(document).on('click', '.loan--details-button--approval', () => {
-  //     $('.modal-detail-container').removeClass('d-none');
-  //   })
-
-  // Maka akan muncul popup untuk detail peminjaman
-  // di dalam detail peminjaman terdapat dua button kembali dan simpan
-
-  // ini digunakan ketika button kembali di klik
-  //   $(document).on('click', '.button-back-loan', () => {
-  //     // $('.content').removeClass('d-none')
-  //     $('.modal-detail-container').addClass('d-none');
-  //   })
-
-  // ini digunakan ketika button simpan di klik
-  //   $(document).on('click', '.button-save-loan', () => {
-  //     $('.success-save-edit-loan-modal-container').removeClass('d-none');
-  //     $('.modal-detail-container').addClass('d-none');
-  //   })
-
-  // Ini digunakan ketika button kembali di klik pada popup success simpan
-  //   $(document).on('click', '.success-save-edit-loan-button-back', () => {
-  //     $('.success-save-edit-loan-modal-container').addClass('d-none');
-  //   })
-
-  // pada field keterangan sudah diset default oleh sistem
-  // ini digunakan ketika field input keterangan diklik maka akan reset
-  //   $(document).on('click', '.admin-retrieval-information', () => {
-  //     $('.admin-retrieval-information').val('');
-  //   })
-</script>
 
 <script>
   $(document).on('click', '.hamburger-nav', () => {
@@ -288,22 +172,22 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
 </script>
 
 <!-- Ini khusus digunakan menu peminjaman -->
-<!-- <script>
+<script>
   $(document).ready(function() {
     let total = 0;
 
     /* When the user click on the pinjam button, increment the counter and replace the pinjam button with a counter */
-    // $(document).on('click', '.inventory-item-button', function() {
-    //   let counter = 1;
-    //   total++;
+    $(document).on('click', '.inventory-item-button', function() {
+      let counter = 1;
+      total++;
 
-    //   $(this).replaceWith(`
-    //   <div class="counter-container w-100 d-flex justify-content-between column-gap-2 ">
-    //     <label for="pinjam${total}" class="btn-counter btn-counter-min btn text-white" style="background-color: #01305d" onclick="handleButtonClick('<?= $peminjaman['ID_Inventaris'] ?>', 'minus')">-</label>
-    //     <input id="pinjam${total}" type="text" value="${counter}" class="counter-input w-50 rounded bg-dark-subtle">
-    //     <label for="pinjam${total}" class="btn-counter btn-counter-plus btn text-white" style="background-color: #01305d" onclick="handleButtonClick('<?= $peminjaman['ID_Inventaris'] ?>', 'plus')">+</label>
-    //   </div>
-    // `);
+      $(this).replaceWith(`
+      <div class="counter-container w-100 d-flex justify-content-between column-gap-2 ">
+        <label for="pinjam${total}" class="btn-counter btn-counter-min btn text-white" style="background-color: #01305d">-</label>
+        <input id="pinjam${total}" type="text" value="${counter}" class="counter-input w-50 rounded bg-dark-subtle">
+        <label for="pinjam${total}" class="btn-counter btn-counter-plus btn text-white" style="background-color: #01305d">+</label>
+      </div>
+    `);
 
       updateLoanButtonState();
     });
@@ -349,14 +233,14 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
 
     updateLoanButtonState();
   })
-</script> -->
+</script>
 
-<!-- <script>
+<script>
   $(document).on('click', '.button-detail-history-loan', () => {
     $('.content').addClass('d-none')
     $('.modal-detail-container').removeClass('d-none');
   })
-</script> -->
+</script>
 
 <script>
   $(document).ready(function() {
@@ -532,84 +416,84 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
 
 <!-- Ini khusus digunakan oleh button batalkan -->
 <script>
-//   $(document).on('click', '.button-cancel-loan', () => {
-//     $('.cancel-loan-modal-container').toggleClass('d-none');
-//   })
+  $(document).on('click', '.button-cancel-loan', () => {
+    $('.cancel-loan-modal-container').toggleClass('d-none');
+  })
 
-//   $(document).on('click', '.cancel-loan-button', () => {
-//     $('.success-cancel-loan-modal-container').toggleClass('d-none');
-//   })
+  $(document).on('click', '.cancel-loan-button', () => {
+    $('.success-cancel-loan-modal-container').toggleClass('d-none');
+  })
 
-//   $(document).on('click', '.cancel-loan-button-back', () => {
-//     $('.success-cancel-loan-modal-container').toggleClass('d-none');
-//     $('.cancel-loan-modal-container').toggleClass('d-none');
-//     $('.modal-detail-container').toggleClass('d-none');
-//     $('.content').toggleClass('d-none');
-//   })
+  $(document).on('click', '.cancel-loan-button-back', () => {
+    $('.success-cancel-loan-modal-container').toggleClass('d-none');
+    $('.cancel-loan-modal-container').toggleClass('d-none');
+    $('.modal-detail-container').toggleClass('d-none');
+    $('.content').toggleClass('d-none');
+  })
 </script>
 
 <!-- Ini Khusus digunakan oleh menu maintainer -->
 <script>
-  //   $(document).on('click', '.add-new-maintainer-button', () => {
-  //     $('.add-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.add-new-maintainer-button', () => {
+//     $('.add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.cancel-button-add-maintainer', () => {
-  //     $('.add-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.cancel-button-add-maintainer', () => {
+//     $('.add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.confirm-button-add-maintainer', () => {
-  //     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.confirm-button-add-maintainer', () => {
+//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.cancel-button-confirm-add-maintainer', () => {
-  //     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.cancel-button-confirm-add-maintainer', () => {
+//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.save-button-confirm-add-maintainer', () => {
-  //     $('.success-add-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.save-button-confirm-add-maintainer', () => {
+//     $('.success-add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.add-maintainer-success-button-back', () => {
-  //     $('.add-maintainer-modal-container').toggleClass('d-none');
-  //     $('.success-add-maintainer-modal-container').toggleClass('d-none');
-  //     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.add-maintainer-success-button-back', () => {
+//     $('.add-maintainer-modal-container').toggleClass('d-none');
+//     $('.success-add-maintainer-modal-container').toggleClass('d-none');
+//     $('.confirmation-add-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.edit-maintainer-button', () => {
-  //     $('.edit-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.edit-maintainer-button', () => {
+//     $('.edit-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.cancel-button-edit-maintainer', () => {
-  //     $('.edit-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.cancel-button-edit-maintainer', () => {
+//     $('.edit-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.confirm-button-edit-maintainer', () => {
-  //     $('.success-edit-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.confirm-button-edit-maintainer', () => {
+//     $('.success-edit-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.maintainer-success-button-back', () => {
-  //     $('.maintainer-modal-container').toggleClass('d-none');
-  //     $('maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.maintainer-success-button-back', () => {
+//     $('.maintainer-modal-container').toggleClass('d-none');
+//     $('maintainer-modal-container').toggleClass('d-none');
+//   })
 
 
-  //   $(document).on('click', '.delete-maintainer-button', () => {
-  //     $('.delete-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.delete-maintainer-button', () => {
+//     $('.delete-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.delete-maintainer-button-back', () => {
-  //     $('.delete-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.delete-maintainer-button-back', () => {
+//     $('.delete-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.delete-maintainer-button-delete', () => {
-  //     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.delete-maintainer-button-delete', () => {
+//     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
+//   })
 
-  //   $(document).on('click', '.delete-maintainer-success-button', () => {
-  //     $('.delete-maintainer-modal-container').toggleClass('d-none');
-  //     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
-  //   })
+//   $(document).on('click', '.delete-maintainer-success-button', () => {
+//     $('.delete-maintainer-modal-container').toggleClass('d-none');
+//     $('.success-delete-maintainer-modal-container').toggleClass('d-none');
+//   })
 </script>
 
 <script>
@@ -617,16 +501,29 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
-
-  const peminjaman = [{
-    id: 1,
-    start: '2023-12-15',
-    end: '2023-12-20'
-  }, ]
+  let peminjaman = [];
+  $.ajax({
+    url: '/inventory/date',
+    method: 'GET',
+    success: function(data) {
+      $(document).ready(function() {
+        peminjaman = data.data;
+        generateCalendar(currentYear, currentMonth);
+      })
+    },
+    error: (error) => {
+      console.log(error);
+    }
+    })
+//   const peminjaman = [{
+//     id: 1,
+//     start: '2023-12-15',
+//     end: '2023-12-20'
+//   }, ]
 
   function generateCalendar(year, month) {
     const table = $('.calendar-table');
-    table.empty(); // Clear existing
+    table.empty(); // Clear existing content
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const firstDay = new Date(year, month, 1).getDay();
@@ -686,7 +583,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
             // Highlight today's date
             td.addClass('bg-warning rounded-3');
           }
-          if (peminjaman.some(peminjaman => peminjaman.end === `${year}-${month + 1}-${dayCounter}`)) {
+          if (peminjaman.some(peminjaman => peminjaman.EndDate.split(' ')[0] === `${year}-${month + 1}-${dayCounter}`)) {
             td.append(endLoanModal);
             td.addClass('end-loan bg-danger rounded-3 text-white position-relative');
           }
@@ -779,3 +676,5 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
 </body>
 
 </html>
+
+

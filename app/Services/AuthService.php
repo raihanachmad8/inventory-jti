@@ -43,6 +43,9 @@ class AuthService
         try {
             $this->validateLogin($request);
             $pengguna = $this->penggunaRepository->getDetailPenggunaByEmail($request['Email']);
+            if ($pengguna->Status === 'TIDAK AKTIF') {
+                throw new Exception('Email & Password is incorrect.');
+            }
             $pengguna->Level = $this->levelRepository->getLevelById($pengguna->ID_Level);
             $this->validatePassword($request['Password'], $pengguna);
             return $pengguna;

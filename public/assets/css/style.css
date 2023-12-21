@@ -34,7 +34,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .accordion i {
@@ -126,6 +126,7 @@ ul {
 }
 
 .feature-container {
+    max-width: 65rem;
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 1rem 1rem;
@@ -496,11 +497,6 @@ strong {
     gap: 1.3rem;
 }
 
-.detail-item-modal {
-    width: 100%;
-    border-radius: 0rem;
-}
-
 .add-item-modal-container {
     width: 100vw;
     height: fit-content;
@@ -517,28 +513,8 @@ strong {
     row-gap: 1rem;
 }
 
-.detail-item-modal-container {
-    width: 100vw;
-    height: fit-content;
-    z-index: 99;
-}
-
 div#content {
     height: 100vh;
-}
-
-form#detail-item-form {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-}
-
-form#detail-item-form .input-container input:not([type="checkbox"]) {
-    padding: 0.375rem 0.75rem 0.375rem 0.75rem;
-}
-
-form#detail-item-form .input-container select {
-    width: 100%;
 }
 
 .login-card {
@@ -548,6 +524,39 @@ form#detail-item-form .input-container select {
 
 div.profile-info {
     width: 100%;
+}
+
+.guarantee-reason-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 2rem;
+}
+
+.faq-container {
+    max-width: 65rem;
+}
+
+.detail-item-modal-container,
+.confirmation-add-item-modal-container {
+    height: 100vh;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.detail-item-modal,
+.confirmation-add-item-modal {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.edit-item-form,
+.confirmation-add-item {
+    width: 100%;
+    display: grid;
+    gap: 1rem;
 }
 
 @media only screen and (min-width: 768px) {
@@ -564,28 +573,6 @@ div.profile-info {
 
     main.main-container {
         height: 100%;
-    }
-
-    form#detail-item-form {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-    }
-
-    form#detail-item-form > .input-container:nth-child(8) {
-        grid-column: span 2;
-    }
-
-    .detail-item-modal-container {
-        width: 100vw;
-        min-height: 100vh;
-        padding: 2rem;
-    }
-
-    .detail-item-modal {
-        width: 100%;
-        height: fit-content;
-        border-radius: 1rem;
     }
 
     div.add-item-modal-container {
@@ -625,6 +612,34 @@ div.profile-info {
 }
 
 @media only screen and (min-width: 992px) {
+    .detail-item-modal-container,
+    .confirmation-add-item-modal-container {
+        height: 100vh;
+        z-index: 99999;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .edit-item-form,
+    .confirmation-add-item {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .guarantee-reason-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 2rem;
+    }
+
     div.profile-info {
         width: -moz-fit-content;
         width: fit-content;
@@ -641,10 +656,14 @@ div.profile-info {
         padding: 1rem;
     }
 
-    .detail-item-modal {
-        width: 50rem;
+    .detail-item-modal,
+    .confirmation-add-item-modal {
+        width: 60rem;
         height: 35rem;
-        border-radius: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        border-radius: 1rem;
     }
 
     .dashboard-widget-admin {
@@ -831,21 +850,6 @@ div.profile-info {
         font-size: 1.3rem;
     }
 
-    .detail-item-modal-container .detail-item-modal div.input-container,
-    .confirmation-add-item-modal-container
-        .confirmation-add-item-modal
-        div.input-container {
-        width: 100%;
-        height: fit-content;
-    }
-
-    .detail-item-modal-container
-        .detail-item-modal
-        div.input-container
-        > input {
-        padding: 0.375rem 0.75rem 0.375rem 0.75rem;
-    }
-
     div.add-item-modal-container {
         width: 100%;
         height: 100%;
@@ -916,7 +920,8 @@ div.profile-info {
     }
 
     #team .team-container {
-        width: 75vw;
+        max-width: 65rem;
+        width: 50vw;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 2rem;
@@ -936,6 +941,7 @@ div.profile-info {
     }
 
     .footer .footer-container {
+        max-width: 65rem;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -949,7 +955,6 @@ div.profile-info {
 }
 
 @media only screen and (min-width: 1600px) {
-
     .dashboard-widget-item {
         width: 5rem;
         height: calc(8rem + 10vh);
