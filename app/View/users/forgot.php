@@ -51,17 +51,17 @@
             <div class="w-100 h-100 d-none d-lg-inline-block position-relative">
                 <div class="w-100 h-100 position-absolute p-3 d-flex align-items-end bg-black bg-opacity-25 ">
                     <div class="p-3 bg-body rounded-3">
-                        <strong>Inventaris</strong>
-                        <p>Inventaris adalah daftar atau catatan rinci yang mencakup semua barang, aset, atau benda yang dimiliki, disimpan, atau digunakan oleh suatu organisasi, perusahaan, atau individu pada suatu waktu tertentu.</p>
+                        <strong>INTI</strong>
+                        <p>INTI adalah aplikasi manajemen peminjaman dan pengelolaan inventaris di Jurusan Teknologi Informasi dirancang untuk memberikan solusi efektif dalam mengelola aset dan sumber daya yang dimiliki oleh departemen tersebut.</p>
                     </div>
                 </div>
                 <img src="/public/assets/images/gedung-jti.jpg" alt="" class="w-100 h-100 object-fit-cover">
             </div>
             <div id="content" class="h-100 align-items-center justify-content-center align-self-center p-4 ">
-                <div class="d-flex justify-content-start align-items-center py-3 column-gap-1" >
+                <a href="/users/login" class="d-flex justify-content-start align-items-center py-3 column-gap-1 text-decoration-none" style="color: #023670;">
                     <i data-feather="chevron-left"></i>
                     Kembali
-                </div>
+                </a>
                 <div class="text-center ">
                     <strong style="font-size: 1.5rem;">Masukan alamat email</strong>
                     <p class="text-center">Masukkan alamat email untuk mendapatkan kode verifikasi</p>

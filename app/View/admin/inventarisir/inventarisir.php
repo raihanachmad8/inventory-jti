@@ -213,7 +213,7 @@
     </div>
 </div>
 
-<div style="background-color: rgba(0, 0, 0, 0.5);" class="confirmation-add-item-modal-container vw-100 position-fixed overflow-y-scroll ">
+<div style="background-color: rgba(0, 0, 0, 0.5);" class="confirmation-add-item-modal-container vw-100 position-fixed overflow-y-scroll d-none">
     <div class="confirmation-add-item-modal bg-light overflow-hidden">
         <div class="order-last order-lg-first p-4 row-gap-3 d-flex flex-column  overflow-y-scroll ">
             <h4 class="fw-bold " style="color: #01305D;">Konfirmasi Penambahan Barang</h4>

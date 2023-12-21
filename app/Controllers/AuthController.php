@@ -292,7 +292,8 @@ class AuthController
     }
 
     public function forgotForm()
-    {   try {
+    {
+        try {
             View::renderPage('users/forgot');
         } catch (Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');
@@ -502,7 +503,7 @@ class AuthController
         try {
             $ID_PenggunaInput = input::get('ID_Pengguna');
             $EmailInput = input::get('Email', true);
-            if (empty($ID_PenggunaInput) || empty($EmailInput) ) {
+            if (empty($ID_PenggunaInput) || empty($EmailInput)) {
                 throw new Exception('Verification failed. Please provide valid link');
             }
             $pengguna = $this->authService->getPenggunaById($ID_PenggunaInput);
@@ -513,8 +514,6 @@ class AuthController
             if ($EmailInput !== $pengguna->Email) {
                 throw new Exception('Verification failed. Email not found.');
             }
-
-
         } catch (Exception $e) {
             if ($e instanceof PDOException) {
                 header('HTTP/1.1 500 Internal Server Error');
@@ -532,7 +531,8 @@ class AuthController
         }
     }
 
-    public function hasOTP() {
+    public function hasOTP()
+    {
         try {
             $OTPID = input::get('o');
             if (empty($OTPID)) {
@@ -569,5 +569,4 @@ class AuthController
             }
         }
     }
-
 }

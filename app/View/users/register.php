@@ -66,8 +66,8 @@
             <div class="w-100 h-100 d-none d-lg-inline-block position-relative">
                 <div class="w-100 h-100 position-absolute p-3 d-flex align-items-end bg-black bg-opacity-25 ">
                     <div class="p-3 bg-body rounded-3">
-                        <strong>Inventaris</strong>
-                        <p>Inventaris adalah daftar atau catatan rinci yang mencakup semua barang, aset, atau benda yang dimiliki, disimpan, atau digunakan oleh suatu organisasi, perusahaan, atau individu pada suatu waktu tertentu.</p>
+                        <strong>INTI</strong>
+                        <p>INTI adalah aplikasi manajemen peminjaman dan pengelolaan inventaris di Jurusan Teknologi Informasi dirancang untuk memberikan solusi efektif dalam mengelola aset dan sumber daya yang dimiliki oleh departemen tersebut.</p>
                     </div>
                 </div>
                 <img src="/public/assets/images/gedung-jti.jpg" alt="" class="w-100 h-100 object-fit-cover">
@@ -116,7 +116,7 @@
                         <div>
                             <div class="mt-2">
                                 <label for="nomor-identitas">Nomor Identitas</label>
-                                <input type="number" id="nomor-identitas" name="nomor-identitas" placeholder="NIM / NIP" class="form-control  " style="border: 1px solid #022f63 !important;">
+                                <input type="number" id="nomor-identitas" name="nomor-identitas" placeholder="NIM / NIP" class="form-control" style="border: 1px solid #022f63 !important;">
                                 <?php if (isset($model['errors']['Nomor_Identitas'])) : ?>
                                     <small class="text-danger">
                                         <?php if (is_array($model['errors']['Nomor_Identitas'])) : ?>

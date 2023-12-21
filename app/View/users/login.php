@@ -53,8 +53,8 @@
             <div class="w-100 h-100 d-none d-lg-inline-block position-relative">
                 <div class="w-100 h-100 position-absolute p-3 d-flex align-items-end bg-black bg-opacity-25 ">
                     <div class="p-3 bg-body rounded-3">
-                        <strong>Inventaris</strong>
-                        <p>Inventaris adalah daftar atau catatan rinci yang mencakup semua barang, aset, atau benda yang dimiliki, disimpan, atau digunakan oleh suatu organisasi, perusahaan, atau individu pada suatu waktu tertentu.</p>
+                        <strong>INTI</strong>
+                        <p>INTI adalah aplikasi manajemen peminjaman dan pengelolaan inventaris di Jurusan Teknologi Informasi dirancang untuk memberikan solusi efektif dalam mengelola aset dan sumber daya yang dimiliki oleh departemen tersebut.</p>
                     </div>
                 </div>
                 <img src="/public/assets/images/gedung-jti.jpg" alt="" class="w-100 h-100 object-fit-cover">
@@ -62,10 +62,10 @@
             <div id="content" class=" h-100 align-items-center justify-content-center align-self-center px-4 ">
                 <strong class="text-center py-4" style="font-size: 1.5rem; color: #022f63">Masuk</strong>
                 <?php if (isset($model['error'])) : ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?= $model['error'] ?>
-                        </div>
-                    <?php endif; ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= $model['error'] ?>
+                    </div>
+                <?php endif; ?>
                 <form action="/users/login" method="post" enctype="multipart/form-data" style="display: grid; grid-template-rows:1fr 1fr; gap: 10px;">
                     <div>
                         <label for="email">Email</label>

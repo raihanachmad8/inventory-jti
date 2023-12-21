@@ -3,11 +3,6 @@ if (PHP_SESSION_NONE === session_status()) {
     session_start();
 }
 
-$ses = $_SESSION['session_user_id'];
-
-// var_dump($ses);
-// var_dump($_SESSION['token_' . base64_decode($ses)]);
-
 
 // Core
 require_once __DIR__ . '/../app/App/Router.php';

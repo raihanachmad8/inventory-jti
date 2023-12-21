@@ -52,28 +52,28 @@
             <div class="w-100 h-100 d-none d-lg-block position-relative">
                 <div class="w-100 h-100 position-absolute p-3 d-flex align-items-end bg-black bg-opacity-25 ">
                     <div class="p-3 bg-body rounded-3">
-                        <strong>Inventaris</strong>
-                        <p>Inventaris adalah daftar atau catatan rinci yang mencakup semua barang, aset, atau benda yang dimiliki, disimpan, atau digunakan oleh suatu organisasi, perusahaan, atau individu pada suatu waktu tertentu.</p>
+                        <strong>INTI</strong>
+                        <p>INTI adalah aplikasi manajemen peminjaman dan pengelolaan inventaris di Jurusan Teknologi Informasi dirancang untuk memberikan solusi efektif dalam mengelola aset dan sumber daya yang dimiliki oleh departemen tersebut.</p>
                     </div>
                 </div>
                 <img src="/public/assets/images/gedung-jti.jpg" alt="" class="w-100 h-100 object-fit-cover">
             </div>
             <div id="content" class="h-100 align-items-center justify-content-center align-self-center px-4">
                 <!-- <?php if (isset($error)) : ?> -->
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?= $error ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    <!-- <?php endif ?> -->
-                    <?php View::getFlashData() ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= $error ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <!-- <?php endif ?> -->
+                <?php View::getFlashData() ?>
                 <div class="d-flex justify-content-center align-items-center">
                     <img src="/public/assets/images/OTP verification.svg" alt="" style="width: 8rem; height: 8rem">
                 </div>
                 <div class="text-center">
                     <strong class="text-center" style="font-size: 1.3rem; color: #022f63">Masukkan Kode Verifikasi</strong>
-                    <p class="text-center">Kode verifikasi sudah dikirim melalui email <?= substr(urldecode($_GET['Email']), 0, 3) . '***@' . substr(urldecode($_GET['Email']), strpos(urldecode($_GET['Email']), '@') + 1)?></p>
+                    <p class="text-center">Kode verifikasi sudah dikirim melalui email <?= substr(urldecode($_GET['Email']), 0, 3) . '***@' . substr(urldecode($_GET['Email']), strpos(urldecode($_GET['Email']), '@') + 1) ?></p>
                 </div>
-                <form action="/users/register/verification?ID_Pengguna=<?=$_GET['ID_Pengguna']?>&Email=<?=$_GET['Email']?>&o=<?= $_GET['o']?>" method="post" style="display: grid; grid-template-rows:1fr; gap: 3rem; justify-content: center; justify-items: center">
+                <form action="/users/register/verification?ID_Pengguna=<?= $_GET['ID_Pengguna'] ?>&Email=<?= $_GET['Email'] ?>&o=<?= $_GET['o'] ?>" method="post" style="display: grid; grid-template-rows:1fr; gap: 3rem; justify-content: center; justify-items: center">
                     <div class="d-flex justify-content-center align-items-center flex-wrap gap-2 ">
                         <input type="number" name="code_1" id="code_1" maxlength="1" pattern="[0-9]" onfocus="clearInput(this)" oninput="moveToNextInput(this)" style="-moz-appearance: textfield; width: 3rem; height: 3rem; border: 1px solid #023670; border-radius: 10px; text-align: center;">
                         <input type="number" name="code_2" id="code_2" maxlength="1" pattern="[0-9]" onfocus="clearInput(this)" oninput="moveToNextInput(this)" style="-moz-appearance: textfield; width: 3rem; height: 3rem; border: 1px solid #023670; border-radius: 10px; text-align: center;">
@@ -94,7 +94,6 @@
     </div>
 
     <script>
-
         function moveToNextInput(currentInput) {
             if (currentInput.value.length > 1) {
                 currentInput.value = currentInput.value.slice(0, 1);
@@ -134,9 +133,7 @@
             // Memanggil fungsi updateCountdown setiap detik
             let countdownInterval = setInterval(updateCountdown, 1000);
         }
-    window.onload = startCountdown;
-
-
+        window.onload = startCountdown;
     </script>
 </body>
 

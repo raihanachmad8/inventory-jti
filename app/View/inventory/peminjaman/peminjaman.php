@@ -191,8 +191,6 @@
         <h5>Upload KTP / KTM</h5>
       </strong>
       <label for="image" class="d-flex justify-content-center align-items-center border rounded-3 w-100 h-100 " style="cursor: pointer;">
-        <!-- <i data-feather="image" style="width: 3rem; height:3rem; " class="text-body-tertiary"></i>
-     -->
         <img src="/public/assets/images/gedung-jti.jpg" alt="" class="w-100 rounded-3 h-100 object-fit-contain  " style="max-height: 250px;">
       </label>
       <input id="image" type="file" class="d-none">

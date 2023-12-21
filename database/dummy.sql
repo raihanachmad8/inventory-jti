@@ -1,3 +1,4 @@
+-- Active: 1683729214238@@127.0.0.1@3306@inventory_jti
 USE inventory_jti;
 
 INSERT INTO Level (ID_Level, Nama) VALUES
