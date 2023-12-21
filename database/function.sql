@@ -8,13 +8,6 @@ SELECT * FROM pengguna
 
 SELECT * FROM inventaris
 
-
-SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, ID_Level, Email, Status FROM pengguna
-        WHERE ID_Pengguna = "Account_ID_/80Wi03b1ZldGt6S3VXWT0="
-
-SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, ID_Level, Email, Status FROM pengguna
-        WHERE ID_Pengguna = "Account_ID_+/80Wi03b1ZldGt6S3VXWT0="
-
 SELECT
     I.ID_Inventaris,
     I.Nama,
@@ -55,7 +48,9 @@ ORDER BY
 
 SELECT
     i.ID_Inventaris,
-    SUM(dt.Jumlah) AS TotalBorrowed
+    i.`Nama`,
+    SUM(dt.Jumlah) AS TotalBorrowed,
+    i.`Stok`
 FROM
     Transaksi t
 JOIN
@@ -70,3 +65,31 @@ GROUP BY
     t.ID_Status, i.ID_Inventaris
 ORDER BY
      i.ID_Inventaris;
+
+
+SELECT * FROM transaksi
+
+
+SELECT * FROM detailtransaksi ORDER BY ID_DetailTrc DESC
+
+
+SELECT *
+FROM DetailTransaksi
+ORDER BY CAST(SUBSTRING(ID_DetailTrc FROM 3) AS SIGNED) DESC, ID_DetailTrc
+
+SELECT * FROM status
+
+SELECT T.ID_Transaksi, T.ID_Pengguna, T.ID_Admin, T.StartDate, T.EndDate, T.Deskripsi_Keperluan, T.Jaminan, T.Pesan, T.ID_Status, S.`Nama` AS Nama_Status, P.`Nama` AS Nama_Pengguna, A.`Nama` AS Nama_Admin, L.`Nama` AS Nama_Level
+            FROM transaksi T
+            LEFT JOIN pengguna P ON T.ID_Pengguna = P.ID_Pengguna
+            LEFT JOIN Level L ON P.ID_Level = L.ID_Level
+            LEFT JOIN status S ON T.ID_Status = S.ID_Status
+            LEFT JOIN maintainer A ON T.ID_Admin = A.ID_Maintainer
+            WHERE  t.`ID_Pengguna` = "P2"
+
+
+SELECT COUNT(*) as $stat FROM transaksi
+LEFT JOIN status ON transaksi.ID_Status = status.ID_Status
+WHERE status.ID_Status = 'S7' AND transaksi.ID_Pengguna = 'P1'
+
+SELECT ID_Transaksi, Pesan FROM transaksi WHERE ID_Pengguna = "P2"

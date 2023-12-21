@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/Validation.php';
 
-class DetailTransaksi extends Validation
+class DetailTransaksiValidation extends Validation
 {
     public function __construct(array $request)
     {

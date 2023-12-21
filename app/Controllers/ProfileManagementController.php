@@ -4,18 +4,21 @@ require_once __DIR__ . '/../Services/FileImageService.php';
 require_once __DIR__ . '/../Services/ProfileService.php';
 require_once __DIR__ . '/../Services/SessionManagerService.php';
 require_once __DIR__ . '/../Validation/ImageValidation.php';
+require_once __DIR__ . '/../Services/PeminjamanService.php';
 
 class ProfileManagementController
 {
     private FileImageService $fileImageService;
     private ProfileService $profileService;
     private SessionManagerService $sessionManagerService;
+    private PeminjamanService $peminjamanService;
 
     public function __construct()
     {
         $this->fileImageService = new FileImageService();
         $this->profileService = new ProfileService();
         $this->sessionManagerService = new SessionManagerService(new SessionManagerRepository());
+        $this->peminjamanService = new PeminjamanService();
     }
 
     public function profile() {
@@ -30,9 +33,9 @@ class ProfileManagementController
                 exit(405);
             }
             $session = $this->sessionManagerService->get();
-            $profile = $this->profileService->getProfile($session->id);
+            $pengguna = $this->profileService->getProfile($session->id);
             header('HTTP/1.0 200 OK');
-            View::renderView('profile/profile', compact('profile'));
+            View::renderView('profile/profile', compact('pengguna'));
         } catch (Exception $e) {
             if ($e instanceof PDOException) {
                 View::renderView('profile/profile', ['error' => $e->getMessage()]);
@@ -54,12 +57,12 @@ class ProfileManagementController
                 exit(405);
             }
             $session = $this->sessionManagerService->get();
-            $profile = $this->profileService->getProfile($session->id);
+            $pengguna = $this->profileService->getProfile($session->id);
             header('HTTP/1.0 200 OK');
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 'success',
-                'data' => $profile
+                'data' => $pengguna
             ]);
         } catch (Exception $e) {
             if ($e instanceof PDOException) {
@@ -78,10 +81,10 @@ class ProfileManagementController
             }
 
             $session = $this->sessionManagerService->get();
-            $profile = $this->profileService->getProfile($session->id);
+            $pengguna = $this->profileService->getProfile($session->id);
 
             $request = [
-                'ID_Pengguna' => $profile->ID_Pengguna,
+                'ID_Pengguna' => $pengguna->ID_Pengguna,
                 'Nama_Pengguna' => input::post('nama'),
             ];
             if (empty($request['ID_Pengguna'])) {
@@ -98,12 +101,12 @@ class ProfileManagementController
                 }
                 $imageName = $this->fileImageService->randomImageName($image);
                 $request['Foto'] = $imageName;
-                if ($this->fileImageService->upload('profile', $imageName, $image)) {
+                if ($this->fileImageService->upload('p', $imageName, $image)) {
 
-                    $profile = $this->profileService->updateUserProfile($request);
+                    $result = $this->profileService->updateUserProfile($request);
 
-                    if (!$profile) {
-                        unlink($this->fileImageService->getPathImage('profile', $imageName));
+                    if (!$result) {
+                        unlink($this->fileImageService->getPathImage('p', $imageName));
                         exit(500);
                     }
                     View::setFlashData('success', 'Profile updated successfully');
@@ -112,10 +115,10 @@ class ProfileManagementController
                     throw new Exception('Failed to upload image');
                 }
             } else {
-                $request['Foto'] = $profile->Foto;
-                $profile = $this->profileService->updateUserProfile($request);
+                $request['Foto'] = $pengguna->Foto;
+                $result = $this->profileService->updateUserProfile($request);
 
-                if (!$profile)  {
+                if (!$result)  {
                     throw new Exception('Failed to update profile');
                 }
 
@@ -144,10 +147,10 @@ class ProfileManagementController
             }
 
             $session = $this->sessionManagerService->get();
-            $profile = $this->profileService->getProfile($session->id);
+            $pengguna = $this->profileService->getProfile($session->id);
 
             $request = [
-                'ID_Pengguna' => $profile->ID_Pengguna,
+                'ID_Pengguna' => $pengguna->ID_Pengguna,
                 'Email' => input::post('email'),
                 'Nomor_HP' => input::post('nomor-hp')
             ];
@@ -177,7 +180,7 @@ class ProfileManagementController
                 View::renderView('profile/profile', [
                     'error' => "Failed to update account information",
                     'errors' => $e->getErrors(),
-                    'profile' => $profile
+                    'p' => $pengguna
                 ]);
             } else {
                 header('HTTP/1.1 500 Internal Server Error');
@@ -196,10 +199,10 @@ class ProfileManagementController
             }
 
             $session = $this->sessionManagerService->get();
-            $profile = $this->profileService->getProfile($session->id);
+            $pengguna = $this->profileService->getProfile($session->id);
 
             $request = [
-                'ID_Pengguna' => $profile->ID_Pengguna,
+                'ID_Pengguna' => $pengguna->ID_Pengguna,
                 'Password' => input::post('password'),
                 'Confirm_Password' => input::post('confirm-password')
             ];
@@ -232,7 +235,7 @@ class ProfileManagementController
                 View::renderView('profile/profile', [
                     'error' => "Failed to update account security",
                     'errors' => $e->getErrors(),
-                    'profile' => $profile
+                    'p' => $pengguna
                 ]);
             } else {
                 header('HTTP/1.1 500 Internal Server Error');
@@ -254,8 +257,8 @@ class ProfileManagementController
                 exit(405);
             }
             $session = $this->sessionManagerService->get();
-            $profile = $this->profileService->getProfile($session->id);
-            View::renderView('profile/keamanan', compact('profile'));
+            $pengguna = $this->profileService->getProfile($session->id);
+            View::renderView('profile/keamanan', compact('pengguna'));
         } catch (Exception $e) {
             if ($e instanceof PDOException) {
                 View::renderView('profile/keamanan', ['error' => $e->getMessage()]);
@@ -279,7 +282,11 @@ class ProfileManagementController
                 exit(405);
             }
 
-            View::renderView('profile/pesan');
+            $session = $this->sessionManagerService->get();
+            $pengguna = $this->profileService->getProfile($session->id);
+            $message = $this->peminjamanService->getListPesan($session->id);
+
+            View::renderView('profile/pesan', compact('pengguna', 'message'));
         } catch (Exception $e) {
             if ($e instanceof PDOException) {
                 View::renderView('profile/pesan', ['error' => $e->getMessage()]);
@@ -300,8 +307,8 @@ class ProfileManagementController
                 exit(405);
             }
             $session = $this->sessionManagerService->get();
-            $profile = $this->profileService->getProfile($session->id);
-            View::renderView('profile/hapus-akun', compact('profile'));
+            $pengguna = $this->profileService->getProfile($session->id);
+            View::renderView('profile/hapus-akun', compact('pengguna'));
         } catch (Exception $e) {
             if ($e instanceof PDOException) {
                 View::renderView('profile/hapus-akun', ['error' => $e->getMessage()]);

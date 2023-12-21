@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="text-center">
-      <h1><?= $model['statusPeminjaman']['Selesai'] ?></h1>
+      <h1><?= ((int)$model['statusPeminjaman']['Selesai'] + (int) $model['statusPeminjaman']['Dibatalkan'] + (int) $model['statusPeminjaman']['Ditolak']) ?></h1>
     </div>
     <div>
       <small>Peminjaman yang sudah selesai</small>
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="text-center">
-      <h1><?= $model['statusPeminjaman']['Proses'] ?></h1>
+      <h1><?= ((int)$model['statusPeminjaman']['Proses'] + (int) $model['statusPeminjaman']['Menunggu Ganti']) ?></h1>
     </div>
     <div>
       <small>Peminjaman yang belum selesai</small>

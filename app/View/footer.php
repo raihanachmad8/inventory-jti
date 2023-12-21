@@ -288,22 +288,22 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
 </script>
 
 <!-- Ini khusus digunakan menu peminjaman -->
-<script>
+<!-- <script>
   $(document).ready(function() {
     let total = 0;
 
     /* When the user click on the pinjam button, increment the counter and replace the pinjam button with a counter */
-    $(document).on('click', '.inventory-item-button', function() {
-      let counter = 1;
-      total++;
+    // $(document).on('click', '.inventory-item-button', function() {
+    //   let counter = 1;
+    //   total++;
 
-      $(this).replaceWith(`
-      <div class="counter-container w-100 d-flex justify-content-between column-gap-2 ">
-        <label for="pinjam${total}" class="btn-counter btn-counter-min btn text-white" style="background-color: #01305d">-</label>
-        <input id="pinjam${total}" type="text" value="${counter}" class="counter-input w-50 rounded bg-dark-subtle">
-        <label for="pinjam${total}" class="btn-counter btn-counter-plus btn text-white" style="background-color: #01305d">+</label>
-      </div>
-    `);
+    //   $(this).replaceWith(`
+    //   <div class="counter-container w-100 d-flex justify-content-between column-gap-2 ">
+    //     <label for="pinjam${total}" class="btn-counter btn-counter-min btn text-white" style="background-color: #01305d" onclick="handleButtonClick('<?= $peminjaman['ID_Inventaris'] ?>', 'minus')">-</label>
+    //     <input id="pinjam${total}" type="text" value="${counter}" class="counter-input w-50 rounded bg-dark-subtle">
+    //     <label for="pinjam${total}" class="btn-counter btn-counter-plus btn text-white" style="background-color: #01305d" onclick="handleButtonClick('<?= $peminjaman['ID_Inventaris'] ?>', 'plus')">+</label>
+    //   </div>
+    // `);
 
       updateLoanButtonState();
     });
@@ -349,7 +349,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
 
     updateLoanButtonState();
   })
-</script>
+</script> -->
 
 <!-- <script>
   $(document).on('click', '.button-detail-history-loan', () => {

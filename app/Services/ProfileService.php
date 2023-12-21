@@ -11,7 +11,7 @@ class ProfileService
         $this->penggunaRepository = new PenggunaRepository();
     }
 
-    public function getProfile(string $ID_Pengguna): ?object
+    public function getProfile(string $ID_Pengguna): Pengguna
     {
         $result = $this->penggunaRepository->getPenggunaById($ID_Pengguna);
         return $result;
@@ -69,9 +69,6 @@ class ProfileService
         }
     }
 
-    public function getListMessage() {
-
-    }
 
     public function deleteAccount(string $ID_Pengguna) : bool  {
         try {

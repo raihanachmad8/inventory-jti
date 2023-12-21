@@ -3,7 +3,7 @@
   <div class="w-100 h-100 bg-white d-flex justify-content-center align-items-center rounded-3 overflow-hidden ">
     <nav class="h-100 bg-white p-3 d-none d-lg-block" style="width: 15rem; border-right: 1px solid #001e3a;">
       <ul class="d-flex flex-column row-gap-4">
-        <li class="<?= active_page($current_page_url, $menu_items['profil']) ? "bg-primary rounded-3 " : "" ?> p-2 "><a href="/profile/profil" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['profil']) ? "#fff" : "#001e3a" ?>;">
+        <li class="<?= active_page($current_page_url, $menu_items['profil']) ? "bg-primary rounded-3 " : "" ?> p-2 "><a href="/profile/profile" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['profil']) ? "#fff" : "#001e3a" ?>;">
             <p style="font-size: 1rem; font-weight: 500;">Profile</p>
           </a></li>
         <li class="p-2 <?= active_page($current_page_url, $menu_items['keamanan']) ? "bg-primary rounded-3" : "" ?>"><a href="/profile/keamanan" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['keamanan']) ? "#fff" : "#001e3a" ?>;">
@@ -20,7 +20,7 @@
 
     <nav class="bg-white end-0  d-lg-none position-fixed fixed-bottom w-100 rounded-top-4">
       <ul class="d-flex justify-content-between  align-items-center row-gap-4 px-3 py-4 text-center ">
-        <li class="<?= active_page($current_page_url, $menu_items['profil']) ? "bg-primary rounded-3 " : "" ?> p-2 "><a href="/profile/profil" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['profil']) ? "#fff" : "#001e3a" ?>;">
+        <li class="<?= active_page($current_page_url, $menu_items['profil']) ? "bg-primary rounded-3 " : "" ?> p-2 "><a href="/profile/profile" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['profil']) ? "#fff" : "#001e3a" ?>;">
             <p style="font-size: 0.8rem; font-weight: 500;">Profile</p>
           </a></li>
         <li class="p-2 <?= active_page($current_page_url, $menu_items['keamanan']) ? "bg-primary rounded-3" : "" ?>"><a href="/profile/keamanan" class="nav-link" style="color: <?= active_page($current_page_url, $menu_items['keamanan']) ? "#fff" : "#001e3a" ?>;">
@@ -46,37 +46,37 @@
       <div class="d-flex justify-content-between border rounded-4 p-3 ">
         <div class="profile-info d-flex align-items-center flex-column flex-lg-row justify-content-center position-relative row-gap-4 row-gap-lg-0 ">
           <div class="me-3">
-            <img src="/public/assets/images/profile/<?= $model['profile']->Foto ?? 'default.jpeg' ?>" style="width: 7rem; height: 7rem; border-radius: 50%; object-fit: contain; background-repeat: no-repeat; object-position: center;"  alt="default-profile">
+            <img src="/public/assets/images/profile/<?= $model['pengguna']->Foto ?? 'default.jpeg' ?>" style="width: 7rem; height: 7rem; border-radius: 50%; object-fit: contain; background-repeat: no-repeat; object-position: center;"  alt="default-profile">
           </div>
           <div>
-            <h5 class="text-lg-start text-center"><strong><?= $model['profile']->Nama_Pengguna ?? "" ?></strong></h5>
-            <p style="font-size: 1rem;" class="text-lg-start text-center "><?= $model['profile']->ID_Pengguna ?? "" ?></p>
+            <h5 class="text-lg-start text-center"><strong><?= $model['pengguna']->Nama_Pengguna ?? "" ?></strong></h5>
+            <p style="font-size: 1rem;" class="text-lg-start text-center "><?= $model['pengguna']->ID_Pengguna ?? "" ?></p>
           </div>
           <!-- Mobile -->
           <div class="d-lg-none position-absolute top-0 end-0">
-            <button class="edit-profile-btn btn px-2 border rounded-3 " data-kode="<?= $model['profile']->ID_Pengguna ?? "" ?>">
+            <button class="edit-profile-btn btn px-2 border rounded-3 " data-kode="<?= $model['pengguna']->ID_Pengguna ?? "" ?>">
               <img src="/public/assets/images/edit-icon.svg" alt="" class="me-2 ">Edit
             </button>
           </div>
         </div>
         <!-- Desktop -->
         <div class="d-none d-lg-block">
-          <button class="edit-profile-btn btn px-2 border rounded-3 " data-kode="<?= $model['profile']->ID_Pengguna ?? "" ?>"><img src="/public/assets/images/edit-icon.svg" alt="" class="me-2 ">Edit</button>
+          <button class="edit-profile-btn btn px-2 border rounded-3 " data-kode="<?= $model['pengguna']->ID_Pengguna ?? "" ?>"><img src="/public/assets/images/edit-icon.svg" alt="" class="me-2 ">Edit</button>
         </div>
       </div>
       <div class="d-flex flex-column border rounded-4 p-3">
         <div class="d-flex justify-content-between ">
           <p style="font-size: 1rem; font-weight: 700;">Informasi Pribadi</p>
-          <button class="edit-personal-info-btn btn px-2 border rounded-3 " data-kode="<?= $model['profile']->ID_Pengguna ?? "" ?>"><img src="/public/assets/images/edit-icon.svg" alt="" class="me-2 ">Edit</button>
+          <button class="edit-personal-info-btn btn px-2 border rounded-3 " data-kode="<?= $model['pengguna']->ID_Pengguna ?? "" ?>"><img src="/public/assets/images/edit-icon.svg" alt="" class="me-2 ">Edit</button>
         </div>
         <div class="personal-information-container">
           <div>
             <p class="text-black-50 " style="font-size: 0.8rem;">Email</p>
-            <p><strong style="color: #001e3a; font-size: 0.9rem"><?= $model['profile']->Email ?? "" ?></strong></p>
+            <p><strong style="color: #001e3a; font-size: 0.9rem"><?= $model['pengguna']->Email ?? "" ?></strong></p>
           </div>
           <div>
             <p class="text-black-50 " style="font-size: 0.8rem;">Nomor Handphone</p>
-            <p><strong style="color: #001e3a; font-size: 0.9rem;"><?= $model['profile']->Nomor_HP ?? "" ?></strong></p>
+            <p><strong style="color: #001e3a; font-size: 0.9rem;"><?= $model['pengguna']->Nomor_HP ?? "" ?></strong></p>
           </div>
         </div>
       </div>
@@ -95,7 +95,7 @@
       </div>
       <div>
         <label for="" style="font-size: 0.8rem;">Nama Lengkap</label>
-        <input type="text" class="form-control" name="nama" value="<?= $model['profile']->Nama_Pengguna ?? "" ?>" style="border: 1px solid #001e3a;">
+        <input type="text" class="form-control" name="nama" value="<?= $model['pengguna']->Nama_Pengguna ?? "" ?>" style="border: 1px solid #001e3a;">
       </div>
     </div>
     <div class="d-flex flex-column w-100 h-100 mt-2 ">
@@ -135,7 +135,7 @@
       <small class="fw-bold ">Edit Informasi Pribadi</small>
       <div>
         <label for="" style="font-size: 0.8rem;">Email</label>
-        <input type="email" class="form-control" name="email" value="<?= $model['profile']->Email ?? "" ?>" style="border: 1px solid #001e3a;">
+        <input type="email" class="form-control" name="email" value="<?= $model['pengguna']->Email ?? "" ?>" style="border: 1px solid #001e3a;">
         <?php if (isset($model['errors']['Email'])) : ?>
                 <small class="text-danger">
                     <?php if (is_array($model['errors']['Email'])) : ?>
@@ -148,7 +148,7 @@
       </div>
       <div>
         <label for="" style="font-size: 0.8rem;">Nomor</label>
-        <input type="text" class="form-control" name="nomor-hp" value="<?= $model['profile']->Nomor_HP ?? "" ?>" style="border: 1px solid #001e3a;">
+        <input type="text" class="form-control" name="nomor-hp" value="<?= $model['pengguna']->Nomor_HP ?? "" ?>" style="border: 1px solid #001e3a;">
         <?php if (isset($model['errors']['Nomor_HP'])) : ?>
             <small class="text-danger">
                 <?php if (is_array($model['errors']['Nomor_HP'])) : ?>
@@ -184,7 +184,7 @@
             },
             success: function(data) {
                 $(document).ready(function() {
-                    
+
                     $('.edit-profile-modal input[name="nama"]').val(data.data.Nama_Pengguna)
 
                     $('.edit-profile-modal').removeClass('d-none')

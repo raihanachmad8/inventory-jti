@@ -177,7 +177,7 @@ function user_role()
                         <button aria-label="button-mail" type="button" class="btn button-mail">
                             <i data-feather="mail"></i>
                         </button>
-                        <div class="message-notification d-none  position-absolute bg-body-tertiary  rounded-3 end-0 overflow-hidden p-2 overflow-y-scroll " style="width: 200px; height: 150px; top: 40px; opacity: 0;">
+                        <div data-id="<?=$model['pengguna']->ID_Pengguna ?>" class="message-notification d-none  position-absolute bg-body-tertiary  rounded-3 end-0 overflow-hidden p-2 overflow-y-scroll " style="width: 200px; height: 150px; top: 40px; opacity: 0;">
                             <strong>Pesan</strong>
                             <ul class="d-flex flex-column row-gap-2">
                                 <li class="p-2 rounded-3 " style="background: #E3F2F9;">
@@ -203,7 +203,7 @@ function user_role()
                         <div style="width: 3rem; height: 3rem" class="rounded-circle position-relative ">
                             <div class="position-absolute -top-0 end-0 bg-success rounded-circle" style="width: 1rem; height: 1rem"></div>
                             <div class="rounded-circle overflow-hidden w-100 h-100">
-                                <img src="https://source.unsplash.com/random/900×700/?potrait" alt="" class="object-fit-cover ratio-1x1 w-100 h-100" />
+                            <img src="/public/assets/images/profile/<?= ($model['profile']->Foto) ?? 'default.jpeg' ?>" style="width: 3rem; height: 3rem; border-radius: 50%; object-fit: contain; background-repeat: no-repeat; object-position: center;"  alt="default-profile">
                             </div>
                         </div>
                         <div class="profile-menu position-absolute bg-white end-0 rounded-4 p-3 border border-light d-none " style="width: 9rem; bottom: -6rem; opacity: 0;">
@@ -220,3 +220,38 @@ function user_role()
                     </svg>
                 </div>
             </header>
+
+
+            <script>
+                $('.button-mail').click(function(e) {
+                    const id = $('.message-notification').data('id')
+
+                    $.ajax({
+                        url: '/inventory/message',
+                        method: 'GET',
+                        data: {
+                            id: id
+                        },
+                        success: function(data) {
+                            $(document).ready(function() {
+                                var messages = data.Pesan;
+                                var htmlContent = messages.map(function(message) {
+                                    return '<li class="p-2 rounded-3" style="background: #E3F2F9;"><p style="font-size: 0.8rem;">' + message + '</p></li>';
+                                }).join('');
+
+                                // Clear existing li elements
+                                $('.message-notification ul').empty();
+
+                                // Append the HTML content to the ul element
+                                $('.message-notification ul').append(htmlContent);
+
+
+                            })
+                        },
+                        error: (error) => {
+                            $(document).ready(function() {
+                            })
+                        }
+                    })
+                })
+            </script>
