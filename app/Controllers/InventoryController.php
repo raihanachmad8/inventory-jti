@@ -19,7 +19,6 @@ class InventoryController
         $this->sessionManagerService = new SessionManagerService(new SessionManagerRepository());
         $this->profileService = new ProfileService();
         $this->fileImageService = new FileImageService();
-
     }
 
     public function dashboard()
@@ -51,7 +50,8 @@ class InventoryController
         }
     }
 
-    public function historyPeminjaman() {
+    public function historyPeminjaman()
+    {
         try {
             if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                 header('HTTP/1.0 405 Method Not Allowed');
@@ -107,7 +107,8 @@ class InventoryController
         }
     }
 
-    public function deleteHistoryPeminjaman() {
+    public function deleteHistoryPeminjaman()
+    {
         try {
             if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
                 header('HTTP/1.0 405 Method Not Allowed');
@@ -172,7 +173,8 @@ class InventoryController
         View::renderView('inventory/peminjaman/peminjaman', compact('peminjaman', 'pengguna'));
     }
 
-    public function postPeminjaman() {
+    public function postPeminjaman()
+    {
         try {
             if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                 header('HTTP/1.0 405 Method Not Allowed');
@@ -186,7 +188,7 @@ class InventoryController
             }
             $session = $this->sessionManagerService->get();
             $pengguna = $this->profileService->getProfile($session->id);
-            $request =[
+            $request = [
                 'ID_Pengguna' => $pengguna->ID_Pengguna,
                 'StartDate' => input::post('start_date') ?? '',
                 'EndDate' => input::post('end_date') ?? '',
@@ -194,11 +196,9 @@ class InventoryController
                 'items' => json_decode($_POST['items']) ?? []
             ];
             $validate = (new InventarisValidation($request))->validateCheckoutPeminjaman();
-            $validateImage = (new ImageValidation([
-                'image' => $_FILES['jaminan'] ?? []
-            ]))->validate();
 
-            array_merge($validate->getErrors(), $validateImage->getErrors());
+
+            // array_merge($validate->getErrors(), $validateImage->getErrors());
 
             if (!empty($validate->getErrors())) {
                 header('HTTP/1.1 400 Bad Request');
@@ -211,10 +211,54 @@ class InventoryController
                 exit(400);
             }
 
-            $image = $_FILES['jaminan'];
-            $imageName = $this->fileImageService->randomImageName($image);
-            $request['Jaminan'] = $imageName;
-            if ($this->fileImageService->upload('jaminan', $imageName, $image)) {
+
+
+            if ($pengguna->Level->Nama_Level === 'Mahasiswa') {
+                $validateImage = (new ImageValidation([
+                    'image' => $_FILES['jaminan'] ?? []
+                ]))->validate();
+                if (!empty($validateImage->getErrors())) {
+                    header('HTTP/1.1 400 Bad Request');
+                    header('Content-Type: application/json');
+                    http_response_code(400);
+                    echo json_encode([
+                        'status' => '400',
+                        'error' => $validateImage->getErrors()
+                    ]);
+                    exit(400);
+                }
+
+
+                $image = $_FILES['jaminan'];
+                $imageName = $this->fileImageService->randomImageName($image);
+                $request['Jaminan'] = $imageName;
+                if ($this->fileImageService->upload('jaminan', $imageName, $image)) {
+                    $result = $this->peminjamanService->createPeminjaman($request);
+                    if (empty($result)) {
+                        header('HTTP/1.1 404 Not Found');
+                        header('Content-Type: application/json');
+                        http_response_code(404);
+                        echo json_encode([
+                            'status' => '404',
+                            'error' => 'Data not found'
+                        ]);
+                        exit(404);
+                    }
+                    header('HTTP/1.1 200 OK');
+                    header('Content-Type: application/json');
+                    http_response_code(200);
+                    echo json_encode([
+                        'status' => '200',
+                        'message' => 'Success add loan',
+                        'data' => json_encode($result)
+                    ]);
+                    exit(200);
+                } else {
+                    unlink($image['tmp_name']);
+                    throw new Exception('Failed to upload image');
+                }
+            } else {
+                $request['Jaminan'] = null;
                 $result = $this->peminjamanService->createPeminjaman($request);
                 if (empty($result)) {
                     header('HTTP/1.1 404 Not Found');
@@ -235,8 +279,32 @@ class InventoryController
                     'data' => json_encode($result)
                 ]);
                 exit(200);
-            }
 
+            // $image = $_FILES['jaminan'];
+            // $imageName = $this->fileImageService->randomImageName($image);
+            // $request['Jaminan'] = $imageName;
+            // if ($this->fileImageService->upload('jaminan', $imageName, $image)) {
+            //     $result = $this->peminjamanService->createPeminjaman($request);
+            //     if (empty($result)) {
+            //         header('HTTP/1.1 404 Not Found');
+            //         header('Content-Type: application/json');
+            //         http_response_code(404);
+            //         echo json_encode([
+            //             'status' => '404',
+            //             'error' => 'Data not found'
+            //         ]);
+            //         exit(404);
+            //     }
+            //     header('HTTP/1.1 200 OK');
+            //     header('Content-Type: application/json');
+            //     http_response_code(200);
+            //     echo json_encode([
+            //         'status' => '200',
+            //         'message' => 'Success add loan',
+            //         'data' => json_encode($result)
+            //     ]);
+            //     exit(200);
+            }
         } catch (Exception $exception) {
             if ($exception instanceof PDOException) {
                 header('HTTP/1.1 500 Internal Server Error');
@@ -287,7 +355,8 @@ class InventoryController
         }
     }
 
-    public function getListMessage() {
+    public function getListMessage()
+    {
         try {
             if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                 header('HTTP/1.0 405 Method Not Allowed');
@@ -328,7 +397,8 @@ class InventoryController
         }
     }
 
-    public function getListDate() {
+    public function getListDate()
+    {
         try {
             if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
                 header('HTTP/1.0 405 Method Not Allowed');
@@ -368,6 +438,5 @@ class InventoryController
                 View::renderView('inventory/riwayat/riwayat', ['error' => $e->getMessage()]);
             }
         }
-
     }
 }

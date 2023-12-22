@@ -35,10 +35,10 @@ class PeminjamanService
         $this->maintainerInventoryRepository = new MaintainerInventarisRepository();
     }
 
-    public function searchDataPeminjaman(string $keyword = '' ) : array
+    public function searchDataPeminjaman(string $keyword = ''): array
     {
         $result = $this->transaksiRepository->searchListTransaksiByStatus(['Menunggu', 'Diterima', 'Proses', 'Menunggu Ganti'], $keyword);
-        $result = array_map(function($item) {
+        $result = array_map(function ($item) {
             $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
             $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
             (!empty($item->ID_Admin)) ? $item->Admin = $this->maintainerRepository->getMaintainerById($item->ID_Admin) : null;
@@ -47,10 +47,10 @@ class PeminjamanService
         }, $result);
         return $result;
     }
-    public function searchRiwayatDataPeminjamanPengguna(string $ID_Pengguna, string $keyword = '' ) : array
+    public function searchRiwayatDataPeminjamanPengguna(string $ID_Pengguna, string $keyword = ''): array
     {
         $result = $this->transaksiRepository->searchListRiwayatTransaksiByStatus(['Menunggu', 'Ditolak', 'Diterima', 'Proses', 'Selesai', 'Dibatalkan', 'Menunggu Ganti'], $keyword, $ID_Pengguna);
-        $result = array_map(function($item) {
+        $result = array_map(function ($item) {
             $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
             $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
             (!empty($item->ID_Admin)) ? $item->Admin = $this->maintainerRepository->getMaintainerById($item->ID_Admin) : null;
@@ -59,10 +59,10 @@ class PeminjamanService
         }, $result);
         return $result;
     }
-    public function searchRiwayatDataPeminjaman(string $keyword = '') : array
+    public function searchRiwayatDataPeminjaman(string $keyword = ''): array
     {
         $result = $this->transaksiRepository->searchListRiwayatTransaksiByStatus(['Menunggu', 'Ditolak', 'Diterima', 'Proses', 'Selesai', 'Dibatalkan', 'Menunggu Ganti'], $keyword);
-        $result = array_map(function($item) {
+        $result = array_map(function ($item) {
             $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
             $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
             (!empty($item->ID_Admin)) ? $item->Admin = $this->maintainerRepository->getMaintainerById($item->ID_Admin) : null;
@@ -72,7 +72,7 @@ class PeminjamanService
         return $result;
     }
 
-    public function DetailDataPeminjaman(string $ID_transaksi) : Transaksi
+    public function DetailDataPeminjaman(string $ID_transaksi): Transaksi
     {
         try {
             $result = $this->transaksiRepository->getTransaksiById($ID_transaksi);
@@ -81,7 +81,7 @@ class PeminjamanService
             (!empty($result->ID_Admin)) ? $result->Admin = $this->maintainerRepository->getMaintainerById($result->ID_Admin) : null;
             $result->Pengguna->Level = $this->levelRepository->getLevelById($result->Pengguna->ID_Level);
             $result->DetailTransaksi = $this->detailTransaksiRepository->getDetailTransaksiByIdTransaksi($result->ID_Transaksi);
-            $result->DetailTransaksi = array_map(function($item) {
+            $result->DetailTransaksi = array_map(function ($item) {
                 $item->Inventaris = $this->inventarisRepository->getInventarisById($item->ID_Inventaris);
                 $item->Inventaris->Kategori = $this->kategoriRepository->getKategoriById($item->Inventaris->ID_Kategori);
                 return $item;
@@ -94,13 +94,13 @@ class PeminjamanService
         }
     }
 
-    public function updatePeminjaman(string $ID_transaksi, string $ID_Admin, string $ID_Status, $Pesan, array $ID_DetailTrc, array $kondisi) : bool
+    public function updatePeminjaman(string $ID_transaksi, string $ID_Admin, string $ID_Status, $Pesan, array $ID_DetailTrc, array $kondisi): bool
     {
         try {
             $message = $Pesan;
-            $lastSeparatorPosition = strrpos($message, "||");
-            $firstPart = trim(substr($message, 0, $lastSeparatorPosition));
-            $Pesan = $firstPart;
+            // $lastSeparatorPosition = strrpos($message, "||");
+            // $firstPart = trim(substr($message, 0, $lastSeparatorPosition));
+            $Pesan = $message;
             $Pesan = $Pesan . " || " . (new DateTime('now'))->format('Y-m-d H:i:s');
             $result = $this->transaksiRepository->updateDataPeminjaman($ID_transaksi, $ID_Admin, $ID_Status, $Pesan);
             $result2 = $this->detailTransaksiRepository->updateDetailTrc($ID_DetailTrc, $kondisi);
@@ -112,7 +112,7 @@ class PeminjamanService
         }
     }
 
-    public function getListMaintainer() : array
+    public function getListMaintainer(): array
     {
         try {
             $result = $this->maintainerRepository->getListMaintainers();
@@ -122,7 +122,7 @@ class PeminjamanService
         }
     }
 
-    public function getListStatus() : array
+    public function getListStatus(): array
     {
         try {
             $result = $this->statusRepository->getListStatus();
@@ -132,7 +132,7 @@ class PeminjamanService
         }
     }
 
-    public function getListStatusPeminjaman() : array
+    public function getListStatusPeminjaman(): array
     {
         try {
             $result = $this->transaksiRepository->countStatusTransaksi(['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7']);
@@ -141,7 +141,7 @@ class PeminjamanService
             throw $exception;
         }
     }
-    public function getListStatusPeminjamanPengguna(string $ID_Pengguna) : array
+    public function getListStatusPeminjamanPengguna(string $ID_Pengguna): array
     {
         try {
             $result = $this->transaksiRepository->countStatusTransaksi(['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7'], $ID_Pengguna);
@@ -151,10 +151,11 @@ class PeminjamanService
         }
     }
 
-    public function searchPeminjamanByPengguna(string $ID_Pengguna) {
+    public function searchPeminjamanByPengguna(string $ID_Pengguna)
+    {
         try {
             $result = $this->transaksiRepository->searchListTransaksiByStatus(['Menunggu', 'Diterima', 'Proses', 'Menunggu Ganti'], '', $ID_Pengguna);
-            $result = array_map(function($item) {
+            $result = array_map(function ($item) {
                 $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
                 $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
                 (!empty($item->ID_Admin)) ? $item->Admin =  $this->maintainerRepository->getMaintainerById($item->ID_Admin) : null;
@@ -167,11 +168,12 @@ class PeminjamanService
         }
     }
 
-    public function availableStok() {
+    public function availableStok()
+    {
         try {
             $available = $this->transaksiRepository->avaibleStok();
             $inventory = $this->inventarisRepository->getListInventaris();
-            $inventory = array_map(function($item) {
+            $inventory = array_map(function ($item) {
                 $item->Kategori = $this->kategoriRepository->getKategoriById($item->ID_Kategori);
                 return $item;
             }, $inventory);
@@ -188,10 +190,10 @@ class PeminjamanService
             });
 
             // Sorting by AvailableStock in descending order
-            usort($filteredInventory, function($a, $b) {
+            usort($filteredInventory, function ($a, $b) {
                 return $b->Stok - $this->getTotalBorrowed($b) - ($a->Stok - $this->getTotalBorrowed($a));
             });
-            $result = array_map(function($item) {
+            $result = array_map(function ($item) {
                 return [
                     'ID_Inventaris' => $item->ID_Inventaris,
                     'Nama_Inventaris' => $item->Nama_Inventaris,
@@ -207,7 +209,8 @@ class PeminjamanService
         }
     }
 
-    private function getTotalBorrowed($item) {
+    private function getTotalBorrowed($item)
+    {
         $available = $this->transaksiRepository->avaibleStok();
         return array_reduce($available, function ($carry, $availableItem) use ($item) {
             if ($item->ID_Inventaris == $availableItem['ID_Inventaris']) {
@@ -222,62 +225,62 @@ class PeminjamanService
         $available = $this->transaksiRepository->avaibleStok();
         $inventory = $this->maintainerInventoryRepository->search($search);
 
-        $inventory = array_map(function($item) {
-                $item->Inventaris = $this->inventarisRepository->getInventarisById($item->ID_Inventaris);
-                $item->Inventaris->Kategori = $this->kategoriRepository->getKategoriById($item->Inventaris->ID_Kategori);
-                $item->Maintainer = $this->maintainerRepository->getMaintainerById($item->ID_Maintainer);
-                return $item;
-            }, $inventory);
-            $filteredInventory = array_filter($inventory, function ($item) use ($available) {
-                $totalBorrowed = array_reduce($available, function ($carry, $availableItem) use ($item) {
-                    if ($item->ID_Inventaris == $availableItem['ID_Inventaris']) {
-                        return $carry + $availableItem['TotalBorrowed'];
-                    }
-                    return $carry;
-                }, 0);
-
-                return ($item->Inventaris->Stok - $totalBorrowed) > 0;
-            });
-
-            // Sorting by AvailableStock in descending order
-            usort($filteredInventory, function($a, $b) {
-                return $b->Inventaris->Stok - $this->getTotalBorrowed($b) - ($a->Inventaris->Stok - $this->getTotalBorrowed($a));
-            });
-
-            $result = array_map(function ($item) {
-                return [
-                    'ID_Inventaris' => $item->Inventaris->ID_Inventaris,
-                    'Nama_Inventaris' => $item->Inventaris->Nama_Inventaris,
-                    'Stok' => $item->Inventaris->Stok,
-                    'Gambar' => $item->Inventaris->Gambar,
-                    'Kategori' => $item->Inventaris->Kategori,
-                    'AvailableStock' => $item->Inventaris->Stok - $this->getTotalBorrowed($item),
-                    'MaintainerName' => $item->Maintainer->Nama_Maintainer, // Adjust this according to your Maintainer structure
-                ];
-            }, $filteredInventory);
-
-            $uniqueItems = [];
-            foreach ($result as $item) {
-                $key = $item['ID_Inventaris'] . $item['Nama_Inventaris'] . $item['Kategori']->ID_Kategori;
-
-                // Check if the combination already exists in the uniqueItems array
-                if (!isset($uniqueItems[$key])) {
-                    $uniqueItems[$key] = [
-                        'ID_Inventaris' => $item['ID_Inventaris'],
-                        'Nama_Inventaris' => $item['Nama_Inventaris'],
-                        'Kategori' => $item['Kategori'],
-                        'Gambar' => $item['Gambar'],
-                        'Stok' => $item['Stok'],
-                        'AvailableStock' => $item['AvailableStock'],
-                        'MaintainerNames' => [$item['MaintainerName']], // Initialize array with the first maintainer
-                        // Add other fields as needed
-                    ];
-                } else {
-                    // If the combination already exists, add the maintainer to the existing array only if it doesn't already exist
-                    if (!in_array($item['MaintainerName'], $uniqueItems[$key]['MaintainerNames'])) {
-                        $uniqueItems[$key]['MaintainerNames'][] = $item['MaintainerName'];
-                    }
+        $inventory = array_map(function ($item) {
+            $item->Inventaris = $this->inventarisRepository->getInventarisById($item->ID_Inventaris);
+            $item->Inventaris->Kategori = $this->kategoriRepository->getKategoriById($item->Inventaris->ID_Kategori);
+            $item->Maintainer = $this->maintainerRepository->getMaintainerById($item->ID_Maintainer);
+            return $item;
+        }, $inventory);
+        $filteredInventory = array_filter($inventory, function ($item) use ($available) {
+            $totalBorrowed = array_reduce($available, function ($carry, $availableItem) use ($item) {
+                if ($item->ID_Inventaris == $availableItem['ID_Inventaris']) {
+                    return $carry + $availableItem['TotalBorrowed'];
                 }
+                return $carry;
+            }, 0);
+
+            return ($item->Inventaris->Stok - $totalBorrowed) > 0;
+        });
+
+        // Sorting by AvailableStock in descending order
+        usort($filteredInventory, function ($a, $b) {
+            return $b->Inventaris->Stok - $this->getTotalBorrowed($b) - ($a->Inventaris->Stok - $this->getTotalBorrowed($a));
+        });
+
+        $result = array_map(function ($item) {
+            return [
+                'ID_Inventaris' => $item->Inventaris->ID_Inventaris,
+                'Nama_Inventaris' => $item->Inventaris->Nama_Inventaris,
+                'Stok' => $item->Inventaris->Stok,
+                'Gambar' => $item->Inventaris->Gambar,
+                'Kategori' => $item->Inventaris->Kategori,
+                'AvailableStock' => $item->Inventaris->Stok - $this->getTotalBorrowed($item),
+                'MaintainerName' => $item->Maintainer->Nama_Maintainer, // Adjust this according to your Maintainer structure
+            ];
+        }, $filteredInventory);
+
+        $uniqueItems = [];
+        foreach ($result as $item) {
+            $key = $item['ID_Inventaris'] . $item['Nama_Inventaris'] . $item['Kategori']->ID_Kategori;
+
+            // Check if the combination already exists in the uniqueItems array
+            if (!isset($uniqueItems[$key])) {
+                $uniqueItems[$key] = [
+                    'ID_Inventaris' => $item['ID_Inventaris'],
+                    'Nama_Inventaris' => $item['Nama_Inventaris'],
+                    'Kategori' => $item['Kategori'],
+                    'Gambar' => $item['Gambar'],
+                    'Stok' => $item['Stok'],
+                    'AvailableStock' => $item['AvailableStock'],
+                    'MaintainerNames' => [$item['MaintainerName']], // Initialize array with the first maintainer
+                    // Add other fields as needed
+                ];
+            } else {
+                // If the combination already exists, add the maintainer to the existing array only if it doesn't already exist
+                if (!in_array($item['MaintainerName'], $uniqueItems[$key]['MaintainerNames'])) {
+                    $uniqueItems[$key]['MaintainerNames'][] = $item['MaintainerName'];
+                }
+            }
         }
 
         return array_values($uniqueItems);
@@ -287,7 +290,7 @@ class PeminjamanService
     {
         try {
             $result = $this->transaksiRepository->getTransaksiById($ID_transaksi);
-            if ($result->ID_Status !== 'S1' ) {
+            if ($result->ID_Status !== 'S1') {
                 throw new Exception('Peminjaman tidak dapat dibatalkan');
             }
             $batasWaktuPembatalan = strtotime($result->StartDate . ' +1 day');
@@ -302,7 +305,8 @@ class PeminjamanService
         }
     }
 
-    public function createPeminjaman(array $request) {
+    public function createPeminjaman(array $request)
+    {
         try {
 
             if ($this->checkAvailableStock($request['items'])) {
@@ -355,7 +359,8 @@ class PeminjamanService
         }
     }
 
-    public function checkAvailableStock(array $items): bool {
+    public function checkAvailableStock(array $items): bool
+    {
         try {
             $available = $this->transaksiRepository->avaibleStok();
             $inventory = $this->inventarisRepository->getListInventaris();
@@ -394,14 +399,14 @@ class PeminjamanService
 
             // If no exception is thrown, it means all requested items are available
             return true;
-
         } catch (Exception $exception) {
             // Catch and handle the exception
             throw $exception;
         }
     }
 
-    public function getListPesan(string $ID_Pengguna) :array {
+    public function getListPesan(string $ID_Pengguna): array
+    {
         try {
             $result = $this->transaksiRepository->getListPesan($ID_Pengguna);
             return $result;
@@ -410,7 +415,8 @@ class PeminjamanService
         }
     }
 
-    public function getListDate(string $ID_Pengguna) {
+    public function getListDate(string $ID_Pengguna)
+    {
         try {
             $result = $this->transaksiRepository->getListDate($ID_Pengguna);
             return $result;
@@ -418,5 +424,4 @@ class PeminjamanService
             throw $exception;
         }
     }
-
 }

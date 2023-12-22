@@ -129,7 +129,6 @@
     </div>
     <div class="pt-4 ">
       <table class="identity-table">
-
         <input type="hidden" name="kode">
         <tbody>
           <tr>
@@ -193,7 +192,7 @@
           <tr>
             <td><strong>Keterangan</strong></td>
             <td><strong>:</strong></td>
-            <td><textarea class="admin-retrieval-information p-2 rounded-2 border border-light-subtle" name="pesan" id="" cols="30" rows="1" type="text">Silahkan melakukan pengambilan barang di ruang teknisi Lantai 7</textarea></td>
+            <td><textarea class="admin-retrieval-information p-2 rounded-2 border border-light-subtle" name="pesan" id="pesan" cols="30" rows="1" type="text">Silahkan melakukan pengambilan barang di ruang teknisi Lantai 7</textarea></td>
           </tr>
           <tr>
             <td><strong>Alasan Peminjaman</strong></td>
@@ -203,7 +202,6 @@
             </td>
           </tr>
           <tr id="tanda-pengenal">
-
           </tr>
         </tbody>
 
@@ -267,8 +265,10 @@
             } else {
               $('#deskripsi-keperluan').html('-');
             }
-            if (data.data.Pesan != null) {
+            if (data.data.Pesan != "") {
               $('.admin-retrieval-information').val(data.data.Pesan);
+            } else {
+              $('.admin-retrieval-information').val('Silahkan melakukan pengambilan barang di ruang teknisi Lantai 7');
             }
             if (data.data.Pengguna.Level.Nama_Level == 'Mahasiswa') {
               $('#tanda-pengenal').html(`
@@ -316,7 +316,6 @@
             $('.modal-container-failed').removeClass('d-none');
             $('#modal-container-failed-title').html('Gagal');
             $('#modal-container-failed-message').html(error.responseJSON.error);
-
           })
         }
       })
@@ -324,13 +323,13 @@
   })
 
 
-  $(document).on('click', '.admin-retrieval-information', () => {
-    $('.admin-retrieval-information').val('');
+  $(document).ready(function() {
+    $('.admin-retrieval-information').val('Silahkan ambil barang dilantai 7');
   })
 
   $('.button-save-loan').click((e) => {
-    console.log('clicked')
     const formData = new FormData(document.querySelector('#detail-pengembalian-form'));
+    console.log(formData)
     e.preventDefault();
     $.ajax({
       url: '/admin/data-peminjaman/update',

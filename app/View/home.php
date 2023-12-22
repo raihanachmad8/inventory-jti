@@ -210,7 +210,7 @@
                 <div class=" d-flex flex-column ">
                     <div class="w-100 ">
                         <p style="font-size: 0.87rem" class="fw-bold ">Putra Zakaria M</p>
-                        <p style="font-size: 0.7rem" class="text-black-50 ">Manajer Proyek</p>
+                        <p style="font-size: 0.7rem" class="text-black-50 ">Manajer Proyek dan Database Administrator</p>
                     </div>
                     <div class="w-100 h-100 d-flex align-items-end ">
                         <div class=" d-flex gap-2">
@@ -255,7 +255,7 @@
                 <div class=" d-flex flex-column ">
                     <div class="w-100 h-100 ">
                         <p style="font-size: 0.87rem" class="fw-bold ">Achmad Raihan F.E</p>
-                        <p style="font-size: 0.7rem" class="text-black-50 ">Backend</p>
+                        <p style="font-size: 0.7rem" class="text-black-50 ">Analis dan Programmer</p>
                     </div>
                     <div class="w-100 h-100 d-flex align-items-end ">
                         <div class=" d-flex gap-2">
@@ -300,7 +300,7 @@
                 <div class=" d-flex flex-column ">
                     <div class="w-100 h-100 ">
                         <p style="font-size: 0.87rem" class="fw-bold ">Vunky Himawan</p>
-                        <p style="font-size: 0.7rem" class="text-black-50 ">Frontend</p>
+                        <p style="font-size: 0.7rem" class="text-black-50 ">Tester dan Programmer</p>
                     </div>
                     <div class="w-100 h-100 d-flex align-items-end ">
                         <div class=" d-flex gap-2">
@@ -345,7 +345,7 @@
                 <div class=" d-flex flex-column ">
                     <div class="w-100 h-100 ">
                         <p style="font-size: 0.87rem" class="fw-bold ">Dela Farahita Z</p>
-                        <p style="font-size: 0.7rem" class="text-black-50 ">Designer</p>
+                        <p style="font-size: 0.7rem" class="text-black-50 ">UI/UX Designer</p>
                     </div>
                     <div class="w-100 h-100 d-flex align-items-end ">
                         <div class="d-flex gap-2">
@@ -389,8 +389,8 @@
                 </div>
                 <div class=" d-flex flex-column ">
                     <div class="w-100 h-100 ">
-                        <p style="font-size: 0.87rem" class="fw-bold ">-</p>
-                        <p>-</p>
+                        <p style="font-size: 0.87rem" class="fw-bold ">Ellois Karina Handoyo</p>
+                        <p>Dokumentasi</p>
                     </div>
                     <div class="w-100 h-100 d-flex align-items-end ">
                         <div class=" d-flex gap-2">
@@ -434,8 +434,8 @@
                 </div>
                 <div class=" d-flex flex-column ">
                     <div class="w-100 h-100 ">
-                        <p style="font-size: 0.87rem" class="fw-bold ">-</p>
-                        <p>-</p>
+                        <p style="font-size: 0.87rem" class="fw-bold ">Novi Yanti</p>
+                        <p>Dokumentasi</p>
                     </div>
                     <div class="w-100 h-100 d-flex align-items-end ">
                         <div class=" d-flex gap-2">

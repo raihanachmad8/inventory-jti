@@ -18,35 +18,43 @@
           </tr>
         </thead>
         <tbody>
-            <?php if (count($model['riwayat']) > 0) : ?>
-                <?php foreach ($model['riwayat'] as $riwayat) : ?>
-                    <tr>
-                        <td><?= $riwayat->ID_Transaksi ?></td>
-                        <td><?= (new DateTime($riwayat->StartDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;" ><?= (new DateTime($riwayat->StartDate))->format('h:i A') ?></span></td>
-                    <td><?= (new DateTime($riwayat->EndDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;" ><?= (new DateTime($riwayat->EndDate))->format('h:i A') ?></span></td>
-                        <td>
-                            <?php if ($riwayat->Status->ID_Status == 'S1' || $riwayat->Status->ID_Status == 'S7') : ?>
-                                <span class="rounded-2 " style="color: #A45B18; background-color: rgba(218, 114, 19, 0.30); padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
-                            <?php elseif ($riwayat->Status->ID_Status == 'S2') : ?>
-                                <span class="rounded-2 " style="color: #960000;background-color: rgba(252, 64, 86, 0.30); padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
-                            <?php elseif ($riwayat->Status->ID_Status == 'S3') : ?>
-                                <span class="rounded-2 " style="color: #074B81;background-color: rgba(158, 214, 251, 0.65); padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
-                            <?php elseif ($riwayat->Status->ID_Status == 'S4') : ?>
-                                <span class="rounded-2 " style="color: #C58208;background-color: #FFF9E1; padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
-                            <?php elseif ($riwayat->Status->ID_Status == 'S5') : ?>
-                                <span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
-                            <?php elseif ($riwayat->Status->ID_Status == 'S6') : ?>
-                                <span class="rounded-2 " style="color: #960000;background-color: rgba(252, 64, 86, 0.30); padding: 0.6rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span>
-                            <?php endif; ?>
-                        </td>
-                        <td><button class="button-detail-history-loan btn" data-kode="<?= $riwayat->ID_Transaksi ?>" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else : ?>
-                <tr>
-                    <td colspan="5" class="text-center">Tidak ada riwayat peminjaman</td>
-                </tr>
-            <?php endif; ?>
+          <?php if (count($model['riwayat']) > 0) : ?>
+            <?php foreach ($model['riwayat'] as $riwayat) : ?>
+              <tr>
+                <td><?= $riwayat->ID_Transaksi ?></td>
+                <td><?= (new DateTime($riwayat->StartDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;"><?= (new DateTime($riwayat->StartDate))->format('h:i A') ?></span></td>
+                <td><?= (new DateTime($riwayat->EndDate))->format('M, d Y ') ?><br><span class="rounded-2 mt-1 d-inline-block" style="color: #19663D;background-color: rgba(40, 164, 97, 0.15); padding: 0.3rem 1rem; user-select: none;"><?= (new DateTime($riwayat->EndDate))->format('h:i A') ?></span></td>
+                <td><span class="rounded-2 mt-1 d-inline-block" style="color: <?php
+                                                                              if ($riwayat->Status->Nama_Status == 'Selesai') {
+                                                                                echo '#28A461';
+                                                                              } elseif ($riwayat->Status->Nama_Status == 'Menunggu') {
+                                                                                echo '#A45B18';
+                                                                              } elseif ($riwayat->Status->Nama_Status == "Proses") {
+                                                                                echo '#C58208';
+                                                                              } elseif ($riwayat->Status->Nama_Status == 'Diterima') {
+                                                                                echo '#074B81';
+                                                                              } else {
+                                                                                echo '#960000';
+                                                                              } ?>;background-color: <?php
+                                                                                                      if ($riwayat->Status->Nama_Status == 'Selesai') {
+                                                                                                        echo 'rgba(40, 164, 97, 0.15)';
+                                                                                                      } elseif ($riwayat->Status->Nama_Status == 'Menunggu') {
+                                                                                                        echo 'rgba(218, 114, 19, 0.15)';
+                                                                                                      } elseif ($riwayat->Status->Nama_Status == "Proses") {
+                                                                                                        echo '#FFF9E1';
+                                                                                                      } elseif ($riwayat->Status->Nama_Status == 'Diterima') {
+                                                                                                        echo 'rgba(158, 214, 251, 0.65)';
+                                                                                                      } else {
+                                                                                                        echo 'rgba(252, 64, 86, 0.30)';
+                                                                                                      } ?>; padding: 0.3rem 1rem; user-select: none;"><?= $riwayat->Status->Nama_Status ?></span></td>
+                <td><button class="button-detail-history-loan btn" data-kode="<?= $riwayat->ID_Transaksi ?>" style="background-color: #CEE7FF; color:#01305D;">Detail</button></td>
+              </tr>
+            <?php endforeach; ?>
+          <?php else : ?>
+            <tr>
+              <td colspan="5" class="text-center">Tidak ada riwayat peminjaman</td>
+            </tr>
+          <?php endif; ?>
 
         </tbody>
       </table>
@@ -164,53 +172,53 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
 </div>
 
 <script>
-     $('.button-detail-history-loan').each(function() {
-            $(this).click(async function() {
-                const kode = $(this).data('kode');
-                await $.ajax({
-                    url: '/inventory/historyPeminjaman',
-                    method: 'GET',
-                    data: {
-                        kode: kode
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        $(document).ready(() => {
-                            const options = {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                    hour: "numeric",
-                                    minute: "numeric",
-                                    hour12: false, // Use 24-hour format
-                                };
-                            $('#nama').html(data.data.Pengguna.Nama_Pengguna);
-                            $('#nomor-identitas').html(data.data.Pengguna.Nomor_Identitas);
-                            $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
-                            $('#status').html(data.data.Status.Nama_Status);
-                            if (data.data.Status.Nama_Status == "Menunggu") {
-                                $('.detail-loan-button').append(`<button class="button-cancel-loan btn btn-danger text-white">Batalkan</button>`);
-                            }
-                            $('#keterangan').html(data.data.Pesan);
-                            $('#deskripsi-keperluan').html(data.data.Deskripsi_Keperluan);
-                            $('#start-date').html(new Date(data.data.StartDate).toLocaleDateString("id-ID", options));
-                            $('#end-date').html(new Date(data.data.EndDate).toLocaleDateString("id-ID", options));
-                            if (data.data.Pengguna.Level.Nama_Level == 'Mahasiswa') {
-                                $('#tanda-pengenal').html(`
+  $('.button-detail-history-loan').each(function() {
+    $(this).click(async function() {
+      const kode = $(this).data('kode');
+      await $.ajax({
+        url: '/inventory/historyPeminjaman',
+        method: 'GET',
+        data: {
+          kode: kode
+        },
+        dataType: 'json',
+        success: function(data) {
+          $(document).ready(() => {
+            const options = {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+              hour12: false, // Use 24-hour format
+            };
+            $('#nama').html(data.data.Pengguna.Nama_Pengguna);
+            $('#nomor-identitas').html(data.data.Pengguna.Nomor_Identitas);
+            $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
+            $('#status').html(data.data.Status.Nama_Status);
+            if (data.data.Status.Nama_Status == "Menunggu") {
+              $('.detail-loan-button').append(`<button class="button-cancel-loan btn btn-danger text-white">Batalkan</button>`);
+            }
+            $('#keterangan').html(data.data.Pesan);
+            $('#deskripsi-keperluan').html(data.data.Deskripsi_Keperluan);
+            $('#start-date').html(new Date(data.data.StartDate).toLocaleDateString("id-ID", options));
+            $('#end-date').html(new Date(data.data.EndDate).toLocaleDateString("id-ID", options));
+            if (data.data.Pengguna.Level.Nama_Level == 'Mahasiswa') {
+              $('#tanda-pengenal').html(`
                                 <td><strong>Kartu Tanda Pengenal</strong></td>
                                 <td><strong>:</strong></td>
                                 <td>
                                     <div style="width: 250px; height: 150px;"><img src="" alt="" class="w-100 h-100 object-fit-cover ratio-16x9 rounded-3 "></div>
                                 </td>
                                     `);
-                                $('#tanda-pengenal img').attr('src', `/public/assets/images/jaminan/${data.data.Jaminan}`);
-                            } else {
-                                $('#tanda-pengenal').html('');
-                            }
-                            const table = function ()  {
-                                let html = '';
-                                data.data.DetailTransaksi.forEach((detail) => {
-                                    html += `
+              $('#tanda-pengenal img').attr('src', `/public/assets/images/jaminan/${data.data.Jaminan}`);
+            } else {
+              $('#tanda-pengenal').html('');
+            }
+            const table = function() {
+              let html = '';
+              data.data.DetailTransaksi.forEach((detail) => {
+                html += `
                                     <tr>
                                         <td>${detail.Inventaris.ID_Inventaris}</td>
                                         <td>${detail.Inventaris.Nama_Inventaris}</td>
@@ -219,52 +227,52 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(215,243,225,1) 6
                                         <td>${detail.Kondisi}</td>
                                     </tr>
                                     `;
-                                })
-                                return html;
-                            }
-                            $('.loan-detail-table tbody').html(table)
-                            $('.cancel-loan-button').attr('data-kode', data.data.ID_Transaksi);
-                            $('.content').addClass('d-none')
-                            $('.modal-detail-container').removeClass('d-none');
-                        })
+              })
+              return html;
+            }
+            $('.loan-detail-table tbody').html(table)
+            $('.cancel-loan-button').attr('data-kode', data.data.ID_Transaksi);
+            $('.content').addClass('d-none')
+            $('.modal-detail-container').removeClass('d-none');
+          })
 
-                    },
-                    error: (error) => {
-                        $(document).ready(function() {
-                            $('.modal-container-failed').removeClass('d-none');
-                            $('#modal-container-failed-title').html('Gagal');
-                            $('#modal-container-failed-message').html(error.responseJSON.error);
+        },
+        error: (error) => {
+          $(document).ready(function() {
+            $('.modal-container-failed').removeClass('d-none');
+            $('#modal-container-failed-title').html('Gagal');
+            $('#modal-container-failed-message').html(error.responseJSON.error);
 
-                        })
-                    }
-                });
-            })
+          })
+        }
+      });
+    })
   })
 
-  $('.cancel-loan-button').click(function (e) {
+  $('.cancel-loan-button').click(function(e) {
     e.preventDefault();
     const kode = $(this).data('kode');
     $.ajax({
-            url: `/inventory/history/delete?kode=${kode}`,
-            method: 'DELETE',
-            success: (data) => {
-                $(document).ready(function() {
-                    $('.delete-item-modal-container').addClass('d-none');
-                    $('.modal-container').removeClass('d-none');
-                    $('#modal-container-title').html('Berhasil');
-                    $('#modal-container-message').html(data.message);
+      url: `/inventory/history/delete?kode=${kode}`,
+      method: 'DELETE',
+      success: (data) => {
+        $(document).ready(function() {
+          $('.delete-item-modal-container').addClass('d-none');
+          $('.modal-container').removeClass('d-none');
+          $('#modal-container-title').html('Berhasil');
+          $('#modal-container-message').html(data.message);
 
-                })
-            },
-            error: (error) => {
-                $(document).ready(function() {
-                    $('.modal-container-failed').removeClass('d-none');
-                    $('#modal-container-failed-title').html('Gagal');
-                    $('#modal-container-failed-message').html(error.responseJSON.error);
-
-                })
-            }
         })
+      },
+      error: (error) => {
+        $(document).ready(function() {
+          $('.modal-container-failed').removeClass('d-none');
+          $('#modal-container-failed-title').html('Gagal');
+          $('#modal-container-failed-message').html(error.responseJSON.error);
+
+        })
+      }
+    })
   })
 
   $(document).on('click', '.button-back-loan ', () => {

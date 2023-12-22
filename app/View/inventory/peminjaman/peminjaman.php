@@ -121,7 +121,7 @@
           </table>
         </div>
         <div class="guarantee-reason-container" style="margin-top: 5rem;">
-          <?php if ($model['pengguna']->Level->Nama_Level !== 'Dosen') : ?>
+          <?php if (($model['pengguna']->Level->Nama_Level) !== 'Dosen') : ?>
             <div class="d-flex row-gap-3 flex-column">
               <strong>
                 <h5>Upload KTP / KTM</h5>
@@ -131,12 +131,12 @@
               </label>
               <input id="image" type="file" class="d-none" onchange="previewFile()">
             </div>
-          <?php endif; ?>
-          <div style="<?= ($model['pengguna']->Level->Nama_Level) == 'Dosen' ? 'grid-column: span 2' : '' ?>" class="d-flex row-gap-3 flex-column">
+          <?php endif ?>
+          <div style="<?= ($model['pengguna']->Level->Nama_Level) === 'Dosen' ? 'grid-column: span 2;' : '' ?>" class="d-flex row-gap-3 flex-column">
             <strong>
               <h5>Alasan Peminjaman</h5>
             </strong>
-            <textarea name="" id="" cols="30" rows="10" placeholder="Masukkan Alasan Peminjaman" style="resize: none;" class="w-100 border rounded-3 p-2 "></textarea>
+            <textarea name="deskripsi_keperluan" id="deskripsi_keperluan" cols="30" rows="5" placeholder="Masukkan Alasan Peminjaman" style="resize: none;" class="w-100 border rounded-3 p-2 " ></textarea>
           </div>
         </div>
         <div class="d-flex justify-content-end pt-2">
@@ -446,10 +446,8 @@
         formData.append('start_date', borrowDateTime);
         formData.append('end_date', returnDateTime);
         formData.append('deskripsi_keperluan', reason);
-        if (image) {
-          formData.append('jaminan', document.querySelector('#image').files[0]);
-        } else {
-          formData.append('jaminan', '');
+        if (image && image.files.length > 0) {
+          formData.append('jaminan', image.files[0]);
         }
         formData.append('items', JSON.stringify(checkoutItems));
 

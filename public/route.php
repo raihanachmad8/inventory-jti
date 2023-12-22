@@ -74,23 +74,23 @@ Router::get('/users/logout', [AuthController::class, 'logout'], [AuthOnlyMiddlew
 
 
 Router::get('/inventory/dashboard', [InventoryController::class, 'dashboard'], [AuthOnlyMiddleware::class, MemberOnlyMiddleware::class]);
-Router::get('/inventory/historyPeminjaman', [InventoryController::class, 'historyPeminjaman']);
-Router::delete('/inventory/history/delete', [InventoryController::class, 'deleteHistoryPeminjaman']);
-Router::get('/inventory/dashboard', [InventoryController::class, 'dashboard']);
-Router::get('/inventory/peminjaman', [InventoryController::class, 'peminjaman']);
-Router::post('/inventory/peminjaman', [InventoryController::class, 'postPeminjaman']);
-Router::get('/inventory/riwayat', [InventoryController::class, 'riwayat']);
-Router::get('/inventory/date', [InventoryController::class, 'getListDate']);
+Router::get('/inventory/historyPeminjaman', [InventoryController::class, 'historyPeminjaman'], [AuthOnlyMiddleware::class, MemberOnlyMiddleware::class]);
+Router::delete('/inventory/history/delete', [InventoryController::class, 'deleteHistoryPeminjaman'], [AuthOnlyMiddleware::class, MemberOnlyMiddleware::class]);
+Router::get('/inventory/dashboard', [InventoryController::class, 'dashboard'], [AuthOnlyMiddleware::class, MemberOnlyMiddleware::class]);
+Router::get('/inventory/peminjaman', [InventoryController::class, 'peminjaman'], [AuthOnlyMiddleware::class, MemberOnlyMiddleware::class]);
+Router::post('/inventory/peminjaman', [InventoryController::class, 'postPeminjaman'], [AuthOnlyMiddleware::class, MemberOnlyMiddleware::class]);
+Router::get('/inventory/riwayat', [InventoryController::class, 'riwayat'], [AuthOnlyMiddleware::class, MemberOnlyMiddleware::class]);
+Router::get('/inventory/date', [InventoryController::class, 'getListDate'], [AuthOnlyMiddleware::class, MemberOnlyMiddleware::class]);
 
-Router::get('/profile/profile', [ProfileManagementController::class, 'profile']);
-Router::get('/profile/profile/detail', [ProfileManagementController::class, 'getProfileDetail']);
-Router::post('/profile/profile/edit', [ProfileManagementController::class, 'postEditProfile']);
-Router::post('/profile/profile/edit/personal', [ProfileManagementController::class, 'postEditPersonal']);
-Router::post('/profile/keamanan/edit/security', [ProfileManagementController::class, 'postEditSecurity']);
-Router::get('/profile/keamanan', [ProfileManagementController::class, 'security']);
-Router::get('/profile/pesan', [ProfileManagementController::class, 'message']);
-Router::get('/profile/hapus-akun', [ProfileManagementController::class, 'deleteAccount']);
-Router::delete('/profile/hapus-akun/confirm', [ProfileManagementController::class, 'deleteAccountPermament']);
+Router::get('/profile/profile', [ProfileManagementController::class, 'profile'], [AuthOnlyMiddleware::class]);
+Router::get('/profile/profile/detail', [ProfileManagementController::class, 'getProfileDetail'], [AuthOnlyMiddleware::class]);
+Router::post('/profile/profile/edit', [ProfileManagementController::class, 'postEditProfile'], [AuthOnlyMiddleware::class]);
+Router::post('/profile/profile/edit/personal', [ProfileManagementController::class, 'postEditPersonal'], [AuthOnlyMiddleware::class]);
+Router::post('/profile/keamanan/edit/security', [ProfileManagementController::class, 'postEditSecurity'], [AuthOnlyMiddleware::class]);
+Router::get('/profile/keamanan', [ProfileManagementController::class, 'security'], [AuthOnlyMiddleware::class]);
+Router::get('/profile/pesan', [ProfileManagementController::class, 'message'], [AuthOnlyMiddleware::class]);
+Router::get('/profile/hapus-akun', [ProfileManagementController::class, 'deleteAccount'], [AuthOnlyMiddleware::class]);
+Router::delete('/profile/hapus-akun/confirm', [ProfileManagementController::class, 'deleteAccountPermament'], [AuthOnlyMiddleware::class]);
 
 date_default_timezone_set('Asia/Jakarta');
 
