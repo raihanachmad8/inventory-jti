@@ -73,7 +73,9 @@
                 <img src="/public/assets/images/gedung-jti.jpg" alt="" class="w-100 h-100 object-fit-cover">
             </div>
             <form action="/users/register" method="post" class="content-container align-self-center px-4 position-relative d-flex align-items-center justify-content-center  overflow-hidden">
-                <div id="content1" class=" align-items-center justify-content-center align-self-center position-absolute start-0 " style="transition: transform 300ms ease;"><?php if (isset($model['error'])) : ?>
+                <div id="content1" class=" align-items-center justify-content-center align-self-center position-absolute start-0 " style="transition: transform 300ms ease;">
+                    <?php View::getFlashData() ?>
+                    <?php if (isset($model['error'])) : ?>
                         <div class="alert alert-danger" role="alert">
                             <?= $model['error'] ?>
                         </div>

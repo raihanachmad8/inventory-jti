@@ -64,7 +64,7 @@
             <?php endforeach; ?>
           <?php else : ?>
             <tr>
-              <td colspan="6" class="text-center">Tidak ada data</td>
+              <td colspan="7" class="text-center">Tidak ada data</td>
             </tr>
           <?php endif; ?>
         </tbody>
@@ -216,7 +216,7 @@
             $('input[name="kode"]').val(data.data.ID_Transaksi);
             $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
             $('#nama').html(data.data.Pengguna.Nama_Pengguna);
-            if (data.data.Admin !== null) {
+            if (data.data.Admin) {
               $('#maintainer').val(data.data.Admin.ID_Maintainer);
             }
             $('#status').val(data.data.Status.ID_Status);

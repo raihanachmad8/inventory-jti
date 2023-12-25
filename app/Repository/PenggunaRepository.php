@@ -22,17 +22,22 @@ class PenggunaRepository
         return $pengguna;
     }
 
-    public function getPenggunaById($id) : Pengguna
+    public function getPenggunaById($id) : ?Pengguna
     {
-        $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, ID_Level, Email, Nomor_HP, Foto, Status FROM pengguna
-        WHERE ID_Pengguna = :id";
-        $statement = $this->connection->prepare($query);
-        $statement->execute([
-            'id' => $id
-        ]);
-        $pengguna = $statement->fetchObject('Pengguna');
+        try {
+            $query = "SELECT ID_Pengguna, Nama as Nama_Pengguna, Nomor_Identitas, Password, ID_Level, Status, Email FROM pengguna WHERE ID_Pengguna = :id";
+            $statement = $this->connection->prepare($query);
+            $statement->execute([
+                'id' => $id
+            ]);
+            $pengguna = $statement->fetchObject('Pengguna');
 
-        return $pengguna;
+            return $pengguna ?? null;
+        } catch (PDOException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
     }
 
     public function getDetailPenggunaById(string $id) : Pengguna

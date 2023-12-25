@@ -48,7 +48,7 @@
       <div class="d-flex justify-content-between border rounded-4 p-3 ">
         <div class="profile-info d-flex align-items-center flex-column flex-lg-row justify-content-center position-relative row-gap-4 row-gap-lg-0 ">
           <div class="me-3">
-            <img src="/public/assets/images/profile/<?= $model['pengguna']->Foto ?? 'default.jpeg' ?>" style="width: 7rem; height: 7rem; border-radius: 50%; object-fit: contain; background-repeat: no-repeat; object-position: center;"  alt="default-profile">
+            <img src="/public/assets/images/profile/<?= !empty($model['pengguna']->Foto) ? $model['pengguna']->Foto : 'default.jpeg' ?>" style="width: 7rem; height: 7rem; border-radius: 50%; object-fit: contain; background-repeat: no-repeat; object-position: center;"  alt="default-profile">
           </div>
           <div>
             <h5 class="text-lg-start text-center"><strong><?= $model['pengguna']->Nama_Pengguna ?? "" ?></strong></h5>

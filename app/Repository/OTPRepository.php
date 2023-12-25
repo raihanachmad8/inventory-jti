@@ -101,11 +101,7 @@ class OTPRepository
             $statement->bindParam(':ID_Pengguna', $ID_Pengguna);
             $statement->execute();
             $result = $statement->fetch(PDO::FETCH_ASSOC);
-            if (!$result) {
-                throw new Exception('OTP not found.');
-            }
-            $otp = new OTP($result);
-            return $otp ?? null;
+            return $result ? new OTP($result) : null;
         } catch (PDOException $e) {
             throw new Exception($e->getMessage());
         } catch (Exception $e) {

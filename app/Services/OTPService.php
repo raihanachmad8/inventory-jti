@@ -32,14 +32,6 @@ class OTPService
         try {
             $otp = $this->otpRepository->getOTP($request['ID_Pengguna'], $request['Kode']);
 
-            if ($otp === null) {
-                throw new Exception('OTP not found.');
-            }
-
-            if (new DateTime() > $otp->Expired)  {
-                throw new Exception('OTP has expired.');
-            }
-
             if ($otp->Kode !== $request['Kode']) {
                 throw new Exception('OTP is invalid.');
             }
@@ -70,6 +62,9 @@ class OTPService
     {
         try {
             $otp = $this->otpRepository->getOTPByIdPengguna($ID_Pengguna);
+            if (!$otp) {
+                throw new Exception('OTP not found.');
+            }
             return $otp;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());

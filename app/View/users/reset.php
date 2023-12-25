@@ -59,6 +59,12 @@
             </div>
             <div id="content" class=" h-100 align-items-center justify-content-center align-self-center px-4 ">
                 <strong class="text-center" style="font-size: 1.5rem;">Buat Password Baru</strong>
+                <?php View::getFlashData() ?>
+                <?php if (isset($model['error'])) : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= $model['error'] ?>
+                    </div>
+                <?php endif; ?>
                 <form action="/users/forgot/reset?ID_Pengguna=<?= $_GET['ID_Pengguna'] ?>&Email=<?= $_GET['Email'] ?>" method="post" class="w-100">
                     <div class="d-flex flex-column ">
                         <label for="password" class="mb-1 fw-bold ">Password</label>

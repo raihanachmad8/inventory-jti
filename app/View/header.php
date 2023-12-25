@@ -172,13 +172,13 @@ function user_role()
                     <img src="/public/assets/images/logo-tulisan.svg" alt="" class="w-100 object-fit-cover ratio-16x9" />
                 </div>
                 <div class="d-flex justify-content-center align-items-center gap-2 gap-md-3 ">
-                    <?= ($model['pengguna']) ? $model['pengguna']->ID_Pengguna : $model['profile']->ID_Pengguna ?>
+                    <?=  $model['pengguna']->Nama_Pengguna  ?>
                     <!-- Profile -->
                     <button aria-label="button-profile" type="button" class="button-profile btn d-flex justify-content-center align-items-center gap-2 rounded-5 p-2 position-relative ">
                         <div style="width: 3rem; height: 3rem" class="rounded-circle position-relative ">
                             <div class="position-absolute -top-0 end-0 bg-success rounded-circle" style="width: 1rem; height: 1rem"></div>
                             <div class="rounded-circle overflow-hidden w-100 h-100">
-                                <img src="/public/assets/images/profile/<?= ($model['profile']->Foto) ?? 'default.jpeg' ?>" style="width: 3rem; height: 3rem; border-radius: 50%; object-fit: contain; background-repeat: no-repeat; object-position: center;" alt="default-profile">
+                                <img src="/public/assets/images/profile/<?= !empty($model['pengguna']->Foto) ? $model['pengguna']->Foto : 'default.jpeg' ?>" style="width: 3rem; height: 3rem; border-radius: 50%; object-fit: contain; background-repeat: no-repeat; object-position: center;" alt="default-profile">
                             </div>
                         </div>
                         <div class="profile-menu position-absolute bg-white end-0 rounded-4 p-3 border border-light d-none z-100 " style="width: 9rem; bottom: -6rem; opacity: 0;">

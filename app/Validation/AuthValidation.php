@@ -94,9 +94,9 @@ class AuthValidation extends Validation
 
     public function validatePassword()
     {
-        // if (strlen($this->request['Password']) < 8) {
-        //     $this->addError('Password', 'Password must be at least 8 characters long.');
-        // }
+        if (strlen($this->request['Password']) < 4) {
+            $this->addError('Password', 'Password must be at least 4 characters long.');
+        }
 
         // if (!preg_match('/[A-Z]/', $this->request['Password'])) {
         //     $this->addError('Password', 'Password must contain at least one uppercase letter.');

@@ -102,12 +102,12 @@ class ProfileManagementController
                 }
                 $imageName = $this->fileImageService->randomImageName($image);
                 $request['Foto'] = $imageName;
-                if ($this->fileImageService->upload('p', $imageName, $image)) {
+                if ($this->fileImageService->upload('profile', $imageName, $image)) {
 
                     $result = $this->profileService->updateUserProfile($request);
 
                     if (!$result) {
-                        unlink($this->fileImageService->getPathImage('p', $imageName));
+                        unlink($this->fileImageService->getPathImage('profile', $imageName));
                         exit(500);
                     }
                     View::setFlashData('success', 'Profile updated successfully');

@@ -46,7 +46,9 @@
                     </div>
                 <?php else : ?>
                     <?php foreach ($model['message'] as $message) : ?>
-                        <div class="d-flex column-gap-3 justify-content-center align-items-center w-100 h-100">
+                        <?php if (!empty($message['Pesan'])) : ?>
+
+                            <div class="d-flex column-gap-3 justify-content-center align-items-center w-100 h-100">
                             <div class="d-flex justify-content-between w-75 p-3 rounded-3 " style="background: #D8ECFF;">
                                 <p style="color: #001e3a;"><?= $message['Pesan'] ?></p>
                             </div>
@@ -55,6 +57,7 @@
                             </div>
 
                         </div>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 <!-- <div class="d-flex justify-content-between w-75 p-3 rounded-3 " style="background: #D8ECFF;">

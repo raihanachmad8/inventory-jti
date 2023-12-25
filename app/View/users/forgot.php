@@ -58,6 +58,12 @@
                 <img src="/public/assets/images/gedung-jti.jpg" alt="" class="w-100 h-100 object-fit-cover">
             </div>
             <div id="content" class="h-100 align-items-center justify-content-center align-self-center p-4 ">
+                <?php View::getFlashData() ?>
+                <?php if (isset($model['error'])) : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= $model['error'] ?>
+                    </div>
+                <?php endif; ?>
                 <a href="/users/login" class="d-flex justify-content-start align-items-center py-3 column-gap-1 text-decoration-none" style="color: #023670;">
                     <i data-feather="chevron-left"></i>
                     Kembali

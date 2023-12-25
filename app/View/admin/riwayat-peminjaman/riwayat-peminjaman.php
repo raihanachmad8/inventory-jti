@@ -190,7 +190,9 @@
             $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
             $('#nama').html(data.data.Pengguna.Nama_Pengguna);
             $('#nomor-identitas').html(data.data.Pengguna.Nomor_Identitas);
-            $('#admin').html(data.data.Admin.Nama_Maintainer);
+            if (data.data.Admin) {
+                $('#admin').html(data.data.Admin.Nama_Maintainer);
+            }
             $('#status').html(data.data.Status.Nama_Status);
             if (data.data.Status.Nama_Status == 'Selesai') {
               $('#status').css('color', '#28A461');

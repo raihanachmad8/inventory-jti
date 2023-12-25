@@ -55,7 +55,7 @@
 <div style="background-color: rgba(0, 0, 0, 0.5);" class="detail-item-modal-container vw-100 position-fixed overflow-y-scroll d-none">
     <div class="detail-item-modal bg-light overflow-hidden rounded-4 ">
         <div class="order-last order-lg-first p-4 row-gap-3 d-flex flex-column overflow-y-scroll ">
-            <form action="" class="edit-item-form flex-grow-1 ">
+            <form id="detail-item-form" action="" class="edit-item-form flex-grow-1 ">
                 <div class="d-flex flex-column gap-3">
                     <label class="fw-semibold ">Kode Barang</label>
                     <p id="edit-kode"></p>
@@ -86,7 +86,7 @@
                 </div>
                 <div>
                     <label class="fw-semibold " for="jumlahBarang">Jumlah Barang</label>
-                    <input type="text" id="jumlahBarang" class="border rounded bg-body form-control" value="" name="edit-jumlahBarang">
+                    <input type="number" style="-moz-appearance: textfield; height: 3rem; border: 1px solid #023670; border-radius: 10px; " id="jumlahBarang" class="border rounded bg-body form-control" value="" name="edit-jumlahBarang">
                 </div>
                 <div class="d-flex flex-column flex-grow-1">
                     <label class="fw-semibold" for="asalBarang">Asal Barang</label>
@@ -147,7 +147,7 @@
                 <div class="d-flex flex-wrap w-100 gap-2 flex-column flex-lg-row">
                     <div class="d-flex flex-column  flex-grow-1">
                         <label class="fw-semibold" for="jumlahBarang">Jumlah Barang</label>
-                        <input id="jumlahBarang" type="number" min="0" name="jumlahBarang" class="border rounded bg-body p-2 " placeholder="Masukkan Jumlah Barang" required>
+                        <input id="jumlahBarang" type="number" min="0" name="jumlahBarang" class="border rounded bg-body p-2 " style="-moz-appearance: textfield; height: 3rem; border: 1px solid #023670; border-radius: 10px; " placeholder="Masukkan Jumlah Barang" required>
                     </div>
                     <div class="d-flex flex-column  flex-grow-1">
                         <label class="fw-semibold" for="asalBarang">Asal Barang</label>
@@ -338,6 +338,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
     $('.save-button-confirm-add-item').click(() => {
         const form = document.querySelector('#add-item-form');
         const formData = new FormData(form)
+        $('.confirmation-add-item-modal-container').addClass('d-none');
         $.ajax({
             url: '/admin/inventarisir/post',
             method: 'POST',

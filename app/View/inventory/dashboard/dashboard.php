@@ -370,8 +370,10 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
                         $('#nomor-identitas').html(data.data.Pengguna.Nomor_Identitas);
                         $('#status-peminjam').html(data.data.Pengguna.Level.Nama_Level);
                         $('#status').html(data.data.Status.Nama_Status);
-                        if (data.data.Status.Nama_Status == "Menunggu") {
+                        if (data.data.Status.Nama_Status == "Menunggu" && ($('.button-cancel-loan').val() == undefined)) {
                             $('.detail-loan-button').append(`<button class="button-cancel-loan btn btn-danger text-white">Batalkan</button>`);
+                        } else {
+                            $('.detail-loan-button button.button-cancel-loan').first().remove()
                         }
                         $('#keterangan').html(data.data.Pesan);
                         $('#deskripsi-keperluan').html(data.data.Deskripsi_Keperluan === "undefined" ? "-" : data.data.Deskripsi_Keperluan);

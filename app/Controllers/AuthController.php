@@ -183,22 +183,22 @@ class AuthController
     {
         try {
             $this->verifyIsUser('/users/register');
-            $this->hasOTP('/users/register');
-            View::renderPage('users/verify-otp', [
-                'title' => 'Verify OTP'
-            ]);
+            $this->hasOTP('/users/register/verification');
+            View::renderPage('users/verify-otp');
         } catch (Exception $e) {
             if ($e instanceof PDOException) {
                 header('HTTP/1.1 500 Internal Server Error');
                 http_response_code(500);
                 View::renderPage('users/verify-otp', [
-                    'error' => $e->getMessage()
+                    'error' => $e->getMessage(),
+
                 ]);
             } else {
                 header('HTTP/1.1 500 Internal Server Error');
                 http_response_code(500);
                 View::renderPage('users/verify-otp', [
-                    'error' => $e->getMessage()
+                    'error' => $e->getMessage(),
+
                 ]);
             }
         }
@@ -284,7 +284,8 @@ class AuthController
             View::redirect('/users/login');
         } catch (ValidationException $e) {
             View::renderPage('users/verify-otp', [
-                'error' => $e->getErrors()
+                'error' => $e->getErrors(),
+
             ]);
             exit();
         } catch (Exception $e) {
@@ -333,6 +334,7 @@ class AuthController
                 'Email' => urlencode($pengguna->Email),
                 'o' => $OTPID->getID()
             ]));
+            exit();
         } catch (ValidationException $e) {
             View::setFlashData('error', 'Failed to send Email');
             View::renderPage('users/forgot', [
@@ -351,8 +353,9 @@ class AuthController
         try {
             $this->verifyIsUser('/users/forgot');
             $this->hasOTP('/users/forgot/verification');
-            View::renderPage('users/verify-forgot-otp', [
-                'title' => 'Verify OTP'
+            View::renderPage('users/verify-otp', [
+                'title' => 'Verify OTP',
+
             ]);
         } catch (Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');
@@ -389,14 +392,12 @@ class AuthController
                 'Email' => input::get('Email'),
                 'o' => $OTPID->getID()
             ]));
+            exit();
         } catch (ValidationException $e) {
             View::setFlashData('error', 'Failed to resend OTP');
-            View::renderPage('users/verify-forgot-otp', [
+            View::renderPage('users/verify-otp', [
                 'errors' => $e->getErrors(),
-                'title' => 'Verify OTP',
-                'ID_Pengguna' => input::get('ID_Pengguna'),
-                'Email' => input::get('Email',),
-                'o' => input::get('o')
+
             ]);
             exit();
         } catch (Exception $e) {
@@ -415,7 +416,7 @@ class AuthController
 
         try {
             $this->verifyIsUser('/users/forgot');
-            $this->hasOTP('/users/forgot/verification');
+            $this->hasOTP();
             $request = [
                 'ID_Pengguna' => input::get('ID_Pengguna', true),
                 'Email' => input::get('Email', true),
@@ -433,13 +434,14 @@ class AuthController
             View::setFlashData('success', 'OTP Verified');
             View::redirect('/users/forgot/reset?' . http_build_query([
                 'ID_Pengguna' => input::get('ID_Pengguna'),
-                'Email' => input::get('Email',),
+                'Email' => input::get('Email'),
                 'o' => input::get('o')
             ]));
         } catch (ValidationException $e) {
             View::setFlashData('error', 'Failed to verification OTP');
-            View::renderPage('users/verify-forgot-otp', [
-                'error' => $e->getErrors()
+            View::renderPage('users/verify-otp', [
+                'error' => $e->getErrors(),
+
             ]);
             exit();
         } catch (Exception $e) {
@@ -491,7 +493,6 @@ class AuthController
             View::setFlashData('success', 'Password Reset');
             View::redirect('/users/login');
         } catch (ValidationException $e) {
-            View::setFlashData('error', 'Failed to reset Password');
             View::renderPage('users/reset', [
                 'error' => 'Failed to reset Password',
                 'errors' => $e->getErrors()
@@ -549,17 +550,18 @@ class AuthController
                 header('HTTP/1.1 404 Not Found');
                 http_response_code(404);
                 View::renderPage('users/verify-otp', [
-                    'error' => 'Verification failed. Please provide valid link'
+                    'error' => 'Verification failed. Please provide valid link',
                 ]);
                 exit();
             }
 
-            $expectedOtpId = $this->authService->getOTPByIdPengguna(input::get('ID_Pengguna'));
+            $expectedOtpId = $this->authService->getOTPByIdPengguna(input::get('ID_Pengguna', true));
             if ($OTPID !== $expectedOtpId->getID()) {
                 header('HTTP/1.1 404 Not Found');
                 http_response_code(404);
                 View::renderPage('users/verify-otp', [
-                    'error' => 'Verification failed. Please provide valid link'
+                    'error' => 'Verification failed. Please provide valid link',
+
                 ]);
                 exit();
             }
@@ -568,13 +570,14 @@ class AuthController
                 header('HTTP/1.1 500 Internal Server Error');
                 http_response_code(500);
                 View::renderPage('users/verify-otp', [
-                    'error' => $e->getMessage()
+                    'error' => $e->getMessage(),
+
                 ]);
             } else {
                 header('HTTP/1.1 500 Internal Server Error');
                 http_response_code(500);
                 View::renderPage('users/verify-otp', [
-                    'error' => $e->getMessage()
+                    'error' => $e->getMessage(),
                 ]);
             }
         }

@@ -110,7 +110,7 @@ class AuthService
     {
         $pengguna = $this->penggunaRepository->getPenggunaByEmail($Email);
         if ($pengguna !== null && $pengguna->Status === 'AKTIF') {
-            throw new ValidationException(['Email' => 'Email is already in use.']);
+            throw new Exception('Email is already in use.');
         }
     }
 
@@ -118,12 +118,12 @@ class AuthService
     {
         $pengguna = $this->penggunaRepository->getPenggunaByNomorIdentitas($nomorIdentitas);
         if ($pengguna !== null && $pengguna->Status === 'AKTIF') {
-            throw new ValidationException(['Nomor_Identitas' => 'Nomor Identitas is already in use.']);
+            throw new Exception('Nomor Identitas is already in use.');
         }
     }
     private function createUser(array $request): Pengguna
     {
-        $ID_Pengguna = 'Account_ID_' . base64_encode(random_bytes(4) . '-' . base64_encode(random_bytes(8)));
+        $ID_Pengguna = 'Account_ID_' . $request['Nomor_Identitas'] . rand(1000, 9999) . date('mY');
         $Salt = base64_encode(random_bytes(8));
         $Password = $request['Password'] . $request['Nomor_Identitas'] . $Salt;
         $pengguna = new Pengguna();
