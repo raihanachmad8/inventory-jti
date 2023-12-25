@@ -1,2 +1,4 @@
+-- Active: 1669815006177@@127.0.0.1@3306@inventory_jti
 --panggil data barang
 --panggil data transaksi
+--panggil data transaksi detail

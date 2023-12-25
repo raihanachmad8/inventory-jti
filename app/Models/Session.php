@@ -3,13 +3,13 @@
 class Session
 {
     public string $id;
-    public string $Nomor_Identitas;
+    public string $nomor_identitas;
     public string $level;
 
-    public function __construct(string $id, string $Nomor_Identitas, string $level)
+    public function __construct(string $id, string $nomor_identitas, string $level)
     {
         $this->id = $id;
-        $this->Nomor_Identitas = $Nomor_Identitas;
+        $this->nomor_identitas = $nomor_identitas;
         $this->level = $level;
     }
 
