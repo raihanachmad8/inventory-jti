@@ -1,10 +1,10 @@
 <?php
 
 require_once __DIR__ . '/../Exceptions/ValidationException.php';
+require_once __DIR__ . '/../../helpers/mailers.php';
 
 class OTPService
 {
-    private string $senderEmail = "inti-support@gmail.com";
     private OTPRepository $otpRepository;
 
     public function __construct(OTPRepository $otpRepository)
@@ -18,8 +18,8 @@ class OTPService
             $otpCode = rand(100000, 999999);
             $success = $this->otpRepository->createOTP($userId, $otpCode);
             if ($success) {
-                $subject = 'Verification Code';
-                // $this->sendOTP($Email, $subject, $otpCode);
+                $subject = "JTI Inventory - Verification Code";
+                $this->sendOTP($Email, $subject, $otpCode);
             }
             return $success ? $otpCode : false;
         } catch (Exception $e) {
@@ -78,9 +78,6 @@ class OTPService
 
     public function sendOTP(string $recipientEmail, string $subject, string $OTP): bool
     {
-        $headers = "From: {$this->senderEmail}\r\n";
-        $headers .= "Reply-To: {$this->senderEmail}\r\n";
-        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
         $message = "<!DOCTYPE html>
         <html lang='en'>
 
@@ -149,9 +146,14 @@ class OTPService
 
         </html>
         ";
-        $success = mail($recipientEmail, $subject, $message, $headers);
+        $mailers = new Maillers();
+        try {
+            $mailers->sendMail($recipientEmail, $subject, $message);
+            return true;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
 
-        return $success;
     }
 
 }

@@ -164,7 +164,6 @@ class AuthService
         $pengguna = $this->penggunaRepository->getPenggunaByEmail($Email);
 
         if (empty($pengguna)  ) {
-            // throw new ValidationException(['Email' => 'Email is not registered.']);
             throw new Exception('Email & Password is incorrect.');
         }
 
@@ -188,7 +187,7 @@ class AuthService
         $pengguna = $this->penggunaRepository->getPenggunaByEmail($Email);
 
         if ($pengguna === null) {
-            throw new ValidationException(['Email' => 'Email is not registered.']);
+            throw new Exception('Email is not registered.');
         }
     }
 
@@ -246,7 +245,7 @@ class AuthService
         try {
             $pengguna = $this->penggunaRepository->getPenggunaByEmail($email);
             if ($pengguna === null) {
-                throw new ValidationException(['Email' => 'Email is not registered.']);
+                throw new Exception('Email is not registered.');
             }
 
             $otp = $this->otpService->createOTP($pengguna->ID_Pengguna, $pengguna->Email);
