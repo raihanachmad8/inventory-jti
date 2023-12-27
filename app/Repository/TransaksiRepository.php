@@ -30,6 +30,7 @@ class TransaksiRepository
 
     public function getTransaksiById(string $ID_Transaksi): Transaksi
     {
+        $this->changeExpiredStatus();
         $query = "SELECT ID_Transaksi, ID_Pengguna, ID_Admin, StartDate, EndDate, Deskripsi_Keperluan, Jaminan, Pesan, ID_Status FROM transaksi WHERE ID_Transaksi = :id";
         $statement = $this->connection->prepare($query);
         $statement->execute([
@@ -234,7 +235,7 @@ class TransaksiRepository
         }
     }
 
-    public function searchListTransaksiByStatus(array $status, string $keyword = '', string $ID_Pengguna = null) : array
+    public function searchListTransaksiByStatus(array $statusCode, string $keyword = '', string $ID_Pengguna = null) : array
     {
         try {
             $query = "
@@ -244,16 +245,15 @@ class TransaksiRepository
             LEFT JOIN Level L ON P.ID_Level = L.ID_Level
             LEFT JOIN status S ON T.ID_Status = S.ID_Status
             LEFT JOIN maintainer A ON T.ID_Admin = A.ID_Maintainer
-            WHERE S.Nama IN (";
+            WHERE S.ID_Status IN (";
 
         $i = 0;
-        foreach ($status as $stat) {
+        foreach ($statusCode as $stat) {
             $query .= ":status$i, ";
             $i++;
         }
         $query = rtrim($query, ', ');  // Remove the trailing comma and space
         $query .= ") AND (P.Nomor_Identitas LIKE :keyword OR L.Nama LIKE :keyword OR P.Nama LIKE :keyword OR A.Nama LIKE :keyword OR T.StartDate LIKE :keyword OR T.EndDate LIKE :keyword )";
-        $query .= " AND T.StartDate >= CURDATE()";
         if ($ID_Pengguna != null) {
             $query .= " AND T.ID_Pengguna = :ID_Pengguna";
         }
@@ -261,7 +261,7 @@ class TransaksiRepository
         $statement = $this->connection->prepare($query);
 
         $i = 0;
-        foreach ($status as $stat) {
+        foreach ($statusCode as $stat) {
             $statement->bindValue(":status$i", $stat);
             $i++;
         }
@@ -289,9 +289,10 @@ class TransaksiRepository
             throw $exception;
         }
     }
-    public function searchListRiwayatTransaksiByStatus(array $status, string $keyword = '', string $ID_Pengguna = null) : array
+    public function searchListRiwayatTransaksiByStatus(array $statusCode, string $keyword = '', string $ID_Pengguna = null) : array
     {
         try {
+            $this->changeExpiredStatus();
             $query = "
             SELECT T.ID_Transaksi, T.ID_Pengguna, T.ID_Admin, T.StartDate, T.EndDate, T.Deskripsi_Keperluan, T.Jaminan, T.Pesan, T.ID_Status
             FROM transaksi T
@@ -299,10 +300,10 @@ class TransaksiRepository
             LEFT JOIN Level L ON P.ID_Level = L.ID_Level
             LEFT JOIN status S ON T.ID_Status = S.ID_Status
             LEFT JOIN maintainer A ON T.ID_Admin = A.ID_Maintainer
-            WHERE S.Nama IN (";
+            WHERE S.ID_Status IN (";
 
         $i = 0;
-        foreach ($status as $stat) {
+        foreach ($statusCode as $stat) {
             $query .= ":status$i, ";
             $i++;
         }
@@ -315,7 +316,7 @@ class TransaksiRepository
         $statement = $this->connection->prepare($query);
 
         $i = 0;
-        foreach ($status as $stat) {
+        foreach ($statusCode as $stat) {
             $statement->bindValue(":status$i", $stat);
             $i++;
         }
@@ -497,6 +498,42 @@ class TransaksiRepository
         } catch (PDOException $exception) {
             throw $exception;
         } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    public function changeExpiredStatus(string $ID_Pengguna = null)
+    {
+        try {
+            $this->connection->beginTransaction();
+            $query = "UPDATE transaksi SET ID_Status = 'S2' WHERE ID_Status = 'S1' AND StartDate < NOW() + INTERVAL 10 MINUTE;";
+            if (!empty($ID_Pengguna)) {
+                $query .= " AND ID_Pengguna = :id";
+            }
+            $statement = $this->connection->prepare($query);
+            if (!empty($ID_Pengguna)) {
+                $statement->bindParam('id', $ID_Pengguna);
+            }
+            $statement->execute();
+
+            $query = "UPDATE transaksi SET ID_Status = 'S2' WHERE ID_Status = 'S3' AND EndDate < NOW() - INTERVAL 10 MINUTE;";
+            if (!empty($ID_Pengguna)) {
+                $query .= " AND ID_Pengguna = :id";
+            }
+            $statement = $this->connection->prepare($query);
+            if (!empty($ID_Pengguna)) {
+                $statement->bindParam('id', $ID_Pengguna);
+            }
+            $statement->execute();
+
+
+            $this->connection->commit();
+            return true;
+        } catch (PDOException $exception) {
+            $this->connection->rollBack();
+            throw $exception;
+        } catch (Exception $exception) {
+            $this->connection->rollBack();
             throw $exception;
         }
     }

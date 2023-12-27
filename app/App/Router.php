@@ -60,10 +60,9 @@ class Router implements RouterInterface
             View::renderView('404');
         } catch (Exception $exception) {
             View::renderView('404');
+        } catch (Throwable $exception) {
+            View::renderPage('500');
         }
-        // catch (Throwable $exception) {
-        //     View::renderPage('500');
-        // }
 
 
     }

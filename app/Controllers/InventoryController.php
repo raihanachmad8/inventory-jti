@@ -34,10 +34,10 @@ class InventoryController
                 exit(405);
             }
 
-            // $inventory = $this->peminjamanService->searchPeminjamanByPengguna();
             $session = $this->sessionManagerService->get();
             $pengguna = $this->profileService->getProfile($session->id);
             $peminjaman = $this->peminjamanService->searchPeminjamanByPengguna($pengguna->ID_Pengguna);
+            $inventory = $this->peminjamanService->searchPeminjamanByPengguna($pengguna->ID_Pengguna);
             $status = $this->peminjamanService->getListStatusPeminjamanPengguna($pengguna->ID_Pengguna);
             $stok = $this->peminjamanService->availableStok();
             View::renderView('inventory/dashboard/dashboard', compact('peminjaman', 'status', 'stok', 'pengguna'));

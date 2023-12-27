@@ -37,7 +37,7 @@ class PeminjamanService
 
     public function searchDataPeminjaman(string $keyword = ''): array
     {
-        $result = $this->transaksiRepository->searchListTransaksiByStatus(['Menunggu', 'Diterima', 'Proses', 'Menunggu Ganti'], $keyword);
+        $result = $this->transaksiRepository->searchListTransaksiByStatus(['S1', 'S3',  'S4', 'S5', 'S7'], $keyword);
         $result = array_map(function ($item) {
             $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
             $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
@@ -49,7 +49,7 @@ class PeminjamanService
     }
     public function searchRiwayatDataPeminjamanPengguna(string $ID_Pengguna, string $keyword = ''): array
     {
-        $result = $this->transaksiRepository->searchListRiwayatTransaksiByStatus(['Menunggu', 'Ditolak', 'Diterima', 'Proses', 'Selesai', 'Dibatalkan', 'Menunggu Ganti'], $keyword, $ID_Pengguna);
+        $result = $this->transaksiRepository->searchListRiwayatTransaksiByStatus(['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7'], $keyword, $ID_Pengguna);
         $result = array_map(function ($item) {
             $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
             $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
@@ -61,7 +61,7 @@ class PeminjamanService
     }
     public function searchRiwayatDataPeminjaman(string $keyword = ''): array
     {
-        $result = $this->transaksiRepository->searchListRiwayatTransaksiByStatus(['Menunggu', 'Ditolak', 'Diterima', 'Proses', 'Selesai', 'Dibatalkan', 'Menunggu Ganti'], $keyword);
+        $result = $this->transaksiRepository->searchListRiwayatTransaksiByStatus(['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7'], $keyword);
         $result = array_map(function ($item) {
             $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
             $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
@@ -154,7 +154,7 @@ class PeminjamanService
     public function searchPeminjamanByPengguna(string $ID_Pengguna)
     {
         try {
-            $result = $this->transaksiRepository->searchListTransaksiByStatus(['Menunggu', 'Diterima', 'Proses', 'Menunggu Ganti'], '', $ID_Pengguna);
+            $result = $this->transaksiRepository->searchListTransaksiByStatus(['S1',  'S3',  'S4', 'S5',  'S7'], '', $ID_Pengguna);
             $result = array_map(function ($item) {
                 $item->Pengguna = $this->penggunaRepository->getPenggunaById($item->ID_Pengguna);
                 $item->Status = $this->statusRepository->getStatusById($item->ID_Status);
