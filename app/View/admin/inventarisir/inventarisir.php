@@ -126,7 +126,7 @@
             </div>
         </div>
         <div class="h-100 position-relative w-100 ">
-            <img src="/public/assets/images/gedung-jti.jpg" alt="" class="w-100 h-100 object-fit-cover">
+            <img src="" id="edit-detail-gambar" alt="" class="w-100 h-100 object-fit-contain" style="background-repeat: no-repeat; background-position: center center; background-size:contain;">
             <label for="image-input" class="w-100 h-100 position-absolute top-0 start-0 d-flex flex-column  justify-content-center align-items-center z-2 " style=" cursor: pointer;">
                 <img src="/public/assets/images/images.svg" alt="" style="width: 5rem; height: 5rem;">
                 <strong style="font-size: 1.5rem;" class="text-white">Edit</strong>
@@ -188,7 +188,6 @@
             <div class="image-upload-button-container flex-grow-1 d-flex flex-column justify-content-lg-center justify-content-start  align-items-center">
                 <div class="flex-md-grow-1 w-100 position-relative">
                     <p class="fw-semibold">Gambar</p>
-                    <img class="insert-preview-image position-absolute d-none" style="background-repeat: no-repeat; object-fit: cover; width: 100%; height:90%; background-size:cover; background-position: center;" alt="">
                     <input type="file" class="d-none " name="gambar" draggable="true" id="add-item-image-input">
                     <label for="add-item-image-input" class="position-relative d-flex justify-content-center align-items-center rounded-2" style="height: 90%; cursor: pointer; border:4px dotted rgba(0, 0, 0, 0.25);">
                         <div class="d-flex justify-content-center align-items-center flex-column h-75 row-gap-5 p-4 p-md-0">
@@ -372,10 +371,10 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
     })
 
 
-    document.getElementById('add-item-image-input').addEventListener('change', () => {
-        let preview = document.querySelector('.insert-preview-image');
+    document.getElementById('image-input').addEventListener('change', () => {
+        let preview = document.querySelector('#edit-detail-gambar');
         let confirmationPreview = document.querySelector('.confirmation-image-preview');
-        let image = document.querySelector('#add-item-image-input').files[0];
+        let image = document.querySelector('#image-input').files[0];
         let reader = new FileReader();
 
         reader.addEventListener('load', () => {
@@ -386,7 +385,9 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
         if (image) {
             preview.classList.remove('d-none');
             reader.readAsDataURL(image);
+            $('#edit-detail-gambar').attr('src', '')
         }
+
     })
 
     $(document).on('click', '.inventaris-success-button-back', () => {
@@ -440,7 +441,11 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
                     $('#keterangan').val(data.data.Keterangan);
                     $('textarea[name="edit-keterangan"]').val(data.data.Inventaris.Deskripsi);
                     // sek bug
-                    // $('.edit-gambar').attr('src', `/public/assets/images/inventarisir/${data.data.Inventaris.Gambar}`);
+
+                    $('#edit-detail-gambar').attr('src', '').css('background-image', 'none');
+
+
+                    $('#edit-detail-gambar').attr('src', `/public/assets/images/inventarisir/${data.data.Inventaris.Gambar}`);
 
                     $('input[name="maintainers[]"]').each(function() {
                         if (data.data.MaintainerList.some(maintainer => maintainer.ID_Maintainer === $(this).val())) {
@@ -450,7 +455,6 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
                     // $(document).on('click', '.button-detail-item', () => {
                     $('.detail-item-modal-container').removeClass('d-none');
                     // })
-                    // $('.insert-preview-image').css('background-image', `url(/public/assets/images/inventarisir/${data.data.Gambar})`);
                 })
             },
             error: (error) => {
@@ -511,6 +515,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
     $('.save-button-detail-item').click(() => {
         const form = document.querySelector('#detail-item-form');
         const formData = new FormData(form);
+        $('.detail-item-modal-container').addClass('d-none');
         $.ajax({
             url: '/admin/inventarisir/update',
             method: 'POST',
@@ -519,7 +524,6 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,219,222,1) 6
             processData: false,
             success: (data) => {
                 $(document).ready(function() {
-                    $('.detail-item-modal-container').addClass('d-none');
                     $('.modal-container').removeClass('d-none');
                     $('#modal-container-title').html('Berhasil');
                     $('#modal-container-message').html(data.message);

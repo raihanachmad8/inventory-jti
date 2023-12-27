@@ -1,3 +1,18 @@
+-- Active: 1669815006177@@127.0.0.1@3306@inventory_jti
+USE inventory_jti;
+
+DELETE FROM DetailTransaksi;
+DELETE FROM Transaksi;
+DELETE FROM MaintainerInventaris;
+DELETE FROM Inventaris;
+DELETE FROM Maintainer;
+DELETE FROM OTP;
+DELETE FROM Pengguna;
+
+DELETE FROM Status;
+
+DELETE FROM Level;
+DELETE FROM Kategori;
 
 INSERT INTO Level (ID_Level, Nama) VALUES
 	('L1', 'Admin'),

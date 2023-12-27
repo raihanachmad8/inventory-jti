@@ -690,13 +690,13 @@ class AdminController
                 $inventarisir->Asal = input::post('edit-asal');
                 $inventarisir->Stok = input::post('edit-jumlahBarang');
                 $inventarisir->Deskripsi = input::post('edit-keterangan');
-                $destinationPath = '';
+                $currentImage = $this->inventarisirService->getInventarisById($inventarisir->ID_Inventaris)->Gambar;
                 if (!empty($_FILES['edit-gambar']['name'])) {
                     $image = $_FILES['edit-gambar'];
                     $imageName = $this->fileImageService->randomImageName($image);
-                    $destinationPath = $this->fileImageService->getPathImage('inventarisir', $imageName);
                     if ($this->fileImageService->upload('inventarisir', $imageName, $image)) {
                         $inventarisir->Gambar = $imageName;
+                        unlink($this->fileImageService->getPathImage('inventarisir', $currentImage));
                     } else {
                         header('HTTP/1.1 500 Internal Server Error');
                         header('Content-Type: application/json');
@@ -712,7 +712,10 @@ class AdminController
                 }
 
                 $inventaris = $this->inventarisirService->updateInvertarisir($inventarisir);
-                $maintainers[] = $_POST['maintainers'];
+                $maintainers[] = $_POST['maintainers'] ?? [];
+                if (!empty($maintainers)) {
+                    throw new Exception('Maintainers is required');
+                }
                 foreach ($maintainers as $item) {
                     foreach ($item as $value) {
                         $main = new MaintainerInventaris();

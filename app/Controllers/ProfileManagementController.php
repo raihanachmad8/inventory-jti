@@ -92,6 +92,8 @@ class ProfileManagementController
                 throw new Exception('ID Pengguna must be valid');
             }
 
+            $currentImage = $pengguna->Foto;
+
             if (!empty($_FILES['foto']['name'])) {
                 $image = $_FILES['foto'];
                 $imageValidate = (new ImageValidation([
@@ -109,6 +111,10 @@ class ProfileManagementController
                     if (!$result) {
                         unlink($this->fileImageService->getPathImage('profile', $imageName));
                         exit(500);
+                    }
+
+                    if (!empty($currentImage)) {
+                        unlink($this->fileImageService->getPathImage('profile', $currentImage));
                     }
                     View::setFlashData('success', 'Profile updated successfully');
                     View::redirect('/profile/profile');
