@@ -73,6 +73,7 @@ class OTPService
 
     public function sendOTP(string $recipientEmail, string $subject, string $OTP): bool
     {
+        $app_host = env('APP_HOST');
         $message = "<!DOCTYPE html>
         <html lang='en'>
 
@@ -92,8 +93,8 @@ class OTPService
 
                         <table role='presentation' cellspacing='0' cellpadding='0' style='max-width: 500px; width: 100%; background-color: #fff; border-radius: 4px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);'>
                         <tr>
-                            <td style='padding: 16px 32px;'>
-                                <img src='/public/assets/images/logo.jpeg.jpg' alt='JTI Inventory' style='width: 50vw;'>
+                            <td style='padding: 16px 32px; text-align:center;'>
+                                <img src='$app_host/public/assets/images/logo.jpeg.jpg' alt='JTI Inventory' style='width: 200px;'>
                             </td>
                         </tr>
                         <tr>

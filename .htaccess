@@ -1,19 +1,16 @@
 <IfModule !mod_rewrite.c>
+    # If mod_rewrite is not enabled, handle 404 errors by redirecting to index.php
     ErrorDocument 404 /index.php
 </IfModule>
 
 <IfModule mod_rewrite.c>
+    # Enable the Rewrite Engine
     RewriteEngine On
-    RewriteBase /  # Update this to the base directory of your application
 
+    # If the requested file or directory does not exist
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    # Redirect all requests to the public folder
-    RewriteRule ^$ public/ [L]
-    RewriteRule (.*) public/$1 [L]
+
+    # Rewrite all requests to public/route.php
+    RewriteRule ^(.*)$ public/route.php/$1 [QSA,L]
 </IfModule>
-# <IfModule mod_rewrite.c>
-#     RewriteEngine On
-#     RewriteCond %{REQUEST_URI} !^/storage/
-#     RewriteRule ^(.*)$ public/$1 [L]
-# </IfModule>
